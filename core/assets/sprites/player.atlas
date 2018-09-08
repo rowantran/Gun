@@ -1,47 +1,89 @@
 player.png
-size: 211, 64
+size: 422, 64
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-playerFront-idle
+playerBack-idle
   rotate: false
   xy: 0, 0
   size: 35, 64
   orig: 35, 64
   offset: 0, 0
   index: -1
-playerFront
+playerBack
   rotate: false
   xy: 35, 0
   size: 35, 64
   orig: 35, 64
   offset: 0, 0
   index: 0
-playerFront
+playerBack
   rotate: false
   xy: 70, 0
   size: 35, 64
   orig: 35, 64
   offset: 0, 0
   index: 1
-PlayerLeft-idle
+playerFront-idle
   rotate: false
   xy: 105, 0
   size: 35, 64
   orig: 35, 64
   offset: 0, 0
   index: -1
-PlayerLeft
+playerFront
   rotate: false
   xy: 140, 0
   size: 35, 64
   orig: 35, 64
   offset: 0, 0
   index: 0
-PlayerLeft
+playerFront
   rotate: false
   xy: 175, 0
+  size: 35, 64
+  orig: 35, 64
+  offset: 0, 0
+  index: 1
+playerLeft-idle
+  rotate: false
+  xy: 210, 0
+  size: 35, 64
+  orig: 35, 64
+  offset: 0, 0
+  index: -1
+PlayerLeft
+  rotate: false
+  xy: 245, 0
+  size: 35, 64
+  orig: 35, 64
+  offset: 0, 0
+  index: 0
+PlayerLeft
+  rotate: false
+  xy: 280, 0
   size: 36, 64
   orig: 36, 64
+  offset: 0, 0
+  index: 1
+playerRight-idle
+  rotate: false
+  xy: 316, 0
+  size: 35, 64
+  orig: 35, 64
+  offset: 0, 0
+  index: -1
+playerRight
+  rotate: false
+  xy: 351, 0
+  size: 36, 64
+  orig: 36, 64
+  offset: 0, 0
+  index: 0
+playerRight
+  rotate: false
+  xy: 387, 0
+  size: 35, 64
+  orig: 35, 64
   offset: 0, 0
   index: 1
