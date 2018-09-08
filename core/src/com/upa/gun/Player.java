@@ -6,11 +6,10 @@ import com.badlogic.gdx.Input;
 public class Player extends Entity {
 
     public Player(float x, float y) {
-        super(x, y, Assets.bulletBasic.getRegionWidth(), Assets.bulletBasic.getRegionHeight());
+        super(x, y, Assets.playerBasic.getRegionWidth(), Assets.playerBasic.getRegionHeight());
     }
 
     public void update(float delta) {
-
         boolean moving = false;
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {

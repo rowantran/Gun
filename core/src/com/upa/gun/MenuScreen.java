@@ -21,7 +21,6 @@ public class MenuScreen extends ScreenAdapter {
         Assets.menuFont.getData().setScale(8);
     }
 
-
     public void draw() {
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
