@@ -1,5 +1,5 @@
 player.png
-size: 105, 64
+size: 211, 64
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -22,5 +22,26 @@ playerFront
   xy: 70, 0
   size: 35, 64
   orig: 35, 64
+  offset: 0, 0
+  index: 1
+PlayerLeft-idle
+  rotate: false
+  xy: 105, 0
+  size: 35, 64
+  orig: 35, 64
+  offset: 0, 0
+  index: -1
+PlayerLeft
+  rotate: false
+  xy: 140, 0
+  size: 35, 64
+  orig: 35, 64
+  offset: 0, 0
+  index: 0
+PlayerLeft
+  rotate: false
+  xy: 175, 0
+  size: 36, 64
+  orig: 36, 64
   offset: 0, 0
   index: 1
