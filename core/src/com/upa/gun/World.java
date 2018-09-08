@@ -20,8 +20,8 @@ public class World {
             Bullet bullet = iterator.next();
             bullet.update(delta);
             if (player.bounds.overlaps(bullet.getBoundingRectangle())) {
-                Assets.playerIdleSprite.setX(player.position.x);
-                Assets.playerIdleSprite.setY(player.position.y);
+                Assets.playerIdleSprites[player.rotation].setX(player.position.x);
+                Assets.playerIdleSprites[player.rotation].setY(player.position.y);
                 player.dying = true;
                 iterator.remove();
             }
