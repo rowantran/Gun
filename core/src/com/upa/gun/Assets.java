@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Assets {
+    public static Texture backgroundRoom1;
+
     public static Texture bullets;
     public static TextureRegion bulletBasic;
 
@@ -16,9 +18,11 @@ public class Assets {
     }
 
     public static void load() {
-        bullets = loadTexture("sprites/normyBullet.png");
+        backgroundRoom1 = loadTexture("sprites/background1.png");
 
-        bulletBasic = new TextureRegion(bullets, 0, 0, 64, 64);
+        bullets = loadTexture("sprites/bullet.png");
+
+        bulletBasic = new TextureRegion(bullets, 0, 0, 63, 50);
 
         menuFont = new BitmapFont();
     }

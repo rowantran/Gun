@@ -1,5 +1,7 @@
 package com.upa.gun;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -32,8 +34,15 @@ public class MenuScreen extends ScreenAdapter {
         game.batch.end();
     }
 
+    private void update() {
+        if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
+            game.setScreen(new RoomScreen1(game));
+        }
+    }
+
     @Override
     public void render(float delta) {
+        update();
         draw();
     }
 }
