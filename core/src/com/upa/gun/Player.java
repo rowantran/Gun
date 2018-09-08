@@ -57,28 +57,28 @@ public class Player extends Entity {
                 this.bounds.y = position.y;
             }
         } else {
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            if (Gdx.input.isKeyPressed(Settings.KEY_LEFT)) {
                 this.position.x -= Settings.PLAYER_SPEED * delta;
                 this.bounds.x = this.position.x;
                 moving = true;
                 rotation = LEFT;
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            if (Gdx.input.isKeyPressed(Settings.KEY_RIGHT)) {
                 this.position.x += Settings.PLAYER_SPEED * delta;
                 this.bounds.x = this.position.x;
                 moving = true;
                 rotation = RIGHT;
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            if (Gdx.input.isKeyPressed(Settings.KEY_DOWN)) {
                 this.position.y -= Settings.PLAYER_SPEED * delta;
                 this.bounds.y = this.position.y;
                 moving = true;
                 rotation = FRONT;
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            if (Gdx.input.isKeyPressed(Settings.KEY_UP)) {
                 this.position.y += Settings.PLAYER_SPEED * delta;
                 this.bounds.y = this.position.y;
                 moving = true;
