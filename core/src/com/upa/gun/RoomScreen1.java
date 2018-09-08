@@ -1,8 +1,6 @@
 package com.upa.gun;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class RoomScreen1 extends ScreenAdapter {
