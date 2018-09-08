@@ -19,7 +19,7 @@ public class MainGame extends ApplicationAdapter {
 	    camera.setToOrtho(false, 1280, 800);
 
 		batch = new SpriteBatch();
-		img = new Texture("sprites/normyBullet.png");
+		img = new Texture("sprites/bullet.png");
 	}
 
 	@Override
