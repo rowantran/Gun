@@ -9,7 +9,6 @@ public class Assets {
     public static Texture backgroundRoom1;
 
     public static Texture playerTexture;
-    public static TextureRegion playerBasic;
 
     public static Texture bullets;
     public static TextureRegion bulletBasic;
@@ -22,10 +21,6 @@ public class Assets {
 
     public static void load() {
         backgroundRoom1 = loadTexture("sprites/background1.png");
-
-        playerTexture = loadTexture("sprites/tempPlayer.png");
-
-        playerBasic = new TextureRegion(playerTexture, 0, 0, 128,128);
 
         bullets = loadTexture("sprites/laserBullet.png");
 
