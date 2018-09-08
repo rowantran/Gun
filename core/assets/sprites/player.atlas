@@ -1,26 +1,26 @@
 player.png
-size: 198, 119
+size: 105, 64
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 playerFront-idle
   rotate: false
-  xy: 1, 1
-  size: 64, 117
-  orig: 64, 117
+  xy: 0, 0
+  size: 35, 64
+  orig: 35, 64
   offset: 0, 0
   index: -1
 playerFront
   rotate: false
-  xy: 67, 1
-  size: 64, 117
-  orig: 64, 117
+  xy: 35, 0
+  size: 35, 64
+  orig: 35, 64
   offset: 0, 0
   index: 0
 playerFront
   rotate: false
-  xy: 133, 1
-  size: 64, 117
-  orig: 64, 117
+  xy: 70, 0
+  size: 35, 64
+  orig: 35, 64
   offset: 0, 0
   index: 1
