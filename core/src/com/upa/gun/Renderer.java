@@ -3,14 +3,15 @@ package com.upa.gun;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import java.util.List;
-
 class Renderer {
     private SpriteBatch batch;
     private OrthographicCamera camera;
 
-    Renderer(SpriteBatch batch) {
+    World world;
+
+    Renderer(SpriteBatch batch, World world) {
         this.batch = batch;
+        this.world = world;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Settings.RESOLUTION.x, Settings.RESOLUTION.y);
@@ -24,11 +25,11 @@ class Renderer {
         batch.end();
     }
 
-    private void drawBullets(List<Bullet> bullets) {
+    private void drawBullets() {
         batch.enableBlending();
         batch.begin();
 
-        for (Bullet bullet : bullets) {
+        for (Bullet bullet : world.bullets) {
             batch.draw(Assets.bulletBasic, bullet.bounds.x, bullet.bounds.y, bullet.bounds.width,
                     bullet.bounds.height);
         }
@@ -36,11 +37,11 @@ class Renderer {
         batch.end();
     }
 
-    void draw(List<Bullet> bullets) {
+    void draw() {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
 
         drawBackground();
-        drawBullets(bullets);
+        drawBullets();
     }
 }
