@@ -1,6 +1,7 @@
 package com.upa.gun;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class World {
@@ -15,8 +16,13 @@ public class World {
     public void update(float delta) {
         player.update(delta);
 
-        for (Bullet bullet : bullets) {
+        for (Iterator<Bullet> iterator = bullets.iterator(); iterator.hasNext();) {
+            Bullet bullet = iterator.next();
             bullet.update(delta);
+            if (player.bounds.overlaps(bullet.bounds)) {
+                player.die();
+                iterator.remove();
+            }
         }
     }
 }

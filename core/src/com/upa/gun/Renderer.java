@@ -3,6 +3,7 @@ package com.upa.gun;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 class Renderer {
     private SpriteBatch batch;
@@ -10,12 +11,16 @@ class Renderer {
 
     private World world;
 
+    private ShapeRenderer sr;
+
     Renderer(SpriteBatch batch, World world) {
         this.batch = batch;
         this.world = world;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Settings.RESOLUTION.x, Settings.RESOLUTION.y);
+
+        sr = new ShapeRenderer();
     }
 
     private void drawBackground() {
@@ -38,18 +43,33 @@ class Renderer {
         batch.draw(currentFrame, world.player.bounds.x, world.player.bounds.y,
                 world.player.bounds.width, world.player.bounds.height);
         batch.end();
+
+        if (Settings.SHOW_HITBOXES) {
+            sr.setProjectionMatrix(camera.combined);
+            sr.begin(ShapeRenderer.ShapeType.Line);
+            sr.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+            sr.rect(world.player.bounds.x, world.player.bounds.y, world.player.bounds.width,
+                    world.player.bounds.height);
+            sr.end();
+        }
     }
 
     private void drawBullets() {
         batch.enableBlending();
-        batch.begin();
+        sr.setProjectionMatrix(camera.combined);
+        sr.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 
         for (Bullet bullet : world.bullets) {
+            batch.begin();
             batch.draw(Assets.bulletBasic, bullet.bounds.x, bullet.bounds.y, bullet.bounds.width,
                     bullet.bounds.height);
+            batch.end();
+            if (Settings.SHOW_HITBOXES) {
+                sr.begin(ShapeRenderer.ShapeType.Line);
+                sr.rect(bullet.bounds.x, bullet.bounds.y, bullet.bounds.width, bullet.bounds.height);
+                sr.end();
+            }
         }
-
-        batch.end();
     }
 
     void draw() {

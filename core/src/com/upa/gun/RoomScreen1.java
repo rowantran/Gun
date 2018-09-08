@@ -15,7 +15,7 @@ public class RoomScreen1 extends ScreenAdapter {
 
         renderer = new Renderer(game.batch, world);
 
-        world.bullets.add(new Bullet(10, 10));
+        world.bullets.add(new Bullet(10, 200));
     }
 
     @Override

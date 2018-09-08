@@ -14,6 +14,13 @@ public class Player extends Entity {
         moving = false;
     }
 
+    public void die() {
+        this.position.x = 20;
+        this.position.y = 500;
+        this.bounds.x = 20;
+        this.bounds.y = 500;
+    }
+
     public void update(float delta) {
         moving = false;
 

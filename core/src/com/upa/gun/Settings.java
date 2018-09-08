@@ -7,4 +7,6 @@ public class Settings {
 
     public static final float BULLET_SPEED = 200.0f;
     public static final float PLAYER_SPEED = 250.0f;
+
+    public static final boolean SHOW_HITBOXES = true;
 }
