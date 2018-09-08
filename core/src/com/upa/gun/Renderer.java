@@ -34,14 +34,18 @@ class Renderer {
     private void drawPlayer() {
         batch.enableBlending();
         batch.begin();
-        TextureRegion currentFrame;
-        if (world.player.moving) {
-            currentFrame = Assets.playerAnimation.getKeyFrame(world.player.timeElapsed);
+        TextureRegion currentFrame = Assets.playerIdleSprite;
+        if (world.player.dying) {
+            Assets.playerIdleSprite.draw(batch);
         } else {
-            currentFrame = Assets.playerAtlas.findRegion("playerFront-idle");
+            if (world.player.moving) {
+                currentFrame = Assets.playerAnimation.getKeyFrame(world.player.timeElapsed);
+            }
+
+            batch.draw(currentFrame, world.player.bounds.x, world.player.bounds.y,
+                    world.player.bounds.width, world.player.bounds.height);
         }
-        batch.draw(currentFrame, world.player.bounds.x, world.player.bounds.y,
-                world.player.bounds.width, world.player.bounds.height);
+
         batch.end();
 
         if (Settings.SHOW_HITBOXES) {
@@ -61,12 +65,12 @@ class Renderer {
 
         for (Bullet bullet : world.bullets) {
             batch.begin();
-            batch.draw(Assets.bulletBasic, bullet.bounds.x, bullet.bounds.y, bullet.bounds.width,
-                    bullet.bounds.height);
+            batch.draw(Assets.bulletBasic, bullet.getX(), bullet.getY(), bullet.getWidth(),
+                    bullet.getHeight());
             batch.end();
             if (Settings.SHOW_HITBOXES) {
                 sr.begin(ShapeRenderer.ShapeType.Line);
-                sr.rect(bullet.bounds.x, bullet.bounds.y, bullet.bounds.width, bullet.bounds.height);
+                sr.rect(bullet.getX(), bullet.getY(), bullet.getWidth(), bullet.getHeight());
                 sr.end();
             }
         }

@@ -19,8 +19,10 @@ public class World {
         for (Iterator<Bullet> iterator = bullets.iterator(); iterator.hasNext();) {
             Bullet bullet = iterator.next();
             bullet.update(delta);
-            if (player.bounds.overlaps(bullet.bounds)) {
-                player.die();
+            if (player.bounds.overlaps(bullet.getBoundingRectangle())) {
+                Assets.playerIdleSprite.setX(player.position.x);
+                Assets.playerIdleSprite.setY(player.position.y);
+                player.dying = true;
                 iterator.remove();
             }
         }

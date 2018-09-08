@@ -1,12 +1,15 @@
 package com.upa.gun;
 
-public class Bullet extends Entity {
+import com.badlogic.gdx.graphics.g2d.Sprite;
+
+public class Bullet extends Sprite {
     Bullet(float x, float y) {
-        super(x, y, Assets.bulletBasic.getRegionWidth(), Assets.bulletBasic.getRegionHeight());
+        super(Assets.bulletBasic);
+        setX(x);
+        setY(y);
     }
 
     public void update(float delta) {
-        this.position.x += Settings.BULLET_SPEED * delta;
-        this.bounds.x = this.position.x;
+        setX(getX() + Settings.BULLET_SPEED * delta);
     }
 }
