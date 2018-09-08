@@ -1,0 +1,33 @@
+player.png
+size: 64, 468
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+playerFrontHoldIdle
+  rotate: false
+  xy: 0, 0
+  size: 64, 117
+  orig: 64, 117
+  offset: 0, 0
+  index: -1
+playerFrontIdle
+  rotate: false
+  xy: 0, 117
+  size: 64, 117
+  orig: 64, 117
+  offset: 0, 0
+  index: -1
+playerFrontWalk1
+  rotate: false
+  xy: 0, 234
+  size: 64, 117
+  orig: 64, 117
+  offset: 0, 0
+  index: -1
+playerFrontWalk2
+  rotate: false
+  xy: 0, 351
+  size: 64, 117
+  orig: 64, 117
+  offset: 0, 0
+  index: -1

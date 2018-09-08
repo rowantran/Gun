@@ -34,7 +34,7 @@
         <key>dataFormat</key>
         <string>libgdx</string>
         <key>textureFileName</key>
-        <filename></filename>
+        <filename>player.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -132,7 +132,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename></filename>
+                <filename>player.atlas</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -181,7 +181,6 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">playerSprites/playerFrontHold Idle.png</key>
             <key type="filename">playerSprites/playerFrontHoldIdle.png</key>
             <key type="filename">playerSprites/playerFrontIdle.png</key>
             <key type="filename">playerSprites/playerFrontWalk1.png</key>
