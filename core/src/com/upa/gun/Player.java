@@ -4,9 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
 public class Player extends Entity {
+    public float timeElapsed;
 
     public Player(float x, float y) {
-        super(x, y, Assets.playerBasic.getRegionWidth(), Assets.playerBasic.getRegionHeight());
+        super(x, y, Assets.playerAtlas.findRegion("player").getRegionWidth(),
+                Assets.playerAtlas.findRegion("player").getRegionHeight());
+        timeElapsed = 0.0f;
     }
 
     public void update(float delta) {
@@ -36,5 +39,8 @@ public class Player extends Entity {
             moving = true;
         }
 
+        if (moving) {
+            timeElapsed += delta;
+        }
     }
 }
