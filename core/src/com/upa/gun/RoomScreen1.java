@@ -1,49 +1,34 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RoomScreen1 extends ScreenAdapter {
     GunGame game;
-    OrthographicCamera camera;
+    Renderer renderer;
 
-    Bullet bullet;
+    List<Bullet> bullets;
 
-    public RoomScreen1(GunGame game) {
+    RoomScreen1(GunGame game) {
         this.game = game;
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, Settings.RESOLUTION.x, Settings.RESOLUTION.y);
 
-        bullet = new Bullet(10, 10);
+        renderer = new Renderer(game.batch);
+
+        bullets = new ArrayList<Bullet>();
+        bullets.add(new Bullet(10, 10));
     }
 
-    void drawBackground() {
-        game.batch.disableBlending();
-        game.batch.begin();
-        game.batch.draw(Assets.backgroundRoom1, (Settings.RESOLUTION.x - Assets.backgroundRoom1.getWidth()) / 2,
-                0, Assets.backgroundRoom1.getWidth(), Assets.backgroundRoom1.getHeight());
-        game.batch.end();
-    }
-
-    public void draw() {
-        camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
-
-        drawBackground();
-        game.batch.enableBlending();
-        game.batch.begin();
-        game.batch.draw(Assets.bulletBasic, bullet.bounds.x, bullet.bounds.y, bullet.bounds.width,
-                bullet.bounds.height);
-        game.batch.end();
-    }
-
-    public void update(float delta) {
-        bullet.update(delta);
+    private void update(float delta) {
+        for (Bullet bullet : bullets) {
+            bullet.update(delta);
+        }
     }
 
     @Override
     public void render(float delta) {
         update(delta);
-        draw();
+        renderer.draw(bullets);
     }
 }
