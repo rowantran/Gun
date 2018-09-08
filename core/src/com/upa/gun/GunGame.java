@@ -11,14 +11,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class GunGame extends Game {
 	public SpriteBatch batch;
 
-	Bullet bullet;
-	
 	@Override
 	public void create () {
 	    Assets.load();
 
-	    setScreen(new MenuScreen(this));
-		batch = new SpriteBatch();
+        batch = new SpriteBatch();
+        setScreen(new MenuScreen(this));
 	}
 
 	public void render() {
