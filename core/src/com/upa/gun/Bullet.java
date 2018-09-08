@@ -13,6 +13,7 @@ public class Bullet extends Entity {
         super(x, y, Assets.bulletBasic.getRegionWidth(), Assets.bulletBasic.getRegionHeight());
         this.angle = angle;
         bulletSprite = new Sprite(Assets.bulletBasic);
+        bulletSprite.setOrigin(0, 0);
         bulletSprite.setRotation((float) (angle * 180 / Math.PI));
 
         hitbox = new Polygon(new float[]{bounds.x,bounds.y,bounds.x+bounds.width,bounds.y,
