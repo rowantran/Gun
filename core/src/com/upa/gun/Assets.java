@@ -20,7 +20,7 @@ public class Assets {
     public static void load() {
         backgroundRoom1 = loadTexture("sprites/background1.png");
 
-        bullets = loadTexture("sprites/bullet.png");
+        bullets = loadTexture("sprites/laserBullet.png");
 
         bulletBasic = new TextureRegion(bullets, 0, 0, 63, 50);
 
