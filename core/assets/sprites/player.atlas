@@ -3,21 +3,21 @@ size: 198, 119
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-playerFront-0
+playerFront-idle
   rotate: false
   xy: 1, 1
   size: 64, 117
   orig: 64, 117
   offset: 0, 0
   index: -1
-playerFront-1
+playerFront/0001
   rotate: false
   xy: 67, 1
   size: 64, 117
   orig: 64, 117
   offset: 0, 0
   index: -1
-playerFront-idle
+playerFront/0002
   rotate: false
   xy: 133, 1
   size: 64, 117
