@@ -52,14 +52,14 @@ playerLeft-idle
   orig: 35, 64
   offset: 0, 0
   index: -1
-PlayerLeft
+playerLeft
   rotate: false
   xy: 245, 0
   size: 35, 64
   orig: 35, 64
   offset: 0, 0
   index: 0
-PlayerLeft
+playerLeft
   rotate: false
   xy: 280, 0
   size: 36, 64
