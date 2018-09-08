@@ -19,30 +19,12 @@ public class GunGame extends Game {
 
 	    setScreen(new MenuScreen(this));
 		batch = new SpriteBatch();
-<<<<<<< HEAD:core/src/com/upa/gun/GunGame.java
-		bullet = new Bullet(10, 10, 64, 64);
-=======
-		img = new Texture("sprites/normyBullet.png");
->>>>>>> d33637afda4771fae22782b5420e77ec131309ef:core/src/com/upa/gun/MainGame.java
 	}
 
-	public void update(float delta) {
-	    bullet.update(delta);
+	public void render() {
+	    super.render();
     }
-
-	public void render (float delta) {
-	     update(delta);
-
-		Gdx.gl.glClearColor(0.2f, 0, 0.8f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		batch.begin();
-
-		bullet.render(batch);
-
-		batch.end();
-	}
-	
+    
 	@Override
 	public void dispose () {
 		batch.dispose();
