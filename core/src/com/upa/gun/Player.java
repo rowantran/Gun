@@ -1,7 +1,7 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player extends Entity {
@@ -11,6 +11,7 @@ public class Player extends Entity {
     boolean fading;
 
     Vector2 spawnPoint;
+    Polygon hitbox;
 
     float opacity;
 
@@ -34,10 +35,15 @@ public class Player extends Entity {
         opacity = 1.0f;
 
         rotation = FRONT;
+
+        hitbox = new Polygon(new float[]{bounds.x, bounds.y, bounds.x+bounds.width, bounds.y,
+                bounds.x+bounds.width, bounds.y+bounds.height, bounds.x, bounds.y+bounds.height});
     }
 
     public void update(float delta) {
         moving = false;
+        hitbox = new Polygon(new float[]{bounds.x, bounds.y, bounds.x+bounds.width, bounds.y,
+                bounds.x+bounds.width, bounds.y+bounds.height, bounds.x, bounds.y+bounds.height});
 
         if (dying) {
             Assets.playerIdleSprites[rotation].rotate(Settings.DEATH_ROTATE_SPEED * delta);
@@ -56,7 +62,8 @@ public class Player extends Entity {
                 this.bounds.x = position.x;
                 this.bounds.y = position.y;
             }
-        } else {
+        }
+        if (!dying && !fading) {
             if (Gdx.input.isKeyPressed(Settings.KEY_LEFT)) {
                 this.position.x -= Settings.PLAYER_SPEED * delta;
                 this.bounds.x = this.position.x;
