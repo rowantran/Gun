@@ -5,15 +5,17 @@ import com.badlogic.gdx.Input;
 
 public class Player extends Entity {
     public float timeElapsed;
+    boolean moving;
 
     public Player(float x, float y) {
-        super(x, y, Assets.playerAtlas.findRegion("playerFrontIdle").getRegionWidth(),
-                Assets.playerAtlas.findRegion("playerFrontIdle").getRegionHeight());
+        super(x, y, Assets.playerAtlas.findRegion("playerFront-idle").getRegionWidth(),
+                Assets.playerAtlas.findRegion("playerFront-idle").getRegionHeight());
         timeElapsed = 0.0f;
+        moving = false;
     }
 
     public void update(float delta) {
-        boolean moving = false;
+        moving = false;
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             this.position.x -= Settings.PLAYER_SPEED * delta;

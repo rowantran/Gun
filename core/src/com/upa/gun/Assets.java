@@ -27,7 +27,7 @@ public class Assets {
 
         playerAtlas = new TextureAtlas(Gdx.files.internal("sprites/player.atlas"));
         playerAnimation = new Animation<TextureRegion>(0.25f,
-                Assets.playerAtlas.getRegions(), Animation.PlayMode.LOOP);
+                Assets.playerAtlas.findRegions("playerFront"), Animation.PlayMode.LOOP);
 
         bullets = loadTexture("sprites/laserBullet.png");
 

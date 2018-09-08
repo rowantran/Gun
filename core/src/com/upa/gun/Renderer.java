@@ -29,7 +29,12 @@ class Renderer {
     private void drawPlayer() {
         batch.enableBlending();
         batch.begin();
-        TextureRegion currentFrame = Assets.playerAnimation.getKeyFrame(world.player.timeElapsed);
+        TextureRegion currentFrame;
+        if (world.player.moving) {
+            currentFrame = Assets.playerAnimation.getKeyFrame(world.player.timeElapsed);
+        } else {
+            currentFrame = Assets.playerAtlas.findRegion("playerFront-idle");
+        }
         batch.draw(currentFrame, world.player.bounds.x, world.player.bounds.y,
                 world.player.bounds.width, world.player.bounds.height);
         batch.end();
