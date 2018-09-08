@@ -2,12 +2,13 @@ package com.upa.gun;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 class Renderer {
     private SpriteBatch batch;
     private OrthographicCamera camera;
 
-    World world;
+    private World world;
 
     Renderer(SpriteBatch batch, World world) {
         this.batch = batch;
@@ -28,7 +29,8 @@ class Renderer {
     private void drawPlayer() {
         batch.enableBlending();
         batch.begin();
-        batch.draw(Assets.playerBasic, world.player.bounds.x, world.player.bounds.y,
+        TextureRegion currentFrame = Assets.playerAnimation.getKeyFrame(world.player.timeElapsed);
+        batch.draw(currentFrame, world.player.bounds.x, world.player.bounds.y,
                 world.player.bounds.width, world.player.bounds.height);
         batch.end();
     }

@@ -2,14 +2,16 @@ package com.upa.gun;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Assets {
     public static Texture backgroundRoom1;
 
-    public static Texture playerTexture;
-    public static TextureRegion playerBasic;
+    public static TextureAtlas playerAtlas;
+    public static Animation<TextureRegion> playerAnimation;
 
     public static Texture bullets;
     public static TextureRegion bulletBasic;
@@ -23,8 +25,9 @@ public class Assets {
     public static void load() {
         backgroundRoom1 = loadTexture("sprites/background1.png");
 
-        playerTexture = loadTexture("sprites/playerFrontIdle.png");
-        playerBasic = new TextureRegion(playerTexture, 0, 0, 125,125);
+        playerAtlas = new TextureAtlas(Gdx.files.internal("sprites/player.png"));
+        playerAnimation = new Animation<TextureRegion>(0.0167f,
+                Assets.playerAtlas.findRegions("player"), Animation.PlayMode.LOOP);
 
         bullets = loadTexture("sprites/laserBullet.png");
 
