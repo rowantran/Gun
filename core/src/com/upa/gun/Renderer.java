@@ -34,13 +34,14 @@ class Renderer {
     private void drawPlayer() {
         batch.enableBlending();
         batch.begin();
-        Assets.playerIdleSprite.setAlpha(world.player.opacity);
-        TextureRegion currentFrame = Assets.playerIdleSprite;
+        Assets.playerIdleSprites[world.player.rotation].setAlpha(world.player.opacity);
+        TextureRegion currentFrame = Assets.playerIdleSprites[world.player.rotation];
         if (world.player.dying || world.player.fading) {
-            Assets.playerIdleSprite.draw(batch);
+            Assets.playerIdleSprites[world.player.rotation].draw(batch);
         } else {
             if (world.player.moving) {
-                currentFrame = Assets.playerAnimation.getKeyFrame(world.player.timeElapsed);
+                currentFrame = Assets.playerAnimations.get(world.player.rotation).getKeyFrame(
+                        world.player.timeElapsed);
             }
 
             batch.draw(currentFrame, world.player.bounds.x, world.player.bounds.y,
