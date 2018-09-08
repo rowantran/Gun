@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 public class RoomScreen1 extends ScreenAdapter {
     GunGame game;
     OrthographicCamera camera;
-
+    Player player;
     Bullet bullet;
 
     public RoomScreen1(GunGame game) {
@@ -15,6 +15,7 @@ public class RoomScreen1 extends ScreenAdapter {
         camera.setToOrtho(false, Settings.RESOLUTION.x, Settings.RESOLUTION.y);
 
         bullet = new Bullet(10, 10);
+        player = new Player(10, 10);
     }
 
     void drawBackground() {
@@ -34,10 +35,13 @@ public class RoomScreen1 extends ScreenAdapter {
         game.batch.begin();
         game.batch.draw(Assets.bulletBasic, bullet.bounds.x, bullet.bounds.y, bullet.bounds.width,
                 bullet.bounds.height);
+        game.batch.draw(Assets.playerBasic, player.bounds.x, player.bounds.y, player.bounds.width,
+                player.bounds.height);
         game.batch.end();
     }
 
     public void update(float delta) {
+        player.update(delta);
         bullet.update(delta);
     }
 

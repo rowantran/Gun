@@ -2,7 +2,7 @@ package com.upa.gun;
 
 public class Bullet extends Entity {
     public Bullet(float x, float y) {
-        super(x, y, Assets.bulletBasic.getRegionWidth(), Assets.bulletBasic.getRegionHeight());
+        super(x, y, Assets.playerBasic.getRegionWidth(), Assets.playerBasic.getRegionHeight());
     }
 
     public void update(float delta) {
