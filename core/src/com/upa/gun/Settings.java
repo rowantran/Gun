@@ -9,6 +9,7 @@ public class Settings {
     public static final float PLAYER_SPEED = 250.0f;
 
     public static final float DEATH_ROTATE_SPEED = 80.0f;
+    public static final float DEATH_FADE_SPEED = (DEATH_ROTATE_SPEED / 90.0f) * 1.0f;
 
     public static final boolean SHOW_HITBOXES = true;
 }

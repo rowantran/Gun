@@ -2,13 +2,13 @@ package com.upa.gun;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player extends Entity {
     public float timeElapsed;
     boolean moving;
     boolean dying;
+    boolean fading;
 
     Vector2 spawnPoint;
 
@@ -34,7 +34,14 @@ public class Player extends Entity {
             Assets.playerIdleSprite.rotate(Settings.DEATH_ROTATE_SPEED * delta);
             if (Assets.playerIdleSprite.getRotation() > 90) {
                 dying = false;
+                fading = true;
+            }
+        } if (fading) {
+            opacity -= Settings.DEATH_FADE_SPEED * delta;
+            if (opacity < 0.0f) {
+                opacity = 1.0f;
                 Assets.playerIdleSprite.setRotation(0);
+                fading = false;
                 this.position.x = spawnPoint.x;
                 this.position.y = spawnPoint.y;
                 this.bounds.x = position.x;

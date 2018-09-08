@@ -34,8 +34,9 @@ class Renderer {
     private void drawPlayer() {
         batch.enableBlending();
         batch.begin();
+        Assets.playerIdleSprite.setAlpha(world.player.opacity);
         TextureRegion currentFrame = Assets.playerIdleSprite;
-        if (world.player.dying) {
+        if (world.player.dying || world.player.fading) {
             Assets.playerIdleSprite.draw(batch);
         } else {
             if (world.player.moving) {
