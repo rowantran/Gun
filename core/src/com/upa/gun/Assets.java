@@ -23,13 +23,12 @@ public class Assets {
     public static void load() {
         backgroundRoom1 = loadTexture("sprites/background1.png");
 
-        playerTexture = loadTexture("sprites/tempPlayer.png");
-
-        playerBasic = new TextureRegion(playerTexture, 0, 0, 128,128);
+        playerTexture = loadTexture("sprites/playerFrontIdle.png");
+        playerBasic = new TextureRegion(playerTexture, 0, 0, 125,125);
 
         bullets = loadTexture("sprites/laserBullet.png");
 
-        bulletBasic = new TextureRegion(bullets, 0, 0, 63, 50);
+        bulletBasic = new TextureRegion(bullets, 0, 0, 33, 14);
 
         menuFont = new BitmapFont();
     }

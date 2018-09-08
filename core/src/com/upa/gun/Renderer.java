@@ -25,6 +25,14 @@ class Renderer {
         batch.end();
     }
 
+    private void drawPlayer() {
+        batch.enableBlending();
+        batch.begin();
+        batch.draw(Assets.playerBasic, world.player.bounds.x, world.player.bounds.y,
+                world.player.bounds.width, world.player.bounds.height);
+        batch.end();
+    }
+
     private void drawBullets() {
         batch.enableBlending();
         batch.begin();
@@ -42,6 +50,7 @@ class Renderer {
         batch.setProjectionMatrix(camera.combined);
 
         drawBackground();
+        drawPlayer();
         drawBullets();
     }
 }
