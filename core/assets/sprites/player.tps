@@ -181,8 +181,13 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">playerSprites/PlayerLeft-idle.png</key>
             <key type="filename">playerSprites/PlayerLeft_00.png</key>
+            <key type="filename">playerSprites/playerBack-idle.png</key>
+            <key type="filename">playerSprites/playerBack_00.png</key>
+            <key type="filename">playerSprites/playerBack_01.png</key>
+            <key type="filename">playerSprites/playerLeft-idle.png</key>
+            <key type="filename">playerSprites/playerRight-idle.png</key>
+            <key type="filename">playerSprites/playerRight_01.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -196,6 +201,7 @@
                 <false/>
             </struct>
             <key type="filename">playerSprites/PlayerLeft_01.png</key>
+            <key type="filename">playerSprites/playerRight_00.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
