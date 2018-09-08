@@ -7,8 +7,8 @@ public class Player extends Entity {
     public float timeElapsed;
 
     public Player(float x, float y) {
-        super(x, y, Assets.playerAtlas.findRegion("player").getRegionWidth(),
-                Assets.playerAtlas.findRegion("player").getRegionHeight());
+        super(x, y, Assets.playerAtlas.findRegion("playerFrontIdle").getRegionWidth(),
+                Assets.playerAtlas.findRegion("playerFrontIdle").getRegionHeight());
         timeElapsed = 0.0f;
     }
 
