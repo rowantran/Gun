@@ -1,6 +1,7 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
@@ -19,6 +20,8 @@ public class Slime extends Enemy {
     float shotInterval = 0.15f;
     float speedMultiplier = 1/2f;
 
+    static float hitboxSize = 10f;
+
     World world;
 
     public Slime(float x, float y, World world, GunWorld gunWorld) {
@@ -34,7 +37,35 @@ public class Slime extends Enemy {
         body.setUserData(this);
 
         CircleShape hitbox = new CircleShape();
-        hitbox.setRadius(5f);
+        hitbox.setRadius(hitboxSize);
+
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = hitbox;
+        fixtureDef.density = 0.5f;
+        fixtureDef.friction = 0.0f;
+        fixtureDef.restitution = 0.0f;
+        fixtureDef.isSensor = true;
+
+        body.createFixture(fixtureDef);
+
+        rotation = Slime.LEFT;
+
+        opacity = 1.0f;
+
+        this.world = world;
+    }
+
+    public Slime(float x, float y, World world, GunWorld gunWorld, Shape hitbox) {
+        super(gunWorld);
+        attackTimeElapsed = 0.0f;
+        timeSinceAttack = 0.0f;
+
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(x, y);
+
+        body = world.createBody(bodyDef);
+        body.setUserData(this);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = hitbox;

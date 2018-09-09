@@ -56,7 +56,9 @@ public class Spawner {
     void spawnBossSlime() {
         int spawnX = (int) (Settings.RESOLUTION.x - Assets.bossSlimePainSprite.getWidth()) / 2;
         int spawnY = (int) (Settings.RESOLUTION.y - Assets.bossSlimePainSprite.getHeight() / 2);
-        gunWorld.enemies.add(new BossSlime(spawnX, spawnY, world, gunWorld));
+
+        BossSlimeFactory factory = new BossSlimeFactory();
+        gunWorld.enemies.add(factory.makeBossSlime(spawnX, spawnY, world, gunWorld));
     }
 
     void update(float delta) {
