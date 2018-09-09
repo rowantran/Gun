@@ -3,8 +3,6 @@ package com.upa.gun;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-//is this the right import?
-
 
 public class Slime extends Enemy {
     int rotation;
@@ -21,7 +19,6 @@ public class Slime extends Enemy {
         super(gunWorld);
         attackTimeElapsed = 0.0f;
         timeSinceAttack = 0.0f;
-        //body things
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
