@@ -20,6 +20,10 @@ public class Assets {
     public static List<Animation<TextureRegion>> slimeAttackAnimations;
     public static Sprite slimeDeathSprite;
 
+    public static TextureAtlas strongSlimeAtlas;
+    public static List<Animation<TextureRegion>> strongSlimeMovementAnimations;
+    public static List<Animation<TextureRegion>> strongSlimeAttackAnimations;
+    public static Sprite strongSlimeDeathSprite;
 
     public static Texture bullets;
     public static TextureRegion bulletLaser;
@@ -64,10 +68,18 @@ public class Assets {
         slimeAtlas = new TextureAtlas(Gdx.files.internal("sprites/slime.atlas"));
         slimeMovementAnimations = new ArrayList<Animation<TextureRegion>>();
         slimeAttackAnimations = new ArrayList<Animation<TextureRegion>>();
-        loadSlimeMovementAnimations();
+        loadSlimeMovementAnimations();  
         loadSlimeAttackAnimations();
 
         slimeDeathSprite = new Sprite(Assets.slimeAtlas.findRegion("slime-death"));
+
+        strongSlimeAtlas = new TextureAtlas(Gdx.files.internal("sprites/strongSlime.atlas"));
+        strongSlimeMovementAnimations = new ArrayList<Animation<TextureRegion>>();
+        strongSlimeAttackAnimations = new ArrayList<Animation<TextureRegion>>();
+        loadStrongSlimeMovementAnimations();
+        loadStrongSlimeAttackAnimations();
+
+        strongSlimeDeathSprite = new Sprite(strongSlimeAtlas.findRegion("strongSlime-death"));
 
         bullets = loadTexture("sprites/laserBullet.png");
 
@@ -95,5 +107,13 @@ public class Assets {
     private static void loadSlimeAttackAnimations() {
         slimeAttackAnimations.add(new Animation<TextureRegion>(0.25f,
                 Assets.slimeAtlas.findRegions("slimeAttack"), Animation.PlayMode.LOOP));
+    }
+    private static void loadStrongSlimeMovementAnimations() {
+        strongSlimeMovementAnimations.add(new Animation<TextureRegion>(0.25f,
+                Assets.strongSlimeAtlas.findRegions("strongSlime"), Animation.PlayMode.LOOP));
+    }
+    private static void loadStrongSlimeAttackAnimations() {
+        strongSlimeAttackAnimations.add(new Animation<TextureRegion>(0.25f,
+                Assets.strongSlimeAtlas.findRegions("strongSlimeAttack"), Animation.PlayMode.LOOP));
     }
 }
