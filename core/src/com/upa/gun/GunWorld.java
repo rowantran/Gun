@@ -33,8 +33,6 @@ public class GunWorld {
         for(int i = 0; i < enemies.size(); i++) {
             enemies.get(i).update(delta);
         }
-
-        System.out.println(bullets.size());
     }
 
     public void updatePostPhysics(float delta) {
