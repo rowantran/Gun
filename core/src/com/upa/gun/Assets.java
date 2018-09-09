@@ -87,8 +87,9 @@ public class Assets {
         bossSlimeAtlas = new TextureAtlas(Gdx.files.internal("sprites/bossSlime.atlas"));
         bossSlimeMovementAnimations = new ArrayList<Animation<TextureRegion>>();
         bossSlimeAttackAnimations = new ArrayList<Animation<TextureRegion>>();
-        //loadBossSlimeMovementAnimations();
-
+        loadBossSlimeMovementAnimations();
+        loadBossSlimeAttackAnimations();
+        bossSlimePainSprite = new Sprite(bossSlimeAtlas.findRegion("bossSlime-hurt"));
 
 
         bullets = loadTexture("sprites/laserBullet.png");
@@ -125,5 +126,13 @@ public class Assets {
     private static void loadStrongSlimeAttackAnimations() {
         strongSlimeAttackAnimations.add(new Animation<TextureRegion>(0.25f,
                 Assets.strongSlimeAtlas.findRegions("strongSlimeAttack"), Animation.PlayMode.LOOP));
+    }
+    private static void loadBossSlimeMovementAnimations() {
+        bossSlimeMovementAnimations.add(new Animation<TextureRegion>(0.25f,
+                Assets.bossSlimeAtlas.findRegions("bossSlime"), Animation.PlayMode.LOOP));
+    }
+    private static void loadBossSlimeAttackAnimations() {
+        bossSlimeAttackAnimations.add(new Animation<TextureRegion>(0.25f,
+                Assets.bossSlimeAtlas.findRegions("bossSlimeAttack"), Animation.PlayMode.LOOP));
     }
 }
