@@ -28,6 +28,9 @@ public class Assets {
 
     public static BitmapFont menuFont;
 
+    public Pixmap pm;
+    public static Texture crosshair;
+
     public static Texture loadTexture(String filepath) {
         return new Texture(Gdx.files.internal(filepath));
     }
@@ -41,10 +44,16 @@ public class Assets {
         loadPlayerAnimations("Back");
         loadPlayerAnimations("Left");
         loadPlayerAnimations("Right");
-        
-        Pixmap pm = new Pixmap(Gdx.files.internal("sprites/Crosshair.png"));
-        Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
+
+    /*
+        crosshair = new Texture("sprites/crosshair.png");
+        Pixmap pm = new Pixmap(Gdx.files.internal("sprites/crosshair.png"));
+        int xHotSpot = pm.getWidth() / 2;
+        int yHotSpot = pm.getHeight() / 2;
+
+        Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, xHotSpot, yHotSpot));
         pm.dispose();
+    */
 
         playerIdleSprites = new Sprite[4];
         loadPlayerIdleSprite(Player.FRONT, "Front");
