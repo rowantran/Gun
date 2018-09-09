@@ -13,7 +13,7 @@ public class GameScreen extends ScreenAdapter {
     GameScreen(GunGame game) {
         this.game = game;
 
-        world = new GunWorld(game.player);
+        world = new GunWorld(game.player, game.slime);
 
         renderer = new Renderer(game.batch, world);
 

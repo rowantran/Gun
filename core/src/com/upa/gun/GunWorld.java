@@ -9,8 +9,9 @@ public class GunWorld {
     Enemy slime;
     List<Bullet> bullets;
 
-    GunWorld(Player player) {
+    GunWorld(Player player, Enemy slime) {
         this.player = player;
+        this.slime = slime;
         bullets = new ArrayList<Bullet>();
     }
 

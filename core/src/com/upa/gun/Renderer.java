@@ -54,6 +54,12 @@ class Renderer {
         batch.end();
     }
 
+    private void drawSlime(Slime slime, float x, float y) {
+        batch.enableBlending();
+        batch.begin();
+        TextureRegion currentFrame = Assets.slimeMovementAnimations.get(slime.rotation).getKeyFrame(slime.timeElapsed);
+    }
+
     private void drawBullet(Bullet bullet, float x, float y) {
         batch.enableBlending();
         sr.setProjectionMatrix(camera.combined);
@@ -65,6 +71,7 @@ class Renderer {
         bullet.bulletSprite.draw(batch);
         batch.end();
     }
+
 
     void draw(World world) {
         camera.update();
@@ -82,6 +89,9 @@ class Renderer {
                 } else if (id instanceof Bullet) {
                     Bullet bullet = (Bullet) id;
                     drawBullet(bullet, b.getPosition().x, b.getPosition().y);
+                } else if (id instanceof Slime) {
+                    Slime slime = (Slime) id;
+                    drawSlime(slime, b.getPosition().x, b.getPosition().y);
                 }
             }
         }
