@@ -95,7 +95,7 @@ class Renderer {
         batch.begin();
         batch.setColor(1.0f, 1.0f, 1.0f, bossSlime.opacity);
         TextureRegion currentFrame;
-        if(bossSlime.dying) {
+        if (bossSlime.dying || bossSlime.hurt) {
             currentFrame = Assets.bossSlimePainSprite;
         }
         else if (bossSlime.shooting) {

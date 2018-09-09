@@ -60,7 +60,6 @@ public class Spawner {
     }
 
     void update(float delta) {
-        System.out.println(slimesKilled);
         timeAccumulated += delta;
         if (slimesKilled == bossThreshold && !bossAlive) {
             spawnBossSlime();

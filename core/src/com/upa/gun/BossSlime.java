@@ -4,8 +4,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class BossSlime extends Slime {
+    boolean hurt;
 
 	double interval;
+
+	int health;
+
+	float timeHurt;
+	static float timeStayHurt = 0.5f;
 	
     public BossSlime(float x, float y, World world, GunWorld gunWorld) {
         super(x, y, world, gunWorld);
@@ -14,6 +20,12 @@ public class BossSlime extends Slime {
         speedMultiplier = 0.5f;
         
         interval = Math.PI/16;
+
+        health = 10;
+
+        hurt = false;
+
+        timeHurt = 0f;
     }
     
     public void shoot() {
@@ -25,5 +37,17 @@ public class BossSlime extends Slime {
                         world));
             }
         }
+    }
+
+    public void update(float delta) {
+        super.update(delta);
+        if (hurt) {
+            timeHurt += delta;
+            if (timeHurt >= timeStayHurt) {
+                timeHurt = 0f;
+                hurt = false;
+            }
+        }
+        System.out.println(health);
     }
 }

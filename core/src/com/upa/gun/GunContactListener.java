@@ -49,7 +49,13 @@ public class GunContactListener implements ContactListener {
     private boolean destroyIfHostile(Object o) {
         boolean hostile = o instanceof Enemy;
         if (hostile) {
-            markEnemyForDeletion(o);
+            if (o instanceof BossSlime) {
+                BossSlime boss = (BossSlime) o;
+                boss.hurt = true;
+                boss.health--;
+            } else {
+                markEnemyForDeletion(o);
+            }
         }
 
         return hostile;
