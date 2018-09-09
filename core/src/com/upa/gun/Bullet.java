@@ -21,6 +21,7 @@ public class Bullet {
 
         body = world.createBody(bodyDef);
         body.setUserData(this);
+        body.setTransform(x, y, (float) angle);
 
         PolygonShape bulletBox = new PolygonShape();
         bulletBox.setAsBox(bulletSprite.getWidth()/2, bulletSprite.getHeight()/2);
