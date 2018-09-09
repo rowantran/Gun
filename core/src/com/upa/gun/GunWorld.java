@@ -42,5 +42,13 @@ public class GunWorld {
                 iterator.remove();
             }
         }
+
+        for (Iterator<Enemy> iterator = enemies.iterator(); iterator.hasNext();) {
+            Enemy enemy = iterator.next();
+            if (enemy.markedForDeletion) {
+                world.destroyBody(enemy.body);
+                iterator.remove();
+            }
+        }
     }
 }

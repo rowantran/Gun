@@ -23,19 +23,35 @@ public class GunContactListener implements ContactListener {
             killIfEnemy(b);
         } else if (b instanceof Player) {
             killIfEnemy(a);
-
         }
-        
+
+        if (a instanceof FriendlyBullet) {
+            if (b instanceof Enemy) {
+                System.out.println("Shot up enemy");
+                Enemy enemy = (Enemy) b;
+                enemy.dying = true;
+            }
+        }
     }
 
     private void killIfEnemy(Object o) {
         if (isEnemy(o)) {
+            System.out.println("killing");
             gunWorld.player.dying = true;
         }
     }
 
     private boolean isEnemy(Object o) {
-        return o instanceof EnemyBullet || o instanceof Slime;
+        if (o instanceof EnemyBullet) {
+            markForDeletion(o);
+            return true;
+        }
+
+        return o instanceof Slime;
+    }
+
+    private void markForDeletion(Object o) {
+        ((Bullet) o).markedForDeletion = true;
     }
 
     @Override
