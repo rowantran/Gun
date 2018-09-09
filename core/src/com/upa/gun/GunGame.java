@@ -19,6 +19,7 @@ public class GunGame extends Game {
         world = new World(new Vector2(0, 0), true);
         player = new Player(20, 20, world);
         elapsed = 0.0f;
+
         setScreen(new MenuScreen(this));
 	}
 
