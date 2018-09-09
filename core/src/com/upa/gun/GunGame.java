@@ -18,7 +18,7 @@ public class GunGame extends Game {
 	public void create () {
 	    Assets.load();
 
-	    music = Gdx.audio.newMusic(Gdx.files.internal("sfx/BeepBox-Song.wav"));
+	    music = Gdx.audio.newMusic(Gdx.files.internal("sfx/music.mp3"));
         music.setLooping(true);
         music.play();
         batch = new SpriteBatch();
