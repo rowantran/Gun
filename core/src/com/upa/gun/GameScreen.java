@@ -13,7 +13,7 @@ public class GameScreen extends ScreenAdapter {
     GameScreen(GunGame game) {
         this.game = game;
 
-        world = new GunWorld(game.player);
+        world = new GunWorld(game.player, game.world);
 
         renderer = new Renderer(game.batch, world);
 
@@ -29,7 +29,7 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void show() {
         System.out.println("Setting");
-        game.world.setContactListener(new GunContactListener(world.player));
+        game.world.setContactListener(new GunContactListener(world, game.world));
     }
 
     @Override
@@ -40,5 +40,6 @@ public class GameScreen extends ScreenAdapter {
             drenderer.render(game.world, renderer.camera.combined);
         }
         game.doPhysicsStep(delta);
+        world.updatePostPhysics(delta);
     }
 }
