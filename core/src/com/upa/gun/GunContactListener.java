@@ -2,8 +2,6 @@ package com.upa.gun;
 
 import com.badlogic.gdx.physics.box2d.*;
 
-import java.util.List;
-
 public class GunContactListener implements ContactListener {
     private GunWorld gunWorld;
     private World world;
@@ -22,20 +20,22 @@ public class GunContactListener implements ContactListener {
         Object b = contact.getFixtureB().getBody().getUserData();
 
         if (a instanceof Player) {
-        	if (b instanceof Bullet) {
-	            gunWorld.player.dying = true;
-	            ((Bullet) b).markedForDeletion = true;
-        	} else if (b instanceof Slime) {
-        		gunWorld.player.dying = true;
-        	}
+            killIfEnemy(b);
         } else if (b instanceof Player) {
-        	if (a instanceof Bullet) {
-        		gunWorld.player.dying = true;
-            	((Bullet) a).markedForDeletion = true;
-        	}
-        	
+            killIfEnemy(a);
+
         }
         
+    }
+
+    private void killIfEnemy(Object o) {
+        if (isEnemy(o)) {
+            gunWorld.player.dying = true;
+        }
+    }
+
+    private boolean isEnemy(Object o) {
+        return o instanceof EnemyBullet || o instanceof Slime;
     }
 
     @Override
