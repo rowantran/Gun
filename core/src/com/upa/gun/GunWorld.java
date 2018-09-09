@@ -24,6 +24,7 @@ public class GunWorld {
         spawner = new Spawner(this, world);
     }
 
+
     public void update(float delta) {
         player.update(delta);
 

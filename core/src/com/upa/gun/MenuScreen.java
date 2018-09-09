@@ -6,6 +6,8 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class MenuScreen extends ScreenAdapter {
     GunGame game;
@@ -17,6 +19,7 @@ public class MenuScreen extends ScreenAdapter {
 
     public MenuScreen(GunGame game) {
         this.game = game;
+
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Settings.RESOLUTION.x, Settings.RESOLUTION.y);
 
@@ -24,6 +27,8 @@ public class MenuScreen extends ScreenAdapter {
 
         textAlpha = 1.0f;
         fading = true;
+
+
     }
 
     public void draw() {
@@ -40,6 +45,14 @@ public class MenuScreen extends ScreenAdapter {
         layout.setText(Assets.menuFont, "Gun");
         Assets.menuFont.draw(game.batch, layout, (Settings.RESOLUTION.x - layout.width) / 2,
                 (Settings.RESOLUTION.y*4/5 + layout.height*0.5f));
+        game.batch.end();
+
+        game.batch.begin();
+        Assets.menuFont.setColor(1,1,1,1);
+        Assets.menuFont.getData().setScale(2);
+        layout.setText(Assets.menuFont, "WASD to move and Left Mouse Button to shoot.");
+        Assets.menuFont.draw(game.batch, layout, (Settings.RESOLUTION.x - layout.width) / 2,
+                Settings.RESOLUTION.y*3/5 + layout.height*0.5f);
         game.batch.end();
 
         game.batch.begin();
