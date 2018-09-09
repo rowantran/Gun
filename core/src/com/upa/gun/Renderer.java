@@ -57,7 +57,13 @@ class Renderer {
     private void drawSlime(Slime slime, float x, float y) {
         batch.enableBlending();
         batch.begin();
-        TextureRegion currentFrame = Assets.slimeMovementAnimations.get(slime.rotation).getKeyFrame(slime.timeElapsed);
+        TextureRegion currentFrame;
+        if (slime.shooting) {
+            currentFrame = Assets.slimeAttackAnimations.get(slime.rotation).getKeyFrame(slime.attackTimeElapsed);
+        } else {
+            currentFrame = Assets.slimeMovementAnimations.get(slime.rotation).getKeyFrame(slime.timeElapsed);
+        }
+
         batch.draw(currentFrame, (x-currentFrame.getRegionWidth()/2), (y-currentFrame.getRegionHeight()/2),
                 currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
         batch.end();
