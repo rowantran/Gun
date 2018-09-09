@@ -109,6 +109,20 @@ public class Slime extends Enemy {
                     body.setLinearVelocity(0, 0);
                 }
             }
+
+            if(slimeX <= 113 && body.getLinearVelocity().x < 0) {
+                body.setLinearVelocity(0, body.getLinearVelocity().y);
+            }
+            if(slimeX >= 1160 && body.getLinearVelocity().x > 0) {
+                body.setLinearVelocity(0, body.getLinearVelocity().y);
+            }
+            if(slimeY <= 136 && body.getLinearVelocity().y < 0) {
+                body.setLinearVelocity(body.getLinearVelocity().x, 0);
+            }
+            if(slimeY >= 674 && body.getLinearVelocity().y > 0) {
+                body.setLinearVelocity(body.getLinearVelocity().x, 0);
+            }
+
         }
 
         if(shooting) {
