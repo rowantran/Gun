@@ -58,7 +58,7 @@ public class GameOver extends ScreenAdapter {
         game.batch.begin();
         Assets.menuFont.setColor(1,1,1,textAlpha);
         Assets.menuFont.getData().setScale(4);
-        layout.setText(Assets.menuFont, "Your Score: ");
+        layout.setText(Assets.menuFont, "Your Score: " + game.player.gunWorld.spawner.slimesKilled);
         Assets.menuFont.draw(game.batch, layout, (Settings.RESOLUTION.x - layout.width) / 2,
                 (Settings.RESOLUTION.x/6));
 
