@@ -78,26 +78,36 @@ public class Player {
             }
         }
         if (!dying && !fading) {
+            int angle = (int) body.getTransform().getRotation();
+
             if (Gdx.input.isKeyPressed(Settings.KEY_LEFT)) {
-                body.setLinearVelocity(-1*Settings.PLAYER_SPEED, 0);
+                int currentX = (int) body.getTransform().getPosition().x;
+                int currentY = (int) body.getTransform().getPosition().y;
+                body.setTransform(currentX-Settings.PLAYER_SPEED*delta, currentY, angle);
                 moving = true;
                 rotation = LEFT;
             }
 
             if (Gdx.input.isKeyPressed(Settings.KEY_RIGHT)) {
-                body.setLinearVelocity(Settings.PLAYER_SPEED, 0);
+                int currentX = (int) body.getTransform().getPosition().x;
+                int currentY = (int) body.getTransform().getPosition().y;
+                body.setTransform(currentX+Settings.PLAYER_SPEED*delta, currentY, angle);
                 moving = true;
                 rotation = RIGHT;
             }
 
             if (Gdx.input.isKeyPressed(Settings.KEY_DOWN)) {
-                body.setLinearVelocity(0, -1*Settings.PLAYER_SPEED);
+                int currentX = (int) body.getTransform().getPosition().x;
+                int currentY = (int) body.getTransform().getPosition().y;
+                body.setTransform(currentX, currentY-Settings.PLAYER_SPEED*delta, angle);
                 moving = true;
                 rotation = FRONT;
             }
 
             if (Gdx.input.isKeyPressed(Settings.KEY_UP)) {
-                body.setLinearVelocity(0, Settings.PLAYER_SPEED);
+                int currentX = (int) body.getTransform().getPosition().x;
+                int currentY = (int) body.getTransform().getPosition().y;
+                body.setTransform(currentX, currentY+Settings.PLAYER_SPEED*delta, angle);
                 moving = true;
                 rotation = BACK;
             }
