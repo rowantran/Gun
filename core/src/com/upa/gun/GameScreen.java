@@ -13,11 +13,12 @@ public class GameScreen extends ScreenAdapter {
     GameScreen(GunGame game) {
         this.game = game;
 
-        world = new GunWorld(game.player, game.slime);
+        world = new GunWorld(game.player);
 
         renderer = new Renderer(game.batch, world);
 
         world.bullets.add(new Bullet(50, 50, Math.PI / 6, game.world));
+        world.enemies.add(new Slime(80,80, game.world));
 
         if (Settings.DEV_MODE) {
             drenderer = new Box2DDebugRenderer();

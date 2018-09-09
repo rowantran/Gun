@@ -9,7 +9,6 @@ public class GunGame extends Game {
 	public SpriteBatch batch;
 	public Player player;
 	public World world;
-	public Enemy slime;
 	private float elapsed;
 
 	@Override
@@ -19,7 +18,6 @@ public class GunGame extends Game {
         batch = new SpriteBatch();
         world = new World(new Vector2(0, 0), true);
         player = new Player(20, 20, world);
-        slime = new Slime(80,80,world);
         elapsed = 0.0f;
         setScreen(new MenuScreen(this));
 	}

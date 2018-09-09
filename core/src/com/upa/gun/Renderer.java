@@ -58,6 +58,10 @@ class Renderer {
         batch.enableBlending();
         batch.begin();
         TextureRegion currentFrame = Assets.slimeMovementAnimations.get(slime.rotation).getKeyFrame(slime.timeElapsed);
+
+        batch.draw(currentFrame, (x-currentFrame.getRegionWidth()/2), (y-currentFrame.getRegionHeight()/2),
+                currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
+        batch.end();
     }
 
     private void drawBullet(Bullet bullet, float x, float y) {
