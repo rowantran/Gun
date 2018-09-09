@@ -13,7 +13,7 @@ public class GameOver extends ScreenAdapter {
     GunGame game;
     OrthographicCamera camera;
     GlyphLayout layout;
-
+    
     float textAlpha;
     boolean fading;
 
