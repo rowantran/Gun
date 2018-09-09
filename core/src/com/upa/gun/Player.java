@@ -2,6 +2,7 @@ package com.upa.gun;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
@@ -169,6 +170,9 @@ public class Player {
                     gunWorld.bullets.add(new FriendlyBullet(body.getTransform().getPosition().x,
                             body.getTransform().getPosition().y,
                             bulletAngle.angleRad(), world));
+                    Sound sound = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
+                    sound.stop();
+                    sound.play();
                     bulletCooldown = 0.4;
                 }
             }

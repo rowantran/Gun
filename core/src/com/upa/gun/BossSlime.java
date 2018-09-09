@@ -1,5 +1,7 @@
 package com.upa.gun;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Shape;
@@ -40,6 +42,9 @@ public class BossSlime extends Slime {
             	gunWorld.bullets.add(new BossBullet(slimePos.x, slimePos.y, angle,
                         world));
             }
+            Sound bossSound = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
+            bossSound.stop();
+            bossSound.play();
         }
     }
 
