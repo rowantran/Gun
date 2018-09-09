@@ -17,6 +17,9 @@ public class Player {
 
     float opacity;
 
+    private World world;
+    private GunWorld gunWorld;
+
     public static int FRONT = 0;
     public static int BACK = 1;
     public static int LEFT = 2;
@@ -55,6 +58,13 @@ public class Player {
         fixtureDef.isSensor = true;
 
         body.createFixture(fixtureDef);
+
+        this.world = world;
+        this.gunWorld = new GunWorld(this, world);
+    }
+
+    public void setWorld(GunWorld world) {
+        this.gunWorld = world;
     }
 
     public void update(float delta) {
@@ -117,6 +127,16 @@ public class Player {
             if (!Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){
                 body.setLinearVelocity(0, 0);
                 moving = false;
+            }
+
+            if (Gdx.input.justTouched()) {
+                int mouseX = Gdx.input.getX();
+                int mouseY = 800 - Gdx.input.getY();
+                Vector2 mousePos = new Vector2(mouseX, mouseY);
+                Vector2 bulletAngle = mousePos.sub(body.getTransform().getPosition());
+                gunWorld.bullets.add(new FriendlyBullet(body.getTransform().getPosition().x,
+                        body.getTransform().getPosition().y,
+                        bulletAngle.angleRad(), world));
             }
         }
 
