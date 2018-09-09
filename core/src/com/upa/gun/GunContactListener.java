@@ -39,9 +39,11 @@ public class GunContactListener implements ContactListener {
     private void dieIfEnemy(Object o) {
         if (isHostile(o)) {
             if (Settings.PLAYER_DEATH) {
-                gunWorld.player.dying = true;
-            } else {
-                gunWorld.player.dying = false;
+                if (o instanceof BossBullet) {
+                    gunWorld.player.hurt(2);
+                } else {
+                    gunWorld.player.hurt(1);
+                }
             }
         }
     }

@@ -1,6 +1,8 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class BossSlime extends Slime {
@@ -12,9 +14,11 @@ public class BossSlime extends Slime {
 
 	float timeHurt;
 	static float timeStayHurt = 0.5f;
+
+	static float hitboxRadius = 50f;
 	
-    public BossSlime(float x, float y, World world, GunWorld gunWorld) {
-        super(x, y, world, gunWorld);
+    public BossSlime(float x, float y, World world, GunWorld gunWorld, Shape hitbox) {
+        super(x, y, world, gunWorld, hitbox);
         timeBetweenAttacks = 8.0f;
         shotInterval = 0.075f;
         speedMultiplier = 0.5f;
@@ -48,6 +52,6 @@ public class BossSlime extends Slime {
                 hurt = false;
             }
         }
-        System.out.println(health);
+        //System.out.println(health);
     }
 }
