@@ -48,6 +48,6 @@ public class BossSlime extends Slime {
                 hurt = false;
             }
         }
-        System.out.println(health);
+        //System.out.println(health);
     }
 }

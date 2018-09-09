@@ -13,6 +13,7 @@ public class Player {
     boolean moving;
     boolean dying;
     boolean fading;
+    boolean hurt;
 
     Vector2 spawnPoint;
     Polygon hitbox;
@@ -26,6 +27,7 @@ public class Player {
     public static int BACK = 1;
     public static int LEFT = 2;
     public static int RIGHT = 3;
+    public int health;
 
     int rotation;
 
@@ -37,8 +39,10 @@ public class Player {
         timeElapsed = 0.0f;
         moving = false;
         dying = false;
+        hurt = false;
 
         opacity = 1.0f;
+        health = 10;
 
         rotation = FRONT;
 
@@ -69,6 +73,14 @@ public class Player {
         this.gunWorld = world;
     }
 
+    public void hurt(int damage) {
+        health -= damage;
+        System.out.println(Integer.toString(health) +  ", " + Integer.toString(damage));
+        if (health <= 0) {
+            dying = true;
+        }
+    }
+
     public void update(float delta) {
         moving = false;
 
@@ -90,6 +102,8 @@ public class Player {
                 Assets.playerIdleSprites[rotation].setRotation(0);
                 fading = false;
                 this.body.setTransform(spawnPoint, 0);
+                System.exit(0);
+                System.out.println("Game Over;");
             }
         }
         if (!dying && !fading) {
