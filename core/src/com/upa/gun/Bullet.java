@@ -48,11 +48,10 @@ public abstract class Bullet {
         int bulletX = (int)body.getTransform().getPosition().x;
         int bulletY = (int)body.getTransform().getPosition().y;
 
-        /*
-        if(bulletX < 96 || bulletX > 1183 || bulletY < 40 || bulletY > 760) {
+        if(bulletX < 0 || bulletX > 1280 || bulletY < 0 || bulletY > 800) {
             markedForDeletion = true;
+            System.out.println("delete");
         }
-        */
 
         vx = Math.cos(angle) * Settings.BULLET_SPEED;
         vy = Math.sin(angle) * Settings.BULLET_SPEED;

@@ -45,7 +45,7 @@ public class Assets {
         loadPlayerAnimations("Left");
         loadPlayerAnimations("Right");
 
-
+    /*
         crosshair = new Texture("sprites/crosshair.png");
         Pixmap pm = new Pixmap(Gdx.files.internal("sprites/crosshair.png"));
         int xHotSpot = pm.getWidth() / 2;
@@ -53,6 +53,7 @@ public class Assets {
 
         Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, xHotSpot, yHotSpot));
         pm.dispose();
+    */
 
         playerIdleSprites = new Sprite[4];
         loadPlayerIdleSprite(Player.FRONT, "Front");
