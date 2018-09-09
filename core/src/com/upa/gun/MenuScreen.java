@@ -6,6 +6,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -16,6 +17,8 @@ public class MenuScreen extends ScreenAdapter {
 
     float textAlpha;
     boolean fading;
+
+    float timeElapsed;
 
     public MenuScreen(GunGame game) {
         this.game = game;
@@ -28,7 +31,7 @@ public class MenuScreen extends ScreenAdapter {
         textAlpha = 1.0f;
         fading = true;
 
-
+        timeElapsed = 0f;
     }
 
     public void draw() {
@@ -46,6 +49,13 @@ public class MenuScreen extends ScreenAdapter {
 
         Assets.menuFont.draw(game.batch, layout, (Settings.RESOLUTION.x - layout.width) / 2,
                 (Settings.RESOLUTION.y*4/5 + layout.height*0.5f));
+        game.batch.end();
+
+        TextureRegion currentFrame = Assets.playerAnimations.get(Player.FRONT).getKeyFrame(timeElapsed);
+        game.batch.begin();
+        game.batch.draw(currentFrame, (int) ((Settings.RESOLUTION.x-currentFrame.getRegionWidth())/2),
+                (int)((Settings.RESOLUTION.y-currentFrame.getRegionHeight())/2),
+                currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
         game.batch.end();
 
         game.batch.begin();
@@ -67,6 +77,8 @@ public class MenuScreen extends ScreenAdapter {
     }
 
     private void update(float delta) {
+        timeElapsed += delta;
+
         if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
             game.setScreen(new GameScreen(game));
         }
