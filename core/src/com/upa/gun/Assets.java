@@ -94,7 +94,7 @@ public class Assets {
 
         bossSlimePainSprite = new Sprite(bossSlimeAtlas.findRegion("bossSlime-hurt"));
         bossSlimePainSprite.setScale(2);
-        
+
         bullets = loadTexture("sprites/laserBullet.png");
 
         bulletLaser = new TextureRegion(bullets, 0, 0, 33, 14);
