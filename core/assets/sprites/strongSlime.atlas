@@ -1,0 +1,47 @@
+strongSlime.png
+size: 37, 217
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+superSlime
+  rotate: false
+  xy: 1, 81
+  size: 35, 35
+  orig: 35, 50
+  offset: 0, 10
+  index: 0
+superSlime
+  rotate: false
+  xy: 1, 154
+  size: 35, 34
+  orig: 35, 50
+  offset: 0, 10
+  index: 1
+superSlime_death
+  rotate: false
+  xy: 1, 41
+  size: 35, 38
+  orig: 35, 50
+  offset: 0, 10
+  index: -1
+superSlimeAttack
+  rotate: false
+  xy: 1, 190
+  size: 35, 26
+  orig: 35, 50
+  offset: 0, 10
+  index: 0
+superSlimeAttack
+  rotate: false
+  xy: 1, 118
+  size: 35, 34
+  orig: 35, 50
+  offset: 0, 10
+  index: 1
+superSlimeAttack
+  rotate: false
+  xy: 1, 1
+  size: 35, 38
+  orig: 35, 50
+  offset: 0, 10
+  index: 2
