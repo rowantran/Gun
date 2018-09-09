@@ -12,6 +12,13 @@ bossSlime-hurt
   index: -1
 bossSlime
   rotate: false
+  xy: 1, 83
+  size: 35, 36
+  orig: 35, 50
+  offset: 0, 10
+  index: 0
+bossSlime
+  rotate: false
   xy: 1, 158
   size: 35, 35
   orig: 35, 50
@@ -38,10 +45,3 @@ bossSlimeAttack
   orig: 35, 50
   offset: 0, 10
   index: 2
-bottSlime
-  rotate: false
-  xy: 1, 83
-  size: 35, 36
-  orig: 35, 50
-  offset: 0, 10
-  index: 0

@@ -185,8 +185,8 @@
             <key type="filename">bossSlimeSprite/bossSlimeAttack_00.png</key>
             <key type="filename">bossSlimeSprite/bossSlimeAttack_01.png</key>
             <key type="filename">bossSlimeSprite/bossSlimeAttack_02.png</key>
+            <key type="filename">bossSlimeSprite/bossSlime_00.png</key>
             <key type="filename">bossSlimeSprite/bossSlime_01.png</key>
-            <key type="filename">bossSlimeSprite/bottSlime_00.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
