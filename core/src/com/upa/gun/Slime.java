@@ -6,12 +6,7 @@ import com.badlogic.gdx.physics.box2d.*;
 
 
 public class Slime extends Enemy {
-<<<<<<< HEAD
-    Vector2 spawnPoint;
-    float opacity;
-=======
     int timeSinceAttack;
->>>>>>> 6088264b05abc843df5efaa0fb26f38a7337d2b5
 
     Body body;
 
@@ -24,14 +19,6 @@ public class Slime extends Enemy {
     public Slime(float x, float y, World world) {
         super();
         attackTimeElapsed = 0.0f;
-
-<<<<<<< HEAD
-        shooting = false;
-        spawnPoint = new  Vector2(x,y);
-        opacity = 1.0f;
-
-=======
->>>>>>> 6088264b05abc843df5efaa0fb26f38a7337d2b5
         //body things
 
         BodyDef bodyDef = new BodyDef();
