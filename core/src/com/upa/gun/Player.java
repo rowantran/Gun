@@ -2,8 +2,10 @@ package com.upa.gun;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 
 public class Player {
@@ -138,9 +140,12 @@ public class Player {
             }
 
             if (Gdx.input.justTouched()) {
-                int mouseX = Gdx.input.getX();
-                int mouseY = 800 - Gdx.input.getY();
-                Vector2 mousePos = new Vector2(mouseX, mouseY);
+                OrthographicCamera camera = new OrthographicCamera();
+                camera.setToOrtho(false, Settings.RESOLUTION.x, Settings.RESOLUTION.y);
+
+                Vector3 mousePos3 = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(),
+                        0));
+                Vector2 mousePos = new Vector2(mousePos3.x, mousePos3.y);
                 Vector2 bulletAngle = mousePos.sub(body.getTransform().getPosition());
                 gunWorld.bullets.add(new FriendlyBullet(body.getTransform().getPosition().x,
                         body.getTransform().getPosition().y,
