@@ -59,7 +59,7 @@ class Renderer {
         sr.setProjectionMatrix(camera.combined);
         sr.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-        batch.begin();
+        batch.begin(); 
         bullet.bulletSprite.setX(x-bullet.bulletSprite.getRegionWidth()/2);
         bullet.bulletSprite.setY(y-bullet.bulletSprite.getRegionHeight()/2);
         bullet.bulletSprite.draw(batch);
