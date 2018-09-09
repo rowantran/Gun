@@ -1,46 +1,46 @@
 bossSlime.png
-size: 39, 206
+size: 37, 211
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 bossSlime-hurt
-  rotate: true
-  xy: 1, 170
+  rotate: false
+  xy: 1, 1
   size: 35, 37
   orig: 35, 37
   offset: 0, 0
   index: -1
 bossSlime
   rotate: false
-  xy: 1, 134
+  xy: 1, 40
   size: 34, 34
   orig: 34, 34
   offset: 0, 0
   index: 0
 bossSlime
   rotate: false
-  xy: 1, 63
+  xy: 1, 76
   size: 35, 33
   orig: 35, 33
   offset: 0, 0
   index: 1
 bossSlimeAttack
   rotate: false
-  xy: 1, 1
+  xy: 1, 111
   size: 35, 25
   orig: 35, 25
   offset: 0, 0
   index: 0
 bossSlimeAttack
   rotate: false
-  xy: 1, 28
+  xy: 1, 138
   size: 35, 33
   orig: 35, 33
   offset: 0, 0
   index: 1
 bossSlimeAttack
-  rotate: true
-  xy: 1, 98
+  rotate: false
+  xy: 1, 173
   size: 34, 37
   orig: 34, 37
   offset: 0, 0
