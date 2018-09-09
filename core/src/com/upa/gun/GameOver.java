@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class MenuScreen extends ScreenAdapter {
+public class GameOver extends ScreenAdapter {
     GunGame game;
     OrthographicCamera camera;
     GlyphLayout layout;
@@ -17,7 +17,7 @@ public class MenuScreen extends ScreenAdapter {
     float textAlpha;
     boolean fading;
 
-    public MenuScreen(GunGame game) {
+    public GameOver(GunGame game) {
         this.game = game;
 
         camera = new OrthographicCamera();
@@ -42,8 +42,7 @@ public class MenuScreen extends ScreenAdapter {
         game.batch.begin();
         Assets.menuFont.setColor(1,1,1,1);
         Assets.menuFont.getData().setScale(8);
-        layout.setText(Assets.menuFont, "There Is No Gun.");
-
+        layout.setText(Assets.menuFont, "GAME OVER.");
         Assets.menuFont.draw(game.batch, layout, (Settings.RESOLUTION.x - layout.width) / 2,
                 (Settings.RESOLUTION.y*4/5 + layout.height*0.5f));
         game.batch.end();
@@ -51,7 +50,7 @@ public class MenuScreen extends ScreenAdapter {
         game.batch.begin();
         Assets.menuFont.setColor(1,1,1,1);
         Assets.menuFont.getData().setScale(2);
-        layout.setText(Assets.menuFont, "WASD to move and Left Mouse Button to shoot.");
+        layout.setText(Assets.menuFont, "By Rowan, Scott, Tushar, and Ishan.");
         Assets.menuFont.draw(game.batch, layout, (Settings.RESOLUTION.x - layout.width) / 2,
                 Settings.RESOLUTION.y*3/5 + layout.height*0.5f);
         game.batch.end();
@@ -59,7 +58,7 @@ public class MenuScreen extends ScreenAdapter {
         game.batch.begin();
         Assets.menuFont.setColor(1,1,1,textAlpha);
         Assets.menuFont.getData().setScale(4);
-        layout.setText(Assets.menuFont, "Press any key to start");
+        layout.setText(Assets.menuFont, "Your Score: ");
         Assets.menuFont.draw(game.batch, layout, (Settings.RESOLUTION.x - layout.width) / 2,
                 (Settings.RESOLUTION.x/6));
 

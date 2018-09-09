@@ -53,7 +53,7 @@ public class GunContactListener implements ContactListener {
         if (hostile) {
             if (o instanceof BossSlime) {
                 BossSlime boss = (BossSlime) o;
-                boss.hurt = true;  
+                boss.hurt = true;
                 boss.health--;
 
                 if (boss.health == 0) {

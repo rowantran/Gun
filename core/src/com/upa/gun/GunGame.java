@@ -23,7 +23,7 @@ public class GunGame extends Game {
         music.play();
         batch = new SpriteBatch();
         world = new World(new Vector2(0, 0), true);
-        player = new Player(200, 200, world);
+        player = new Player(200, 200, world, this);
         elapsed = 0.0f;
 
         setScreen(new MenuScreen(this));
