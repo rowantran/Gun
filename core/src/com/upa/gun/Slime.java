@@ -16,8 +16,8 @@ public class Slime extends Enemy {
 
     public float attackTimeElapsed;
 
-    public Slime(float x, float y, World world) {
-        super();
+    public Slime(float x, float y, World world, GunWorld gunWorld) {
+        super(gunWorld);
         attackTimeElapsed = 0.0f;
         //body things
 
@@ -61,12 +61,60 @@ public class Slime extends Enemy {
             shooting = false;
         }
 
-        move();
+        move(delta);
         shoot();
     }
 
 
-    public void move() {
+    public void move(float delta) {
+
+        int playerX = (int) gunWorld.player.body.getTransform().getPosition().x;
+        int playerY = (int) gunWorld.player.body.getTransform().getPosition().y;
+
+        int slimeX = (int) body.getTransform().getPosition().x;
+        int slimeY = (int) body.getTransform().getPosition().y;
+
+
+        if(!shooting) {
+            if (slimeX < playerX) {
+                if (slimeY < playerY) {
+                    body.setLinearVelocity(Settings.SLIME_SPEED * 3/4, Settings.SLIME_SPEED * 3/4);
+                }
+                if (slimeY > playerY) {
+                    body.setLinearVelocity(Settings.SLIME_SPEED * 3/4, -Settings.SLIME_SPEED * 3/4);
+                }
+                if (slimeY == playerY) {
+                    body.setLinearVelocity(Settings.SLIME_SPEED, 0);
+                }
+            }
+            if (slimeX > playerX) {
+                if (slimeY < playerY) {
+                    body.setLinearVelocity(-Settings.SLIME_SPEED * 3/4, Settings.SLIME_SPEED * 3/4);
+                }
+                if (slimeY > playerY) {
+                    body.setLinearVelocity(-Settings.SLIME_SPEED * 3/4, -Settings.SLIME_SPEED * 3/4);
+                }
+                if (slimeY == playerY) {
+                    body.setLinearVelocity(-Settings.SLIME_SPEED, 0);
+                }
+            }
+            if (slimeX == playerX) {
+                if (slimeY < playerY) {
+                    body.setLinearVelocity(0, Settings.SLIME_SPEED);
+                }
+                if (slimeY > playerY) {
+                    body.setLinearVelocity(0, -Settings.SLIME_SPEED);
+                }
+                if(slimeY == playerY) {
+                    body.setLinearVelocity(0, 0);
+                }
+            }
+        }
+
+        if(shooting) {
+            body.setLinearVelocity(0, 0);
+        }
+
     }
 
     public void shoot() {
