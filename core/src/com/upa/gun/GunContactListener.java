@@ -16,6 +16,7 @@ public class GunContactListener implements ContactListener {
 
     @Override
     public void beginContact(Contact contact) {
+        System.out.println("collision");
         Object a = contact.getFixtureA().getBody().getUserData();
         Object b = contact.getFixtureB().getBody().getUserData();
 
