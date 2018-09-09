@@ -96,32 +96,40 @@ public class Player {
             if (Gdx.input.isKeyPressed(Settings.KEY_LEFT)) {
                 int currentX = (int) body.getTransform().getPosition().x;
                 int currentY = (int) body.getTransform().getPosition().y;
-                body.setTransform(currentX-Settings.PLAYER_SPEED*delta, currentY, angle);
-                moving = true;
+                if(!(currentX - Settings.PLAYER_SPEED * delta < 113)) {
+                    body.setTransform(currentX - Settings.PLAYER_SPEED * delta, currentY, angle);
+                    moving = true;
+                }
                 rotation = LEFT;
             }
 
             if (Gdx.input.isKeyPressed(Settings.KEY_RIGHT)) {
                 int currentX = (int) body.getTransform().getPosition().x;
                 int currentY = (int) body.getTransform().getPosition().y;
-                body.setTransform(currentX+Settings.PLAYER_SPEED*delta, currentY, angle);
-                moving = true;
+                if(!(currentX + Settings.PLAYER_SPEED * delta > 1164)) {
+                    body.setTransform(currentX + Settings.PLAYER_SPEED * delta, currentY, angle);
+                    moving = true;
+                }
                 rotation = RIGHT;
             }
 
             if (Gdx.input.isKeyPressed(Settings.KEY_DOWN)) {
                 int currentX = (int) body.getTransform().getPosition().x;
                 int currentY = (int) body.getTransform().getPosition().y;
-                body.setTransform(currentX, currentY-Settings.PLAYER_SPEED*delta, angle);
-                moving = true;
+                if(!(currentY - Settings.PLAYER_SPEED * delta < 132)){
+                    body.setTransform(currentX, currentY - Settings.PLAYER_SPEED * delta, angle);
+                    moving = true;
+                }
                 rotation = FRONT;
             }
 
             if (Gdx.input.isKeyPressed(Settings.KEY_UP)) {
                 int currentX = (int) body.getTransform().getPosition().x;
                 int currentY = (int) body.getTransform().getPosition().y;
-                body.setTransform(currentX, currentY+Settings.PLAYER_SPEED*delta, angle);
-                moving = true;
+                if(!(currentY + Settings.PLAYER_SPEED * delta > 702)){
+                    body.setTransform(currentX, currentY + Settings.PLAYER_SPEED * delta, angle);
+                    moving = true;
+                }
                 rotation = BACK;
             }
             if (!Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){

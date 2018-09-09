@@ -55,6 +55,7 @@ public class Assets {
         slimeAttackAnimations = new ArrayList<Animation<TextureRegion>>();
         loadSlimeMovementAnimations();
         loadSlimeAttackAnimations();
+
         slimeDeathSprite = new Sprite(Assets.slimeAtlas.findRegion("slime-death"));
 
 

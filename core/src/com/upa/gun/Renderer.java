@@ -1,6 +1,7 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -14,21 +15,18 @@ class Renderer {
 
     private GunWorld world;
 
-    private ShapeRenderer sr;
-
     Renderer(SpriteBatch batch, GunWorld world) {
         this.batch = batch;
         this.world = world;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Settings.RESOLUTION.x, Settings.RESOLUTION.y);
-
-        sr = new ShapeRenderer();
     }
 
     private void drawBackground() {
         batch.disableBlending();
         batch.begin();
+        batch.setColor(1.0f, 1.0f, 1.0f, 1.0f);
         batch.draw(Assets.backgroundRoom1, (Settings.RESOLUTION.x - Assets.backgroundRoom1.getWidth()) / 2,
                 0, Assets.backgroundRoom1.getWidth(), Assets.backgroundRoom1.getHeight());
         batch.end();
@@ -57,8 +55,11 @@ class Renderer {
     private void drawSlime(Slime slime, float x, float y) {
         batch.enableBlending();
         batch.begin();
+        batch.setColor(1.0f, 1.0f, 1.0f, slime.opacity);
         TextureRegion currentFrame;
-        if (slime.shooting) {
+        if (slime.dying) {
+            currentFrame = Assets.slimeDeathSprite;
+        } else if (slime.shooting) {
             currentFrame = Assets.slimeAttackAnimations.get(slime.rotation).getKeyFrame(slime.attackTimeElapsed);
         } else {
             currentFrame = Assets.slimeMovementAnimations.get(slime.rotation).getKeyFrame(slime.timeElapsed);
@@ -71,8 +72,6 @@ class Renderer {
 
     private void drawBullet(Bullet bullet, float x, float y) {
         batch.enableBlending();
-        sr.setProjectionMatrix(camera.combined);
-        sr.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 
         batch.begin(); 
         bullet.bulletSprite.setX(x-bullet.bulletSprite.getRegionWidth()/2);

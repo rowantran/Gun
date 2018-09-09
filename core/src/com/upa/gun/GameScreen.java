@@ -17,7 +17,7 @@ public class GameScreen extends ScreenAdapter {
 
         renderer = new Renderer(game.batch, world);
 
-        world.bullets.add(new Bullet(50, 50, Math.PI / 6, game.world));
+        world.bullets.add(new EnemyBullet(50, 50, Math.PI / 6, game.world));
         world.enemies.add(new Slime(80,80, game.world, world));
 
         if (Settings.DEV_MODE) {
@@ -28,7 +28,7 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void show() {
-        System.out.println("Setting");
+        System.out.println("Binding contact listener");
         game.world.setContactListener(new GunContactListener(world, game.world));
     }
 
