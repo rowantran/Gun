@@ -2,6 +2,7 @@ package com.upa.gun;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
@@ -13,7 +14,7 @@ public class Player {
     boolean moving;
     boolean dying;
     boolean fading;
-    public int health;
+    boolean hurt;
 
     Vector2 spawnPoint;
     Polygon hitbox;
@@ -22,24 +23,35 @@ public class Player {
     private World world;
     private GunWorld gunWorld;
 
+
+    double bulletCooldown;
+
     public static int FRONT = 0;
     public static int BACK = 1;
     public static int LEFT = 2;
     public static int RIGHT = 3;
+    public int health;
 
     int rotation;
 
     Body body;
     
 
+    boolean iframe;
+    float iframeTimer;
+    float iframeLength;
+
     public Player(float x, float y, World world) {
         spawnPoint = new Vector2(x, y);
 
+        bulletCooldown = 0.4;
         timeElapsed = 0.0f;
         moving = false;
         dying = false;
+        hurt = false;
 
         opacity = 1.0f;
+        health = 10;
 
         rotation = FRONT;
 
@@ -64,14 +76,39 @@ public class Player {
 
         this.world = world;
         this.gunWorld = new GunWorld(this, world);
+
+        iframe = false;
+        iframeTimer = 0f;
+        iframeLength = 1.0f;
     }
 
     public void setWorld(GunWorld world) {
         this.gunWorld = world;
     }
 
+    public void hurt(int damage) {
+        if (!iframe) {
+            health -= damage;
+            iframe = true;
+            System.out.println(Integer.toString(health) + ", " + Integer.toString(damage));
+            if (health <= 0) {
+                dying = true;
+            }
+        }
+    }
+
     public void update(float delta) {
         moving = false;
+        bulletCooldown -= delta;
+
+        if (iframe) {
+            iframeTimer += delta;
+            if (iframeTimer > iframeLength) {
+                System.out.println("iframe over");
+                iframe = false;
+                iframeTimer = 0f;
+            }
+        }
 
         if (dying) {
             Assets.playerIdleSprites[rotation].setX(body.getTransform().getPosition().x-
@@ -91,6 +128,7 @@ public class Player {
                 Assets.playerIdleSprites[rotation].setRotation(0);
                 fading = false;
                 this.body.setTransform(spawnPoint, 0);
+                Gdx.app.exit();
             }
         }
         if (!dying && !fading) {
@@ -144,13 +182,20 @@ public class Player {
                 OrthographicCamera camera = new OrthographicCamera();
                 camera.setToOrtho(false, Settings.RESOLUTION.x, Settings.RESOLUTION.y);
 
-                Vector3 mousePos3 = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(),
-                        0));
-                Vector2 mousePos = new Vector2(mousePos3.x, mousePos3.y);
-                Vector2 bulletAngle = mousePos.sub(body.getTransform().getPosition());
-                gunWorld.bullets.add(new FriendlyBullet(body.getTransform().getPosition().x,
-                        body.getTransform().getPosition().y,
-                        bulletAngle.angleRad(), world));
+                if(bulletCooldown <= 0) {
+
+                    Vector3 mousePos3 = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(),
+                            0));
+                    Vector2 mousePos = new Vector2(mousePos3.x, mousePos3.y);
+                    Vector2 bulletAngle = mousePos.sub(body.getTransform().getPosition());
+                    gunWorld.bullets.add(new FriendlyBullet(body.getTransform().getPosition().x,
+                            body.getTransform().getPosition().y,
+                            bulletAngle.angleRad(), world));
+                    Sound sound = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
+                    sound.stop();
+                    sound.play();
+                    bulletCooldown = 0.4;
+                }
             }
         }
 

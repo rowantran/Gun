@@ -39,9 +39,11 @@ public class GunContactListener implements ContactListener {
     private void dieIfEnemy(Object o) {
         if (isHostile(o)) {
             if (Settings.PLAYER_DEATH) {
-                gunWorld.player.dying = true;
-            } else {
-                gunWorld.player.dying = false;
+                if (o instanceof BossBullet) {
+                    gunWorld.player.hurt(2);
+                } else {
+                    gunWorld.player.hurt(1);
+                }
             }
         }
     }
@@ -51,8 +53,13 @@ public class GunContactListener implements ContactListener {
         if (hostile) {
             if (o instanceof BossSlime) {
                 BossSlime boss = (BossSlime) o;
-                boss.hurt = true;
+                boss.hurt = true;  
                 boss.health--;
+
+                if (boss.health == 0) {
+                    gunWorld.spawner.bossAlive = false;
+                    gunWorld.spawner.slimesKilled += 100;
+                }
             } else {
                 markEnemyForDeletion(o);
             }
@@ -73,6 +80,7 @@ public class GunContactListener implements ContactListener {
         // Tushar's bug fix
         ((Enemy) o).dying = true;
         gunWorld.spawner.slimesKilled++;
+        gunWorld.spawner.slimesKilledSinceLastBoss++;
     }
 
     @Override

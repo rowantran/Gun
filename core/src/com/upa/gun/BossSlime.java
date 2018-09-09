@@ -1,6 +1,10 @@
 package com.upa.gun;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class BossSlime extends Slime {
@@ -12,16 +16,18 @@ public class BossSlime extends Slime {
 
 	float timeHurt;
 	static float timeStayHurt = 0.5f;
+
+	static float hitboxRadius = 50f;
 	
-    public BossSlime(float x, float y, World world, GunWorld gunWorld) {
-        super(x, y, world, gunWorld);
+    public BossSlime(int health, float x, float y, World world, GunWorld gunWorld, Shape hitbox) {
+        super(x, y, world, gunWorld, hitbox);
         timeBetweenAttacks = 8.0f;
         shotInterval = 0.075f;
         speedMultiplier = 0.5f;
         
         interval = Math.PI/16;
 
-        health = 10;
+        this.health = health;
 
         hurt = false;
 
@@ -36,6 +42,9 @@ public class BossSlime extends Slime {
             	gunWorld.bullets.add(new BossBullet(slimePos.x, slimePos.y, angle,
                         world));
             }
+            Sound bossSound = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
+            bossSound.stop();
+            bossSound.play();
         }
     }
 
@@ -48,6 +57,10 @@ public class BossSlime extends Slime {
                 hurt = false;
             }
         }
-        System.out.println(health);
+
+        if (health == 0) {
+            dying = true;
+        }
+        //System.out.println(health);
     }
 }

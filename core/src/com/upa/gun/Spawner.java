@@ -6,32 +6,40 @@ public class Spawner {
     GunWorld gunWorld;
     World world;
     int slimesKilled;
+    int slimesKilledSinceLastBoss;
 
     float timeAccumulated;
 
     float maxSpawnTime;
+    float maxSpawnTimeMax;
 
     boolean bossAlive;
 
     int bossThreshold;
+
+    int bossHealth;
 
     Spawner(GunWorld gunWorld, World world) {
         this.gunWorld = gunWorld;
         this.world = world;
 
         slimesKilled = 0;
+        slimesKilledSinceLastBoss = 0;
 
         timeAccumulated = 0f;
 
         maxSpawnTime = generateRandomSpawnTime();
+        maxSpawnTimeMax = 5.0f;
 
         bossAlive = false;
 
-        bossThreshold = 2;
+        bossThreshold = 30;
+
+        bossHealth = 30;
     }
 
     float generateRandomSpawnTime() {
-        return (float) Math.random() * 5.0f / Settings.PERCENT_SPAWN_CHANCE;
+        return (float) Math.random() * maxSpawnTimeMax / Settings.PERCENT_SPAWN_CHANCE;
     }
 
     void spawnSlime() {
@@ -56,17 +64,22 @@ public class Spawner {
     void spawnBossSlime() {
         int spawnX = (int) (Settings.RESOLUTION.x - Assets.bossSlimePainSprite.getWidth()) / 2;
         int spawnY = (int) (Settings.RESOLUTION.y - Assets.bossSlimePainSprite.getHeight() / 2);
-        gunWorld.enemies.add(new BossSlime(spawnX, spawnY, world, gunWorld));
+
+        BossSlimeFactory factory = new BossSlimeFactory();
+        gunWorld.enemies.add(factory.makeBossSlime(bossHealth, spawnX, spawnY, world, gunWorld));
     }
 
     void update(float delta) {
         timeAccumulated += delta;
-        if (slimesKilled == bossThreshold && !bossAlive) {
+        if (slimesKilledSinceLastBoss == bossThreshold && !bossAlive) {
             spawnBossSlime();
             bossAlive = true;
+            slimesKilledSinceLastBoss = 0;
+            bossHealth += 10;
+            maxSpawnTimeMax *= 0.75f;
         }
 
-        if (timeAccumulated >= maxSpawnTime) {
+        if (timeAccumulated >= maxSpawnTime && !bossAlive) {
             spawnSlime();
             maxSpawnTime = generateRandomSpawnTime();
             timeAccumulated = 0;
