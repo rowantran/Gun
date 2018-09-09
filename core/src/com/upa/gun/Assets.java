@@ -68,7 +68,7 @@ public class Assets {
         slimeAtlas = new TextureAtlas(Gdx.files.internal("sprites/slime.atlas"));
         slimeMovementAnimations = new ArrayList<Animation<TextureRegion>>();
         slimeAttackAnimations = new ArrayList<Animation<TextureRegion>>();
-        loadSlimeMovementAnimations();  
+        loadSlimeMovementAnimations();
         loadSlimeAttackAnimations();
 
         slimeDeathSprite = new Sprite(Assets.slimeAtlas.findRegion("slime-death"));

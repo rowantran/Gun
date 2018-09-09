@@ -70,6 +70,25 @@ class Renderer {
         batch.end();
     }
 
+    private void drawStrongSlime(StrongSlime strongSlime, float x, float y) {
+        batch.enableBlending();
+        batch.begin();
+        batch.setColor(1.0f, 1.0f, 1.0f, strongSlime.opacity);
+        TextureRegion currentFrame;
+        if(strongSlime.dying) {
+            currentFrame = Assets.strongSlimeDeathSprite;
+        }
+        else if (strongSlime.shooting) {
+            currentFrame = Assets.strongSlimeAttackAnimations.get(strongSlime.rotation).getKeyFrame(strongSlime.attackTimeElapsed);
+        }
+        else {
+            currentFrame = Assets.strongSlimeMovementAnimations.get(strongSlime.rotation).getKeyFrame(strongSlime.attackTimeElapsed);
+        }
+        batch.draw(currentFrame, (x-currentFrame.getRegionWidth()/2), (y-currentFrame.getRegionHeight()/2),
+                currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
+        batch.end();
+    }
+
     private void drawBullet(Bullet bullet, float x, float y) {
         batch.enableBlending();
 
@@ -97,6 +116,10 @@ class Renderer {
                 } else if (id instanceof Bullet) {
                     Bullet bullet = (Bullet) id;
                     drawBullet(bullet, b.getPosition().x, b.getPosition().y);
+
+                } if (id instanceof StrongSlime) {
+                    StrongSlime strongSlime = (StrongSlime) id;
+                    drawStrongSlime(strongSlime, b.getPosition().x, b.getPosition().y);
                 } else if (id instanceof Slime) {
                     Slime slime = (Slime) id;
                     drawSlime(slime, b.getPosition().x, b.getPosition().y);
