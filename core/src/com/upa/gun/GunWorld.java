@@ -51,7 +51,8 @@ public class GunWorld {
             if (enemy.dying) {
                 enemy.body.setType(BodyDef.BodyType.KinematicBody);
             } else if (enemy.markedForDeletion) {
-            	 iterator.remove();
+                world.destroyBody(enemy.body);
+                iterator.remove();
             }
         }
     }
