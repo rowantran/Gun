@@ -22,7 +22,7 @@ public class RoomScreen1 extends ScreenAdapter {
     @Override
     public void show() {
         System.out.println("Setting");
-        game.world.setContactListener(new GunContactListener());
+        game.world.setContactListener(new GunContactListener(world.player));
     }
 
     @Override

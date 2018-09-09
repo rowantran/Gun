@@ -1,9 +1,5 @@
 package com.upa.gun;
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Polygon;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

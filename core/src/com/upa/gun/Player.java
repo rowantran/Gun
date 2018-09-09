@@ -38,28 +38,31 @@ public class Player {
         rotation = FRONT;
 
         BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.KinematicBody;
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(x, y);
 
         body = world.createBody(bodyDef);
         body.setUserData("Player");
 
         CircleShape hitbox = new CircleShape();
-        hitbox.setRadius(200f);
+        hitbox.setRadius(5f);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = hitbox;
         fixtureDef.density = 0.5f;
         fixtureDef.friction = 0.0f;
         fixtureDef.restitution = 0.0f;
+        fixtureDef.isSensor = true;
 
-        Fixture fix = body.createFixture(fixtureDef);
+        body.createFixture(fixtureDef);
     }
 
     public void update(float delta) {
         moving = false;
 
         if (dying) {
+            Assets.playerIdleSprites[rotation].setX(body.getTransform().getPosition().x);
+            Assets.playerIdleSprites[rotation].setY(body.getTransform().getPosition().y);
             Assets.playerIdleSprites[rotation].rotate(Settings.DEATH_ROTATE_SPEED * delta);
             if (Assets.playerIdleSprites[rotation].getRotation() > 90) {
                 dying = false;
@@ -98,8 +101,7 @@ public class Player {
                 moving = true;
                 rotation = BACK;
             }
-
-            if (!Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
+            if (!Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){
                 body.setLinearVelocity(0, 0);
                 moving = false;
             }
