@@ -5,7 +5,7 @@ import com.badlogic.gdx.physics.box2d.World;
 public class Spawner {
     GunWorld gunWorld;
     World world;
-    int slimesKilled;
+    public int slimesKilled;
     int slimesKilledSinceLastBoss;
 
     float timeAccumulated;

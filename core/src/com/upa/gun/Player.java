@@ -21,7 +21,7 @@ public class Player {
     float opacity;
 
     private World world;
-    private GunWorld gunWorld;
+    public GunWorld gunWorld;
 
 
     double bulletCooldown;
@@ -46,6 +46,7 @@ public class Player {
     Sound shot;
 
     public Player(float x, float y, World world, GunGame game) {
+
 
         spawnPoint = new Vector2(x, y);
 
