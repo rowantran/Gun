@@ -45,7 +45,7 @@ public class Player {
         body.setUserData(this);
 
         CircleShape hitbox = new CircleShape();
-        hitbox.setRadius(5f);
+        hitbox.setRadius(10f);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = hitbox;
@@ -61,8 +61,8 @@ public class Player {
         moving = false;
 
         if (dying) {
-            Assets.playerIdleSprites[rotation].setX(body.getTransform().getPosition().x);
-            Assets.playerIdleSprites[rotation].setY(body.getTransform().getPosition().y);
+            Assets.playerIdleSprites[rotation].setX(body.getTransform().getPosition().x/2);
+            Assets.playerIdleSprites[rotation].setY(body.getTransform().getPosition().y/2);
             Assets.playerIdleSprites[rotation].rotate(Settings.DEATH_ROTATE_SPEED * delta);
             if (Assets.playerIdleSprites[rotation].getRotation() > 90) {
                 dying = false;
