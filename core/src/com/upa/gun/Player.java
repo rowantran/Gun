@@ -79,7 +79,6 @@ public class Player {
 
     public void hurt(int damage) {
         health -= damage;
-        System.out.println(Integer.toString(health) +  ", " + Integer.toString(damage));
         if (health <= 0) {
             dying = true;
         }
@@ -108,7 +107,6 @@ public class Player {
                 fading = false;
                 this.body.setTransform(spawnPoint, 0);
                 Gdx.app.exit();
-                System.out.println("Game Over;");
             }
         }
         if (!dying && !fading) {
