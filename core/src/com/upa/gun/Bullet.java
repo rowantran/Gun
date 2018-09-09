@@ -37,7 +37,7 @@ public abstract class Bullet {
         fixtureDef.restitution = 0.0f;
         fixtureDef.isSensor = true;
 
-        body.createFixture(bulletBox, 0.0f);
+        body.createFixture(fixtureDef);
 
         markedForDeletion = false;
     }
