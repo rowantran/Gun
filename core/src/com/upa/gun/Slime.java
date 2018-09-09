@@ -6,12 +6,17 @@ import com.badlogic.gdx.physics.box2d.*;
 
 public class Slime extends Enemy {
     int rotation;
+
     public static int LEFT = 0;
     public static int RIGHT = 1;
 
     public float attackTimeElapsed;
 
     public float opacity;
+
+    float timeBetweenAttacks = 3.0f;
+    float attackLength = 0.75f;
+    float shotInterval = 0.15f;
 
     World world;
 
@@ -57,31 +62,33 @@ public class Slime extends Enemy {
         if (dying) {
             opacity -= Settings.DEATH_FADE_SPEED * delta;
             if (opacity <= 0.0f) {
-            	dying = false;
+                dying = false;
                 opacity = 0.0f;
                 markedForDeletion = true;
             }
         } else {
-            if (timeElapsed >= 3) {
-                shooting = true;
-                if (attackTimeElapsed >= 0.75) {
-                    attackTimeElapsed = 0;
-                    timeElapsed = 0;
-                    shooting = false;
-                }
-            } else {
-                shooting = false;
-            }
-
+            handleShooting();
             move(delta);
 
-            if (timeSinceAttack >= 0.075f) {
+            if (timeSinceAttack >= shotInterval) {
                 shoot();
                 timeSinceAttack = 0.0f;
             }
         }
     }
 
+    public void handleShooting() {
+        if (timeElapsed >= timeBetweenAttacks) {
+            shooting = true;
+            if (attackTimeElapsed >= attackLength) {
+                attackTimeElapsed = 0;
+                timeElapsed = 0;
+                shooting = false;
+            }
+        } else {
+            shooting = false;
+        }
+    }
 
     public void move(float delta) {
         int playerX = (int) gunWorld.player.body.getTransform().getPosition().x;
