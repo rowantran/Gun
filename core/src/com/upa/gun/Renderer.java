@@ -2,9 +2,7 @@ package com.upa.gun;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
@@ -16,12 +14,19 @@ class Renderer {
 
     private GunWorld world;
 
+    private GlyphLayout layout;
+    private BitmapFont font;
+
     Renderer(SpriteBatch batch, GunWorld world) {
         this.batch = batch;
         this.world = world;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Settings.RESOLUTION.x, Settings.RESOLUTION.y);
+
+        layout = new GlyphLayout();
+        font = new BitmapFont();
+        font.getData().setScale(4);
     }
 
     private void drawBackground() {
@@ -46,10 +51,14 @@ class Renderer {
                         world.player.timeElapsed);
             }
 
+            float opacity = 1.0f;
+            if (world.player.iframe) {
+                opacity = 0.5f;
+            }
+            batch.setColor(1,1,1,opacity);
             batch.draw(currentFrame, (x-currentFrame.getRegionWidth()/2), (y-currentFrame.getRegionHeight()/2),
                     currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
         }
-
         batch.end();
     }
 
@@ -121,6 +130,19 @@ class Renderer {
         batch.end();
     }
 
+    private void drawScore() {
+        batch.enableBlending();
+
+        batch.begin();
+
+        layout.setText(font, Integer.toString(world.spawner.slimesKilled));
+        int x = (int) (Settings.RESOLUTION.x * 5/80f - layout.width);
+        int y = (int) (Settings.RESOLUTION.y * 299/320f);
+
+        font.draw(batch, layout, x, y);
+
+        batch.end();
+    }
 
     void draw(World world) {
         camera.update();
@@ -138,7 +160,6 @@ class Renderer {
                 } else if (id instanceof Bullet) {
                     Bullet bullet = (Bullet) id;
                     drawBullet(bullet, b.getPosition().x, b.getPosition().y);
-
                 } if (id instanceof StrongSlime) {
                     StrongSlime strongSlime = (StrongSlime) id;
                     drawStrongSlime(strongSlime, b.getPosition().x, b.getPosition().y);
@@ -151,5 +172,7 @@ class Renderer {
                 }
             }
         }
+
+        drawScore();
     }
 }
