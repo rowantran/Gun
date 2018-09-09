@@ -14,6 +14,12 @@ public class Assets {
     public static List<Animation<TextureRegion>> playerAnimations;
     public static Sprite[] playerIdleSprites;
 
+    public static TextureAtlas slimeAtlas;
+    public static List<Animation<TextureRegion>> slimeMovementAnimations;
+    public static List<Animation<TextureRegion>> slimeAttackAnimations;
+    public static Sprite slimeDeathSprite;
+
+
     public static Texture bullets;
     public static TextureRegion bulletBasic;
 
@@ -39,6 +45,14 @@ public class Assets {
         loadPlayerIdleSprite(Player.LEFT, "Left");
         loadPlayerIdleSprite(Player.RIGHT, "Right");
 
+        slimeAtlas = new TextureAtlas(Gdx.files.internal("sprites/slime.atlas"));
+        slimeMovementAnimations = new ArrayList<Animation<TextureRegion>>();
+        slimeAttackAnimations = new ArrayList<Animation<TextureRegion>>();
+        loadSlimeMovementAnimations();
+        loadSlimeAttackAnimations();
+        slimeDeathSprite = new Sprite(Assets.slimeAtlas.findRegion("slime-death"));
+
+
         bullets = loadTexture("sprites/laserBullet.png");
 
         bulletBasic = new TextureRegion(bullets, 0, 0, 33, 14);
@@ -53,5 +67,14 @@ public class Assets {
 
     private static void loadPlayerIdleSprite(int index, String direction) {
         playerIdleSprites[index] = new Sprite(Assets.playerAtlas.findRegion("player" + direction + "-idle"));
+    }
+
+    private static void loadSlimeMovementAnimations() {
+        slimeMovementAnimations.add(new Animation<TextureRegion>(0.25f,
+                Assets.slimeAtlas.findRegions("slime"), Animation.PlayMode.LOOP));
+    }
+    private static void loadSlimeAttackAnimations() {
+        slimeAttackAnimations.add(new Animation<TextureRegion>(0.25f,
+                Assets.slimeAtlas.findRegions("slimeAttack"), Animation.PlayMode.LOOP));
     }
 }
