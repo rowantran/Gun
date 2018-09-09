@@ -181,12 +181,12 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">strongSlimeSprites/superSlimeAttack_00.png</key>
-            <key type="filename">strongSlimeSprites/superSlimeAttack_01.png</key>
-            <key type="filename">strongSlimeSprites/superSlimeAttack_02.png</key>
-            <key type="filename">strongSlimeSprites/superSlime_00.png</key>
-            <key type="filename">strongSlimeSprites/superSlime_01.png</key>
-            <key type="filename">strongSlimeSprites/superSlime_death.png</key>
+            <key type="filename">strongSlimeSprites/strongSlime-death.png</key>
+            <key type="filename">strongSlimeSprites/strongSlimeAttack_00.png</key>
+            <key type="filename">strongSlimeSprites/strongSlimeAttack_01.png</key>
+            <key type="filename">strongSlimeSprites/strongSlimeAttack_02.png</key>
+            <key type="filename">strongSlimeSprites/strongSlime_00.png</key>
+            <key type="filename">strongSlimeSprites/strongSlime_01.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
