@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Polygon;
 
 class Renderer {
     private SpriteBatch batch;
@@ -54,8 +55,7 @@ class Renderer {
             sr.setProjectionMatrix(camera.combined);
             sr.begin(ShapeRenderer.ShapeType.Line);
             sr.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-            sr.rect(world.player.bounds.x, world.player.bounds.y, world.player.bounds.width,
-                    world.player.bounds.height);
+            sr.polygon(world.player.hitbox.getTransformedVertices());
             sr.end();
         }
     }
@@ -67,12 +67,11 @@ class Renderer {
 
         for (Bullet bullet : world.bullets) {
             batch.begin();
-            batch.draw(Assets.bulletBasic, bullet.getX(), bullet.getY(), bullet.getWidth(),
-                    bullet.getHeight());
+            bullet.bulletSprite.draw(batch);
             batch.end();
             if (Settings.SHOW_HITBOXES) {
                 sr.begin(ShapeRenderer.ShapeType.Line);
-                sr.rect(bullet.getX(), bullet.getY(), bullet.getWidth(), bullet.getHeight());
+                sr.polygon(bullet.hitbox.getTransformedVertices());
                 sr.end();
             }
         }

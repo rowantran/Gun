@@ -1,5 +1,6 @@
 package com.upa.gun;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 
 public class Settings {
@@ -12,4 +13,9 @@ public class Settings {
     public static final float DEATH_FADE_SPEED = (DEATH_ROTATE_SPEED / 90.0f) * 1.0f;
 
     public static final boolean SHOW_HITBOXES = true;
+
+    public static final int KEY_LEFT = Input.Keys.A;
+    public static final int KEY_RIGHT = Input.Keys.D;
+    public static final int KEY_UP = Input.Keys.W;
+    public static final int KEY_DOWN = Input.Keys.S;
 }
