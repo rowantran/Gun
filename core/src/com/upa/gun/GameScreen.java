@@ -31,12 +31,6 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         world.update(delta);
-        renderer.draw(game.world);
-        if (Settings.DEV_MODE) {
-            drenderer.render(game.world, renderer.camera.combined);
-        }
-        game.doPhysicsStep(delta);
-        world.updatePostPhysics(delta);
 
         int genSlime = (int)(Math.random() * 100);
         if (genSlime == 0) {
@@ -50,8 +44,11 @@ public class GameScreen extends ScreenAdapter {
             }
         }
 
-
-
-
+        renderer.draw(game.world);
+        if (Settings.DEV_MODE) {
+            drenderer.render(game.world, renderer.camera.combined);
+        }
+        game.doPhysicsStep(delta);
+        world.updatePostPhysics(delta);
     }
 }

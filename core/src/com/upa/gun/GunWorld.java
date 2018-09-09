@@ -46,6 +46,10 @@ public class GunWorld {
 
         for (Iterator<Enemy> iterator = enemies.iterator(); iterator.hasNext();) {
             Enemy enemy = iterator.next();
+            if (enemy.dying) {
+                enemy.body.setActive(false);
+            }
+
             if (enemy.markedForDeletion) {
                 world.destroyBody(enemy.body);
                 iterator.remove();

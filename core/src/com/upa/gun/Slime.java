@@ -58,10 +58,9 @@ public class Slime extends Enemy {
         }
 
         if (dying) {
-            body.setType(BodyDef.BodyType.KinematicBody);
             opacity -= Settings.DEATH_FADE_SPEED * delta;
             if (opacity <= 0.0f) {
-            	//dying = false;
+            	dying = false;
                 opacity = 0.0f;
                 markedForDeletion = true;
             }
