@@ -10,6 +10,7 @@ public class BossSlime extends Slime {
     public BossSlime(float x, float y, World world, GunWorld gunWorld) {
         super(x, y, world, gunWorld);
         shotInterval = 0.075f;
+        speedMultiplier = 0.5f;
         
         interval = Math.PI/16;
     }
