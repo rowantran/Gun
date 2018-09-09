@@ -1,9 +1,10 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.*;
 
-public class Bullet {
+public abstract class Bullet {
     double angle;
     Body body;
 
@@ -13,9 +14,9 @@ public class Bullet {
 
     World world;
 
-    Bullet(float x, float y, double angle, World world) {
+    Bullet(float x, float y, double angle, World world, TextureRegion texture) {
         this.angle = angle;
-        bulletSprite = new Sprite(Assets.bulletBasic);
+        bulletSprite = new Sprite(texture);
         bulletSprite.setRotation((float) (angle * 180 / Math.PI));
 
         BodyDef bodyDef = new BodyDef();

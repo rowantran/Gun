@@ -1,5 +1,6 @@
 package com.upa.gun;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 //is this the right import?
@@ -19,6 +20,7 @@ public class Slime extends Enemy {
     public Slime(float x, float y, World world, GunWorld gunWorld) {
         super(gunWorld);
         attackTimeElapsed = 0.0f;
+        timeSinceAttack = 0.0f;
         //body things
 
         BodyDef bodyDef = new BodyDef();
@@ -50,6 +52,7 @@ public class Slime extends Enemy {
     public void update(float delta) {
         if (shooting) {
             attackTimeElapsed += delta;
+            timeSinceAttack += delta;
         } else {
             timeElapsed += delta;
         }
@@ -73,7 +76,11 @@ public class Slime extends Enemy {
             }
 
             move(delta);
-            shoot();
+
+            if (timeSinceAttack >= 0.075f) {
+                shoot();
+                timeSinceAttack = 0.0f;
+            }
         }
     }
 
@@ -139,14 +146,15 @@ public class Slime extends Enemy {
         if(shooting) {
             body.setLinearVelocity(0, 0);
         }
-
     }
 
     public void shoot() {
         if (shooting) {
-            // shooty scooty
-        } else {
-            // no shooty scooty
+            Vector2 slimePos = body.getTransform().getPosition();
+            Vector2 bulletAngle = gunWorld.player.body.getTransform().getPosition()
+                    .sub(slimePos);
+            gunWorld.bullets.add(new EnemyBullet(slimePos.x, slimePos.y, bulletAngle.angleRad(),
+                    world));
         }
     }
 
