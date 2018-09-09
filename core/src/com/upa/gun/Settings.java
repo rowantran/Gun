@@ -4,6 +4,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 
 public class Settings {
+    public static final boolean DEV_MODE = true;
+
     public static final float STEP_TIME = 1/300f;
 
     public static final Vector2 RESOLUTION = new Vector2(1280, 800);
@@ -13,8 +15,6 @@ public class Settings {
 
     public static final float DEATH_ROTATE_SPEED = 80.0f;
     public static final float DEATH_FADE_SPEED = (DEATH_ROTATE_SPEED / 90.0f) * 1.0f;
-
-    public static final boolean SHOW_HITBOXES = true;
 
     public static final int KEY_LEFT = Input.Keys.A;
     public static final int KEY_RIGHT = Input.Keys.D;

@@ -35,7 +35,7 @@ public class MenuScreen extends ScreenAdapter {
 
     private void update() {
         if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
-            game.setScreen(new RoomScreen1(game));
+            game.setScreen(new GameScreen(game));
         }
     }
 

@@ -1,8 +1,6 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
 public class Bullet {
@@ -22,10 +20,10 @@ public class Bullet {
         bodyDef.position.set(x, y);
 
         body = world.createBody(bodyDef);
-        body.setUserData("Bullet");
+        body.setUserData(this);
 
         PolygonShape bulletBox = new PolygonShape();
-        bulletBox.setAsBox(bulletSprite.getWidth(), bulletSprite.getHeight());
+        bulletBox.setAsBox(bulletSprite.getWidth()/2, bulletSprite.getHeight()/2);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = bulletBox;
@@ -38,8 +36,14 @@ public class Bullet {
     }
 
     public void update(float delta) {
-        double vx = Math.cos(angle) * Settings.BULLET_SPEED;
-        double vy = Math.sin(angle) * Settings.BULLET_SPEED;
+        double vx, vy;
+        if (Settings.DEV_MODE) {
+            vx = 0.1f;
+            vy = 0.1f;
+        } else {
+            vx = Math.cos(angle) * Settings.BULLET_SPEED;
+            vy = Math.sin(angle) * Settings.BULLET_SPEED;
+        }
 
         body.setLinearVelocity((float) vx, (float) vy);
     }

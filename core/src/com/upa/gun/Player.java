@@ -42,7 +42,7 @@ public class Player {
         bodyDef.position.set(x, y);
 
         body = world.createBody(bodyDef);
-        body.setUserData("Player");
+        body.setUserData(this);
 
         CircleShape hitbox = new CircleShape();
         hitbox.setRadius(5f);
