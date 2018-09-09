@@ -9,6 +9,7 @@ public class BossSlime extends Slime {
 	
     public BossSlime(float x, float y, World world, GunWorld gunWorld) {
         super(x, y, world, gunWorld);
+        timeBetweenAttacks = 8.0f;
         shotInterval = 0.075f;
         speedMultiplier = 0.5f;
         
@@ -20,7 +21,7 @@ public class BossSlime extends Slime {
             Vector2 slimePos = body.getTransform().getPosition();
             for (int i = 0; i<32; i++) {
             	double angle = interval * (double) i;
-            	gunWorld.bullets.add(new EnemyBullet(slimePos.x, slimePos.y, angle,
+            	gunWorld.bullets.add(new BossBullet(slimePos.x, slimePos.y, angle,
                         world));
             }
         }
