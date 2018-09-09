@@ -23,5 +23,9 @@ public class GunWorld {
             Bullet bullet = iterator.next();
             bullet.update(delta);
         }
+
+        for(int i = 0; i < enemies.size(); i++) {
+            enemies.get(i).update(delta);
+        }
     }
 }

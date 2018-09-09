@@ -61,6 +61,8 @@ public class Slime extends Enemy {
 
     public void move() {
 
+        
+
     }
 
     public void shoot() {
