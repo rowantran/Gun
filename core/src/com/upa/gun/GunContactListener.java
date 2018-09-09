@@ -33,7 +33,9 @@ public class GunContactListener implements ContactListener {
         		gunWorld.player.dying = true;
             	((Bullet) a).markedForDeletion = true;
         	}
+        	
         }
+        
     }
 
     @Override
