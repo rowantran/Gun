@@ -47,7 +47,7 @@ class Renderer {
                         world.player.timeElapsed);
             }
 
-            batch.draw(currentFrame, x, y,
+            batch.draw(currentFrame, (x-currentFrame.getRegionWidth()/2), (y-currentFrame.getRegionHeight()/2),
                     currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
         }
 
