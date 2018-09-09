@@ -23,4 +23,6 @@ public class Settings {
     public static final int KEY_RIGHT = Input.Keys.D;
     public static final int KEY_UP = Input.Keys.W;
     public static final int KEY_DOWN = Input.Keys.S;
+
+    public static int PERCENT_SPAWN_CHANCE = 1;
 }
