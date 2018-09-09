@@ -12,7 +12,6 @@ public class Bullet {
     Bullet(float x, float y, double angle, World world) {
         this.angle = angle;
         bulletSprite = new Sprite(Assets.bulletBasic);
-        bulletSprite.setOrigin(0, 0);
         bulletSprite.setRotation((float) (angle * 180 / Math.PI));
 
         BodyDef bodyDef = new BodyDef();
@@ -21,6 +20,7 @@ public class Bullet {
 
         body = world.createBody(bodyDef);
         body.setUserData(this);
+        body.setTransform(x, y, (float) angle);
 
         PolygonShape bulletBox = new PolygonShape();
         bulletBox.setAsBox(bulletSprite.getWidth()/2, bulletSprite.getHeight()/2);
@@ -37,12 +37,11 @@ public class Bullet {
 
     public void update(float delta) {
         double vx, vy;
-        if (Settings.DEV_MODE) {
-            vx = 0.1f;
-            vy = 0.1f;
-        } else {
-            vx = Math.cos(angle) * Settings.BULLET_SPEED;
-            vy = Math.sin(angle) * Settings.BULLET_SPEED;
+        vx = Math.cos(angle) * Settings.BULLET_SPEED;
+        vy = Math.sin(angle) * Settings.BULLET_SPEED;
+        if (Settings.SLOW_BULLETS) {
+            vx *= 0.1f;
+            vy *= 0.1f;
         }
 
         body.setLinearVelocity((float) vx, (float) vy);
