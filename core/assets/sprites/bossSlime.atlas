@@ -1,0 +1,47 @@
+bossSlime.png
+size: 37, 223
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bossSlime-hurt
+  rotate: false
+  xy: 1, 1
+  size: 35, 39
+  orig: 35, 50
+  offset: 0, 10
+  index: -1
+bossSlime
+  rotate: false
+  xy: 1, 158
+  size: 35, 35
+  orig: 35, 50
+  offset: 0, 10
+  index: 1
+bossSlimeAttack
+  rotate: false
+  xy: 1, 195
+  size: 35, 27
+  orig: 35, 50
+  offset: 0, 10
+  index: 0
+bossSlimeAttack
+  rotate: false
+  xy: 1, 121
+  size: 35, 35
+  orig: 35, 50
+  offset: 0, 10
+  index: 1
+bossSlimeAttack
+  rotate: false
+  xy: 1, 42
+  size: 35, 39
+  orig: 35, 50
+  offset: 0, 10
+  index: 2
+bottSlime
+  rotate: false
+  xy: 1, 83
+  size: 35, 36
+  orig: 35, 50
+  offset: 0, 10
+  index: 0
