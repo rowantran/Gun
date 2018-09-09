@@ -107,7 +107,7 @@ public class Player {
                 Assets.playerIdleSprites[rotation].setRotation(0);
                 fading = false;
                 this.body.setTransform(spawnPoint, 0);
-                System.exit(0);
+                Gdx.app.exit();
                 System.out.println("Game Over;");
             }
         }
