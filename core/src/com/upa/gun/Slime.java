@@ -60,6 +60,7 @@ public class Slime extends Enemy {
         if (dying) {
             opacity -= Settings.DEATH_FADE_SPEED * delta;
             if (opacity <= 0.0f) {
+            	dying = false;
                 opacity = 0.0f;
                 markedForDeletion = true;
             }
