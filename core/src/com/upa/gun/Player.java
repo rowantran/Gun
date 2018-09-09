@@ -36,6 +36,10 @@ public class Player {
 
     Body body;
 
+    boolean iframe;
+    float iframeTimer;
+    float iframeLength;
+
     public Player(float x, float y, World world) {
         spawnPoint = new Vector2(x, y);
 
@@ -71,6 +75,10 @@ public class Player {
 
         this.world = world;
         this.gunWorld = new GunWorld(this, world);
+
+        iframe = false;
+        iframeTimer = 0f;
+        iframeLength = 1.0f;
     }
 
     public void setWorld(GunWorld world) {
@@ -78,16 +86,28 @@ public class Player {
     }
 
     public void hurt(int damage) {
-        health -= damage;
-        System.out.println(Integer.toString(health) +  ", " + Integer.toString(damage));
-        if (health <= 0) {
-            dying = true;
+        if (!iframe) {
+            health -= damage;
+            iframe = true;
+            System.out.println(Integer.toString(health) + ", " + Integer.toString(damage));
+            if (health <= 0) {
+                dying = true;
+            }
         }
     }
 
     public void update(float delta) {
         moving = false;
         bulletCooldown -= delta;
+
+        if (iframe) {
+            iframeTimer += delta;
+            if (iframeTimer > iframeLength) {
+                System.out.println("iframe over");
+                iframe = false;
+                iframeTimer = 0f;
+            }
+        }
 
         if (dying) {
             Assets.playerIdleSprites[rotation].setX(body.getTransform().getPosition().x-

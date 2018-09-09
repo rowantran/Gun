@@ -17,7 +17,7 @@ public class BossSlime extends Slime {
 
 	static float hitboxRadius = 50f;
 	
-    public BossSlime(float x, float y, World world, GunWorld gunWorld, Shape hitbox) {
+    public BossSlime(int health, float x, float y, World world, GunWorld gunWorld, Shape hitbox) {
         super(x, y, world, gunWorld, hitbox);
         timeBetweenAttacks = 8.0f;
         shotInterval = 0.075f;
@@ -25,7 +25,7 @@ public class BossSlime extends Slime {
         
         interval = Math.PI/16;
 
-        health = 10;
+        this.health = health;
 
         hurt = false;
 
@@ -51,6 +51,10 @@ public class BossSlime extends Slime {
                 timeHurt = 0f;
                 hurt = false;
             }
+        }
+
+        if (health == 0) {
+            dying = true;
         }
         //System.out.println(health);
     }
