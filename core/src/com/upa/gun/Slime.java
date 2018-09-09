@@ -67,7 +67,7 @@ public class Slime extends Enemy {
 
     public void shoot() {
         if(timeSinceAttack <= 5) {
-            //shooty shooty
+            //shooty scooty
         }
     }
 
