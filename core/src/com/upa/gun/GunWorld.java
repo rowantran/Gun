@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class World {
+public class GunWorld {
     Player player;
     List<Bullet> bullets;
 
-    World(Player player) {
+    GunWorld(Player player) {
         this.player = player;
         bullets = new ArrayList<Bullet>();
     }
@@ -23,12 +23,6 @@ public class World {
         for (Iterator<Bullet> iterator = bullets.iterator(); iterator.hasNext();) {
             Bullet bullet = iterator.next();
             bullet.update(delta);
-            if (Intersector.overlapConvexPolygons(bullet.hitbox, player.hitbox)) {
-                Assets.playerIdleSprites[player.rotation].setX(player.position.x);
-                Assets.playerIdleSprites[player.rotation].setY(player.position.y);
-                player.dying = true;
-                iterator.remove();
-            }
         }
     }
 }

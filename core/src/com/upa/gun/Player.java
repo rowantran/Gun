@@ -1,10 +1,12 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.*;
 
-public class Player extends Entity {
+public class Player {
     public float timeElapsed;
     boolean moving;
     boolean dying;
@@ -22,10 +24,9 @@ public class Player extends Entity {
 
     int rotation;
 
-    public Player(float x, float y) {
-        super(x, y, Assets.playerAtlas.findRegion("playerFront-idle").getRegionWidth(),
-                Assets.playerAtlas.findRegion("playerFront-idle").getRegionHeight());
+    Body body;
 
+    public Player(float x, float y, World world) {
         spawnPoint = new Vector2(x, y);
 
         timeElapsed = 0.0f;
@@ -36,14 +37,27 @@ public class Player extends Entity {
 
         rotation = FRONT;
 
-        hitbox = new Polygon(new float[]{bounds.x, bounds.y, bounds.x+bounds.width, bounds.y,
-                bounds.x+bounds.width, bounds.y+bounds.height, bounds.x, bounds.y+bounds.height});
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.KinematicBody;
+        bodyDef.position.set(x, y);
+
+        body = world.createBody(bodyDef);
+        body.setUserData("Player");
+
+        CircleShape hitbox = new CircleShape();
+        hitbox.setRadius(200f);
+
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = hitbox;
+        fixtureDef.density = 0.5f;
+        fixtureDef.friction = 0.0f;
+        fixtureDef.restitution = 0.0f;
+
+        Fixture fix = body.createFixture(fixtureDef);
     }
 
     public void update(float delta) {
         moving = false;
-        hitbox = new Polygon(new float[]{bounds.x, bounds.y, bounds.x+bounds.width, bounds.y,
-                bounds.x+bounds.width, bounds.y+bounds.height, bounds.x, bounds.y+bounds.height});
 
         if (dying) {
             Assets.playerIdleSprites[rotation].rotate(Settings.DEATH_ROTATE_SPEED * delta);
@@ -57,39 +71,37 @@ public class Player extends Entity {
                 opacity = 1.0f;
                 Assets.playerIdleSprites[rotation].setRotation(0);
                 fading = false;
-                this.position.x = spawnPoint.x;
-                this.position.y = spawnPoint.y;
-                this.bounds.x = position.x;
-                this.bounds.y = position.y;
+                this.body.setTransform(spawnPoint, 0);
             }
         }
         if (!dying && !fading) {
             if (Gdx.input.isKeyPressed(Settings.KEY_LEFT)) {
-                this.position.x -= Settings.PLAYER_SPEED * delta;
-                this.bounds.x = this.position.x;
+                body.setLinearVelocity(-1*Settings.PLAYER_SPEED, 0);
                 moving = true;
                 rotation = LEFT;
             }
 
             if (Gdx.input.isKeyPressed(Settings.KEY_RIGHT)) {
-                this.position.x += Settings.PLAYER_SPEED * delta;
-                this.bounds.x = this.position.x;
+                body.setLinearVelocity(Settings.PLAYER_SPEED, 0);
                 moving = true;
                 rotation = RIGHT;
             }
 
             if (Gdx.input.isKeyPressed(Settings.KEY_DOWN)) {
-                this.position.y -= Settings.PLAYER_SPEED * delta;
-                this.bounds.y = this.position.y;
+                body.setLinearVelocity(0, -1*Settings.PLAYER_SPEED);
                 moving = true;
                 rotation = FRONT;
             }
 
             if (Gdx.input.isKeyPressed(Settings.KEY_UP)) {
-                this.position.y += Settings.PLAYER_SPEED * delta;
-                this.bounds.y = this.position.y;
+                body.setLinearVelocity(0, Settings.PLAYER_SPEED);
                 moving = true;
                 rotation = BACK;
+            }
+
+            if (!Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
+                body.setLinearVelocity(0, 0);
+                moving = false;
             }
         }
 

@@ -1,15 +1,18 @@
 package com.upa.gun;
 
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.World;
 
 public abstract class Entity {
-    public final Vector2 position;
-    public final Rectangle bounds;
+    Body body;
 
-    public Entity(float x, float y, float width, float height) {
-        this.position = new Vector2(x, y);
-        this.bounds = new Rectangle(x, y, width, height);
+    public Entity(float x, float y, float width, float height, World world) {
+        BodyDef def = new BodyDef();
+        def.type = BodyDef.BodyType.DynamicBody;
+        def.position.set(x, y);
+
+        body = world.createBody(def);
     }
 
     abstract void update(float delta);

@@ -4,17 +4,19 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 
 class Renderer {
     private SpriteBatch batch;
-    private OrthographicCamera camera;
+    OrthographicCamera camera;
 
-    private World world;
+    private GunWorld world;
 
     private ShapeRenderer sr;
 
-    Renderer(SpriteBatch batch, World world) {
+    Renderer(SpriteBatch batch, GunWorld world) {
         this.batch = batch;
         this.world = world;
 
@@ -32,7 +34,7 @@ class Renderer {
         batch.end();
     }
 
-    private void drawPlayer() {
+    private void drawPlayer(float x, float y) {
         batch.enableBlending();
         batch.begin();
         Assets.playerIdleSprites[world.player.rotation].setAlpha(world.player.opacity);
@@ -45,44 +47,40 @@ class Renderer {
                         world.player.timeElapsed);
             }
 
-            batch.draw(currentFrame, world.player.bounds.x, world.player.bounds.y,
-                    world.player.bounds.width, world.player.bounds.height);
+            batch.draw(currentFrame, x, y,
+                    currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
         }
 
         batch.end();
-
-        if (Settings.SHOW_HITBOXES) {
-            sr.setProjectionMatrix(camera.combined);
-            sr.begin(ShapeRenderer.ShapeType.Line);
-            sr.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-            sr.polygon(world.player.hitbox.getTransformedVertices());
-            sr.end();
-        }
     }
 
-    private void drawBullets() {
+    private void drawBullet(float x, float y) {
         batch.enableBlending();
         sr.setProjectionMatrix(camera.combined);
         sr.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-        for (Bullet bullet : world.bullets) {
-            batch.begin();
-            bullet.bulletSprite.draw(batch);
-            batch.end();
-            if (Settings.SHOW_HITBOXES) {
-                sr.begin(ShapeRenderer.ShapeType.Line);
-                sr.polygon(bullet.hitbox.getTransformedVertices());
-                sr.end();
-            }
-        }
+        batch.begin();
+        batch.draw(Assets.bulletBasic, x, y);
+        batch.end();
     }
 
-    void draw() {
+    void draw(World world) {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
 
+        Array<Body> bodies = new Array<Body>();
+        world.getBodies(bodies);
+
         drawBackground();
-        drawPlayer();
-        drawBullets();
+        for (Body b : bodies) {
+            String id = (String) b.getUserData();
+            if (id != null) {
+                if (id.equals("Player")) {
+                    drawPlayer(b.getPosition().x, b.getPosition().y);
+                } else if (id.equals("Bullet")) {
+                    drawBullet(b.getPosition().x, b.getPosition().y);
+                }
+            }
+        }
     }
 }
