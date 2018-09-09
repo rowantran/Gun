@@ -39,7 +39,7 @@ public class GameScreen extends ScreenAdapter {
         world.updatePostPhysics(delta);
 
         int genSlime = (int)(Math.random() * 100);
-        if (genSlime <= Settings.PERCENT_SPAWN_CHANCE) {
+        if (genSlime == 0) {
 
             int spawnPoint = (int)(Math.random() * 2);
             if(spawnPoint == 0) {
