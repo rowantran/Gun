@@ -160,7 +160,7 @@ public class Slime extends Enemy {
             Vector2 bulletAngle = gunWorld.player.body.getTransform().getPosition()
                     .sub(slimePos);
             gunWorld.bullets.add(new EnemyBullet(slimePos.x, slimePos.y, bulletAngle.angleRad(),
-                    world));
+                    world, Assets.bulletEnemy));
         }
     }
 

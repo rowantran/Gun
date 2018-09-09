@@ -34,6 +34,8 @@ public class Assets {
     public static TextureRegion bulletLaser;
     public static Texture bulletsEnemies;
     public static TextureRegion bulletEnemy;
+    public static Texture bulletsEnemiesBoss;
+    public static TextureRegion bulletBoss;
 
     public static BitmapFont menuFont;
 
@@ -89,15 +91,19 @@ public class Assets {
         bossSlimeAttackAnimations = new ArrayList<Animation<TextureRegion>>();
         loadBossSlimeMovementAnimations();
         loadBossSlimeAttackAnimations();
+
         bossSlimePainSprite = new Sprite(bossSlimeAtlas.findRegion("bossSlime-hurt"));
-
-
+        bossSlimePainSprite.setScale(2);
+        
         bullets = loadTexture("sprites/laserBullet.png");
 
         bulletLaser = new TextureRegion(bullets, 0, 0, 33, 14);
 
         bulletsEnemies = loadTexture("sprites/slimePellet.png");
         bulletEnemy = new TextureRegion(bulletsEnemies, 0, 0, 13, 16);
+
+        bulletsEnemiesBoss = loadTexture("sprites/bossPellet.png");
+        bulletBoss = new TextureRegion(bulletsEnemiesBoss, 0, 0,13,16);
 
         menuFont = new BitmapFont();
     }

@@ -1,6 +1,7 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -89,6 +90,27 @@ class Renderer {
         batch.end();
     }
 
+    private void drawBossSlime(BossSlime bossSlime, float x, float y) {
+        batch.enableBlending();
+        batch.begin();
+        batch.setColor(1.0f, 1.0f, 1.0f, bossSlime.opacity);
+        TextureRegion currentFrame;
+        if(bossSlime.dying) {
+            currentFrame = Assets.bossSlimePainSprite;
+        }
+        else if (bossSlime.shooting) {
+            currentFrame = Assets.bossSlimeAttackAnimations.get(0).getKeyFrame(bossSlime.attackTimeElapsed);
+        }
+        else {
+            currentFrame = Assets.bossSlimeMovementAnimations.get(0).getKeyFrame(bossSlime.timeElapsed);
+        }
+
+        currentFrame.getTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        batch.draw(currentFrame, x-currentFrame.getRegionWidth()*4, y-currentFrame.getRegionHeight()*4,
+                currentFrame.getRegionWidth()*8, currentFrame.getRegionHeight()*8);
+        batch.end();
+    }
+
     private void drawBullet(Bullet bullet, float x, float y) {
         batch.enableBlending();
 
@@ -120,6 +142,9 @@ class Renderer {
                 } if (id instanceof StrongSlime) {
                     StrongSlime strongSlime = (StrongSlime) id;
                     drawStrongSlime(strongSlime, b.getPosition().x, b.getPosition().y);
+                } else if (id instanceof BossSlime) {
+                    BossSlime bossSlime = (BossSlime) id;
+                    drawBossSlime(bossSlime, b.getPosition().x, b.getPosition().y);
                 } else if (id instanceof Slime) {
                     Slime slime = (Slime) id;
                     drawSlime(slime, b.getPosition().x, b.getPosition().y);

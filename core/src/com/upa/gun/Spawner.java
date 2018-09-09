@@ -11,6 +11,10 @@ public class Spawner {
 
     float maxSpawnTime;
 
+    boolean bossAlive;
+
+    int bossThreshold;
+
     Spawner(GunWorld gunWorld, World world) {
         this.gunWorld = gunWorld;
         this.world = world;
@@ -20,6 +24,10 @@ public class Spawner {
         timeAccumulated = 0f;
 
         maxSpawnTime = generateRandomSpawnTime();
+
+        bossAlive = false;
+
+        bossThreshold = 2;
     }
 
     float generateRandomSpawnTime() {
@@ -45,9 +53,20 @@ public class Spawner {
         }
     }
 
+    void spawnBossSlime() {
+        int spawnX = (int) (Settings.RESOLUTION.x - Assets.bossSlimePainSprite.getWidth()) / 2;
+        int spawnY = (int) (Settings.RESOLUTION.y - Assets.bossSlimePainSprite.getHeight() / 2);
+        gunWorld.enemies.add(new BossSlime(spawnX, spawnY, world, gunWorld));
+    }
+
     void update(float delta) {
         System.out.println(slimesKilled);
         timeAccumulated += delta;
+        if (slimesKilled == bossThreshold && !bossAlive) {
+            spawnBossSlime();
+            bossAlive = true;
+        }
+
         if (timeAccumulated >= maxSpawnTime) {
             spawnSlime();
             maxSpawnTime = generateRandomSpawnTime();
