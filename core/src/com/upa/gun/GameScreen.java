@@ -17,9 +17,6 @@ public class GameScreen extends ScreenAdapter {
 
         renderer = new Renderer(game.batch, world);
 
-        world.bullets.add(new EnemyBullet(50, 50, Math.PI / 6, game.world));
-        world.enemies.add(new Slime(80,80, game.world, world));
-
         if (Settings.DEV_MODE) {
             drenderer = new Box2DDebugRenderer();
         }
