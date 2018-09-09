@@ -9,6 +9,10 @@ public class Bullet {
 
     Sprite bulletSprite;
 
+    boolean markedForDeletion;
+
+    World world;
+
     Bullet(float x, float y, double angle, World world) {
         this.angle = angle;
         bulletSprite = new Sprite(Assets.bulletBasic);
@@ -33,6 +37,8 @@ public class Bullet {
         fixtureDef.isSensor = true;
 
         body.createFixture(bulletBox, 0.0f);
+
+        markedForDeletion = false;
     }
 
     public void update(float delta) {

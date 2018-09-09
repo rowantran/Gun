@@ -7,8 +7,6 @@ import com.badlogic.gdx.physics.box2d.*;
 
 public class Slime extends Enemy {
     int timeSinceAttack;
-    Vector2 spawnPoint;
-    float opacity;
 
     Body body;
 
@@ -17,11 +15,7 @@ public class Slime extends Enemy {
     public static int RIGHT = 1;
 
     public Slime(float x, float y, World world) {
-
         super();
-
-        spawnPoint = new  Vector2(x,y);
-        opacity = 1.0f;
 
         //body things
 
@@ -54,14 +48,8 @@ public class Slime extends Enemy {
         super.update(delta);
     }
 
-    public void draw() {
-
-    }
-
 
     public void move() {
-
-        
 
     }
 
