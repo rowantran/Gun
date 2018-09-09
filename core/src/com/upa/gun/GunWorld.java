@@ -14,6 +14,7 @@ public class GunWorld {
 
     GunWorld(Player player, World world) {
         this.player = player;
+        player.setWorld(this);
         bullets = new ArrayList<Bullet>();
         enemies = new ArrayList<Enemy>();
 

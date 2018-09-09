@@ -21,13 +21,21 @@ public class GunContactListener implements ContactListener {
         Object a = contact.getFixtureA().getBody().getUserData();
         Object b = contact.getFixtureB().getBody().getUserData();
 
-        if (a instanceof Player && b instanceof Bullet) {
-            gunWorld.player.dying = true;
-            ((Bullet) b).markedForDeletion = true;
-        } else if (b instanceof Player && a instanceof Bullet) {
-            gunWorld.player.dying = true;
-            ((Bullet) a).markedForDeletion = true;
+        if (a instanceof Player) {
+        	if (b instanceof Bullet) {
+	            gunWorld.player.dying = true;
+	            ((Bullet) b).markedForDeletion = true;
+        	} else if (b instanceof Slime) {
+        		gunWorld.player.dying = true;
+        	}
+        } else if (b instanceof Player) {
+        	if (a instanceof Bullet) {
+        		gunWorld.player.dying = true;
+            	((Bullet) a).markedForDeletion = true;
+        	}
+        	
         }
+        
     }
 
     @Override
