@@ -31,7 +31,7 @@ public class Spawner {
     }
 
     float generateRandomSpawnTime() {
-        return (float) Math.random() * 5.0f;
+        return (float) Math.random() * 5.0f / Settings.PERCENT_SPAWN_CHANCE;
     }
 
     void spawnSlime() {

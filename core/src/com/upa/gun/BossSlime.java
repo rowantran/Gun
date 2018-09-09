@@ -11,6 +11,7 @@ public class BossSlime extends Slime {
         super(x, y, world, gunWorld);
         timeBetweenAttacks = 8.0f;
         shotInterval = 0.075f;
+        speedMultiplier = 0.5f;
         
         interval = Math.PI/16;
     }
@@ -23,7 +24,6 @@ public class BossSlime extends Slime {
             	gunWorld.bullets.add(new BossBullet(slimePos.x, slimePos.y, angle,
                         world));
             }
-            
         }
     }
 }
