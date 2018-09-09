@@ -7,7 +7,6 @@ public class GameScreen extends ScreenAdapter {
     GunGame game;
     Renderer renderer;
     private Box2DDebugRenderer drenderer;
-    int spawnChance;
 
     GunWorld world;
 
@@ -38,7 +37,7 @@ public class GameScreen extends ScreenAdapter {
         }
         game.doPhysicsStep(delta);
         world.updatePostPhysics(delta);
-        
+
         int genSlime = (int)(Math.random() * 100);
         if (genSlime <= Settings.PERCENT_SPAWN_CHANCE) {
 
