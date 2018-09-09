@@ -41,5 +41,21 @@ public class GameScreen extends ScreenAdapter {
         }
         game.doPhysicsStep(delta);
         world.updatePostPhysics(delta);
+
+        int genSlime = (int)(Math.random() * 100);
+        if(genSlime == 0) {
+
+            int spawnPoint = (int)(Math.random() * 2);
+            if(spawnPoint == 0) {
+                world.enemies.add(new Slime(318, 760, game.world, world));
+            }
+            if(spawnPoint == 1) {
+                world.enemies.add(new Slime(1026, 40, game.world, world));
+            }
+        }
+
+
+
+
     }
 }
