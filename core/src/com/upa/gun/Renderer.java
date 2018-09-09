@@ -136,8 +136,8 @@ class Renderer {
         batch.begin();
 
         layout.setText(font, Integer.toString(world.spawner.slimesKilled));
-        int x = (int) (Settings.RESOLUTION.x * 5/80f - layout.width);
-        int y = (int) (Settings.RESOLUTION.y * 299/320f);
+        int x = 30;
+        int y = (int) (Settings.RESOLUTION.y - layout.height);
 
         font.draw(batch, layout, x, y);
 

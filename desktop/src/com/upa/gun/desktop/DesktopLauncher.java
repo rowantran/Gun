@@ -11,7 +11,7 @@ public class DesktopLauncher {
 		}
 
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = "Gun";
+		config.title = "There is no Gun";
 		config.width = (int) Settings.RESOLUTION.x;
 		config.height = (int) Settings.RESOLUTION.y;
 

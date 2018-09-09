@@ -25,6 +25,8 @@ public class Slime extends Enemy {
 
     World world;
 
+    Sound shot;
+
     public Slime(float x, float y, World world, GunWorld gunWorld) {
         super(gunWorld);
         attackTimeElapsed = 0.0f;
@@ -54,6 +56,8 @@ public class Slime extends Enemy {
         opacity = 1.0f;
 
         this.world = world;
+
+        shot = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
     }
 
     public Slime(float x, float y, World world, GunWorld gunWorld, Shape hitbox) {
@@ -82,6 +86,8 @@ public class Slime extends Enemy {
         opacity = 1.0f;
 
         this.world = world;
+
+        shot = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
     }
 
     public void update(float delta) {
@@ -193,12 +199,12 @@ public class Slime extends Enemy {
                     .sub(slimePos);
             gunWorld.bullets.add(new EnemyBullet(slimePos.x, slimePos.y, bulletAngle.angleRad(),
                     world, Assets.bulletEnemy));
-
-            Sound sound = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
-            sound.stop();
-            sound.play();
+            fireSound();
         }
     }
 
-
+    public void fireSound() {
+        shot.stop();
+        shot.play();
+    }
 }
