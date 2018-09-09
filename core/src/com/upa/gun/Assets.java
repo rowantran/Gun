@@ -1,6 +1,7 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 
@@ -38,6 +39,10 @@ public class Assets {
         loadPlayerAnimations("Back");
         loadPlayerAnimations("Left");
         loadPlayerAnimations("Right");
+        
+        Pixmap pm = new Pixmap(Gdx.files.internal("sprites/Crosshair.png"));
+        Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
+        pm.dispose();
 
         playerIdleSprites = new Sprite[4];
         loadPlayerIdleSprite(Player.FRONT, "Front");
