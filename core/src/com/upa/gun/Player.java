@@ -145,7 +145,6 @@ public class Player {
                 gunWorld.bullets.add(new FriendlyBullet(body.getTransform().getPosition().x,
                         body.getTransform().getPosition().y,
                         bulletAngle.angleRad(), world));
-                System.out.println(gunWorld.bullets.size());
             }
         }
 
