@@ -12,6 +12,7 @@ public class GunWorld {
     List<Bullet> bullets;
     List<Enemy> enemies;
     World world;
+    Spawner spawner;
 
     GunWorld(Player player, World world) {
         this.player = player;
@@ -20,6 +21,7 @@ public class GunWorld {
         enemies = new ArrayList<Enemy>();
 
         this.world = world;
+        spawner = new Spawner(this, world);
     }
 
     public void update(float delta) {

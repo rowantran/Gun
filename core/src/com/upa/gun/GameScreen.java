@@ -31,7 +31,9 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         world.update(delta);
+        world.spawner.update(delta);
 
+        /*
         int genSlime = (int)(Math.random() * 350);
         if (genSlime == 0 || genSlime == 1 || genSlime == 2 || genSlime == 3) {
 
@@ -52,7 +54,7 @@ public class GameScreen extends ScreenAdapter {
                     world.enemies.add(new Slime(1026, 40, game.world, world));
                 }
             }
-        }
+        } */
 
         renderer.draw(game.world);
         if (Settings.DEV_MODE) {
