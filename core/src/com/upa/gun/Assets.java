@@ -25,6 +25,11 @@ public class Assets {
     public static List<Animation<TextureRegion>> strongSlimeAttackAnimations;
     public static Sprite strongSlimeDeathSprite;
 
+    public static TextureAtlas bossSlimeAtlas;
+    public static List<Animation<TextureRegion>> bossSlimeMovementAnimations;
+    public static List<Animation<TextureRegion>> bossSlimeAttackAnimations;
+    public static Sprite bossSlimePainSprite;
+
     public static Texture bullets;
     public static TextureRegion bulletLaser;
     public static Texture bulletsEnemies;
@@ -70,7 +75,6 @@ public class Assets {
         slimeAttackAnimations = new ArrayList<Animation<TextureRegion>>();
         loadSlimeMovementAnimations();
         loadSlimeAttackAnimations();
-
         slimeDeathSprite = new Sprite(Assets.slimeAtlas.findRegion("slime-death"));
 
         strongSlimeAtlas = new TextureAtlas(Gdx.files.internal("sprites/strongSlime.atlas"));
@@ -78,8 +82,14 @@ public class Assets {
         strongSlimeAttackAnimations = new ArrayList<Animation<TextureRegion>>();
         loadStrongSlimeMovementAnimations();
         loadStrongSlimeAttackAnimations();
-
         strongSlimeDeathSprite = new Sprite(strongSlimeAtlas.findRegion("strongSlime-death"));
+
+        bossSlimeAtlas = new TextureAtlas(Gdx.files.internal("sprites/bossSlime.atlas"));
+        bossSlimeMovementAnimations = new ArrayList<Animation<TextureRegion>>();
+        bossSlimeAttackAnimations = new ArrayList<Animation<TextureRegion>>();
+        //loadBossSlimeMovementAnimations();
+
+
 
         bullets = loadTexture("sprites/laserBullet.png");
 
