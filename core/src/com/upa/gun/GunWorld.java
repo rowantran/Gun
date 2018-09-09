@@ -6,11 +6,14 @@ import java.util.List;
 
 public class GunWorld {
     Player player;
+    Enemy slime;
     List<Bullet> bullets;
+    List<Enemy> enemies;
 
     GunWorld(Player player) {
         this.player = player;
         bullets = new ArrayList<Bullet>();
+        enemies = new ArrayList<Enemy>();
     }
 
     public void update(float delta) {

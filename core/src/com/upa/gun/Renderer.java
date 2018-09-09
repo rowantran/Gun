@@ -47,10 +47,20 @@ class Renderer {
                         world.player.timeElapsed);
             }
 
-            batch.draw(currentFrame, x, y,
+            batch.draw(currentFrame, (x-currentFrame.getRegionWidth()/2), (y-currentFrame.getRegionHeight()/2),
                     currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
         }
 
+        batch.end();
+    }
+
+    private void drawSlime(Slime slime, float x, float y) {
+        batch.enableBlending();
+        batch.begin();
+        TextureRegion currentFrame = Assets.slimeMovementAnimations.get(slime.rotation).getKeyFrame(slime.timeElapsed);
+
+        batch.draw(currentFrame, (x-currentFrame.getRegionWidth()/2), (y-currentFrame.getRegionHeight()/2),
+                currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
         batch.end();
     }
 
@@ -59,12 +69,13 @@ class Renderer {
         sr.setProjectionMatrix(camera.combined);
         sr.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-        batch.begin();
+        batch.begin(); 
         bullet.bulletSprite.setX(x-bullet.bulletSprite.getRegionWidth()/2);
         bullet.bulletSprite.setY(y-bullet.bulletSprite.getRegionHeight()/2);
         bullet.bulletSprite.draw(batch);
         batch.end();
     }
+
 
     void draw(World world) {
         camera.update();
@@ -82,6 +93,9 @@ class Renderer {
                 } else if (id instanceof Bullet) {
                     Bullet bullet = (Bullet) id;
                     drawBullet(bullet, b.getPosition().x, b.getPosition().y);
+                } else if (id instanceof Slime) {
+                    Slime slime = (Slime) id;
+                    drawSlime(slime, b.getPosition().x, b.getPosition().y);
                 }
             }
         }
