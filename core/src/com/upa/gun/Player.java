@@ -41,9 +41,12 @@ public class Player {
     float iframeTimer;
     float iframeLength;
 
+    GunGame game;
+
     Sound shot;
 
-    public Player(float x, float y, World world) {
+    public Player(float x, float y, World world, GunGame game) {
+
         spawnPoint = new Vector2(x, y);
 
         bulletCooldown = 0.4;
@@ -83,6 +86,7 @@ public class Player {
         iframeTimer = 0f;
         iframeLength = 1.0f;
 
+        this.game = game;
         shot = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
     }
 
@@ -132,7 +136,7 @@ public class Player {
                 Assets.playerIdleSprites[rotation].setRotation(0);
                 fading = false;
                 this.body.setTransform(spawnPoint, 0);
-                Gdx.app.exit();
+                game.setScreen(new GameOver(game));
             }
         }
         if (!dying && !fading) {
@@ -196,7 +200,7 @@ public class Player {
                             body.getTransform().getPosition().y,
                             bulletAngle.angleRad(), world));
                     shot.stop();
-                    shot.play();
+                    shot.play(.5f);
                     bulletCooldown = 0.4;
                 }
             }

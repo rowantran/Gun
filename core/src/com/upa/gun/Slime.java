@@ -205,6 +205,6 @@ public class Slime extends Enemy {
 
     public void fireSound() {
         shot.stop();
-        shot.play();
+        shot.play(.4f);
     }
 }

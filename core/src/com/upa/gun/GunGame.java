@@ -1,6 +1,8 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -10,17 +12,22 @@ public class GunGame extends Game {
 	public Player player;
 	public World world;
 	private float elapsed;
+	private Music music;
 
 	@Override
 	public void create () {
 	    Assets.load();
 
+	    music = Gdx.audio.newMusic(Gdx.files.internal("sfx/BeepBox-Song.wav"));
+        music.setLooping(true);
+        music.play();
         batch = new SpriteBatch();
         world = new World(new Vector2(0, 0), true);
-        player = new Player(200, 200, world);
+        player = new Player(200, 200, world, this);
         elapsed = 0.0f;
 
         setScreen(new MenuScreen(this));
+        
 	}
 
 	public void render() {
