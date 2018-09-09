@@ -25,4 +25,5 @@ public class Settings {
     public static final int KEY_DOWN = Input.Keys.S;
 
     public static int PERCENT_SPAWN_CHANCE = 1;
+    public static boolean PLAYER_DEATH = true;
 }
