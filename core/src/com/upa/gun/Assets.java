@@ -42,6 +42,8 @@ public class Assets {
     public Pixmap pm;
     public static Texture crosshair;
 
+    public static Texture heart;
+
     public static Texture loadTexture(String filepath) {
         return new Texture(Gdx.files.internal(filepath));
     }
@@ -106,6 +108,9 @@ public class Assets {
         bulletBoss = new TextureRegion(bulletsEnemiesBoss, 0, 0,13,16);
 
         menuFont = new BitmapFont();
+
+        heart = loadTexture("sprites/heart.png");
+        heart.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
     }
 
     private static void loadPlayerAnimations(String direction) {

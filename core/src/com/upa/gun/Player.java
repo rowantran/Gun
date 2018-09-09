@@ -43,6 +43,8 @@ public class Player {
 
     GunGame game;
 
+    Sound shot;
+
     public Player(float x, float y, World world, GunGame game) {
 
         spawnPoint = new Vector2(x, y);

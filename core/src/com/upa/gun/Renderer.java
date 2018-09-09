@@ -60,6 +60,22 @@ class Renderer {
                     currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
         }
         batch.end();
+
+        drawHealth(world.player.health);
+    }
+
+    private void drawHealth(int health) {
+        batch.begin();
+        int startX = 50;
+        int incrementX = 40;
+        int startY = 72;
+        if (health > 0) {
+            for (int i = 1; i <= health; i++) {
+                batch.draw(Assets.heart, startX, startY, Assets.heart.getWidth()*2, Assets.heart.getHeight()*2);
+                startX += incrementX;
+            }
+        }
+        batch.end();
     }
 
     private void drawSlime(Slime slime, float x, float y) {
