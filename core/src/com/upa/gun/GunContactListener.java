@@ -20,45 +20,48 @@ public class GunContactListener implements ContactListener {
         Object b = contact.getFixtureB().getBody().getUserData();
 
         if (a instanceof Player) {
-            killIfEnemy(b);
+            dieIfEnemy(b);
         } else if (b instanceof Player) {
-            killIfEnemy(a);
+            dieIfEnemy(a);
         }
 
         if (a instanceof FriendlyBullet) {
-            if (b instanceof Enemy) {
-                Enemy enemy = (Enemy) b;
-                enemy.dying = true;
-
-                markForDeletion(a);
+            if (destroyIfHostile(b)) {
+                markBulletForDeletion(a);
             }
         } else if (b instanceof FriendlyBullet) {
-            if (a instanceof Enemy) {
-                Enemy enemy = (Enemy) a;
-                enemy.dying = true;
-
-                markForDeletion(b);
+            if (destroyIfHostile(a)) {
+                markBulletForDeletion(b);
             }
         }
     }
 
-    private void killIfEnemy(Object o) {
-        if (isEnemy(o)) {
+    private void dieIfEnemy(Object o) {
+        if (isHostile(o)) {
             gunWorld.player.dying = true;
         }
     }
 
-    private boolean isEnemy(Object o) {
-        if (o instanceof EnemyBullet) {
-            markForDeletion(o);
-            return true;
+    private boolean destroyIfHostile(Object o) {
+        boolean hostile = o instanceof Enemy;
+        if (hostile) {
+            markEnemyForDeletion(o);
         }
 
-        return o instanceof Enemy;
+        return hostile;
     }
 
-    private void markForDeletion(Object o) {
+    private boolean isHostile(Object o) {
+        return o instanceof Enemy || o instanceof EnemyBullet;
+    }
+
+    private void markBulletForDeletion(Object o) {
         ((Bullet) o).markedForDeletion = true;
+    }
+
+    private void markEnemyForDeletion(Object o) {
+        // Tushar's bug fix
+        ((Enemy) o).dying = true;
     }
 
     @Override
