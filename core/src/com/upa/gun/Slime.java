@@ -17,6 +17,7 @@ public class Slime extends Enemy {
     float timeBetweenAttacks = 3.0f;
     float attackLength = 0.75f;
     float shotInterval = 0.15f;
+    float speedMultiplier = 1/2f;
 
     World world;
 
@@ -101,10 +102,10 @@ public class Slime extends Enemy {
         if(!shooting) {
             if (slimeX < playerX) {
                 if (slimeY < playerY) {
-                    body.setLinearVelocity(Settings.SLIME_SPEED * 3/4, Settings.SLIME_SPEED * 3/4);
+                    body.setLinearVelocity(Settings.SLIME_SPEED * speedMultiplier, Settings.SLIME_SPEED * speedMultiplier);
                 }
                 if (slimeY > playerY) {
-                    body.setLinearVelocity(Settings.SLIME_SPEED * 3/4, -Settings.SLIME_SPEED * 3/4);
+                    body.setLinearVelocity(Settings.SLIME_SPEED * speedMultiplier, -Settings.SLIME_SPEED * speedMultiplier);
                 }
                 if (slimeY == playerY) {
                     body.setLinearVelocity(Settings.SLIME_SPEED, 0);
@@ -112,10 +113,10 @@ public class Slime extends Enemy {
             }
             if (slimeX > playerX) {
                 if (slimeY < playerY) {
-                    body.setLinearVelocity(-Settings.SLIME_SPEED * 3/4, Settings.SLIME_SPEED * 3/4);
+                    body.setLinearVelocity(-Settings.SLIME_SPEED * speedMultiplier, Settings.SLIME_SPEED * speedMultiplier);
                 }
                 if (slimeY > playerY) {
-                    body.setLinearVelocity(-Settings.SLIME_SPEED * 3/4, -Settings.SLIME_SPEED * 3/4);
+                    body.setLinearVelocity(-Settings.SLIME_SPEED * speedMultiplier, -Settings.SLIME_SPEED * speedMultiplier);
                 }
                 if (slimeY == playerY) {
                     body.setLinearVelocity(-Settings.SLIME_SPEED, 0);

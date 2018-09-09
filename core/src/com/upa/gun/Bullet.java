@@ -43,7 +43,6 @@ public abstract class Bullet {
     }
 
     public void update(float delta) {
-        double vx, vy;
 
         int bulletX = (int)body.getTransform().getPosition().x;
         int bulletY = (int)body.getTransform().getPosition().y;
@@ -52,13 +51,5 @@ public abstract class Bullet {
             markedForDeletion = true;
         }
 
-        vx = Math.cos(angle) * Settings.BULLET_SPEED;
-        vy = Math.sin(angle) * Settings.BULLET_SPEED;
-        if (Settings.SLOW_BULLETS) {
-            vx *= 0.1f;
-            vy *= 0.1f;
-        }
-
-        body.setLinearVelocity((float) vx, (float) vy);
     }
 }
