@@ -7,8 +7,6 @@ import com.badlogic.gdx.physics.box2d.*;
 
 public class Slime extends Enemy {
     int timeSinceAttack;
-    Vector2 spawnPoint;
-    float opacity;
 
     Body body;
 
@@ -16,13 +14,11 @@ public class Slime extends Enemy {
     public static int LEFT = 0;
     public static int RIGHT = 1;
 
+    public float attackTimeElapsed;
+
     public Slime(float x, float y, World world) {
-
         super();
-
-        spawnPoint = new  Vector2(x,y);
-        opacity = 1.0f;
-
+        attackTimeElapsed = 0.0f;
         //body things
 
         BodyDef bodyDef = new BodyDef();
@@ -43,31 +39,41 @@ public class Slime extends Enemy {
         fixtureDef.isSensor = true;
 
         body.createFixture(fixtureDef);
-        timeSinceAttack = 0;
 
         rotation = Slime.LEFT;
     }
 
     public void update(float delta) {
+        if (shooting) {
+            attackTimeElapsed += delta;
+        } else {
+            timeElapsed += delta;
+        }
+
+        if(timeElapsed >= 3) {
+            shooting = true;
+            if(attackTimeElapsed >= 0.75) {
+                attackTimeElapsed = 0;
+                timeElapsed = 0;
+                shooting = false;
+            }
+        } else {
+            shooting = false;
+        }
+
         move();
         shoot();
-        super.update(delta);
-    }
-
-    public void draw() {
-
     }
 
 
     public void move() {
-
-        
-
     }
 
     public void shoot() {
-        if(timeSinceAttack <= 5) {
-            //shooty scooty
+        if (shooting) {
+            // shooty scooty
+        } else {
+            // no shooty scooty
         }
     }
 
