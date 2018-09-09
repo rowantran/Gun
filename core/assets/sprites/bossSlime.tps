@@ -182,10 +182,33 @@
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
             <key type="filename">bossSlimeSprite/bossSlime-hurt.png</key>
-            <key type="filename">bossSlimeSprite/bossSlimeAttack_00.png</key>
-            <key type="filename">bossSlimeSprite/bossSlimeAttack_01.png</key>
             <key type="filename">bossSlimeSprite/bossSlimeAttack_02.png</key>
-            <key type="filename">bossSlimeSprite/bossSlime_00.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>9,9,17,19</rect>
+                <key>scale9Paddings</key>
+                <rect>9,9,17,19</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">bossSlimeSprite/bossSlimeAttack_00.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>9,6,17,13</rect>
+                <key>scale9Paddings</key>
+                <rect>9,6,17,13</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">bossSlimeSprite/bossSlimeAttack_01.png</key>
             <key type="filename">bossSlimeSprite/bossSlime_01.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -193,9 +216,22 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>9,13,17,25</rect>
+                <rect>9,8,17,17</rect>
                 <key>scale9Paddings</key>
-                <rect>9,13,17,25</rect>
+                <rect>9,8,17,17</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">bossSlimeSprite/bossSlime_00.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>9,9,17,17</rect>
+                <key>scale9Paddings</key>
+                <rect>9,9,17,17</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
