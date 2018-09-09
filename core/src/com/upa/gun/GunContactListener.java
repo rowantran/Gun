@@ -27,7 +27,6 @@ public class GunContactListener implements ContactListener {
 
         if (a instanceof FriendlyBullet) {
             if (b instanceof Enemy) {
-                System.out.println("Shot up enemy");
                 Enemy enemy = (Enemy) b;
                 enemy.dying = true;
             }
@@ -36,7 +35,6 @@ public class GunContactListener implements ContactListener {
 
     private void killIfEnemy(Object o) {
         if (isEnemy(o)) {
-            System.out.println("killing");
             gunWorld.player.dying = true;
         }
     }

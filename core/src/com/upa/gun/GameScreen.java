@@ -28,7 +28,7 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void show() {
-        System.out.println("Setting");
+        System.out.println("Binding contact listener");
         game.world.setContactListener(new GunContactListener(world, game.world));
     }
 
