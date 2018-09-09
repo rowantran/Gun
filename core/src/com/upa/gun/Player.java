@@ -18,7 +18,6 @@ public class Player {
 
     Vector2 spawnPoint;
     Polygon hitbox;
-
     float opacity;
 
     private World world;
@@ -36,6 +35,7 @@ public class Player {
     int rotation;
 
     Body body;
+    
 
     boolean iframe;
     float iframeTimer;
