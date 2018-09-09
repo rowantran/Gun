@@ -23,7 +23,6 @@ public class BossSlime extends Slime {
             	gunWorld.bullets.add(new EnemyBullet(slimePos.x, slimePos.y, angle,
                         world));
             }
-            
         }
     }
 }
