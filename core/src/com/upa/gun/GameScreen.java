@@ -25,7 +25,6 @@ public class GameScreen extends ScreenAdapter {
         }
     }
 
-
     @Override
     public void show() {
         System.out.println("Binding contact listener");

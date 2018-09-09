@@ -29,6 +29,15 @@ public class GunContactListener implements ContactListener {
             if (b instanceof Enemy) {
                 Enemy enemy = (Enemy) b;
                 enemy.dying = true;
+
+                markForDeletion(a);
+            }
+        } else if (b instanceof FriendlyBullet) {
+            if (a instanceof Enemy) {
+                Enemy enemy = (Enemy) a;
+                enemy.dying = true;
+
+                markForDeletion(b);
             }
         }
     }
@@ -45,7 +54,7 @@ public class GunContactListener implements ContactListener {
             return true;
         }
 
-        return o instanceof Slime;
+        return o instanceof Enemy;
     }
 
     private void markForDeletion(Object o) {

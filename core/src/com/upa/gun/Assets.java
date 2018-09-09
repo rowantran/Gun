@@ -58,7 +58,6 @@ public class Assets {
 
         slimeDeathSprite = new Sprite(Assets.slimeAtlas.findRegion("slime-death"));
 
-
         bullets = loadTexture("sprites/laserBullet.png");
 
         bulletBasic = new TextureRegion(bullets, 0, 0, 33, 14);
