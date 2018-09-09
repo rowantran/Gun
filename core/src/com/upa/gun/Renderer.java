@@ -82,7 +82,7 @@ class Renderer {
             currentFrame = Assets.strongSlimeAttackAnimations.get(strongSlime.rotation).getKeyFrame(strongSlime.attackTimeElapsed);
         }
         else {
-            currentFrame = Assets.strongSlimeMovementAnimations.get(strongSlime.rotation).getKeyFrame(strongSlime.attackTimeElapsed);
+            currentFrame = Assets.strongSlimeMovementAnimations.get(strongSlime.rotation).getKeyFrame(strongSlime.timeElapsed);
         }
         batch.draw(currentFrame, (x-currentFrame.getRegionWidth()/2), (y-currentFrame.getRegionHeight()/2),
                 currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
