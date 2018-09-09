@@ -41,7 +41,9 @@ public class Player {
     float iframeTimer;
     float iframeLength;
 
-    public Player(float x, float y, World world) {
+    GunGame game;
+
+    public Player(float x, float y, World world, GunGame game) {
         spawnPoint = new Vector2(x, y);
 
         bulletCooldown = 0.4;
@@ -80,6 +82,8 @@ public class Player {
         iframe = false;
         iframeTimer = 0f;
         iframeLength = 1.0f;
+
+        this.game = game;
     }
 
     public void setWorld(GunWorld world) {
@@ -128,7 +132,7 @@ public class Player {
                 Assets.playerIdleSprites[rotation].setRotation(0);
                 fading = false;
                 this.body.setTransform(spawnPoint, 0);
-                Gdx.app.exit();
+                game.setScreen(new GameOver(game));
             }
         }
         if (!dying && !fading) {
