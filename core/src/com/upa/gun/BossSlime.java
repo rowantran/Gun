@@ -18,7 +18,7 @@ public class BossSlime extends Slime {
 	static float timeStayHurt = 0.5f;
 
 	static float hitboxRadius = 50f;
-	
+
     public BossSlime(int health, float x, float y, World world, GunWorld gunWorld, Shape hitbox) {
         super(x, y, world, gunWorld, hitbox);
         timeBetweenAttacks = 8.0f;
@@ -57,6 +57,8 @@ public class BossSlime extends Slime {
         }
 
         if (health == 0) {
+            Assets.bossDieSound.stop();
+            Assets.bossDieSound.play(1.0f);
             dying = true;
         }
         //System.out.println(health);

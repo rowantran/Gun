@@ -1,6 +1,7 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -41,6 +42,9 @@ public class Assets {
 
     public Pixmap pm;
     public static Texture crosshair;
+
+    public static Sound bulletSound;
+    public static Sound bossDieSound;
 
     public static Texture heart;
 
@@ -111,6 +115,9 @@ public class Assets {
 
         heart = loadTexture("sprites/heart.png");
         heart.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+
+        bulletSound = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
+        bossDieSound = Gdx.audio.newSound(Gdx.files.internal("sfx/bossdie.wav"));
     }
 
     private static void loadPlayerAnimations(String direction) {

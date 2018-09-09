@@ -66,10 +66,6 @@ public class GameOver extends ScreenAdapter {
     }
 
     private void update(float delta) {
-        if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
-            game.setScreen(new GameScreen(game));
-        }
-
         if (fading) {
             textAlpha -= Settings.DEATH_FADE_SPEED * delta;
             if (textAlpha <= 0.0f) {
