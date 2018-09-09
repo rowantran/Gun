@@ -22,6 +22,9 @@ public class Player {
     private World world;
     private GunWorld gunWorld;
 
+
+    double bulletCooldown;
+
     public static int FRONT = 0;
     public static int BACK = 1;
     public static int LEFT = 2;
@@ -34,6 +37,7 @@ public class Player {
     public Player(float x, float y, World world) {
         spawnPoint = new Vector2(x, y);
 
+        bulletCooldown = 0.4;
         timeElapsed = 0.0f;
         moving = false;
         dying = false;
@@ -71,6 +75,7 @@ public class Player {
 
     public void update(float delta) {
         moving = false;
+        bulletCooldown -= delta;
 
         if (dying) {
             Assets.playerIdleSprites[rotation].setX(body.getTransform().getPosition().x-
@@ -143,13 +148,17 @@ public class Player {
                 OrthographicCamera camera = new OrthographicCamera();
                 camera.setToOrtho(false, Settings.RESOLUTION.x, Settings.RESOLUTION.y);
 
-                Vector3 mousePos3 = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(),
-                        0));
-                Vector2 mousePos = new Vector2(mousePos3.x, mousePos3.y);
-                Vector2 bulletAngle = mousePos.sub(body.getTransform().getPosition());
-                gunWorld.bullets.add(new FriendlyBullet(body.getTransform().getPosition().x,
-                        body.getTransform().getPosition().y,
-                        bulletAngle.angleRad(), world));
+                if(bulletCooldown <= 0) {
+
+                    Vector3 mousePos3 = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(),
+                            0));
+                    Vector2 mousePos = new Vector2(mousePos3.x, mousePos3.y);
+                    Vector2 bulletAngle = mousePos.sub(body.getTransform().getPosition());
+                    gunWorld.bullets.add(new FriendlyBullet(body.getTransform().getPosition().x,
+                            body.getTransform().getPosition().y,
+                            bulletAngle.angleRad(), world));
+                    bulletCooldown = 0.4;
+                }
             }
         }
 
