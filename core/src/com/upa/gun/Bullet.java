@@ -38,8 +38,8 @@ public class Bullet {
     public void update(float delta) {
         double vx, vy;
         if (Settings.DEV_MODE) {
-            vx = 0;
-            vy = 0;
+            vx = 0.1f;
+            vy = 0.1f;
         } else {
             vx = Math.cos(angle) * Settings.BULLET_SPEED;
             vy = Math.sin(angle) * Settings.BULLET_SPEED;
