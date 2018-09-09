@@ -22,7 +22,9 @@ public class Assets {
 
 
     public static Texture bullets;
-    public static TextureRegion bulletBasic;
+    public static TextureRegion bulletLaser;
+    public static Texture bulletsEnemies;
+    public static TextureRegion bulletEnemy;
 
     public static BitmapFont menuFont;
 
@@ -60,7 +62,10 @@ public class Assets {
 
         bullets = loadTexture("sprites/laserBullet.png");
 
-        bulletBasic = new TextureRegion(bullets, 0, 0, 33, 14);
+        bulletLaser = new TextureRegion(bullets, 0, 0, 33, 14);
+
+        bulletsEnemies = loadTexture("sprites/slimePellet.png");
+        bulletEnemy = new TextureRegion(bulletsEnemies, 0, 0, 13, 16);
 
         menuFont = new BitmapFont();
     }
