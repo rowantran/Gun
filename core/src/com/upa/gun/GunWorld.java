@@ -6,6 +6,7 @@ import java.util.List;
 
 public class GunWorld {
     Player player;
+    Enemy slime;
     List<Bullet> bullets;
 
     GunWorld(Player player) {

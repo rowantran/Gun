@@ -2,9 +2,10 @@ package com.upa.gun;
 
 public class Slime extends Enemy {
 
+    int timeSinceAttack;
 
     public Slime() {
-        int timeSiinceAttack = 0;
+        int timeSinceAttack = 0;
     }
 
     public void update() {
