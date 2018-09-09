@@ -50,7 +50,6 @@ public abstract class Bullet {
 
         if(bulletX < 0 || bulletX > 1280 || bulletY < 0 || bulletY > 800) {
             markedForDeletion = true;
-            System.out.println("delete");
         }
 
         vx = Math.cos(angle) * Settings.BULLET_SPEED;

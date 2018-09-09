@@ -1,5 +1,6 @@
 package com.upa.gun;
 
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
@@ -32,8 +33,6 @@ public class GunWorld {
         for(int i = 0; i < enemies.size(); i++) {
             enemies.get(i).update(delta);
         }
-
-        System.out.println(bullets.size());
     }
 
     public void updatePostPhysics(float delta) {
@@ -47,7 +46,9 @@ public class GunWorld {
 
         for (Iterator<Enemy> iterator = enemies.iterator(); iterator.hasNext();) {
             Enemy enemy = iterator.next();
-            if (enemy.markedForDeletion) {
+            if (enemy.dying) {
+                enemy.body.setType(BodyDef.BodyType.KinematicBody);
+            } else if (enemy.markedForDeletion) {
                 world.destroyBody(enemy.body);
                 iterator.remove();
             }
