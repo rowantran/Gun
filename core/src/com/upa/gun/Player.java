@@ -61,8 +61,11 @@ public class Player {
         moving = false;
 
         if (dying) {
-            Assets.playerIdleSprites[rotation].setX(body.getTransform().getPosition().x/2);
-            Assets.playerIdleSprites[rotation].setY(body.getTransform().getPosition().y/2);
+            Assets.playerIdleSprites[rotation].setX(body.getTransform().getPosition().x-
+                    Assets.playerIdleSprites[rotation].getWidth()/2);
+            Assets.playerIdleSprites[rotation].setY(body.getTransform().getPosition().y-
+                    Assets.playerIdleSprites[rotation].getHeight()/2);
+            Assets.playerIdleSprites[rotation].setOriginCenter();
             Assets.playerIdleSprites[rotation].rotate(Settings.DEATH_ROTATE_SPEED * delta);
             if (Assets.playerIdleSprites[rotation].getRotation() > 90) {
                 dying = false;
