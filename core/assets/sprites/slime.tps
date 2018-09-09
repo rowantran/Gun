@@ -34,7 +34,7 @@
         <key>dataFormat</key>
         <string>libgdx</string>
         <key>textureFileName</key>
-        <filename></filename>
+        <filename>slime.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -181,8 +181,10 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">slimeSprites/slime-death.png</key>
             <key type="filename">slimeSprites/slimeAttack_00.png</key>
             <key type="filename">slimeSprites/slimeAttack_01.png</key>
+            <key type="filename">slimeSprites/slimeAttack_02.png</key>
             <key type="filename">slimeSprites/slime_00.png</key>
             <key type="filename">slimeSprites/slime_01.png</key>
             <struct type="IndividualSpriteSettings">
