@@ -42,9 +42,7 @@ public class BossSlime extends Slime {
             	gunWorld.bullets.add(new BossBullet(slimePos.x, slimePos.y, angle,
                         world));
             }
-            Sound bossSound = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
-            bossSound.stop();
-            bossSound.play();
+            fireSound();
         }
     }
 

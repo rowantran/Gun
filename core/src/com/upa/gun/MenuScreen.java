@@ -37,7 +37,7 @@ public class MenuScreen extends ScreenAdapter {
         game.batch.begin();
         Assets.menuFont.setColor(1,1,1,1);
         Assets.menuFont.getData().setScale(8);
-        layout.setText(Assets.menuFont, "Gun");
+        layout.setText(Assets.menuFont, "There is no Gun.");
         Assets.menuFont.draw(game.batch, layout, (Settings.RESOLUTION.x - layout.width) / 2,
                 (Settings.RESOLUTION.y*4/5 + layout.height*0.5f));
         game.batch.end();

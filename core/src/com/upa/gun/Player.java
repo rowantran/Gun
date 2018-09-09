@@ -41,6 +41,8 @@ public class Player {
     float iframeTimer;
     float iframeLength;
 
+    Sound shot;
+
     public Player(float x, float y, World world) {
         spawnPoint = new Vector2(x, y);
 
@@ -80,6 +82,8 @@ public class Player {
         iframe = false;
         iframeTimer = 0f;
         iframeLength = 1.0f;
+
+        shot = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
     }
 
     public void setWorld(GunWorld world) {
@@ -191,9 +195,8 @@ public class Player {
                     gunWorld.bullets.add(new FriendlyBullet(body.getTransform().getPosition().x,
                             body.getTransform().getPosition().y,
                             bulletAngle.angleRad(), world));
-                    Sound sound = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
-                    sound.stop();
-                    sound.play();
+                    shot.stop();
+                    shot.play();
                     bulletCooldown = 0.4;
                 }
             }
