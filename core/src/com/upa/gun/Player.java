@@ -196,7 +196,7 @@ public class Player {
                             body.getTransform().getPosition().y,
                             bulletAngle.angleRad(), world));
                     shot.stop();
-                    shot.play();
+                    shot.play(.5f);
                     bulletCooldown = 0.4;
                 }
             }
