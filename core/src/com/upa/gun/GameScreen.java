@@ -1,14 +1,16 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
-public class RoomScreen1 extends ScreenAdapter {
+public class GameScreen extends ScreenAdapter {
     GunGame game;
     Renderer renderer;
+    private Box2DDebugRenderer drenderer;
 
     GunWorld world;
 
-    RoomScreen1(GunGame game) {
+    GameScreen(GunGame game) {
         this.game = game;
 
         world = new GunWorld(game.player);
@@ -16,6 +18,10 @@ public class RoomScreen1 extends ScreenAdapter {
         renderer = new Renderer(game.batch, world);
 
         world.bullets.add(new Bullet(50, 50, 0, game.world));
+
+        if (Settings.DEV_MODE) {
+            drenderer = new Box2DDebugRenderer();
+        }
     }
 
 
@@ -29,6 +35,9 @@ public class RoomScreen1 extends ScreenAdapter {
     public void render(float delta) {
         world.update(delta);
         renderer.draw(game.world);
+        if (Settings.DEV_MODE) {
+            drenderer.render(game.world, renderer.camera.combined);
+        }
         game.doPhysicsStep(delta);
     }
 }

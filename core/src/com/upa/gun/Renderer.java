@@ -54,13 +54,15 @@ class Renderer {
         batch.end();
     }
 
-    private void drawBullet(float x, float y) {
+    private void drawBullet(Bullet bullet, float x, float y) {
         batch.enableBlending();
         sr.setProjectionMatrix(camera.combined);
         sr.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 
         batch.begin();
-        batch.draw(Assets.bulletBasic, x, y);
+        bullet.bulletSprite.setX(x);
+        bullet.bulletSprite.setY(y);
+        bullet.bulletSprite.draw(batch);
         batch.end();
     }
 
@@ -73,12 +75,13 @@ class Renderer {
 
         drawBackground();
         for (Body b : bodies) {
-            String id = (String) b.getUserData();
+            Object id = b.getUserData();
             if (id != null) {
-                if (id.equals("Player")) {
+                if (id instanceof Player) {
                     drawPlayer(b.getPosition().x, b.getPosition().y);
-                } else if (id.equals("Bullet")) {
-                    drawBullet(b.getPosition().x, b.getPosition().y);
+                } else if (id instanceof Bullet) {
+                    Bullet bullet = (Bullet) id;
+                    drawBullet(bullet, b.getPosition().x, b.getPosition().y);
                 }
             }
         }
