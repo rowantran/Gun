@@ -13,10 +13,10 @@ public class Player {
     boolean moving;
     boolean dying;
     boolean fading;
+    public int health;
 
     Vector2 spawnPoint;
     Polygon hitbox;
-
     float opacity;
 
     private World world;
@@ -30,6 +30,7 @@ public class Player {
     int rotation;
 
     Body body;
+    
 
     public Player(float x, float y, World world) {
         spawnPoint = new Vector2(x, y);
