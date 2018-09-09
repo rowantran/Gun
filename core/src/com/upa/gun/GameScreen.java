@@ -32,15 +32,25 @@ public class GameScreen extends ScreenAdapter {
     public void render(float delta) {
         world.update(delta);
 
-        int genSlime = (int)(Math.random() * 100);
-        if (genSlime == 0) {
+        int genSlime = (int)(Math.random() * 350);
+        if (genSlime == 0 || genSlime == 1 || genSlime == 2 || genSlime == 3) {
 
             int spawnPoint = (int)(Math.random() * 2);
             if(spawnPoint == 0) {
-                world.enemies.add(new StrongSlime(318, 760, game.world, world));
+                if(genSlime == 0) {
+                    world.enemies.add(new StrongSlime(318, 760, game.world, world));
+                }
+                else {
+                    world.enemies.add(new Slime(318,760, game.world, world));
+                }
             }
             if(spawnPoint == 1) {
-                world.enemies.add(new Slime(1026, 40, game.world, world));
+                if(genSlime == 0) {
+                    world.enemies.add(new StrongSlime(1026, 40, game.world, world));
+                }
+                else {
+                    world.enemies.add(new Slime(1026, 40, game.world, world));
+                }
             }
         }
 
