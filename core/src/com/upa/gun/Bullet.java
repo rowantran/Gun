@@ -43,6 +43,16 @@ public class Bullet {
 
     public void update(float delta) {
         double vx, vy;
+
+        int bulletX = (int)body.getTransform().getPosition().x;
+        int bulletY = (int)body.getTransform().getPosition().y;
+
+        /*
+        if(bulletX < 96 || bulletX > 1183 || bulletY < 40 || bulletY > 760) {
+            markedForDeletion = true;
+        }
+        */
+
         vx = Math.cos(angle) * Settings.BULLET_SPEED;
         vy = Math.sin(angle) * Settings.BULLET_SPEED;
         if (Settings.SLOW_BULLETS) {
