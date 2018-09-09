@@ -119,9 +119,9 @@ public class Slime extends Enemy {
 
     public void shoot() {
         if (shooting) {
-            // shooty shooty
+            // shooty scooty
         } else {
-            // no shooty shooty
+            // no shooty scooty
         }
     }
 
