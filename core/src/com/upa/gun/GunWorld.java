@@ -1,5 +1,6 @@
 package com.upa.gun;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -14,14 +15,18 @@ public class GunWorld {
     World world;
     Spawner spawner;
 
-    GunWorld(Player player, World world) {
-        this.player = player;
-        player.setWorld(this);
+    GunGame game;
+
+    GunWorld(GunGame game) {
         bullets = new ArrayList<Bullet>();
         enemies = new ArrayList<Enemy>();
 
-        this.world = world;
+        world = new World(new Vector2(0, 0), true);
         spawner = new Spawner(this, world);
+
+        player = new Player(200, 200, game, world);
+
+        this.game = game;
     }
 
 

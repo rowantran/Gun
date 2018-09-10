@@ -17,7 +17,7 @@ public class GameOver extends ScreenAdapter {
     float textAlpha;
     boolean fading;
 
-    public GameOver(GunGame game) {
+    GameOver(GunGame game) {
         this.game = game;
 
         camera = new OrthographicCamera();
@@ -31,7 +31,7 @@ public class GameOver extends ScreenAdapter {
 
     }
 
-    public void draw() {
+    void draw() {
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
 
@@ -58,7 +58,7 @@ public class GameOver extends ScreenAdapter {
         game.batch.begin();
         Assets.menuFont.setColor(1,1,1,textAlpha);
         Assets.menuFont.getData().setScale(4);
-        layout.setText(Assets.menuFont, "Your Score: " + game.player.gunWorld.spawner.slimesKilled);
+        layout.setText(Assets.menuFont, "Your Score: " + game.world.spawner.slimesKilled);
         Assets.menuFont.draw(game.batch, layout, (Settings.RESOLUTION.x - layout.width) / 2,
                 (Settings.RESOLUTION.x/6));
 

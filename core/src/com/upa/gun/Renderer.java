@@ -160,12 +160,12 @@ class Renderer {
         batch.end();
     }
 
-    void draw(World world) {
+    void draw(GunWorld world) {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
 
         Array<Body> bodies = new Array<Body>();
-        world.getBodies(bodies);
+        world.world.getBodies(bodies);
 
         drawBackground();
         for (Body b : bodies) {
