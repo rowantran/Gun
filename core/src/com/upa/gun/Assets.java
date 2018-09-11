@@ -11,6 +11,7 @@ import java.util.List;
 
 public class Assets {
     public static Texture backgroundRoom1;
+    public static Texture crate;
 
     public static TextureAtlas playerAtlas;
     public static List<Animation<TextureRegion>> playerAnimations;
@@ -54,6 +55,7 @@ public class Assets {
 
     public static void load() {
         backgroundRoom1 = loadTexture("sprites/background1.png");
+        crate = loadTexture("sprites/crate.png");
 
         playerAtlas = new TextureAtlas(Gdx.files.internal("sprites/player.atlas"));
         playerAnimations = new ArrayList<Animation<TextureRegion>>();

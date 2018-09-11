@@ -8,6 +8,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
+import java.util.ArrayList;
+
 class Renderer {
     private SpriteBatch batch;
     OrthographicCamera camera;
@@ -146,6 +148,16 @@ class Renderer {
         batch.end();
     }
 
+    private void drawCrate(Crate crate, float x, float y) {
+        batch.enableBlending();
+
+        batch.begin();
+        crate.crateSprite.setX(x);
+        crate.crateSprite.setY(y);
+        crate.crateSprite.draw(batch);
+        batch.end();
+    }
+
     private void drawScore() {
         batch.enableBlending();
 
@@ -173,9 +185,6 @@ class Renderer {
             if (id != null) {
                 if (id instanceof Player) {
                     drawPlayer(b.getPosition().x, b.getPosition().y);
-                } else if (id instanceof Bullet) {
-                    Bullet bullet = (Bullet) id;
-                    drawBullet(bullet, b.getPosition().x, b.getPosition().y);
                 } if (id instanceof StrongSlime) {
                     StrongSlime strongSlime = (StrongSlime) id;
                     drawStrongSlime(strongSlime, b.getPosition().x, b.getPosition().y);
@@ -185,6 +194,29 @@ class Renderer {
                 } else if (id instanceof Slime) {
                     Slime slime = (Slime) id;
                     drawSlime(slime, b.getPosition().x, b.getPosition().y);
+                }
+            }
+        }
+
+        //temp
+        ArrayList<Crate> crates = new ArrayList<Crate>();
+        for(int i = 0; i < 14; i++) {
+            crates.add(new Crate(i * 64 + 32, 29, Assets.crate));
+            drawCrate(crates.get(i), crates.get(i).x, crates.get(i).y);
+        }
+
+        for(int i = 16; i < 18; i++) {
+            crates.add(new Crate(i * 64 + 32, 29, Assets.crate));
+            drawCrate(crates.get(i-3), crates.get(i-3).x, crates.get(i-3).y);
+        }
+
+
+        for (Body b : bodies) {
+            Object id = b.getUserData();
+            if (id != null) {
+                if (id instanceof Bullet) {
+                    Bullet bullet = (Bullet) id;
+                    drawBullet(bullet, b.getPosition().x, b.getPosition().y);
                 }
             }
         }
