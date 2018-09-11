@@ -3,13 +3,13 @@ package com.upa.gun;
 import com.badlogic.gdx.physics.box2d.Body;
 
 public abstract class Enemy {
-    public float timeElapsed;
-    public float timeSinceAttack;
-    public boolean shooting;
-    public boolean dying;
-    public boolean markedForDeletion;
-    public Body body;
-    public GunWorld gunWorld;
+    float timeElapsed;
+    float timeSinceAttack;
+    boolean shooting;
+    boolean dying;
+    boolean markedForDeletion;
+    Body body;
+    GunWorld gunWorld;
 
     Enemy(GunWorld gunWorld) {
         timeElapsed = 0.0f;

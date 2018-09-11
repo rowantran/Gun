@@ -8,14 +8,10 @@ public class GameScreen extends ScreenAdapter {
     Renderer renderer;
     private Box2DDebugRenderer drenderer;
 
-    GunWorld world;
-
     GameScreen(GunGame game) {
         this.game = game;
 
-        world = new GunWorld(game.player, game.world);
-
-        renderer = new Renderer(game.batch, world);
+        renderer = new Renderer(game.batch, game.world);
 
         if (Settings.DEV_MODE) {
             drenderer = new Box2DDebugRenderer();
@@ -25,19 +21,19 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void show() {
         System.out.println("Binding contact listener");
-        game.world.setContactListener(new GunContactListener(world, game.world));
+        game.world.world.setContactListener(new GunContactListener(game.world));
     }
 
     @Override
     public void render(float delta) {
-        world.update(delta);
-        world.spawner.update(delta);
+        game.world.update(delta);
+        game.world.spawner.update(delta);
 
         renderer.draw(game.world);
         if (Settings.DEV_MODE) {
-            drenderer.render(game.world, renderer.camera.combined);
+            drenderer.render(game.world.world, renderer.camera.combined);
         }
         game.doPhysicsStep(delta);
-        world.updatePostPhysics(delta);
+        game.world.updatePostPhysics(delta);
     }
 }

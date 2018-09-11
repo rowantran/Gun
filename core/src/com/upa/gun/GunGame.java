@@ -9,8 +9,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class GunGame extends Game {
 	public SpriteBatch batch;
-	public Player player;
-	public World world;
+	public GunWorld world;
 	private float elapsed;
 	private Music music;
 
@@ -22,8 +21,7 @@ public class GunGame extends Game {
         music.setLooping(true);
         music.play();
         batch = new SpriteBatch();
-        world = new World(new Vector2(0, 0), true);
-        player = new Player(200, 200, world, this);
+        world = new GunWorld(this);
         elapsed = 0.0f;
 
         setScreen(new MenuScreen(this));
@@ -38,7 +36,7 @@ public class GunGame extends Game {
 	    float frameTime = Math.min(delta, 0.25f);
 	    elapsed += frameTime;
 	    while (elapsed >= Settings.STEP_TIME) {
-	        world.step(Settings.STEP_TIME, 6, 2);
+	        world.world.step(Settings.STEP_TIME, 6, 2);
 	        elapsed -= Settings.STEP_TIME;
         }
     }

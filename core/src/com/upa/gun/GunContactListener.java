@@ -4,11 +4,9 @@ import com.badlogic.gdx.physics.box2d.*;
 
 public class GunContactListener implements ContactListener {
     private GunWorld gunWorld;
-    private World world;
 
-    GunContactListener(GunWorld gunWorld, World world) {
+    GunContactListener(GunWorld gunWorld) {
         this.gunWorld = gunWorld;
-        this.world = world;
     }
 
     @Override

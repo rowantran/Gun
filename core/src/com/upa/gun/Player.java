@@ -17,12 +17,7 @@ public class Player {
     boolean hurt;
 
     Vector2 spawnPoint;
-    Polygon hitbox;
     float opacity;
-
-    private World world;
-    public GunWorld gunWorld;
-
 
     double bulletCooldown;
 
@@ -35,19 +30,16 @@ public class Player {
     int rotation;
 
     Body body;
-    
 
     boolean iframe;
     float iframeTimer;
     float iframeLength;
 
-    GunGame game;
+    private GunGame game;
 
     Sound shot;
 
-    public Player(float x, float y, World world, GunGame game) {
-
-
+    Player(float x, float y, GunGame game, World world) {
         spawnPoint = new Vector2(x, y);
 
         bulletCooldown = 0.4;
@@ -80,9 +72,6 @@ public class Player {
 
         body.createFixture(fixtureDef);
 
-        this.world = world;
-        this.gunWorld = new GunWorld(this, world);
-
         iframe = false;
         iframeTimer = 0f;
         iframeLength = 1.0f;
@@ -91,11 +80,7 @@ public class Player {
         shot = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
     }
 
-    public void setWorld(GunWorld world) {
-        this.gunWorld = world;
-    }
-
-    public void hurt(int damage) {
+    void hurt(int damage) {
         if (!iframe) {
             health -= damage;
             iframe = true;
@@ -197,9 +182,9 @@ public class Player {
                             0));
                     Vector2 mousePos = new Vector2(mousePos3.x, mousePos3.y);
                     Vector2 bulletAngle = mousePos.sub(body.getTransform().getPosition());
-                    gunWorld.bullets.add(new FriendlyBullet(body.getTransform().getPosition().x,
+                    game.world.bullets.add(new FriendlyBullet(body.getTransform().getPosition().x,
                             body.getTransform().getPosition().y,
-                            bulletAngle.angleRad(), world));
+                            bulletAngle.angleRad(), game.world.world));
                     shot.stop();
                     shot.play(.5f);
                     bulletCooldown = 0.4;
