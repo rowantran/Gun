@@ -205,9 +205,9 @@ class Renderer {
             drawCrate(crates.get(i), crates.get(i).x, crates.get(i).y);
         }
 
-        for(int i = 16; i < 18; i++) {
+        for(int i = 17; i < 19; i++) {
             crates.add(new Crate(i * 64 + 32, 29, Assets.crate));
-            drawCrate(crates.get(i-3), crates.get(i-3).x, crates.get(i-3).y);
+            drawCrate(crates.get(i-4), crates.get(i-4).x, crates.get(i-4).y);
         }
 
 
