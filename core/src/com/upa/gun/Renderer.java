@@ -62,8 +62,6 @@ class Renderer {
                     currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
         }
         batch.end();
-
-        drawHealth(world.player.health);
     }
 
     private void drawHealth(int health) {
@@ -180,12 +178,13 @@ class Renderer {
         world.world.getBodies(bodies);
 
         drawBackground();
+
+        drawPlayer(world.player.body.getPosition().x, world.player.body.getPosition().y);
+
         for (Body b : bodies) {
             Object id = b.getUserData();
             if (id != null) {
-                if (id instanceof Player) {
-                    drawPlayer(b.getPosition().x, b.getPosition().y);
-                } if (id instanceof StrongSlime) {
+                if (id instanceof StrongSlime) {
                     StrongSlime strongSlime = (StrongSlime) id;
                     drawStrongSlime(strongSlime, b.getPosition().x, b.getPosition().y);
                 } else if (id instanceof BossSlime) {
@@ -194,32 +193,18 @@ class Renderer {
                 } else if (id instanceof Slime) {
                     Slime slime = (Slime) id;
                     drawSlime(slime, b.getPosition().x, b.getPosition().y);
+                } else if (id instanceof Crate) {
+                    Crate crate = (Crate) id;
+                    drawCrate(crate, crate.x, crate.y); //temp
                 }
             }
         }
 
-        //temp
-        ArrayList<Crate> crates = new ArrayList<Crate>();
-        for(int i = 0; i < 14; i++) {
-            crates.add(new Crate(i * 64 + 32, 29, Assets.crate));
-            drawCrate(crates.get(i), crates.get(i).x, crates.get(i).y);
+        for (Bullet b : world.bullets) {
+            drawBullet(b, b.body.getPosition().x, b.body.getPosition().y);
         }
 
-        for(int i = 17; i < 19; i++) {
-            crates.add(new Crate(i * 64 + 32, 29, Assets.crate));
-            drawCrate(crates.get(i-4), crates.get(i-4).x, crates.get(i-4).y);
-        }
-
-
-        for (Body b : bodies) {
-            Object id = b.getUserData();
-            if (id != null) {
-                if (id instanceof Bullet) {
-                    Bullet bullet = (Bullet) id;
-                    drawBullet(bullet, b.getPosition().x, b.getPosition().y);
-                }
-            }
-        }
+        drawHealth(world.player.health);
 
         drawScore();
     }

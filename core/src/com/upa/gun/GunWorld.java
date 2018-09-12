@@ -12,6 +12,7 @@ public class GunWorld {
     Player player;
     List<Bullet> bullets;
     List<Enemy> enemies;
+    List<Crate> crates;
     World world;
     Spawner spawner;
 
@@ -20,11 +21,20 @@ public class GunWorld {
     GunWorld(GunGame game) {
         bullets = new ArrayList<Bullet>();
         enemies = new ArrayList<Enemy>();
+        crates = new ArrayList<Crate>();
 
         world = new World(new Vector2(0, 0), true);
         spawner = new Spawner(this, world);
 
         player = new Player(200, 200, game, world);
+
+        for(int i = 0; i < 14; i++) {
+            crates.add(new Crate(i * 64 + 32, 29, Assets.crate, world));
+        }
+
+        for(int i = 17; i < 19; i++) {
+            crates.add(new Crate(i * 64 + 32, 29, Assets.crate, world));
+        }
 
         this.game = game;
     }
