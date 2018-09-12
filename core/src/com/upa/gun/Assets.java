@@ -7,14 +7,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Assets {
     public static Texture backgroundRoom1;
     public static Texture crate;
 
     public static TextureAtlas playerAtlas;
-    public static List<Animation<TextureRegion>> playerAnimations;
+    public static Map<ActionState, Map<Direction, Animation<TextureRegion>>> playerAnimations;
     public static Sprite[] playerIdleSprites;
 
     public static TextureAtlas slimeAtlas;
@@ -58,12 +60,8 @@ public class Assets {
         crate = loadTexture("sprites/crate.png");
 
         playerAtlas = new TextureAtlas(Gdx.files.internal("sprites/player.atlas"));
-        playerAnimations = new ArrayList<Animation<TextureRegion>>();
-        loadPlayerAnimations("Front");
-        loadPlayerAnimations("Back");
-        loadPlayerAnimations("Left");
-        loadPlayerAnimations("Right");
-
+        playerAnimations = new HashMap<ActionState, Map<Direction, Animation<TextureRegion>>>();
+        loadPlayerAnimations();
     /*
         crosshair = new Texture("sprites/crosshair.png");
         Pixmap pm = new Pixmap(Gdx.files.internal("sprites/crosshair.png"));
@@ -122,9 +120,21 @@ public class Assets {
         bossDieSound = Gdx.audio.newSound(Gdx.files.internal("sfx/bossdie.wav"));
     }
 
-    private static void loadPlayerAnimations(String direction) {
-        playerAnimations.add(new Animation<TextureRegion>(0.25f,
+    private static Animation<TextureRegion> loadPlayerAnimation(String direction) {
+        return new Animation<TextureRegion>(0.25f,
                 Assets.playerAtlas.findRegions("player" + direction), Animation.PlayMode.LOOP));
+    }
+
+    private static void loadPlayerAnimations() {
+        Map<Direction, Animation<TextureRegion>> playerMovingAnimations =
+                new HashMap<Direction, Animation<TextureRegion>>();
+        playerMovingAnimations.put(Direction.DOWN, loadPlayerAnimation("Front"));
+        playerMovingAnimations.put(Direction.UP, loadPlayerAnimation("Back"));
+        playerMovingAnimations.put(Direction.LEFT, loadPlayerAnimation("Left"));
+        playerMovingAnimations.put(Direction.RIGHT, loadPlayerAnimation("Right"));
+        playerAnimations.put(ActionState.MOVING, playerMovingAnimations);
+
+        playerAnimations.put(ActionState.IDLE, new HashMap<Direction, Animation<TextureRegion>>());
     }
 
     private static void loadPlayerIdleSprite(int index, String direction) {
