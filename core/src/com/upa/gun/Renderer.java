@@ -193,11 +193,12 @@ class Renderer {
                 } else if (id instanceof Slime) {
                     Slime slime = (Slime) id;
                     drawSlime(slime, b.getPosition().x, b.getPosition().y);
-                } else if (id instanceof Crate) {
-                    Crate crate = (Crate) id;
-                    drawCrate(crate, crate.x, crate.y); //temp
                 }
             }
+        }
+
+        for (Crate b : world.crates) {
+            drawCrate(b, b.x, b.y);
         }
 
         for (Bullet b : world.bullets) {

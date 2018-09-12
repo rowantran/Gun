@@ -22,6 +22,11 @@ public class Player {
 
     double bulletCooldown;
 
+    public boolean topStop = false;
+    public boolean botStop = false;
+    public boolean leftStop = false;
+    public boolean rightStop = false;
+
     public static int FRONT = 0;
     public static int BACK = 1;
     public static int LEFT = 2;
@@ -152,7 +157,7 @@ public class Player {
             if (Gdx.input.isKeyPressed(Settings.KEY_DOWN)) {
                 int currentX = (int) body.getTransform().getPosition().x;
                 int currentY = (int) body.getTransform().getPosition().y;
-                if(!(currentY - Settings.PLAYER_SPEED * delta < 132)){
+                if(!botStop){
                     body.setTransform(currentX, currentY - Settings.PLAYER_SPEED * delta, angle);
                     moving = true;
                 }
