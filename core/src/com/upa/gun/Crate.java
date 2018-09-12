@@ -31,7 +31,7 @@ public class Crate {
         body.setTransform(x, y, (float) 0);
 
         PolygonShape crateBox = new PolygonShape();
-        crateBox.setAsBox(crateSprite.getWidth()/2, crateSprite.getHeight()/2);
+        crateBox.setAsBox(crateSprite.getWidth(), crateSprite.getHeight()-27);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = crateBox;
@@ -39,6 +39,8 @@ public class Crate {
         fixtureDef.friction = 0.0f;
         fixtureDef.restitution = 0.0f;
         fixtureDef.isSensor = true;
+
+        body.createFixture(fixtureDef);
 
     }
 
