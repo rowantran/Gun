@@ -47,11 +47,10 @@ class Renderer {
         Animation<TextureRegion> currentAnimation = Assets.playerAnimations.get(player.getState()).get(player.direction);
         TextureRegion currentFrame = currentAnimation.getKeyFrame(world.player.timeElapsed);
 
-        batch.draw(currentFrame.getTexture(), (player.body.getPosition().x - currentFrame.getRegionWidth()/2),
+        batch.draw(currentFrame, (player.body.getPosition().x - currentFrame.getRegionWidth()/2),
                 (player.body.getPosition().y -currentFrame.getRegionHeight()/2), 0, 0,
-                currentFrame.getRegionWidth(), currentFrame.getRegionHeight(), 1, 1, world.player.rotation,
-                0, 0, currentFrame.getRegionWidth(), currentFrame.getRegionHeight(), false, false);
-
+                currentFrame.getRegionWidth(), currentFrame.getRegionHeight(), 1, 1, world.player.rotation);
+        
         batch.end();
     }
 

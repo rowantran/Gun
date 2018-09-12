@@ -175,8 +175,8 @@ public class Player {
                 }
                 direction = Direction.UP;
             }
+
             if (!Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){
-                body.setLinearVelocity(0, 0);
                 moving = false;
             }
 
@@ -200,8 +200,6 @@ public class Player {
             }
         }
 
-        if (moving) {
-            timeElapsed += delta;
-        }
+        timeElapsed += delta;
     }
 }
