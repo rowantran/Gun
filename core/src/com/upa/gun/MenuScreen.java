@@ -51,7 +51,7 @@ public class MenuScreen extends ScreenAdapter {
                 (Settings.RESOLUTION.y*4/5 + layout.height*0.5f));
         game.batch.end();
 
-        TextureRegion currentFrame = Assets.playerAnimations.get(ActionState.IDLE).get(Direction.DOWN).getKeyFrame(timeElapsed);
+        TextureRegion currentFrame = Assets.playerAnimations.get(ActionState.MOVING).get(Direction.DOWN).getKeyFrame(timeElapsed);
         game.batch.begin();
         game.batch.draw(currentFrame, (int) ((Settings.RESOLUTION.x-currentFrame.getRegionWidth())/2),
                 (int)((Settings.RESOLUTION.y-currentFrame.getRegionHeight())/2),
