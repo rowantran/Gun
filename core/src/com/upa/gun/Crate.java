@@ -30,7 +30,7 @@ public class Crate {
 
         body = world.createBody(bodyDef);
         body.setUserData(this);
-        body.setTransform(x, y, (float) 0);
+        //body.setTransform(x, y, (float) 0);
 
         PolygonShape crateBox = new PolygonShape();
 
@@ -40,8 +40,6 @@ public class Crate {
         Vector2 vert4 = new Vector2(0f, 64f);
         vertices = new Vector2[] {vert1, vert2, vert3, vert4};
         crateBox.set(vertices);
-
-        //crateBox.setAsBox(crateSprite.getWidth(), crateSprite.getHeight()-27);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = crateBox;

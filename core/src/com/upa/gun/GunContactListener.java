@@ -32,6 +32,24 @@ public class GunContactListener implements ContactListener {
                 markBulletForDeletion(b);
             }
         }
+
+        // do for enemies also
+        if (a instanceof Player) {
+            System.out.println("player");
+            if (b instanceof Crate) {
+                gunWorld.player.botStop = true;
+                System.out.println("botstop");
+            }
+        } else if (b instanceof Player) {
+            if (a instanceof Crate) {
+                gunWorld.player.botStop = true;
+            } //must check for direction later
+        } else {
+            gunWorld.player.topStop = false;
+            gunWorld.player.botStop = false;
+            gunWorld.player.leftStop = false;
+            gunWorld.player.rightStop = false;
+        }
     }
 
     private void dieIfEnemy(Object o) {
