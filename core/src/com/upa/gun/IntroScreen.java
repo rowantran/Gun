@@ -6,6 +6,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class IntroScreen extends ScreenAdapter{
@@ -40,6 +41,7 @@ public class IntroScreen extends ScreenAdapter{
 	        camera.update();
 	        game.batch.setProjectionMatrix(camera.combined);
 
+	        Sprite sprite = new Sprite();
 	        game.batch.enableBlending();
 	        Gdx.gl.glClearColor(0, 0, 0, 1);
 	        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

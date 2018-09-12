@@ -19,6 +19,7 @@ public class Player {
 
     Vector2 spawnPoint;
     float opacity;
+    float rotation;
 
     double bulletCooldown;
 
@@ -51,7 +52,8 @@ public class Player {
         hurt = false;
 
         opacity = 1.0f;
-        health = 10;
+        health = 1;
+        rotation = 0f;
 
         direction = Direction.DOWN;
 
@@ -115,28 +117,22 @@ public class Player {
         }
 
         if (dying) {
-            /*
-            Assets.playerIdleSprites[rotation].setX(body.getTransform().getPosition().x-
-                    Assets.playerIdleSprites[rotation].getWidth()/2);
-            Assets.playerIdleSprites[rotation].setY(body.getTransform().getPosition().y-
-                    Assets.playerIdleSprites[rotation].getHeight()/2);
-            Assets.playerIdleSprites[rotation].setOriginCenter();
-            Assets.playerIdleSprites[rotation].rotate(Settings.DEATH_ROTATE_SPEED * delta);
-            if (Assets.playerIdleSprites[rotation].getRotation() > 90) {
+            rotation += Settings.DEATH_ROTATE_SPEED * delta;
+            if (rotation > 90) {
                 dying = false;
                 fading = true;
             }
-            */
         } if (fading) {
             opacity -= Settings.DEATH_FADE_SPEED * delta;
             if (opacity < 0.0f) {
                 opacity = 1.0f;
-                //Assets.playerIdleSprites[rotation].setRotation(0);
+                rotation = 0;
                 fading = false;
                 this.body.setTransform(spawnPoint, 0);
                 game.setScreen(new GameOver(game));
             }
         }
+
         if (!dying && !fading) {
             int angle = (int) body.getTransform().getRotation();
 
