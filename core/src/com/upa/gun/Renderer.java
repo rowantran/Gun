@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 class Renderer {
@@ -40,27 +41,15 @@ class Renderer {
         batch.end();
     }
 
-    private void drawPlayer(float x, float y) {
+    private void drawPlayer(Player player) {
         batch.enableBlending();
         batch.begin();
-        Assets.playerIdleSprites[world.player.rotation].setAlpha(world.player.opacity);
-        TextureRegion currentFrame = Assets.playerIdleSprites[world.player.rotation];
-        if (world.player.dying || world.player.fading) {
-            Assets.playerIdleSprites[world.player.rotation].draw(batch);
-        } else {
-            if (world.player.moving) {
-                currentFrame = Assets.playerAnimations.get(world.player.rotation).getKeyFrame(
-                        world.player.timeElapsed);
-            }
+        Animation<TextureRegion> currentAnimation = Assets.playerAnimations.get(player.getState()).get(player.direction);
+        TextureRegion currentFrame = currentAnimation.getKeyFrame(world.player.timeElapsed);
 
-            float opacity = 1.0f;
-            if (world.player.iframe) {
-                opacity = 0.5f;
-            }
-            batch.setColor(1,1,1,opacity);
-            batch.draw(currentFrame, (x-currentFrame.getRegionWidth()/2), (y-currentFrame.getRegionHeight()/2),
-                    currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
-        }
+        batch.draw(currentFrame, (player.body.getPosition().x - currentFrame.getRegionWidth()/2),
+                (player.body.getPosition().y -currentFrame.getRegionHeight()/2),
+                currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
         batch.end();
     }
 
@@ -179,7 +168,7 @@ class Renderer {
 
         drawBackground();
 
-        drawPlayer(world.player.body.getPosition().x, world.player.body.getPosition().y);
+        drawPlayer(world.player);
 
         for (Body b : bodies) {
             Object id = b.getUserData();

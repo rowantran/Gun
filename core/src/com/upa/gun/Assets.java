@@ -72,12 +72,6 @@ public class Assets {
         pm.dispose();
     */
 
-        playerIdleSprites = new Sprite[4];
-        loadPlayerIdleSprite(Player.FRONT, "Front");
-        loadPlayerIdleSprite(Player.BACK, "Back");
-        loadPlayerIdleSprite(Player.LEFT, "Left");
-        loadPlayerIdleSprite(Player.RIGHT, "Right");
-
         slimeAtlas = new TextureAtlas(Gdx.files.internal("sprites/slime.atlas"));
         slimeMovementAnimations = new ArrayList<Animation<TextureRegion>>();
         slimeAttackAnimations = new ArrayList<Animation<TextureRegion>>();
@@ -122,7 +116,11 @@ public class Assets {
 
     private static Animation<TextureRegion> loadPlayerAnimation(String direction) {
         return new Animation<TextureRegion>(0.25f,
-                Assets.playerAtlas.findRegions("player" + direction), Animation.PlayMode.LOOP));
+                Assets.playerAtlas.findRegions("player" + direction), Animation.PlayMode.LOOP);
+    }
+
+    private static Animation<TextureRegion> loadPlayerIdleAnimation(String direction) {
+        return loadPlayerAnimation(direction + "-idle");
     }
 
     private static void loadPlayerAnimations() {
@@ -134,11 +132,13 @@ public class Assets {
         playerMovingAnimations.put(Direction.RIGHT, loadPlayerAnimation("Right"));
         playerAnimations.put(ActionState.MOVING, playerMovingAnimations);
 
-        playerAnimations.put(ActionState.IDLE, new HashMap<Direction, Animation<TextureRegion>>());
-    }
-
-    private static void loadPlayerIdleSprite(int index, String direction) {
-        playerIdleSprites[index] = new Sprite(Assets.playerAtlas.findRegion("player" + direction + "-idle"));
+        Map<Direction, Animation<TextureRegion>> playerIdleAnimations =
+                new HashMap<Direction, Animation<TextureRegion>>();
+        playerIdleAnimations.put(Direction.DOWN, loadPlayerIdleAnimation("Front"));
+        playerIdleAnimations.put(Direction.UP, loadPlayerIdleAnimation("Back"));
+        playerIdleAnimations.put(Direction.LEFT, loadPlayerIdleAnimation("Left"));
+        playerIdleAnimations.put(Direction.RIGHT, loadPlayerIdleAnimation("Right"));
+        playerAnimations.put(ActionState.IDLE, playerIdleAnimations);
     }
 
     private static void loadSlimeMovementAnimations() {

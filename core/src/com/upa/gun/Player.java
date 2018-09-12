@@ -27,13 +27,9 @@ public class Player {
     public boolean leftStop = false;
     public boolean rightStop = false;
 
-    public static int FRONT = 0;
-    public static int BACK = 1;
-    public static int LEFT = 2;
-    public static int RIGHT = 3;
     public int health;
 
-    int rotation;
+    Direction direction;
 
     Body body;
 
@@ -57,7 +53,7 @@ public class Player {
         opacity = 1.0f;
         health = 10;
 
-        rotation = FRONT;
+        direction = Direction.DOWN;
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -97,6 +93,14 @@ public class Player {
         }
     }
 
+    ActionState getState() {
+        if (moving) {
+            return ActionState.MOVING;
+        } else {
+            return ActionState.IDLE;
+        }
+    }
+
     public void update(float delta) {
         moving = false;
         bulletCooldown -= delta;
@@ -111,6 +115,7 @@ public class Player {
         }
 
         if (dying) {
+            /*
             Assets.playerIdleSprites[rotation].setX(body.getTransform().getPosition().x-
                     Assets.playerIdleSprites[rotation].getWidth()/2);
             Assets.playerIdleSprites[rotation].setY(body.getTransform().getPosition().y-
@@ -121,11 +126,12 @@ public class Player {
                 dying = false;
                 fading = true;
             }
+            */
         } if (fading) {
             opacity -= Settings.DEATH_FADE_SPEED * delta;
             if (opacity < 0.0f) {
                 opacity = 1.0f;
-                Assets.playerIdleSprites[rotation].setRotation(0);
+                //Assets.playerIdleSprites[rotation].setRotation(0);
                 fading = false;
                 this.body.setTransform(spawnPoint, 0);
                 game.setScreen(new GameOver(game));
@@ -141,7 +147,7 @@ public class Player {
                     body.setTransform(currentX - Settings.PLAYER_SPEED * delta, currentY, angle);
                     moving = true;
                 }
-                rotation = LEFT;
+                direction = Direction.LEFT;
             }
 
             if (Gdx.input.isKeyPressed(Settings.KEY_RIGHT)) {
@@ -151,7 +157,7 @@ public class Player {
                     body.setTransform(currentX + Settings.PLAYER_SPEED * delta, currentY, angle);
                     moving = true;
                 }
-                rotation = RIGHT;
+                direction = Direction.RIGHT;
             }
 
             if (Gdx.input.isKeyPressed(Settings.KEY_DOWN)) {
@@ -161,7 +167,7 @@ public class Player {
                     body.setTransform(currentX, currentY - Settings.PLAYER_SPEED * delta, angle);
                     moving = true;
                 }
-                rotation = FRONT;
+                direction = Direction.DOWN;
             }
 
             if (Gdx.input.isKeyPressed(Settings.KEY_UP)) {
@@ -171,7 +177,7 @@ public class Player {
                     body.setTransform(currentX, currentY + Settings.PLAYER_SPEED * delta, angle);
                     moving = true;
                 }
-                rotation = BACK;
+                direction = Direction.UP;
             }
             if (!Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){
                 body.setLinearVelocity(0, 0);

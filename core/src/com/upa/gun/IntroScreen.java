@@ -29,8 +29,10 @@ public class IntroScreen extends ScreenAdapter{
 
 	        textAlpha = 1.0f;
 	        fading = true;
-	        playerX = (int) (Settings.RESOLUTION.x-Assets.playerIdleSprites[Player.FRONT].getRegionWidth())/2;
-	        playerY = (int) (Settings.RESOLUTION.y-Assets.playerIdleSprites[Player.FRONT].getRegionHeight())/2;
+	        playerX = (int) (Settings.RESOLUTION.x-Assets.playerAnimations.get(ActionState.IDLE).get(Direction.DOWN).
+					getKeyFrame(0).getRegionWidth())/2;
+	        playerY = (int) (Settings.RESOLUTION.y-Assets.playerAnimations.get(ActionState.IDLE).get(Direction.DOWN).
+					getKeyFrame(0).getRegionHeight()/2);
 	        timeElapsed = 0f;
 	    }
 
@@ -51,7 +53,7 @@ public class IntroScreen extends ScreenAdapter{
 	                (Settings.RESOLUTION.y*4/5 + layout.height*0.5f));
 	        game.batch.end();
 
-	        TextureRegion currentFrame = Assets.playerAnimations.get(Player.FRONT).getKeyFrame(timeElapsed);
+	        TextureRegion currentFrame = Assets.playerAnimations.get(ActionState.IDLE).get(Direction.DOWN).getKeyFrame(0);
 	        game.batch.begin();
 	        game.batch.draw(currentFrame, playerX, playerY,
 	                currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
