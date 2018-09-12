@@ -4,6 +4,7 @@ package com.upa.gun;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
 public class Crate {
@@ -12,6 +13,7 @@ public class Crate {
     public float y;
 
     Body body;
+    Vector2[] vertices;
 
     Sprite crateSprite;
 
@@ -31,7 +33,15 @@ public class Crate {
         body.setTransform(x, y, (float) 0);
 
         PolygonShape crateBox = new PolygonShape();
-        crateBox.setAsBox(crateSprite.getWidth(), crateSprite.getHeight()-27);
+
+        Vector2 vert1 = new Vector2(0f,0f);
+        Vector2 vert2 = new Vector2(64f,0f);
+        Vector2 vert3 = new Vector2(64f, 64f);
+        Vector2 vert4 = new Vector2(0f, 64f);
+        vertices = new Vector2[] {vert1, vert2, vert3, vert4};
+        crateBox.set(vertices);
+
+        //crateBox.setAsBox(crateSprite.getWidth(), crateSprite.getHeight()-27);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = crateBox;

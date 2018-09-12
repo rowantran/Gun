@@ -28,7 +28,7 @@ public class GunWorld {
 
         player = new Player(200, 200, game, world);
 
-        for(int i = 1; i < 14; i++) {
+        for(int i = 0; i < 14; i++) {
             crates.add(new Crate(i * 64 + 32, 29, Assets.crate, world));
         }
 
