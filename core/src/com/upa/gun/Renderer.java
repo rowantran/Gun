@@ -37,16 +37,13 @@ class Renderer {
 
     private void drawBackground() {
         batch.disableBlending();
-        batch.begin();
         batch.setColor(1.0f, 1.0f, 1.0f, 1.0f);
         batch.draw(Assets.backgroundRoom1, (Settings.RESOLUTION.x - Assets.backgroundRoom1.getWidth()) / 2,
                 0, Assets.backgroundRoom1.getWidth(), Assets.backgroundRoom1.getHeight());
-        batch.end();
     }
 
     private void drawPlayer(Player player) {
         batch.enableBlending();
-        batch.begin();
         Animation<TextureRegion> currentAnimation = Assets.playerAnimations.get(player.getState()).get(player.direction);
         TextureRegion currentFrame = currentAnimation.getKeyFrame(world.player.timeElapsed);
 
@@ -54,11 +51,9 @@ class Renderer {
                 (player.body.getPosition().y -currentFrame.getRegionHeight()/2), 0, 0,
                 currentFrame.getRegionWidth(), currentFrame.getRegionHeight(), 1, 1, world.player.rotation);
 
-        batch.end();
     }
 
     private void drawHealth(int health) {
-        batch.begin();
         int startX = 50;
         int incrementX = 40;
         int startY = 72;
@@ -68,12 +63,10 @@ class Renderer {
                 startX += incrementX;
             }
         }
-        batch.end();
     }
 
     private void drawSlime(Slime slime, float x, float y, Map<ActionState, Map<Direction, Animation<TextureRegion>>> animationMap) {
         batch.enableBlending();
-        batch.begin();
         batch.setColor(1.0f, 1.0f, 1.0f, slime.opacity);
 
         ActionState state = slime.getState();
@@ -88,12 +81,10 @@ class Renderer {
 
         batch.draw(currentFrame, (x-currentFrame.getRegionWidth()/2), (y-currentFrame.getRegionHeight()/2),
                 currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
-        batch.end();
     }
 
     private void drawBossSlime(BossSlime bossSlime, float x, float y) {
         batch.enableBlending();
-        batch.begin();
         batch.setColor(1.0f, 1.0f, 1.0f, bossSlime.opacity);
 
         ActionState state = bossSlime.getState();
@@ -109,40 +100,31 @@ class Renderer {
         currentFrame.getTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         batch.draw(currentFrame, x-currentFrame.getRegionWidth()*4, y-currentFrame.getRegionHeight()*4,
                 currentFrame.getRegionWidth()*8, currentFrame.getRegionHeight()*8);
-
-        batch.end();
     }
 
     private void drawBullet(Bullet bullet, float x, float y) {
         batch.enableBlending();
 
-        batch.begin();
         bullet.bulletSprite.setX(x-bullet.bulletSprite.getRegionWidth()/2);
         bullet.bulletSprite.setY(y-bullet.bulletSprite.getRegionHeight()/2);
         bullet.bulletSprite.draw(batch);
-        batch.end();
     }
 
     private void drawCrate(Crate crate, float x, float y) {
         batch.enableBlending();
 
-        batch.begin();
         crate.crateSprite.setX(x);
         crate.crateSprite.setY(y);
         crate.crateSprite.draw(batch);
-        batch.end();
     }
 
     private void drawScore() {
         batch.enableBlending();
 
-        batch.begin();
         layout.setText(font, Integer.toString(world.spawner.slimesKilled));
         int x = 30;
         int y = (int) (Settings.RESOLUTION.y - layout.height);
         font.draw(batch, layout, x, y);
-        batch.end();
-
     }
 
     void draw(GunWorld world) {
@@ -152,6 +134,7 @@ class Renderer {
         Array<Body> bodies = new Array<Body>();
         world.world.getBodies(bodies);
 
+        batch.begin();
         drawBackground();
 
         drawPlayer(world.player);
@@ -183,5 +166,6 @@ class Renderer {
         drawHealth(world.player.health);
 
         drawScore();
+        batch.end();
     }
 }
