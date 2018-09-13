@@ -44,16 +44,8 @@ public class Spawner {
     }
 
     void spawnSlime() {
-        int spawnPoint = (int) (Math.random() * 2);
-        int spawnX, spawnY;
-        if (spawnPoint == 0) {
-            spawnX = 318;
-            spawnY = 760;
-        } else {
-            spawnX = 1026;
-            spawnY = 40;
-        }
-
+        int spawnX = (int) (Math.random() * 1051) + 113;
+        int spawnY = (int) (Math.random() * 600) + 100;
         int slimeType = (int) (Math.random() * 4);
         if (slimeType == 0) {
             gunWorld.enemies.add(new StrongSlime(spawnX, spawnY, world, gunWorld));

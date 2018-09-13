@@ -12,7 +12,7 @@ public abstract class Enemy {
     GunWorld gunWorld;
 
     Enemy(GunWorld gunWorld) {
-        timeElapsed = 0.0f;
+        timeElapsed = 20.0f;
         shooting = false;
         dying = false;
         markedForDeletion = false;
