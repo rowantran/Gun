@@ -137,8 +137,8 @@ public class Player {
             int angle = (int) body.getTransform().getRotation();
 
             if (Gdx.input.isKeyPressed(Settings.KEY_LEFT)) {
-                int currentX = (int) body.getTransform().getPosition().x;
-                int currentY = (int) body.getTransform().getPosition().y;
+                float currentX = body.getTransform().getPosition().x;
+                float currentY = body.getTransform().getPosition().y;
                 if(!(currentX - Settings.PLAYER_SPEED * delta < 113)) {
                     body.setTransform(currentX - Settings.PLAYER_SPEED * delta, currentY, angle);
                     moving = true;
@@ -147,8 +147,8 @@ public class Player {
             }
 
             if (Gdx.input.isKeyPressed(Settings.KEY_RIGHT)) {
-                int currentX = (int) body.getTransform().getPosition().x;
-                int currentY = (int) body.getTransform().getPosition().y;
+                float currentX = body.getTransform().getPosition().x;
+                float currentY = body.getTransform().getPosition().y;
                 if(!(currentX + Settings.PLAYER_SPEED * delta > 1164)) {
                     body.setTransform(currentX + Settings.PLAYER_SPEED * delta, currentY, angle);
                     moving = true;
@@ -157,8 +157,8 @@ public class Player {
             }
 
             if (Gdx.input.isKeyPressed(Settings.KEY_DOWN)) {
-                int currentX = (int) body.getTransform().getPosition().x;
-                int currentY = (int) body.getTransform().getPosition().y;
+                float currentX = body.getTransform().getPosition().x;
+                float currentY = body.getTransform().getPosition().y;
                 if(!botStop){
                     body.setTransform(currentX, currentY - Settings.PLAYER_SPEED * delta, angle);
                     moving = true;
@@ -167,8 +167,8 @@ public class Player {
             }
 
             if (Gdx.input.isKeyPressed(Settings.KEY_UP)) {
-                int currentX = (int) body.getTransform().getPosition().x;
-                int currentY = (int) body.getTransform().getPosition().y;
+                float currentX = body.getTransform().getPosition().x;
+                float currentY = body.getTransform().getPosition().y;
                 if(!(currentY + Settings.PLAYER_SPEED * delta > 702)){
                     body.setTransform(currentX, currentY + Settings.PLAYER_SPEED * delta, angle);
                     moving = true;

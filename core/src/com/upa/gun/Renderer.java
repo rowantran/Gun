@@ -1,5 +1,6 @@
 package com.upa.gun;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -127,6 +128,15 @@ class Renderer {
         font.draw(batch, layout, x, y);
     }
 
+    private void drawFPS() {
+        batch.enableBlending();
+
+        layout.setText(font, Integer.toString(Gdx.graphics.getFramesPerSecond()));
+        int x = 0;
+        int y = (int) layout.height;
+        font.draw(batch, layout, x, y);
+    }
+
     void draw(GunWorld world) {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
@@ -166,6 +176,9 @@ class Renderer {
         drawHealth(world.player.health);
 
         drawScore();
+        if (Settings.DEV_MODE) {
+            drawFPS();
+        }
         batch.end();
     }
 }
