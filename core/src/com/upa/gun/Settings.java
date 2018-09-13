@@ -19,6 +19,8 @@ public class Settings {
     public static final float DEATH_ROTATE_SPEED = 80.0f;
     public static final float DEATH_FADE_SPEED = (DEATH_ROTATE_SPEED / 90.0f) * 1.0f;
 
+    public static final float SLOW_FADE_SPEED = 0.4f;
+
     public static final int KEY_LEFT = Input.Keys.A;
     public static final int KEY_RIGHT = Input.Keys.D;
     public static final int KEY_UP = Input.Keys.W;

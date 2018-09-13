@@ -123,6 +123,16 @@ public class Slime extends Enemy {
         }
     }
 
+    public ActionState getState() {
+        if (dying) {
+            return ActionState.HURT;
+        } else if (shooting) {
+            return ActionState.ATTACKING;
+        } else {
+            return ActionState.MOVING;
+        }
+    }
+
     public void move(float delta) {
         int playerX = (int) gunWorld.player.body.getTransform().getPosition().x;
         int playerY = (int) gunWorld.player.body.getTransform().getPosition().y;

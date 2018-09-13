@@ -5,7 +5,9 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.utils.Array;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,22 +19,15 @@ public class Assets {
 
     public static TextureAtlas playerAtlas;
     public static Map<ActionState, Map<Direction, Animation<TextureRegion>>> playerAnimations;
-    public static Sprite[] playerIdleSprites;
 
     public static TextureAtlas slimeAtlas;
-    public static List<Animation<TextureRegion>> slimeMovementAnimations;
-    public static List<Animation<TextureRegion>> slimeAttackAnimations;
-    public static Sprite slimeDeathSprite;
+    public static Map<ActionState, Map<Direction, Animation<TextureRegion>>> slimeAnimations;
 
     public static TextureAtlas strongSlimeAtlas;
-    public static List<Animation<TextureRegion>> strongSlimeMovementAnimations;
-    public static List<Animation<TextureRegion>> strongSlimeAttackAnimations;
-    public static Sprite strongSlimeDeathSprite;
+    public static Map<ActionState, Map<Direction, Animation<TextureRegion>>> strongSlimeAnimations;
 
     public static TextureAtlas bossSlimeAtlas;
-    public static List<Animation<TextureRegion>> bossSlimeMovementAnimations;
-    public static List<Animation<TextureRegion>> bossSlimeAttackAnimations;
-    public static Sprite bossSlimePainSprite;
+    public static Map<ActionState, Map<Direction, Animation<TextureRegion>>> bossSlimeAnimations;
 
     public static Texture bullets;
     public static TextureRegion bulletLaser;
@@ -73,27 +68,16 @@ public class Assets {
     */
 
         slimeAtlas = new TextureAtlas(Gdx.files.internal("sprites/slime.atlas"));
-        slimeMovementAnimations = new ArrayList<Animation<TextureRegion>>();
-        slimeAttackAnimations = new ArrayList<Animation<TextureRegion>>();
-        loadSlimeMovementAnimations();
-        loadSlimeAttackAnimations();
-        slimeDeathSprite = new Sprite(Assets.slimeAtlas.findRegion("slime-death"));
+        slimeAnimations = new HashMap<ActionState, Map<Direction, Animation<TextureRegion>>>();
+        loadSlimeAnimations();
 
         strongSlimeAtlas = new TextureAtlas(Gdx.files.internal("sprites/strongSlime.atlas"));
-        strongSlimeMovementAnimations = new ArrayList<Animation<TextureRegion>>();
-        strongSlimeAttackAnimations = new ArrayList<Animation<TextureRegion>>();
-        loadStrongSlimeMovementAnimations();
-        loadStrongSlimeAttackAnimations();
-        strongSlimeDeathSprite = new Sprite(strongSlimeAtlas.findRegion("strongSlime-death"));
+        strongSlimeAnimations = new HashMap<ActionState, Map<Direction, Animation<TextureRegion>>>();
+        loadStrongSlimeAnimations();
 
         bossSlimeAtlas = new TextureAtlas(Gdx.files.internal("sprites/bossSlime.atlas"));
-        bossSlimeMovementAnimations = new ArrayList<Animation<TextureRegion>>();
-        bossSlimeAttackAnimations = new ArrayList<Animation<TextureRegion>>();
-        loadBossSlimeMovementAnimations();
-        loadBossSlimeAttackAnimations();
-
-        bossSlimePainSprite = new Sprite(bossSlimeAtlas.findRegion("bossSlime-hurt"));
-        bossSlimePainSprite.setScale(2);
+        bossSlimeAnimations = new HashMap<ActionState, Map<Direction, Animation<TextureRegion>>>();
+        loadBossSlimeAnimations();
 
         bullets = loadTexture("sprites/laserBullet.png");
 
@@ -141,28 +125,96 @@ public class Assets {
         playerAnimations.put(ActionState.IDLE, playerIdleAnimations);
     }
 
-    private static void loadSlimeMovementAnimations() {
-        slimeMovementAnimations.add(new Animation<TextureRegion>(0.25f,
-                Assets.slimeAtlas.findRegions("slime"), Animation.PlayMode.LOOP));
+    private static Animation<TextureRegion> loadSlimeAnimation(String name) {
+        return new Animation<TextureRegion>(0.25f, slimeAtlas.findRegions(name),
+                Animation.PlayMode.LOOP);
     }
-    private static void loadSlimeAttackAnimations() {
-        slimeAttackAnimations.add(new Animation<TextureRegion>(0.25f,
-                Assets.slimeAtlas.findRegions("slimeAttack"), Animation.PlayMode.LOOP));
+
+    private static Animation<TextureRegion> loadSlimeAnimationFlipped(String name) {
+        Array<TextureAtlas.AtlasRegion> frames = slimeAtlas.findRegions(name);
+        for (TextureAtlas.AtlasRegion frame : frames) {
+            frame.flip(true, false);
+        }
+
+        return new Animation<TextureRegion>(0.25f, frames, Animation.PlayMode.LOOP);
     }
-    private static void loadStrongSlimeMovementAnimations() {
-        strongSlimeMovementAnimations.add(new Animation<TextureRegion>(0.25f,
-                Assets.strongSlimeAtlas.findRegions("strongSlime"), Animation.PlayMode.LOOP));
+
+    private static void loadSlimeAnimations() {
+        Map<Direction, Animation<TextureRegion>> slimeMovingAnimations = new HashMap<Direction, Animation<TextureRegion>>();
+        slimeMovingAnimations.put(Direction.LEFT, loadSlimeAnimation("slime"));
+        slimeMovingAnimations.put(Direction.RIGHT, loadSlimeAnimationFlipped("slime"));
+        slimeAnimations.put(ActionState.MOVING, slimeMovingAnimations);
+
+        Map<Direction, Animation<TextureRegion>> slimeAttackAnimations = new HashMap<Direction, Animation<TextureRegion>>();
+        slimeAttackAnimations.put(Direction.LEFT, loadSlimeAnimation("slimeAttack"));
+        slimeAttackAnimations.put(Direction.RIGHT, loadSlimeAnimationFlipped("slimeAttack"));
+        slimeAnimations.put(ActionState.ATTACKING, slimeAttackAnimations);
+
+        Map<Direction, Animation<TextureRegion>> slimeHurtAnimations = new HashMap<Direction, Animation<TextureRegion>>();
+        slimeHurtAnimations.put(Direction.LEFT, loadSlimeAnimation("slime-death"));
+        slimeHurtAnimations.put(Direction.RIGHT, loadSlimeAnimationFlipped("slime-death"));
+        slimeAnimations.put(ActionState.HURT, slimeHurtAnimations);
     }
-    private static void loadStrongSlimeAttackAnimations() {
-        strongSlimeAttackAnimations.add(new Animation<TextureRegion>(0.25f,
-                Assets.strongSlimeAtlas.findRegions("strongSlimeAttack"), Animation.PlayMode.LOOP));
+
+    private static Animation<TextureRegion> loadStrongSlimeAnimation(String name) {
+        return new Animation<TextureRegion>(0.25f, strongSlimeAtlas.findRegions(name),
+                Animation.PlayMode.LOOP);
     }
-    private static void loadBossSlimeMovementAnimations() {
-        bossSlimeMovementAnimations.add(new Animation<TextureRegion>(0.25f,
-                Assets.bossSlimeAtlas.findRegions("bossSlime"), Animation.PlayMode.LOOP));
+
+    private static Animation<TextureRegion> loadStrongSlimeAnimationFlipped(String name) {
+        Array<TextureAtlas.AtlasRegion> frames = strongSlimeAtlas.findRegions(name);
+        for (TextureAtlas.AtlasRegion frame : frames) {
+            frame.flip(true, false);
+        }
+
+        return new Animation<TextureRegion>(0.25f, frames, Animation.PlayMode.LOOP);
     }
-    private static void loadBossSlimeAttackAnimations() {
-        bossSlimeAttackAnimations.add(new Animation<TextureRegion>(0.25f,
-                Assets.bossSlimeAtlas.findRegions("bossSlimeAttack"), Animation.PlayMode.LOOP));
+
+    private static void loadStrongSlimeAnimations() {
+        Map<Direction, Animation<TextureRegion>> strongSlimeMovingAnimations = new HashMap<Direction, Animation<TextureRegion>>();
+        strongSlimeMovingAnimations.put(Direction.LEFT, loadStrongSlimeAnimation("strongSlime"));
+        strongSlimeMovingAnimations.put(Direction.RIGHT, loadStrongSlimeAnimationFlipped("strongSlime"));
+        strongSlimeAnimations.put(ActionState.MOVING, strongSlimeMovingAnimations);
+
+        Map<Direction, Animation<TextureRegion>> strongSlimeAttackingAnimations = new HashMap<Direction, Animation<TextureRegion>>();
+        strongSlimeAttackingAnimations.put(Direction.LEFT, loadStrongSlimeAnimation("strongSlimeAttack"));
+        strongSlimeAttackingAnimations.put(Direction.RIGHT, loadStrongSlimeAnimationFlipped("strongSlimeAttack"));
+        strongSlimeAnimations.put(ActionState.ATTACKING, strongSlimeAttackingAnimations);
+
+        Map<Direction, Animation<TextureRegion>> strongSlimeHurtAnimations = new HashMap<Direction, Animation<TextureRegion>>();
+        strongSlimeHurtAnimations.put(Direction.LEFT, loadStrongSlimeAnimation("strongSlime-death"));
+        strongSlimeHurtAnimations.put(Direction.RIGHT, loadStrongSlimeAnimationFlipped("strongSlime-death"));
+        strongSlimeAnimations.put(ActionState.HURT, strongSlimeHurtAnimations);
+    }
+
+    private static Animation<TextureRegion> loadBossSlimeAnimation(String name) {
+        return new Animation<TextureRegion>(0.25f, bossSlimeAtlas.findRegions(name),
+                Animation.PlayMode.LOOP);
+    }
+
+    private static Animation<TextureRegion> loadBossSlimeAnimationFlipped(String name) {
+        Array<TextureAtlas.AtlasRegion> frames = bossSlimeAtlas.findRegions(name);
+        for (TextureAtlas.AtlasRegion frame : frames) {
+            frame.flip(true, false);
+        }
+
+        return new Animation<TextureRegion>(0.25f, frames, Animation.PlayMode.LOOP);
+    }
+
+    private static void loadBossSlimeAnimations() {
+        Map<Direction, Animation<TextureRegion>> bossSlimeMovingAnimations = new HashMap<Direction, Animation<TextureRegion>>();
+        bossSlimeMovingAnimations.put(Direction.LEFT, loadBossSlimeAnimation("bossSlime"));
+        bossSlimeMovingAnimations.put(Direction.RIGHT, loadBossSlimeAnimationFlipped("bossSlime"));
+        bossSlimeAnimations.put(ActionState.MOVING, bossSlimeMovingAnimations);
+
+        Map<Direction, Animation<TextureRegion>> bossSlimeAttackingAnimations = new HashMap<Direction, Animation<TextureRegion>>();
+        bossSlimeAttackingAnimations.put(Direction.LEFT, loadBossSlimeAnimation("bossSlimeAttack"));
+        bossSlimeAttackingAnimations.put(Direction.RIGHT, loadBossSlimeAnimationFlipped("bossSlimeAttack"));
+        bossSlimeAnimations.put(ActionState.ATTACKING, bossSlimeAttackingAnimations);
+
+        Map<Direction, Animation<TextureRegion>> bossSlimeHurtAnimations = new HashMap<Direction, Animation<TextureRegion>>();
+        bossSlimeHurtAnimations.put(Direction.LEFT, loadBossSlimeAnimation("bossSlime-hurt"));
+        bossSlimeHurtAnimations.put(Direction.RIGHT, loadBossSlimeAnimationFlipped("bossSlime-hurt"));
+        bossSlimeAnimations.put(ActionState.HURT, bossSlimeHurtAnimations);
     }
 }

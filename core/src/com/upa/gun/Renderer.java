@@ -10,6 +10,9 @@ import com.badlogic.gdx.utils.Array;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Map;
+
+import static com.upa.gun.Direction.LEFT;
 
 class Renderer {
     private SpriteBatch batch;
@@ -50,7 +53,7 @@ class Renderer {
         batch.draw(currentFrame, (player.body.getPosition().x - currentFrame.getRegionWidth()/2),
                 (player.body.getPosition().y -currentFrame.getRegionHeight()/2), 0, 0,
                 currentFrame.getRegionWidth(), currentFrame.getRegionHeight(), 1, 1, world.player.rotation);
-        
+
         batch.end();
     }
 
@@ -68,38 +71,21 @@ class Renderer {
         batch.end();
     }
 
-    private void drawSlime(Slime slime, float x, float y) {
+    private void drawSlime(Slime slime, float x, float y, Map<ActionState, Map<Direction, Animation<TextureRegion>>> animationMap) {
         batch.enableBlending();
         batch.begin();
         batch.setColor(1.0f, 1.0f, 1.0f, slime.opacity);
+
+        ActionState state = slime.getState();
+        Animation<TextureRegion> currentAnimation = animationMap.get(state).get(LEFT);
         TextureRegion currentFrame;
-        if (slime.dying) {
-            currentFrame = Assets.slimeDeathSprite;
-        } else if (slime.shooting) {
-            currentFrame = Assets.slimeAttackAnimations.get(slime.rotation).getKeyFrame(slime.attackTimeElapsed);
+
+        if (state == ActionState.ATTACKING) {
+            currentFrame = currentAnimation.getKeyFrame(slime.attackTimeElapsed);
         } else {
-            currentFrame = Assets.slimeMovementAnimations.get(slime.rotation).getKeyFrame(slime.timeElapsed);
+            currentFrame = currentAnimation.getKeyFrame(slime.timeElapsed);
         }
 
-        batch.draw(currentFrame, (x-currentFrame.getRegionWidth()/2), (y-currentFrame.getRegionHeight()/2),
-                currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
-        batch.end();
-    }
-
-    private void drawStrongSlime(StrongSlime strongSlime, float x, float y) {
-        batch.enableBlending();
-        batch.begin();
-        batch.setColor(1.0f, 1.0f, 1.0f, strongSlime.opacity);
-        TextureRegion currentFrame;
-        if(strongSlime.dying) {
-            currentFrame = Assets.strongSlimeDeathSprite;
-        }
-        else if (strongSlime.shooting) {
-            currentFrame = Assets.strongSlimeAttackAnimations.get(strongSlime.rotation).getKeyFrame(strongSlime.attackTimeElapsed);
-        }
-        else {
-            currentFrame = Assets.strongSlimeMovementAnimations.get(strongSlime.rotation).getKeyFrame(strongSlime.timeElapsed);
-        }
         batch.draw(currentFrame, (x-currentFrame.getRegionWidth()/2), (y-currentFrame.getRegionHeight()/2),
                 currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
         batch.end();
@@ -109,27 +95,28 @@ class Renderer {
         batch.enableBlending();
         batch.begin();
         batch.setColor(1.0f, 1.0f, 1.0f, bossSlime.opacity);
+
+        ActionState state = bossSlime.getState();
+        Animation<TextureRegion> currentAnimation = Assets.bossSlimeAnimations.get(state).get(LEFT);
         TextureRegion currentFrame;
-        if (bossSlime.dying || bossSlime.hurt) {
-            currentFrame = Assets.bossSlimePainSprite;
-        }
-        else if (bossSlime.shooting) {
-            currentFrame = Assets.bossSlimeAttackAnimations.get(0).getKeyFrame(bossSlime.attackTimeElapsed);
-        }
-        else {
-            currentFrame = Assets.bossSlimeMovementAnimations.get(0).getKeyFrame(bossSlime.timeElapsed);
+
+        if (state == ActionState.ATTACKING) {
+            currentFrame = currentAnimation.getKeyFrame(bossSlime.attackTimeElapsed);
+        } else {
+            currentFrame = currentAnimation.getKeyFrame(bossSlime.timeElapsed);
         }
 
         currentFrame.getTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         batch.draw(currentFrame, x-currentFrame.getRegionWidth()*4, y-currentFrame.getRegionHeight()*4,
                 currentFrame.getRegionWidth()*8, currentFrame.getRegionHeight()*8);
+
         batch.end();
     }
 
     private void drawBullet(Bullet bullet, float x, float y) {
         batch.enableBlending();
 
-        batch.begin(); 
+        batch.begin();
         bullet.bulletSprite.setX(x-bullet.bulletSprite.getRegionWidth()/2);
         bullet.bulletSprite.setY(y-bullet.bulletSprite.getRegionHeight()/2);
         bullet.bulletSprite.draw(batch);
@@ -150,14 +137,12 @@ class Renderer {
         batch.enableBlending();
 
         batch.begin();
-
         layout.setText(font, Integer.toString(world.spawner.slimesKilled));
         int x = 30;
         int y = (int) (Settings.RESOLUTION.y - layout.height);
-
         font.draw(batch, layout, x, y);
-
         batch.end();
+
     }
 
     void draw(GunWorld world) {
@@ -174,15 +159,15 @@ class Renderer {
         for (Body b : bodies) {
             Object id = b.getUserData();
             if (id != null) {
-                if (id instanceof StrongSlime) {
-                    StrongSlime strongSlime = (StrongSlime) id;
-                    drawStrongSlime(strongSlime, b.getPosition().x, b.getPosition().y);
-                } else if (id instanceof BossSlime) {
+                if (id instanceof BossSlime) {
                     BossSlime bossSlime = (BossSlime) id;
                     drawBossSlime(bossSlime, b.getPosition().x, b.getPosition().y);
+                } else if (id instanceof StrongSlime) {
+                    StrongSlime slime = (StrongSlime) id;
+                    drawSlime(slime, b.getPosition().x, b.getPosition().y, Assets.strongSlimeAnimations);
                 } else if (id instanceof Slime) {
                     Slime slime = (Slime) id;
-                    drawSlime(slime, b.getPosition().x, b.getPosition().y);
+                    drawSlime(slime, b.getPosition().x, b.getPosition().y, Assets.slimeAnimations);
                 }
             }
         }

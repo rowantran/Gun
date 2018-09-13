@@ -46,7 +46,6 @@ public class MenuScreen extends ScreenAdapter {
         Assets.menuFont.setColor(1,1,1,1);
         Assets.menuFont.getData().setScale(8);
         layout.setText(Assets.menuFont, "There Is No Gun.");
-
         Assets.menuFont.draw(game.batch, layout, (Settings.RESOLUTION.x - layout.width) / 2,
                 (Settings.RESOLUTION.y*4/5 + layout.height*0.5f));
         game.batch.end();
@@ -58,6 +57,7 @@ public class MenuScreen extends ScreenAdapter {
                 currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
         game.batch.end();
 
+        /*
         game.batch.begin();
         Assets.menuFont.setColor(1,1,1,1);
         Assets.menuFont.getData().setScale(2);
@@ -65,6 +65,7 @@ public class MenuScreen extends ScreenAdapter {
         Assets.menuFont.draw(game.batch, layout, (Settings.RESOLUTION.x - layout.width) / 2,
                 Settings.RESOLUTION.y*3/5 + layout.height*0.5f);
         game.batch.end();
+        */
 
         game.batch.begin();
         Assets.menuFont.setColor(1,1,1,textAlpha);
@@ -80,7 +81,7 @@ public class MenuScreen extends ScreenAdapter {
         timeElapsed += delta;
 
         if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
-            game.setScreen(new GameScreen(game));
+            game.setScreen(new IntroAnimationScreen(game, textAlpha));
         }
 
         if (fading) {

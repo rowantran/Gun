@@ -1,5 +1,6 @@
 package com.upa.gun;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Spawner {
@@ -62,8 +63,9 @@ public class Spawner {
     }
 
     void spawnBossSlime() {
-        int spawnX = (int) (Settings.RESOLUTION.x - Assets.bossSlimePainSprite.getWidth()) / 2;
-        int spawnY = (int) (Settings.RESOLUTION.y - Assets.bossSlimePainSprite.getHeight() / 2);
+        TextureRegion bossSlimeHurt = Assets.bossSlimeAnimations.get(ActionState.HURT).get(Direction.LEFT).getKeyFrame(0);
+        int spawnX = (int) (Settings.RESOLUTION.x - bossSlimeHurt.getRegionWidth()) / 2;
+        int spawnY = (int) (Settings.RESOLUTION.y - bossSlimeHurt.getRegionHeight() / 2);
 
         BossSlimeFactory factory = new BossSlimeFactory();
         gunWorld.enemies.add(factory.makeBossSlime(bossHealth, spawnX, spawnY, world, gunWorld));

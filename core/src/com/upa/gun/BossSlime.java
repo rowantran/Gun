@@ -63,4 +63,14 @@ public class BossSlime extends Slime {
         }
         //System.out.println(health);
     }
+
+    public ActionState getState() {
+        if (dying || hurt) {
+            return ActionState.HURT;
+        } else if (shooting) {
+            return ActionState.ATTACKING;
+        } else {
+            return ActionState.MOVING;
+        }
+    }
 }
