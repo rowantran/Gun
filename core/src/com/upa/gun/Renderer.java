@@ -128,6 +128,10 @@ class Renderer {
         font.draw(batch, layout, x, y);
     }
 
+    private void drawIndicator(SpawnIndicator s) {
+        batch.draw(Assets.crosshair, s.x, s.y, Assets.crosshair.getWidth()*4, Assets.crosshair.getHeight()*4);
+    }
+
     private void drawFPS() {
         batch.enableBlending();
 
@@ -171,6 +175,10 @@ class Renderer {
 
         for (Bullet b : world.bullets) {
             drawBullet(b, b.body.getPosition().x, b.body.getPosition().y);
+        }
+
+        for (SpawnIndicator s : world.indicators) {
+            drawIndicator(s);
         }
 
         drawHealth(world.player.health);

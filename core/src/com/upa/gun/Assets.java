@@ -57,9 +57,10 @@ public class Assets {
         playerAtlas = new TextureAtlas(Gdx.files.internal("sprites/player.atlas"));
         playerAnimations = new HashMap<ActionState, Map<Direction, Animation<TextureRegion>>>();
         loadPlayerAnimations();
-    /*
+
         crosshair = new Texture("sprites/crosshair.png");
-        Pixmap pm = new Pixmap(Gdx.files.internal("sprites/crosshair.png"));
+        crosshair.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        /*Pixmap pm = new Pixmap(Gdx.files.internal("sprites/crosshair.png"));
         int xHotSpot = pm.getWidth() / 2;
         int yHotSpot = pm.getHeight() / 2;
 
