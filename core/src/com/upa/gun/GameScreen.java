@@ -33,6 +33,7 @@ public class GameScreen extends ScreenAdapter {
         if (Settings.DEV_MODE) {
             drenderer.render(game.world.world, renderer.camera.combined);
         }
+
         game.doPhysicsStep(delta);
         game.world.updatePostPhysics(delta);
     }

@@ -21,7 +21,7 @@ public class Slime extends Enemy {
     float shotInterval = 0.15f;
     float speedMultiplier = 1/2f;
 
-    static float hitboxSize = 10f;
+    static float hitboxSize = 10f/Settings.PPM;
 
     World world;
 
@@ -134,11 +134,11 @@ public class Slime extends Enemy {
     }
 
     public void move(float delta) {
-        int playerX = (int) gunWorld.player.body.getTransform().getPosition().x;
-        int playerY = (int) gunWorld.player.body.getTransform().getPosition().y;
+        float playerX = gunWorld.player.body.getTransform().getPosition().x;
+        float playerY = gunWorld.player.body.getTransform().getPosition().y;
 
-        int slimeX = (int) body.getTransform().getPosition().x;
-        int slimeY = (int) body.getTransform().getPosition().y;
+        float slimeX = body.getTransform().getPosition().x;
+        float slimeY = body.getTransform().getPosition().y;
 
 
         if(!shooting) {
@@ -176,16 +176,16 @@ public class Slime extends Enemy {
                 }
             }
 
-            if(slimeX <= 113 && body.getLinearVelocity().x < 0) {
+            if(slimeX <= 113f/Settings.PPM && body.getLinearVelocity().x < 0) {
                 body.setLinearVelocity(0, body.getLinearVelocity().y);
             }
-            if(slimeX >= 1160 && body.getLinearVelocity().x > 0) {
+            if(slimeX >= 1160f/Settings.PPM && body.getLinearVelocity().x > 0) {
                 body.setLinearVelocity(0, body.getLinearVelocity().y);
             }
-            if(slimeY <= 136 && body.getLinearVelocity().y < 0) {
+            if(slimeY <= 136f/Settings.PPM && body.getLinearVelocity().y < 0) {
                 body.setLinearVelocity(body.getLinearVelocity().x, 0);
             }
-            if(slimeY >= 674 && body.getLinearVelocity().y > 0) {
+            if(slimeY >= 674f/Settings.PPM && body.getLinearVelocity().y > 0) {
                 body.setLinearVelocity(body.getLinearVelocity().x, 0);
             }
 
