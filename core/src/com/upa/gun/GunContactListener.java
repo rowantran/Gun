@@ -18,6 +18,7 @@ public class GunContactListener implements ContactListener {
         Object b = contact.getFixtureB().getBody().getUserData();
 
         if (a instanceof Player) {
+            System.out.println("a");
             dieIfEnemy(b);
         } else if (b instanceof Player) {
             dieIfEnemy(a);
