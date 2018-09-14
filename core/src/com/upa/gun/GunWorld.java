@@ -13,6 +13,7 @@ public class GunWorld {
     List<Bullet> bullets;
     List<Enemy> enemies;
     List<Crate> crates;
+    List<SpawnIndicator> indicators;
     World world;
     Spawner spawner;
 
@@ -22,6 +23,7 @@ public class GunWorld {
         bullets = new ArrayList<Bullet>();
         enemies = new ArrayList<Enemy>();
         crates = new ArrayList<Crate>();
+        indicators = new ArrayList<SpawnIndicator>();
 
         world = new World(new Vector2(0, 0), true);
         spawner = new Spawner(this, world);
@@ -48,8 +50,16 @@ public class GunWorld {
             bullet.update(delta);
         }
 
-        for(int i = 0; i < enemies.size(); i++) {
-            enemies.get(i).update(delta);
+        for (Enemy enemy : enemies) {
+            enemy.update(delta);
+        }
+
+        for (SpawnIndicator spawn : indicators) {
+            spawn.update(delta);
+            if (spawn.shouldSpawn()) {
+                spawner.createSpawn(spawn);
+                spawn.markedForDeletion = true;
+            }
         }
     }
 
@@ -70,6 +80,13 @@ public class GunWorld {
 
             if (enemy.markedForDeletion) {
                 world.destroyBody(enemy.body);
+                iterator.remove();
+            }
+        }
+
+        for (Iterator<SpawnIndicator> iterator = indicators.iterator(); iterator.hasNext();) {
+            SpawnIndicator spawn = iterator.next();
+            if (spawn.markedForDeletion) {
                 iterator.remove();
             }
         }

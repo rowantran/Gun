@@ -1,5 +1,6 @@
 package com.upa.gun;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -55,15 +56,37 @@ class Renderer {
 
     private void drawHealth(int health) {
         int startX = 50;
-        int incrementX = 40;
+        int incrementX = 32;
         int startY = 72;
         if (health > 0) {
-            for (int i = 1; i <= health; i++) {
-                batch.draw(Assets.heart, startX, startY, Assets.heart.getWidth()*2, Assets.heart.getHeight()*2);
+            batch.draw(Assets.healthFullLeft, startX, startY, Assets.healthFullLeft.getWidth(),
+                    Assets.healthFullLeft.getHeight());
+            startX += incrementX;
+        } else {
+            batch.draw(Assets.healthEmptyLeft, startX, startY, Assets.healthEmptyLeft.getWidth(),
+                    Assets.healthEmptyLeft.getHeight());
+            startX += incrementX;
+        }
+        for (int i = 2; i < Settings.PLAYER_HEALTH; i++) {
+            if (i <= health) {
+                batch.draw(Assets.healthFullMid, startX, startY, Assets.healthFullMid.getWidth(),
+                        Assets.healthFullMid.getHeight());
+                startX += incrementX;
+            } else {
+                batch.draw(Assets.healthEmptyMid, startX, startY, Assets.healthEmptyMid.getWidth(),
+                        Assets.healthFullMid.getHeight());
                 startX += incrementX;
             }
         }
+        if (health == Settings.PLAYER_HEALTH) {
+            batch.draw(Assets.healthFullRight, startX, startY, Assets.healthFullRight.getWidth(),
+                    Assets.healthFullRight.getHeight());
+        } else {
+            batch.draw(Assets.healthEmptyRight, startX, startY, Assets.healthEmptyRight.getWidth(),
+                    Assets.healthEmptyRight.getHeight());
+        }
     }
+
 
     private void drawSlime(Slime slime, float x, float y, Map<ActionState, Map<Direction, Animation<TextureRegion>>> animationMap) {
         batch.enableBlending();
@@ -127,6 +150,19 @@ class Renderer {
         font.draw(batch, layout, x, y);
     }
 
+    private void drawIndicator(SpawnIndicator s) {
+        batch.draw(Assets.crosshair, s.x, s.y, Assets.crosshair.getWidth()*4, Assets.crosshair.getHeight()*4);
+    }
+
+    private void drawFPS() {
+        batch.enableBlending();
+
+        layout.setText(font, Integer.toString(Gdx.graphics.getFramesPerSecond()));
+        int x = 0;
+        int y = (int) layout.height;
+        font.draw(batch, layout, x, y);
+    }
+
     void draw(GunWorld world) {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
@@ -163,9 +199,16 @@ class Renderer {
             drawBullet(b, b.body.getPosition().x, b.body.getPosition().y);
         }
 
+        for (SpawnIndicator s : world.indicators) {
+            drawIndicator(s);
+        }
+
         drawHealth(world.player.health);
 
         drawScore();
+        if (Settings.DEV_MODE) {
+            drawFPS();
+        }
         batch.end();
     }
 }

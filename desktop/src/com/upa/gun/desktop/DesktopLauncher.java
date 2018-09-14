@@ -14,6 +14,9 @@ public class DesktopLauncher {
 		config.title = "There is no Gun";
 		config.width = (int) Settings.RESOLUTION.x;
 		config.height = (int) Settings.RESOLUTION.y;
+		config.vSyncEnabled = false;
+		config.foregroundFPS = 144;
+		config.backgroundFPS = 144;
 
 		new LwjglApplication(new GunGame(), config);
 	}

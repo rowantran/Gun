@@ -44,7 +44,12 @@ public class Assets {
     public static Sound bulletSound;
     public static Sound bossDieSound;
 
-    public static Texture heart;
+    public static Texture healthFullLeft;
+    public static Texture healthFullRight;
+    public static Texture healthFullMid;
+    public static Texture healthEmptyLeft;
+    public static Texture healthEmptyRight;
+    public static Texture healthEmptyMid;
 
     public static Texture loadTexture(String filepath) {
         return new Texture(Gdx.files.internal(filepath));
@@ -57,9 +62,10 @@ public class Assets {
         playerAtlas = new TextureAtlas(Gdx.files.internal("sprites/player.atlas"));
         playerAnimations = new HashMap<ActionState, Map<Direction, Animation<TextureRegion>>>();
         loadPlayerAnimations();
-    /*
+
         crosshair = new Texture("sprites/crosshair.png");
-        Pixmap pm = new Pixmap(Gdx.files.internal("sprites/crosshair.png"));
+        crosshair.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        /*Pixmap pm = new Pixmap(Gdx.files.internal("sprites/crosshair.png"));
         int xHotSpot = pm.getWidth() / 2;
         int yHotSpot = pm.getHeight() / 2;
 
@@ -91,8 +97,18 @@ public class Assets {
 
         menuFont = new BitmapFont();
 
-        heart = loadTexture("sprites/heart.png");
-        heart.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        healthFullLeft = loadTexture("sprites/health_full_left.png");
+        healthFullLeft.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        healthFullRight = loadTexture("sprites/health_full_right.png");
+        healthFullRight.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        healthFullMid = loadTexture("sprites/health_full_mid.png");
+        healthFullMid.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        healthEmptyLeft = loadTexture("sprites/health_empty_left.png");
+        healthEmptyLeft.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        healthEmptyRight = loadTexture("sprites/health_empty_right.png");
+        healthFullRight.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        healthEmptyMid = loadTexture("sprites/health_empty_mid.png");
+        healthEmptyMid.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
         bulletSound = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
         bossDieSound = Gdx.audio.newSound(Gdx.files.internal("sfx/bossdie.wav"));
