@@ -1,6 +1,7 @@
 package com.upa.gun;
 
 import box2dLight.DirectionalLight;
+import box2dLight.Light;
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
@@ -32,6 +33,8 @@ class Renderer {
 
     private RayHandler rayHandler;
 
+    private Array<Light> lights;
+
     Renderer(SpriteBatch batch, GunWorld world) {
         this.batch = batch;
         this.world = world;
@@ -48,16 +51,21 @@ class Renderer {
 
         rayHandler = new RayHandler(world.world);
         rayHandler.setShadows(true);
-        rayHandler.useCustomViewport(0, 0, (int)Settings.RESOLUTION.x, (int)Settings.RESOLUTION.y);
-        DirectionalLight pl = new DirectionalLight(rayHandler, 3, new Color(1f,0f,0f,0.8f), -90);
-        pl.setStaticLight(false);
-        pl.setSoft(true);
-        pl.setXray(true);
+        rayHandler.setAmbientLight(0.1f, 0.1f, 0.1f, 0f);
+        rayHandler.setBlurNum(3);
 
-        PointLight pl2 = new PointLight(rayHandler, 3, new Color(1f,0f,0f,0.8f), 2, 1, 1);
-        pl2.setStaticLight(false);
-        pl2.setSoft(true);
-        pl2.setXray(true);
+        lights = new Array<Light>();
+        lights.add(new PointLight(rayHandler, 128, new Color(1f, 0.3f,1f,0.8f), 6, 1, 1));
+        lights.add(new PointLight(rayHandler, 128, new Color(1f, 0.3f, 1f, 0.8f), 6, 8, 8));
+        lights.add(new PointLight(rayHandler, 128, new Color(1f, 0.3f, 1f, 0.8f), 6, 1, 8));
+        lights.add(new PointLight(rayHandler, 128, new Color(1f, 0.3f, 1f, 0.8f), 6, 8, 1));
+        //lights.add(new DirectionalLight(rayHandler, 128, new Color(1f, 0.3f, 1f, 0.8f), -91));
+
+
+        for (Light l : lights) {
+            l.setStaticLight(false);
+            l.setSoft(true);
+        }
     }
 
     private void drawBackground() {
@@ -210,8 +218,7 @@ class Renderer {
         batch.end();
 
         batch.enableBlending();
-        rayHandler.setCombinedMatrix(camera.combined, 0, 0, Settings.RESOLUTION.x/Settings.PPM,
-                Settings.RESOLUTION.y/Settings.PPM);
+        rayHandler.setCombinedMatrix(camera);
         rayHandler.updateAndRender();
 
         batch.begin();
