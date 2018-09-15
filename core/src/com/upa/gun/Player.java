@@ -52,7 +52,7 @@ public class Player {
         hurt = false;
 
         opacity = 1.0f;
-        health = 20;
+        health = Settings.PLAYER_HEALTH;
         rotation = 0f;
 
         direction = Direction.DOWN;
