@@ -89,15 +89,35 @@ class Renderer {
     }
 
     private void drawHealth(int health) {
-        float startX = 50f/Settings.PPM;
-        float incrementX = 40f/Settings.PPM;
-        float startY = 72f/Settings.PPM;
+        int startX = 50;
+        int incrementX = 32;
+        int startY = 72;
         if (health > 0) {
-            for (int i = 1; i <= health; i++) {
-                batch.draw(Assets.heart, startX, startY, (float)Assets.heart.getWidth()*2f/Settings.PPM,
-                        (float)Assets.heart.getHeight()*2f/Settings.PPM);
+            batch.draw(Assets.healthFullLeft, startX, startY, Assets.healthFullLeft.getWidth(),
+                    Assets.healthFullLeft.getHeight());
+            startX += incrementX;
+        } else {
+            batch.draw(Assets.healthEmptyLeft, startX, startY, Assets.healthEmptyLeft.getWidth(),
+                    Assets.healthEmptyLeft.getHeight());
+            startX += incrementX;
+        }
+        for (int i = 2; i < Settings.PLAYER_HEALTH; i++) {
+            if (i <= health) {
+                batch.draw(Assets.healthFullMid, startX, startY, Assets.healthFullMid.getWidth(),
+                        Assets.healthFullMid.getHeight());
+                startX += incrementX;
+            } else {
+                batch.draw(Assets.healthEmptyMid, startX, startY, Assets.healthEmptyMid.getWidth(),
+                        Assets.healthFullMid.getHeight());
                 startX += incrementX;
             }
+        }
+        if (health == Settings.PLAYER_HEALTH) {
+            batch.draw(Assets.healthFullRight, startX, startY, Assets.healthFullRight.getWidth(),
+                    Assets.healthFullRight.getHeight());
+        } else {
+            batch.draw(Assets.healthEmptyRight, startX, startY, Assets.healthEmptyRight.getWidth(),
+                    Assets.healthEmptyRight.getHeight());
         }
     }
 
@@ -226,9 +246,8 @@ class Renderer {
             drawIndicator(s);
         }
 
-        drawHealth(world.player.health);
-
         batch.setProjectionMatrix(hudCamera.combined);
+        drawHealth(world.player.health);
         drawScore();
         if (Settings.DEV_MODE) {
             drawFPS();
