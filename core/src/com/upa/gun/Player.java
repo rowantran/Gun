@@ -89,7 +89,6 @@ public class Player {
             health -= damage;
             iframe = true;
             opacity = 0.5f;
-            System.out.println(Integer.toString(health) + ", " + Integer.toString(damage));
             if (health <= 0) {
                 dying = true;
             }

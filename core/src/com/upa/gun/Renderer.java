@@ -49,6 +49,7 @@ class Renderer {
         font = new BitmapFont();
         font.getData().setScale(4);
 
+        /*
         rayHandler = new RayHandler(world.world);
         rayHandler.setShadows(true);
         rayHandler.setAmbientLight(0.1f, 0.1f, 0.1f, 0f);
@@ -66,6 +67,7 @@ class Renderer {
             l.setStaticLight(false);
             l.setSoft(true);
         }
+        */
     }
 
     private void drawBackground() {
@@ -183,7 +185,6 @@ class Renderer {
         layout.setText(font, Integer.toString(world.spawner.slimesKilled));
         float x = 30;
         float y = (Settings.RESOLUTION.y - layout.height);
-        System.out.println(x + "," + y);
         font.draw(batch, layout, x, y);
     }
 
@@ -237,9 +238,10 @@ class Renderer {
         }
         batch.end();
 
-        batch.enableBlending();
+        /*batch.enableBlending();
         rayHandler.setCombinedMatrix(camera);
         rayHandler.updateAndRender();
+        */
 
         batch.begin();
         for (SpawnIndicator s : world.indicators) {
