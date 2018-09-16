@@ -34,7 +34,7 @@ public class Spawner {
 
         bossAlive = false;
 
-        bossThreshold = 30;
+        bossThreshold = 5;
 
         bossHealth = 30;
     }

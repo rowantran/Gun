@@ -77,18 +77,27 @@ class Renderer {
                 0, (float)Assets.backgroundRoom1.getWidth()/Settings.PPM, (float)Assets.backgroundRoom1.getHeight()/Settings.PPM);
     }
 
+    private void drawShadow(float x, float y, float objectWidth) {
+        float shadowHeight = objectWidth / 3f;
+
+        float shadowY = y - (shadowHeight*0.7f);
+        batch.draw(Assets.shadow, x, shadowY, objectWidth, shadowHeight);
+    }
+
     private void drawPlayer(Player player) {
         batch.enableBlending();
         Animation<TextureRegion> currentAnimation = Assets.playerAnimations.get(player.getState()).get(player.direction);
         TextureRegion currentFrame = currentAnimation.getKeyFrame(world.player.timeElapsed);
 
+        float playerX = (player.body.getPosition().x - (float)currentFrame.getRegionWidth()/2f/Settings.PPM);
+        float playerY = (player.body.getPosition().y - (float)currentFrame.getRegionHeight()/2f/Settings.PPM);
+
         batch.setColor(1.0f, 1.0f, 1.0f, player.opacity);
-        batch.draw(currentFrame, (player.body.getPosition().x - (float)currentFrame.getRegionWidth()/2f/Settings.PPM),
-                (player.body.getPosition().y - (float)currentFrame.getRegionHeight()/2f/Settings.PPM), 0, 0,
+        drawShadow(playerX, playerY, (float)currentFrame.getRegionWidth()/Settings.PPM);
+        batch.draw(currentFrame, playerX, playerY, 0, 0,
                 (float)currentFrame.getRegionWidth()/Settings.PPM, (float)currentFrame.getRegionHeight()/Settings.PPM,
                 1, 1, world.player.rotation);
-
-    }
+}
 
     private void drawHealth(int health) {
         int startX = 50;
@@ -137,8 +146,11 @@ class Renderer {
             currentFrame = currentAnimation.getKeyFrame(slime.timeElapsed);
         }
 
-        batch.draw(currentFrame, (x-(float)currentFrame.getRegionWidth()/2f/Settings.PPM),
-                (y-(float)currentFrame.getRegionHeight()/2f/Settings.PPM),
+        float slimeX = (x-(float)currentFrame.getRegionWidth()/2f/Settings.PPM);
+        float slimeY =  (y-(float)currentFrame.getRegionHeight()/2f/Settings.PPM);
+
+        drawShadow(slimeX, slimeY, (float)currentFrame.getRegionWidth()/Settings.PPM);
+        batch.draw(currentFrame, slimeX, slimeY,
                 (float)currentFrame.getRegionWidth()/Settings.PPM, (float)currentFrame.getRegionHeight()/Settings.PPM);
     }
 
@@ -156,11 +168,14 @@ class Renderer {
             currentFrame = currentAnimation.getKeyFrame(bossSlime.timeElapsed);
         }
 
+        float slimeX = x-(float)currentFrame.getRegionWidth()*4f/Settings.PPM;
+        float slimeY = y-(float)currentFrame.getRegionHeight()*4f/Settings.PPM;
+        float slimeWidth = (float)currentFrame.getRegionWidth()*8f/Settings.PPM;
+        float slimeHeight = (float)currentFrame.getRegionHeight()*8f/Settings.PPM;
+
+        drawShadow(slimeX, slimeY, slimeWidth);
         currentFrame.getTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        batch.draw(currentFrame, x-(float)currentFrame.getRegionWidth()*4f/Settings.PPM,
-                y-(float)currentFrame.getRegionHeight()*4f/Settings.PPM,
-                (float)currentFrame.getRegionWidth()*8f/Settings.PPM,
-                (float)currentFrame.getRegionHeight()*8f/Settings.PPM);
+        batch.draw(currentFrame, slimeX, slimeY, slimeWidth, slimeHeight);
     }
 
     private void drawBullet(Bullet bullet, float x, float y) {
@@ -211,8 +226,6 @@ class Renderer {
         batch.begin();
         drawBackground();
 
-        drawPlayer(world.player);
-
         for (Body b : bodies) {
             Object id = b.getUserData();
             if (id != null) {
@@ -236,6 +249,9 @@ class Renderer {
         for (Bullet b : world.bullets) {
             drawBullet(b, b.body.getPosition().x, b.body.getPosition().y);
         }
+
+        drawPlayer(world.player);
+
         batch.end();
 
         /*batch.enableBlending();

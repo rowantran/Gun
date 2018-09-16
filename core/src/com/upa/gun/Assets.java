@@ -16,6 +16,7 @@ import java.util.Map;
 public class Assets {
     public static Texture backgroundRoom1;
     public static Texture crate;
+    public static Texture shadow;
 
     public static TextureAtlas playerAtlas;
     public static Map<ActionState, Map<Direction, Animation<TextureRegion>>> playerAnimations;
@@ -58,6 +59,8 @@ public class Assets {
     public static void load() {
         backgroundRoom1 = loadTexture("sprites/background1.png");
         crate = loadTexture("sprites/crate.png");
+        shadow = loadTexture("sprites/shadow.png");
+        shadow.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
         playerAtlas = new TextureAtlas(Gdx.files.internal("sprites/player.atlas"));
         playerAnimations = new HashMap<ActionState, Map<Direction, Animation<TextureRegion>>>();
