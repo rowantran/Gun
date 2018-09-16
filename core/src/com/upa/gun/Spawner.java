@@ -48,8 +48,8 @@ public class Spawner {
     }
 
     void spawnSlime() {
-        int spawnX = (int) (Math.random() * 1051) + 113;
-        int spawnY = (int) (Math.random() * 600) + 100;
+        float spawnX = (((float)Math.random() * 1051) + 113)/Settings.PPM;
+        float spawnY = (((float)Math.random() * 600) + 100)/Settings.PPM;
         int slimeType = (int) (Math.random() * 4);
         if (slimeType == 0) {
             gunWorld.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, StrongSlime.class));
@@ -60,8 +60,8 @@ public class Spawner {
 
     void spawnBossSlime() {
         TextureRegion bossSlimeHurt = Assets.bossSlimeAnimations.get(ActionState.HURT).get(Direction.LEFT).getKeyFrame(0);
-        int spawnX = (int) (Settings.RESOLUTION.x - bossSlimeHurt.getRegionWidth()) / 2;
-        int spawnY = (int) (Settings.RESOLUTION.y - bossSlimeHurt.getRegionHeight() / 2);
+        float spawnX = (Settings.RESOLUTION.x - bossSlimeHurt.getRegionWidth() / 2f / Settings.PPM);
+        float spawnY = (Settings.RESOLUTION.y - bossSlimeHurt.getRegionHeight() / 2f / Settings.PPM);
 
         BossSlimeFactory factory = new BossSlimeFactory();
         gunWorld.enemies.add(factory.makeBossSlime(bossHealth, spawnX, spawnY, world, gunWorld));

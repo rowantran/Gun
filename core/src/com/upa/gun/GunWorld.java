@@ -1,5 +1,6 @@
 package com.upa.gun;
 
+import box2dLight.RayHandler;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
@@ -28,14 +29,14 @@ public class GunWorld {
         world = new World(new Vector2(0, 0), true);
         spawner = new Spawner(this, world);
 
-        player = new Player(200, 200, game, world);
+        player = new Player(2, 2, game, world);
 
         for(int i = 0; i < 14; i++) {
-            crates.add(new Crate(i * 64 + 32, 29, Assets.crate, world));
+            crates.add(new Crate(((float)i * 64f + 32f)/Settings.PPM, 29f/Settings.PPM, Assets.crate, world));
         }
 
         for(int i = 17; i < 19; i++) {
-            crates.add(new Crate(i * 64 + 32, 29, Assets.crate, world));
+            crates.add(new Crate(((float)i * 64f + 32f)/Settings.PPM, 29f/Settings.PPM, Assets.crate, world));
         }
 
         this.game = game;

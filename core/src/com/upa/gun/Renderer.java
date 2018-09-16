@@ -1,6 +1,12 @@
 package com.upa.gun;
 
+import box2dLight.DirectionalLight;
+import box2dLight.Light;
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -18,29 +24,57 @@ import static com.upa.gun.Direction.LEFT;
 class Renderer {
     private SpriteBatch batch;
     OrthographicCamera camera;
+    private OrthographicCamera hudCamera;
 
     private GunWorld world;
 
     private GlyphLayout layout;
     private BitmapFont font;
 
+    private RayHandler rayHandler;
+
+    private Array<Light> lights;
+
     Renderer(SpriteBatch batch, GunWorld world) {
         this.batch = batch;
         this.world = world;
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, Settings.RESOLUTION.x, Settings.RESOLUTION.y);
+        camera.setToOrtho(false, (float)Settings.RESOLUTION.x/Settings.PPM, (float)Settings.RESOLUTION.y/Settings.PPM);
+
+        hudCamera = new OrthographicCamera();
+        hudCamera.setToOrtho(false, Settings.RESOLUTION.x, Settings.RESOLUTION.y);
 
         layout = new GlyphLayout();
         font = new BitmapFont();
         font.getData().setScale(4);
+
+        /*
+        rayHandler = new RayHandler(world.world);
+        rayHandler.setShadows(true);
+        rayHandler.setAmbientLight(0.1f, 0.1f, 0.1f, 0f);
+        rayHandler.setBlurNum(3);
+
+        lights = new Array<Light>();
+        lights.add(new PointLight(rayHandler, 128, new Color(1f, 0.3f,1f,0.8f), 6, 1, 1));
+        lights.add(new PointLight(rayHandler, 128, new Color(1f, 0.3f, 1f, 0.8f), 6, 8, 8));
+        lights.add(new PointLight(rayHandler, 128, new Color(1f, 0.3f, 1f, 0.8f), 6, 1, 8));
+        lights.add(new PointLight(rayHandler, 128, new Color(1f, 0.3f, 1f, 0.8f), 6, 8, 1));
+        //lights.add(new DirectionalLight(rayHandler, 128, new Color(1f, 0.3f, 1f, 0.8f), -91));
+
+
+        for (Light l : lights) {
+            l.setStaticLight(false);
+            l.setSoft(true);
+        }
+        */
     }
 
     private void drawBackground() {
         batch.disableBlending();
         batch.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-        batch.draw(Assets.backgroundRoom1, (Settings.RESOLUTION.x - Assets.backgroundRoom1.getWidth()) / 2,
-                0, Assets.backgroundRoom1.getWidth(), Assets.backgroundRoom1.getHeight());
+        batch.draw(Assets.backgroundRoom1, (Settings.RESOLUTION.x - Assets.backgroundRoom1.getWidth()) /2f/Settings.PPM,
+                0, (float)Assets.backgroundRoom1.getWidth()/Settings.PPM, (float)Assets.backgroundRoom1.getHeight()/Settings.PPM);
     }
 
     private void drawPlayer(Player player) {
@@ -48,9 +82,11 @@ class Renderer {
         Animation<TextureRegion> currentAnimation = Assets.playerAnimations.get(player.getState()).get(player.direction);
         TextureRegion currentFrame = currentAnimation.getKeyFrame(world.player.timeElapsed);
 
-        batch.draw(currentFrame, (player.body.getPosition().x - currentFrame.getRegionWidth()/2),
-                (player.body.getPosition().y -currentFrame.getRegionHeight()/2), 0, 0,
-                currentFrame.getRegionWidth(), currentFrame.getRegionHeight(), 1, 1, world.player.rotation);
+        batch.setColor(1.0f, 1.0f, 1.0f, player.opacity);
+        batch.draw(currentFrame, (player.body.getPosition().x - (float)currentFrame.getRegionWidth()/2f/Settings.PPM),
+                (player.body.getPosition().y - (float)currentFrame.getRegionHeight()/2f/Settings.PPM), 0, 0,
+                (float)currentFrame.getRegionWidth()/Settings.PPM, (float)currentFrame.getRegionHeight()/Settings.PPM,
+                1, 1, world.player.rotation);
 
     }
 
@@ -87,7 +123,6 @@ class Renderer {
         }
     }
 
-
     private void drawSlime(Slime slime, float x, float y, Map<ActionState, Map<Direction, Animation<TextureRegion>>> animationMap) {
         batch.enableBlending();
         batch.setColor(1.0f, 1.0f, 1.0f, slime.opacity);
@@ -102,8 +137,9 @@ class Renderer {
             currentFrame = currentAnimation.getKeyFrame(slime.timeElapsed);
         }
 
-        batch.draw(currentFrame, (x-currentFrame.getRegionWidth()/2), (y-currentFrame.getRegionHeight()/2),
-                currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
+        batch.draw(currentFrame, (x-(float)currentFrame.getRegionWidth()/2f/Settings.PPM),
+                (y-(float)currentFrame.getRegionHeight()/2f/Settings.PPM),
+                (float)currentFrame.getRegionWidth()/Settings.PPM, (float)currentFrame.getRegionHeight()/Settings.PPM);
     }
 
     private void drawBossSlime(BossSlime bossSlime, float x, float y) {
@@ -121,15 +157,17 @@ class Renderer {
         }
 
         currentFrame.getTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        batch.draw(currentFrame, x-currentFrame.getRegionWidth()*4, y-currentFrame.getRegionHeight()*4,
-                currentFrame.getRegionWidth()*8, currentFrame.getRegionHeight()*8);
+        batch.draw(currentFrame, x-(float)currentFrame.getRegionWidth()*4f/Settings.PPM,
+                y-(float)currentFrame.getRegionHeight()*4f/Settings.PPM,
+                (float)currentFrame.getRegionWidth()*8f/Settings.PPM,
+                (float)currentFrame.getRegionHeight()*8f/Settings.PPM);
     }
 
     private void drawBullet(Bullet bullet, float x, float y) {
         batch.enableBlending();
 
-        bullet.bulletSprite.setX(x-bullet.bulletSprite.getRegionWidth()/2);
-        bullet.bulletSprite.setY(y-bullet.bulletSprite.getRegionHeight()/2);
+        bullet.bulletSprite.setX(x-(float)bullet.bulletSprite.getRegionWidth()/2f);
+        bullet.bulletSprite.setY(y-(float)bullet.bulletSprite.getRegionHeight()/2f);
         bullet.bulletSprite.draw(batch);
     }
 
@@ -145,8 +183,8 @@ class Renderer {
         batch.enableBlending();
 
         layout.setText(font, Integer.toString(world.spawner.slimesKilled));
-        int x = 30;
-        int y = (int) (Settings.RESOLUTION.y - layout.height);
+        float x = 30;
+        float y = (Settings.RESOLUTION.y - layout.height);
         font.draw(batch, layout, x, y);
     }
 
@@ -158,8 +196,8 @@ class Renderer {
         batch.enableBlending();
 
         layout.setText(font, Integer.toString(Gdx.graphics.getFramesPerSecond()));
-        int x = 0;
-        int y = (int) layout.height;
+        float x = 0;
+        float y = layout.height;
         font.draw(batch, layout, x, y);
     }
 
@@ -198,13 +236,20 @@ class Renderer {
         for (Bullet b : world.bullets) {
             drawBullet(b, b.body.getPosition().x, b.body.getPosition().y);
         }
+        batch.end();
 
+        /*batch.enableBlending();
+        rayHandler.setCombinedMatrix(camera);
+        rayHandler.updateAndRender();
+        */
+
+        batch.begin();
         for (SpawnIndicator s : world.indicators) {
             drawIndicator(s);
         }
 
+        batch.setProjectionMatrix(hudCamera.combined);
         drawHealth(world.player.health);
-
         drawScore();
         if (Settings.DEV_MODE) {
             drawFPS();

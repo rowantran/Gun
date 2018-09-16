@@ -62,7 +62,7 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-bullet:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
-        
+        compile "com.badlogicgames.box2dlights:box2dlights:1.4"
     }
 }
 

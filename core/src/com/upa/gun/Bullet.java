@@ -20,6 +20,7 @@ public abstract class Bullet {
         this.angle = angle;
         bulletSprite = new Sprite(texture);
         bulletSprite.setRotation((float) (angle * 180 / Math.PI));
+        bulletSprite.setScale(1f/Settings.PPM);
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -30,7 +31,7 @@ public abstract class Bullet {
         body.setTransform(x, y, (float) angle);
 
         PolygonShape bulletBox = new PolygonShape();
-        bulletBox.setAsBox(bulletSprite.getWidth()/2, bulletSprite.getHeight()/2);
+        bulletBox.setAsBox(bulletSprite.getWidth()/2/Settings.PPM, bulletSprite.getHeight()/2/Settings.PPM);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = bulletBox;
@@ -49,7 +50,7 @@ public abstract class Bullet {
         int bulletX = (int)body.getTransform().getPosition().x;
         int bulletY = (int)body.getTransform().getPosition().y;
 
-        if(bulletX < 0 || bulletX > 1280 || bulletY < 0 || bulletY > 800) {
+        if(bulletX < 0 || bulletX > 1280f/Settings.PPM || bulletY < 0 || bulletY > 800f/Settings.PPM) {
             markedForDeletion = true;
         }
 
