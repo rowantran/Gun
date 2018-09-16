@@ -17,7 +17,7 @@ public class BossSlime extends Slime {
 	float timeHurt;
 	static float timeStayHurt = 0.5f;
 
-	static float hitboxRadius = 50f;
+	static float hitboxRadius = 50f/Settings.PPM;
 
     public BossSlime(int health, float x, float y, World world, GunWorld gunWorld, Shape hitbox) {
         super(x, y, world, gunWorld, hitbox);
