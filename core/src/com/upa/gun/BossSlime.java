@@ -10,8 +10,6 @@ import com.badlogic.gdx.physics.box2d.World;
 public class BossSlime extends Slime {
     boolean hurt;
 
-	double interval;
-
 	int health;
 
 	float timeHurt;
@@ -19,31 +17,26 @@ public class BossSlime extends Slime {
 
 	static float hitboxRadius = 50f/Settings.PPM;
 
-    public BossSlime(int health, float x, float y, World world, GunWorld gunWorld, Shape hitbox) {
+	class BossSlimeRotation extends AttackRotation {
+	    BossSlimeRotation() {
+	        attacks.add(new CircularAttack(0.75f, 0.075f, false));
+	        attacks.add(new NoAttack(2.0f, true));
+	        attacks.add(new TrackingBurstAttack(1.5f, 0.075f, true));
+	        attacks.add(new NoAttack(2.0f, true));
+        }
+    }
+
+    BossSlime(int health, float x, float y, World world, GunWorld gunWorld, Shape hitbox) {
         super(x, y, world, gunWorld, hitbox);
-        timeBetweenAttacks = 8.0f;
-        shotInterval = 0.075f;
         speedMultiplier = 0.5f;
-        
-        interval = Math.PI/16;
 
         this.health = health;
 
         hurt = false;
 
         timeHurt = 0f;
-    }
-    
-    public void shoot() {
-        if (shooting) {
-            Vector2 slimePos = body.getTransform().getPosition();
-            for (int i = 0; i<32; i++) {
-            	double angle = interval * (double) i;
-            	gunWorld.bullets.add(new BossBullet(slimePos.x, slimePos.y, angle,
-                        world));
-            }
-            fireSound();
-        }
+
+        rotation = new BossSlimeRotation();
     }
 
     public void update(float delta) {
@@ -67,7 +60,7 @@ public class BossSlime extends Slime {
     public ActionState getState() {
         if (dying || hurt) {
             return ActionState.HURT;
-        } else if (shooting) {
+        } else if (!(rotation.currentAttack() instanceof NoAttack)) {
             return ActionState.ATTACKING;
         } else {
             return ActionState.MOVING;

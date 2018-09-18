@@ -5,7 +5,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 public abstract class Enemy {
     float timeElapsed;
     float timeSinceAttack;
-    boolean shooting;
     boolean dying;
     boolean markedForDeletion;
     Body body;
@@ -14,7 +13,6 @@ public abstract class Enemy {
 
     Enemy(GunWorld gunWorld) {
         timeElapsed = 20.0f;
-        shooting = false;
         dying = false;
         markedForDeletion = false;
         this.gunWorld = gunWorld;

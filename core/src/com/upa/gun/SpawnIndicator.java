@@ -6,15 +6,15 @@ public class SpawnIndicator {
     float x, y;
     float timeElapsed;
     float timeUntilSpawn;
-    Class spawnType;
+    EnemyFactory<? extends Enemy> factory;
     boolean markedForDeletion;
 
-    SpawnIndicator(float x, float y, float timeElapsed, float timeUntilSpawn, Class spawnType) {
+    SpawnIndicator(float x, float y, float timeElapsed, float timeUntilSpawn, EnemyFactory<? extends Enemy> factory) {
         this.x = x;
         this.y = y;
         this.timeElapsed = timeElapsed;
         this.timeUntilSpawn = timeUntilSpawn;
-        this.spawnType = spawnType;
+        this.factory = factory;
         markedForDeletion = false;
     }
 
@@ -27,12 +27,6 @@ public class SpawnIndicator {
     }
 
     void createSpawn(World world, GunWorld gunWorld) {
-        try {
-            Enemy enemy = (Enemy) spawnType.getConstructor(float.class, float.class, World.class, GunWorld.class).
-                    newInstance(x, y, world, gunWorld);
-            gunWorld.enemies.add(enemy);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        gunWorld.enemies.add(factory.create(x, y, world, gunWorld));
     }
 }

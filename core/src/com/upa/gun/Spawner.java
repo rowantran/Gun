@@ -20,6 +20,9 @@ public class Spawner {
 
     int bossHealth;
 
+    EnemyFactory<Slime> slimeFactory;
+    EnemyFactory<StrongSlime> strongSlimeFactory;
+
     Spawner(GunWorld gunWorld, World world) {
         this.gunWorld = gunWorld;
         this.world = world;
@@ -37,6 +40,9 @@ public class Spawner {
         bossThreshold = 5;
 
         bossHealth = 30;
+
+        slimeFactory = new SlimeFactory();
+        strongSlimeFactory = new StrongSlimeFactory();
     }
 
     float generateRandomSpawnTime() {
@@ -52,9 +58,9 @@ public class Spawner {
         float spawnY = (((float)Math.random() * 600) + 100)/Settings.PPM;
         int slimeType = (int) (Math.random() * 4);
         if (slimeType == 0) {
-            gunWorld.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, StrongSlime.class));
+            gunWorld.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, strongSlimeFactory));
         } else {
-            gunWorld.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, Slime.class));
+            gunWorld.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, slimeFactory));
         }
     }
 
