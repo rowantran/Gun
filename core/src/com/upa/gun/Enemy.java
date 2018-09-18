@@ -10,6 +10,7 @@ public abstract class Enemy {
     boolean markedForDeletion;
     Body body;
     GunWorld gunWorld;
+    AttackRotation rotation;
 
     Enemy(GunWorld gunWorld) {
         timeElapsed = 20.0f;
@@ -21,5 +22,6 @@ public abstract class Enemy {
 
     public void update(float delta) {
         timeElapsed += delta;
+        rotation.cycle(delta);
     }
 }
