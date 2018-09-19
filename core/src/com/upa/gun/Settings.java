@@ -11,7 +11,7 @@ public class Settings {
 
     public static final Vector2 RESOLUTION = new Vector2(1280, 800);
 
-    public static final int PLAYER_HEALTH = 20;
+    public static final int PLAYER_HEALTH = 10;
 
     public static final float BULLET_SPEED = 500.0f;
     public static final float ENEMY_BULLET_SPEED = 350.0f;

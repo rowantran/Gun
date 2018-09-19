@@ -23,6 +23,7 @@ class Renderer {
 
     private GlyphLayout layout;
     private BitmapFont font;
+    private BitmapFont smallFont;
 
     Renderer(SpriteBatch batch, GunWorld world) {
         this.batch = batch;
@@ -34,6 +35,7 @@ class Renderer {
         layout = new GlyphLayout();
         font = new BitmapFont();
         font.getData().setScale(4);
+        smallFont = new BitmapFont();
     }
 
     private void drawBackground() {
@@ -158,8 +160,8 @@ class Renderer {
         batch.enableBlending();
 
         layout.setText(font, Integer.toString(Gdx.graphics.getFramesPerSecond()));
-        int x = 0;
-        int y = (int) layout.height;
+        int x = (int) Settings.RESOLUTION.x - 100;
+        int y = (int) Settings.RESOLUTION.y - 30;
         font.draw(batch, layout, x, y);
     }
 
