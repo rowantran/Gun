@@ -15,6 +15,7 @@ public class GunWorld {
     List<Enemy> enemies;
     List<Crate> crates;
     List<SpawnIndicator> indicators;
+    List<ScriptedEventSequence> sequences;
     World world;
     Spawner spawner;
 
@@ -25,6 +26,7 @@ public class GunWorld {
         enemies = new ArrayList<Enemy>();
         crates = new ArrayList<Crate>();
         indicators = new ArrayList<SpawnIndicator>();
+        sequences = new ArrayList<ScriptedEventSequence>();
 
         world = new World(new Vector2(0, 0), true);
         spawner = new Spawner(this, world);
@@ -49,6 +51,10 @@ public class GunWorld {
         for (Iterator<Bullet> iterator = bullets.iterator(); iterator.hasNext();) {
             Bullet bullet = iterator.next();
             bullet.update(delta);
+        }
+
+        for (ScriptedEventSequence sequence : sequences) {
+            sequence.update(delta, this);
         }
 
         for (Enemy enemy : enemies) {

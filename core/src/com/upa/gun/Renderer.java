@@ -252,6 +252,7 @@ class Renderer {
         rayHandler.updateAndRender();
         */
 
+        // Set projection matrix to pixels instead of meters
         batch.setProjectionMatrix(hudCamera.combined);
         batch.begin();
         for (SpawnIndicator s : world.indicators) {
