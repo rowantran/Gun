@@ -6,7 +6,6 @@ public class BossSlimeFall implements ScriptedEvent {
 
     private BossSlime slime;
     private boolean finished;
-    private boolean slimesKilled;
 
     private float timeElapsed;
 
