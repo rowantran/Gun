@@ -1,18 +1,24 @@
 package com.upa.gun;
 
 public class BossSlimeFall implements ScriptedEvent {
-    static float FALL_SPEED = 1.2f;
-    static float TIME_AFTER_FALL = 0.8f;
+    private static float FALL_SPEED = 1.2f;
+    private static float TIME_AFTER_FALL = 0.8f;
 
     private BossSlime slime;
     private boolean finished;
+    private boolean slimesKilled;
 
     private float timeElapsed;
+
+    private KillEnemies killEnemies;
 
     BossSlimeFall(BossSlime slime) {
         this.slime = slime;
         finished = false;
+        slimesKilled = false;
         timeElapsed = 0f;
+
+        killEnemies = new KillEnemies();
     }
 
     @Override
@@ -21,13 +27,15 @@ public class BossSlimeFall implements ScriptedEvent {
         slime.body.setLinearVelocity(0, currentFallSpeed - FALL_SPEED*delta);
 
         if (slime.body.getPosition().y <= (Settings.RESOLUTION.x * 0.4f / Settings.PPM)) {
+            killEnemies.update(delta, gunWorld);
+
             slime.body.setLinearVelocity(0, 0);
             timeElapsed += delta;
         }
     }
 
     @Override
-    public void onFinish(float delta, GunWorld gunWorld) {
+    public void onFinish(GunWorld gunWorld) {
         gunWorld.enemies.add(slime);
         finished = true;
     }
