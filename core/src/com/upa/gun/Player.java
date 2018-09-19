@@ -101,6 +101,10 @@ public class Player {
         }
     }
 
+    public void roll() {
+        System.out.println("roll");
+    }
+
     public void update(float delta) {
         moving = false;
         bulletCooldown -= delta;

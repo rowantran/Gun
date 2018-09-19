@@ -14,7 +14,6 @@ public class BossSlimeFall implements ScriptedEvent {
     BossSlimeFall(BossSlime slime) {
         this.slime = slime;
         finished = false;
-        slimesKilled = false;
         timeElapsed = 0f;
 
         killEnemies = new KillEnemies();

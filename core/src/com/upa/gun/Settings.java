@@ -28,6 +28,7 @@ public class Settings {
     public static final int KEY_RIGHT = Input.Keys.D;
     public static final int KEY_UP = Input.Keys.W;
     public static final int KEY_DOWN = Input.Keys.S;
+    public static final int KEY_ROLL = Input.Keys.SHIFT_LEFT;
 
     public static int PERCENT_SPAWN_CHANCE = 1;
     public static boolean PLAYER_DEATH = true;

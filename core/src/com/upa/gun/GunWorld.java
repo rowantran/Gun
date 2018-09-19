@@ -1,6 +1,7 @@
 package com.upa.gun;
 
 import box2dLight.RayHandler;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
@@ -57,6 +58,7 @@ public class GunWorld {
         }
 
         if (!cinematicHappening) {
+            handleInput(delta);
             player.update(delta);
 
             for (Iterator<Bullet> iterator = bullets.iterator(); iterator.hasNext(); ) {
@@ -75,6 +77,12 @@ public class GunWorld {
                     spawn.markedForDeletion = true;
                 }
             }
+        }
+    }
+
+    public void handleInput(float delta) {
+        if (Gdx.input.isKeyPressed(Settings.KEY_ROLL)) {
+            player.roll();
         }
     }
 
