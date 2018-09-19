@@ -20,6 +20,9 @@ public class Spawner {
 
     int bossHealth;
 
+    EnemyFactory<Slime> slimeFactory;
+    EnemyFactory<StrongSlime> strongSlimeFactory;
+
     Spawner(GunWorld gunWorld, World world) {
         this.gunWorld = gunWorld;
         this.world = world;
@@ -34,9 +37,12 @@ public class Spawner {
 
         bossAlive = false;
 
-        bossThreshold = 30;
+        bossThreshold = 5;
 
         bossHealth = 30;
+
+        slimeFactory = new SlimeFactory();
+        strongSlimeFactory = new StrongSlimeFactory();
     }
 
     float generateRandomSpawnTime() {
@@ -48,23 +54,26 @@ public class Spawner {
     }
 
     void spawnSlime() {
-        int spawnX = (int) (Math.random() * 1051) + 113;
-        int spawnY = (int) (Math.random() * 600) + 100;
+        float spawnX = (((float)Math.random() * 1051) + 113)/Settings.PPM;
+        float spawnY = (((float)Math.random() * 600) + 100)/Settings.PPM;
         int slimeType = (int) (Math.random() * 4);
         if (slimeType == 0) {
-            gunWorld.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, StrongSlime.class));
+            gunWorld.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, strongSlimeFactory));
         } else {
-            gunWorld.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, Slime.class));
+            gunWorld.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, slimeFactory));
         }
     }
 
     void spawnBossSlime() {
-        TextureRegion bossSlimeHurt = Assets.bossSlimeAnimations.get(ActionState.HURT).get(Direction.LEFT).getKeyFrame(0);
-        int spawnX = (int) (Settings.RESOLUTION.x - bossSlimeHurt.getRegionWidth()) / 2;
-        int spawnY = (int) (Settings.RESOLUTION.y - bossSlimeHurt.getRegionHeight() / 2);
+        TextureRegion bossSlimeHurt = Assets.bossSlimeAnimations.get(SpriteState.HURT).get(Direction.LEFT).getKeyFrame(0);
+        float spawnX = ((Settings.RESOLUTION.x - (float)bossSlimeHurt.getRegionWidth()) / 2f) / Settings.PPM;
+        float spawnY = Settings.RESOLUTION.y / Settings.PPM;
 
         BossSlimeFactory factory = new BossSlimeFactory();
-        gunWorld.enemies.add(factory.makeBossSlime(bossHealth, spawnX, spawnY, world, gunWorld));
+        BossSlime slime = factory.makeBossSlime(bossHealth, spawnX, spawnY, world, gunWorld);
+        BossSlimeEntrance entrance = new BossSlimeEntrance(slime);
+        entrance.start();
+        gunWorld.sequences.add(entrance);
     }
 
     void update(float delta) {

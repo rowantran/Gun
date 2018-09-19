@@ -1,14 +1,8 @@
 package com.upa.gun;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
 public class Slime extends Enemy {
-    int rotation;
-
     public static int LEFT = 0;
     public static int RIGHT = 1;
 
@@ -16,16 +10,20 @@ public class Slime extends Enemy {
 
     public float opacity;
 
-    float timeBetweenAttacks = 3.0f;
-    float attackLength = 0.75f;
-    float shotInterval = 0.15f;
     float speedMultiplier = 1/2f;
 
-    static float hitboxSize = 10f;
+    static float hitboxSize = 10f/Settings.PPM;
 
     World world;
 
-    public Slime(float x, float y, World world, GunWorld gunWorld) {
+    class SlimeAttackRotation extends AttackRotation {
+        SlimeAttackRotation() {
+            attacks.add(new TrackingBurstAttack(0.75f, 0.15f, true));
+            attacks.add(new NoAttack(3.0f, true));
+        }
+    }
+
+    Slime(float x, float y, World world, GunWorld gunWorld) {
         super(gunWorld);
         attackTimeElapsed = 0.0f;
         timeSinceAttack = 0.0f;
@@ -49,11 +47,11 @@ public class Slime extends Enemy {
 
         body.createFixture(fixtureDef);
 
-        rotation = Slime.LEFT;
-
         opacity = 1.0f;
 
         this.world = world;
+
+        rotation = new SlimeAttackRotation();
     }
 
     public Slime(float x, float y, World world, GunWorld gunWorld, Shape hitbox) {
@@ -77,20 +75,15 @@ public class Slime extends Enemy {
 
         body.createFixture(fixtureDef);
 
-        rotation = Slime.LEFT;
-
         opacity = 1.0f;
 
         this.world = world;
+
+        rotation = new SlimeAttackRotation();
     }
 
     public void update(float delta) {
-        if (shooting) {
-            attackTimeElapsed += delta;
-            timeSinceAttack += delta;
-        } else {
-            timeElapsed += delta;
-        }
+        super.update(delta);
 
         if (dying) {
             opacity -= Settings.DEATH_FADE_SPEED * delta;
@@ -100,110 +93,82 @@ public class Slime extends Enemy {
                 markedForDeletion = true;
             }
         } else {
-            handleShooting();
-            move(delta);
-
-            if (timeSinceAttack >= shotInterval) {
-                shoot();
-                timeSinceAttack = 0.0f;
+            if (rotation.isAttacking()) {
+                rotation.attack(gunWorld, body.getPosition());
+                fireSound();
+            } else {
+                if (rotation.currentAttack().isMobile()) {
+                    move(delta);
+                } else {
+                    body.setLinearVelocity(0, 0);
+                }
             }
         }
     }
 
-    public void handleShooting() {
-        if (timeElapsed >= timeBetweenAttacks) {
-            shooting = true;
-            if (attackTimeElapsed >= attackLength) {
-                attackTimeElapsed = 0;
-                timeElapsed = 0;
-                shooting = false;
-            }
-        } else {
-            shooting = false;
-        }
-    }
 
-    public ActionState getState() {
+    public SpriteState getState() {
         if (dying) {
-            return ActionState.HURT;
-        } else if (shooting) {
-            return ActionState.ATTACKING;
+            return SpriteState.HURT;
+        } else if (!(rotation.currentAttack() instanceof NoAttack)) {
+            return SpriteState.ATTACKING;
         } else {
-            return ActionState.MOVING;
+            return SpriteState.MOVING;
         }
     }
 
     public void move(float delta) {
-        int playerX = (int) gunWorld.player.body.getTransform().getPosition().x;
-        int playerY = (int) gunWorld.player.body.getTransform().getPosition().y;
+        float playerX = gunWorld.player.body.getTransform().getPosition().x;
+        float playerY = gunWorld.player.body.getTransform().getPosition().y;
 
-        int slimeX = (int) body.getTransform().getPosition().x;
-        int slimeY = (int) body.getTransform().getPosition().y;
+        float slimeX = body.getTransform().getPosition().x;
+        float slimeY = body.getTransform().getPosition().y;
 
-
-        if(!shooting) {
-            if (slimeX < playerX) {
-                if (slimeY < playerY) {
-                    body.setLinearVelocity(Settings.SLIME_SPEED * speedMultiplier, Settings.SLIME_SPEED * speedMultiplier);
-                }
-                if (slimeY > playerY) {
-                    body.setLinearVelocity(Settings.SLIME_SPEED * speedMultiplier, -Settings.SLIME_SPEED * speedMultiplier);
-                }
-                if (slimeY == playerY) {
-                    body.setLinearVelocity(Settings.SLIME_SPEED, 0);
-                }
+        if (slimeX < playerX) {
+            if (slimeY < playerY) {
+                body.setLinearVelocity(Settings.SLIME_SPEED * speedMultiplier, Settings.SLIME_SPEED * speedMultiplier);
             }
-            if (slimeX > playerX) {
-                if (slimeY < playerY) {
-                    body.setLinearVelocity(-Settings.SLIME_SPEED * speedMultiplier, Settings.SLIME_SPEED * speedMultiplier);
-                }
-                if (slimeY > playerY) {
-                    body.setLinearVelocity(-Settings.SLIME_SPEED * speedMultiplier, -Settings.SLIME_SPEED * speedMultiplier);
-                }
-                if (slimeY == playerY) {
-                    body.setLinearVelocity(-Settings.SLIME_SPEED, 0);
-                }
+            if (slimeY > playerY) {
+                body.setLinearVelocity(Settings.SLIME_SPEED * speedMultiplier, -Settings.SLIME_SPEED * speedMultiplier);
             }
-            if (slimeX == playerX) {
-                if (slimeY < playerY) {
-                    body.setLinearVelocity(0, Settings.SLIME_SPEED);
-                }
-                if (slimeY > playerY) {
-                    body.setLinearVelocity(0, -Settings.SLIME_SPEED);
-                }
-                if(slimeY == playerY) {
-                    body.setLinearVelocity(0, 0);
-                }
+            if (slimeY == playerY) {
+                body.setLinearVelocity(Settings.SLIME_SPEED, 0);
             }
-
-            if(slimeX <= 113 && body.getLinearVelocity().x < 0) {
-                body.setLinearVelocity(0, body.getLinearVelocity().y);
+        }
+        if (slimeX > playerX) {
+            if (slimeY < playerY) {
+                body.setLinearVelocity(-Settings.SLIME_SPEED * speedMultiplier, Settings.SLIME_SPEED * speedMultiplier);
             }
-            if(slimeX >= 1160 && body.getLinearVelocity().x > 0) {
-                body.setLinearVelocity(0, body.getLinearVelocity().y);
+            if (slimeY > playerY) {
+                body.setLinearVelocity(-Settings.SLIME_SPEED * speedMultiplier, -Settings.SLIME_SPEED * speedMultiplier);
             }
-            if(slimeY <= 136 && body.getLinearVelocity().y < 0) {
-                body.setLinearVelocity(body.getLinearVelocity().x, 0);
+            if (slimeY == playerY) {
+                body.setLinearVelocity(-Settings.SLIME_SPEED, 0);
             }
-            if(slimeY >= 674 && body.getLinearVelocity().y > 0) {
-                body.setLinearVelocity(body.getLinearVelocity().x, 0);
+        }
+        if (slimeX == playerX) {
+            if (slimeY < playerY) {
+                body.setLinearVelocity(0, Settings.SLIME_SPEED);
             }
-
+            if (slimeY > playerY) {
+                body.setLinearVelocity(0, -Settings.SLIME_SPEED);
+            }
+            if(slimeY == playerY) {
+                body.setLinearVelocity(0, 0);
+            }
         }
 
-        if(shooting) {
-            body.setLinearVelocity(0, 0);
+        if(slimeX <= 113f/Settings.PPM && body.getLinearVelocity().x < 0) {
+            body.setLinearVelocity(0, body.getLinearVelocity().y);
         }
-    }
-
-    public void shoot() {
-        if (shooting) {
-            Vector2 slimePos = body.getTransform().getPosition();
-            Vector2 bulletAngle = gunWorld.player.body.getTransform().getPosition()
-                    .sub(slimePos);
-            gunWorld.bullets.add(new EnemyBullet(slimePos.x, slimePos.y, bulletAngle.angleRad(),
-                    world, Assets.bulletEnemy));
-            fireSound();
+        if(slimeX >= 1160f/Settings.PPM && body.getLinearVelocity().x > 0) {
+            body.setLinearVelocity(0, body.getLinearVelocity().y);
+        }
+        if(slimeY <= 136f/Settings.PPM && body.getLinearVelocity().y < 0) {
+            body.setLinearVelocity(body.getLinearVelocity().x, 0);
+        }
+        if(slimeY >= 674f/Settings.PPM && body.getLinearVelocity().y > 0) {
+            body.setLinearVelocity(body.getLinearVelocity().x, 0);
         }
     }
 

@@ -7,27 +7,25 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.utils.Array;
 
-import javax.swing.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Assets {
     public static Texture backgroundRoom1;
     public static Texture crate;
+    public static Texture shadow;
 
     public static TextureAtlas playerAtlas;
-    public static Map<ActionState, Map<Direction, Animation<TextureRegion>>> playerAnimations;
+    public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> playerAnimations;
 
     public static TextureAtlas slimeAtlas;
-    public static Map<ActionState, Map<Direction, Animation<TextureRegion>>> slimeAnimations;
+    public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> slimeAnimations;
 
     public static TextureAtlas strongSlimeAtlas;
-    public static Map<ActionState, Map<Direction, Animation<TextureRegion>>> strongSlimeAnimations;
+    public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> strongSlimeAnimations;
 
     public static TextureAtlas bossSlimeAtlas;
-    public static Map<ActionState, Map<Direction, Animation<TextureRegion>>> bossSlimeAnimations;
+    public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> bossSlimeAnimations;
 
     public static Texture bullets;
     public static TextureRegion bulletLaser;
@@ -58,9 +56,11 @@ public class Assets {
     public static void load() {
         backgroundRoom1 = loadTexture("sprites/background1.png");
         crate = loadTexture("sprites/crate.png");
+        shadow = loadTexture("sprites/shadow.png");
+        shadow.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
         playerAtlas = new TextureAtlas(Gdx.files.internal("sprites/player.atlas"));
-        playerAnimations = new HashMap<ActionState, Map<Direction, Animation<TextureRegion>>>();
+        playerAnimations = new HashMap<SpriteState, Map<Direction, Animation<TextureRegion>>>();
         loadPlayerAnimations();
 
         crosshair = new Texture("sprites/crosshair.png");
@@ -74,15 +74,15 @@ public class Assets {
     */
 
         slimeAtlas = new TextureAtlas(Gdx.files.internal("sprites/slime.atlas"));
-        slimeAnimations = new HashMap<ActionState, Map<Direction, Animation<TextureRegion>>>();
+        slimeAnimations = new HashMap<SpriteState, Map<Direction, Animation<TextureRegion>>>();
         loadSlimeAnimations();
 
         strongSlimeAtlas = new TextureAtlas(Gdx.files.internal("sprites/strongSlime.atlas"));
-        strongSlimeAnimations = new HashMap<ActionState, Map<Direction, Animation<TextureRegion>>>();
+        strongSlimeAnimations = new HashMap<SpriteState, Map<Direction, Animation<TextureRegion>>>();
         loadStrongSlimeAnimations();
 
         bossSlimeAtlas = new TextureAtlas(Gdx.files.internal("sprites/bossSlime.atlas"));
-        bossSlimeAnimations = new HashMap<ActionState, Map<Direction, Animation<TextureRegion>>>();
+        bossSlimeAnimations = new HashMap<SpriteState, Map<Direction, Animation<TextureRegion>>>();
         loadBossSlimeAnimations();
 
         bullets = loadTexture("sprites/laserBullet.png");
@@ -130,7 +130,7 @@ public class Assets {
         playerMovingAnimations.put(Direction.UP, loadPlayerAnimation("Back"));
         playerMovingAnimations.put(Direction.LEFT, loadPlayerAnimation("Left"));
         playerMovingAnimations.put(Direction.RIGHT, loadPlayerAnimation("Right"));
-        playerAnimations.put(ActionState.MOVING, playerMovingAnimations);
+        playerAnimations.put(SpriteState.MOVING, playerMovingAnimations);
 
         Map<Direction, Animation<TextureRegion>> playerIdleAnimations =
                 new HashMap<Direction, Animation<TextureRegion>>();
@@ -138,7 +138,7 @@ public class Assets {
         playerIdleAnimations.put(Direction.UP, loadPlayerIdleAnimation("Back"));
         playerIdleAnimations.put(Direction.LEFT, loadPlayerIdleAnimation("Left"));
         playerIdleAnimations.put(Direction.RIGHT, loadPlayerIdleAnimation("Right"));
-        playerAnimations.put(ActionState.IDLE, playerIdleAnimations);
+        playerAnimations.put(SpriteState.IDLE, playerIdleAnimations);
     }
 
     private static Animation<TextureRegion> loadSlimeAnimation(String name) {
@@ -159,17 +159,17 @@ public class Assets {
         Map<Direction, Animation<TextureRegion>> slimeMovingAnimations = new HashMap<Direction, Animation<TextureRegion>>();
         slimeMovingAnimations.put(Direction.LEFT, loadSlimeAnimation("slime"));
         slimeMovingAnimations.put(Direction.RIGHT, loadSlimeAnimationFlipped("slime"));
-        slimeAnimations.put(ActionState.MOVING, slimeMovingAnimations);
+        slimeAnimations.put(SpriteState.MOVING, slimeMovingAnimations);
 
         Map<Direction, Animation<TextureRegion>> slimeAttackAnimations = new HashMap<Direction, Animation<TextureRegion>>();
         slimeAttackAnimations.put(Direction.LEFT, loadSlimeAnimation("slimeAttack"));
         slimeAttackAnimations.put(Direction.RIGHT, loadSlimeAnimationFlipped("slimeAttack"));
-        slimeAnimations.put(ActionState.ATTACKING, slimeAttackAnimations);
+        slimeAnimations.put(SpriteState.ATTACKING, slimeAttackAnimations);
 
         Map<Direction, Animation<TextureRegion>> slimeHurtAnimations = new HashMap<Direction, Animation<TextureRegion>>();
         slimeHurtAnimations.put(Direction.LEFT, loadSlimeAnimation("slime-death"));
         slimeHurtAnimations.put(Direction.RIGHT, loadSlimeAnimationFlipped("slime-death"));
-        slimeAnimations.put(ActionState.HURT, slimeHurtAnimations);
+        slimeAnimations.put(SpriteState.HURT, slimeHurtAnimations);
     }
 
     private static Animation<TextureRegion> loadStrongSlimeAnimation(String name) {
@@ -190,17 +190,17 @@ public class Assets {
         Map<Direction, Animation<TextureRegion>> strongSlimeMovingAnimations = new HashMap<Direction, Animation<TextureRegion>>();
         strongSlimeMovingAnimations.put(Direction.LEFT, loadStrongSlimeAnimation("strongSlime"));
         strongSlimeMovingAnimations.put(Direction.RIGHT, loadStrongSlimeAnimationFlipped("strongSlime"));
-        strongSlimeAnimations.put(ActionState.MOVING, strongSlimeMovingAnimations);
+        strongSlimeAnimations.put(SpriteState.MOVING, strongSlimeMovingAnimations);
 
         Map<Direction, Animation<TextureRegion>> strongSlimeAttackingAnimations = new HashMap<Direction, Animation<TextureRegion>>();
         strongSlimeAttackingAnimations.put(Direction.LEFT, loadStrongSlimeAnimation("strongSlimeAttack"));
         strongSlimeAttackingAnimations.put(Direction.RIGHT, loadStrongSlimeAnimationFlipped("strongSlimeAttack"));
-        strongSlimeAnimations.put(ActionState.ATTACKING, strongSlimeAttackingAnimations);
+        strongSlimeAnimations.put(SpriteState.ATTACKING, strongSlimeAttackingAnimations);
 
         Map<Direction, Animation<TextureRegion>> strongSlimeHurtAnimations = new HashMap<Direction, Animation<TextureRegion>>();
         strongSlimeHurtAnimations.put(Direction.LEFT, loadStrongSlimeAnimation("strongSlime-death"));
         strongSlimeHurtAnimations.put(Direction.RIGHT, loadStrongSlimeAnimationFlipped("strongSlime-death"));
-        strongSlimeAnimations.put(ActionState.HURT, strongSlimeHurtAnimations);
+        strongSlimeAnimations.put(SpriteState.HURT, strongSlimeHurtAnimations);
     }
 
     private static Animation<TextureRegion> loadBossSlimeAnimation(String name) {
@@ -221,16 +221,16 @@ public class Assets {
         Map<Direction, Animation<TextureRegion>> bossSlimeMovingAnimations = new HashMap<Direction, Animation<TextureRegion>>();
         bossSlimeMovingAnimations.put(Direction.LEFT, loadBossSlimeAnimation("bossSlime"));
         bossSlimeMovingAnimations.put(Direction.RIGHT, loadBossSlimeAnimationFlipped("bossSlime"));
-        bossSlimeAnimations.put(ActionState.MOVING, bossSlimeMovingAnimations);
+        bossSlimeAnimations.put(SpriteState.MOVING, bossSlimeMovingAnimations);
 
         Map<Direction, Animation<TextureRegion>> bossSlimeAttackingAnimations = new HashMap<Direction, Animation<TextureRegion>>();
         bossSlimeAttackingAnimations.put(Direction.LEFT, loadBossSlimeAnimation("bossSlimeAttack"));
         bossSlimeAttackingAnimations.put(Direction.RIGHT, loadBossSlimeAnimationFlipped("bossSlimeAttack"));
-        bossSlimeAnimations.put(ActionState.ATTACKING, bossSlimeAttackingAnimations);
+        bossSlimeAnimations.put(SpriteState.ATTACKING, bossSlimeAttackingAnimations);
 
         Map<Direction, Animation<TextureRegion>> bossSlimeHurtAnimations = new HashMap<Direction, Animation<TextureRegion>>();
         bossSlimeHurtAnimations.put(Direction.LEFT, loadBossSlimeAnimation("bossSlime-hurt"));
         bossSlimeHurtAnimations.put(Direction.RIGHT, loadBossSlimeAnimationFlipped("bossSlime-hurt"));
-        bossSlimeAnimations.put(ActionState.HURT, bossSlimeHurtAnimations);
+        bossSlimeAnimations.put(SpriteState.HURT, bossSlimeHurtAnimations);
     }
 }

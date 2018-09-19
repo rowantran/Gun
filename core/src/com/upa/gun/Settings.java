@@ -9,14 +9,14 @@ public class Settings {
 
     public static final float STEP_TIME = 1/300f;
 
+    public static final float PPM = 100;
     public static final Vector2 RESOLUTION = new Vector2(1280, 800);
+    public static int PLAYER_HEALTH = 20;
 
-    public static final int PLAYER_HEALTH = 10;
-
-    public static final float BULLET_SPEED = 500.0f;
-    public static final float ENEMY_BULLET_SPEED = 350.0f;
-    public static final float PLAYER_SPEED = 250.0f;
-    public static final float SLIME_SPEED = 100.0f;
+    public static final float BULLET_SPEED = 5.0f;
+    public static final float ENEMY_BULLET_SPEED = 3.5f;
+    public static final float PLAYER_SPEED = 2.5f;
+    public static final float SLIME_SPEED = 1f;
 
     public static final float DEATH_ROTATE_SPEED = 80.0f;
     public static final float DEATH_FADE_SPEED = (DEATH_ROTATE_SPEED / 90.0f) * 1.0f;

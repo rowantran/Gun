@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
@@ -65,7 +63,7 @@ public class Player {
         body.setUserData(this);
 
         CircleShape hitbox = new CircleShape();
-        hitbox.setRadius(10f);
+        hitbox.setRadius(10f/Settings.PPM);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = hitbox;
@@ -88,18 +86,18 @@ public class Player {
         if (!iframe) {
             health -= damage;
             iframe = true;
-            System.out.println(Integer.toString(health) + ", " + Integer.toString(damage));
+            opacity = 0.5f;
             if (health <= 0) {
                 dying = true;
             }
         }
     }
 
-    ActionState getState() {
+    SpriteState getState() {
         if (moving) {
-            return ActionState.MOVING;
+            return SpriteState.MOVING;
         } else {
-            return ActionState.IDLE;
+            return SpriteState.IDLE;
         }
     }
 
@@ -112,6 +110,7 @@ public class Player {
             if (iframeTimer > iframeLength) {
                 System.out.println("iframe over");
                 iframe = false;
+                opacity = 1f;
                 iframeTimer = 0f;
             }
         }
@@ -139,7 +138,7 @@ public class Player {
             if (Gdx.input.isKeyPressed(Settings.KEY_LEFT)) {
                 float currentX = body.getTransform().getPosition().x;
                 float currentY = body.getTransform().getPosition().y;
-                if(!(currentX - Settings.PLAYER_SPEED * delta < 113)) {
+                if(!((currentX - Settings.PLAYER_SPEED * delta)*Settings.PPM < 113)) {
                     body.setTransform(currentX - Settings.PLAYER_SPEED * delta, currentY, angle);
                     moving = true;
                 }
@@ -149,7 +148,7 @@ public class Player {
             if (Gdx.input.isKeyPressed(Settings.KEY_RIGHT)) {
                 float currentX = body.getTransform().getPosition().x;
                 float currentY = body.getTransform().getPosition().y;
-                if(!(currentX + Settings.PLAYER_SPEED * delta > 1164)) {
+                if(!((currentX + Settings.PLAYER_SPEED * delta)*Settings.PPM > 1164)) {
                     body.setTransform(currentX + Settings.PLAYER_SPEED * delta, currentY, angle);
                     moving = true;
                 }
@@ -169,7 +168,7 @@ public class Player {
             if (Gdx.input.isKeyPressed(Settings.KEY_UP)) {
                 float currentX = body.getTransform().getPosition().x;
                 float currentY = body.getTransform().getPosition().y;
-                if(!(currentY + Settings.PLAYER_SPEED * delta > 702)){
+                if(!((currentY + Settings.PLAYER_SPEED * delta)*Settings.PPM > 702)){
                     body.setTransform(currentX, currentY + Settings.PLAYER_SPEED * delta, angle);
                     moving = true;
                 }
@@ -182,7 +181,7 @@ public class Player {
 
             if (Gdx.input.justTouched()) {
                 OrthographicCamera camera = new OrthographicCamera();
-                camera.setToOrtho(false, Settings.RESOLUTION.x, Settings.RESOLUTION.y);
+                camera.setToOrtho(false, Settings.RESOLUTION.x/Settings.PPM, Settings.RESOLUTION.y/Settings.PPM);
 
                 if(bulletCooldown <= 0) {
 

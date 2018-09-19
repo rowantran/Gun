@@ -7,8 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 
 public class MenuScreen extends ScreenAdapter {
     GunGame game;
@@ -50,7 +48,7 @@ public class MenuScreen extends ScreenAdapter {
                 (Settings.RESOLUTION.y*4/5 + layout.height*0.5f));
         game.batch.end();
 
-        TextureRegion currentFrame = Assets.playerAnimations.get(ActionState.MOVING).get(Direction.DOWN).getKeyFrame(timeElapsed);
+        TextureRegion currentFrame = Assets.playerAnimations.get(SpriteState.MOVING).get(Direction.DOWN).getKeyFrame(timeElapsed);
         game.batch.begin();
         game.batch.draw(currentFrame, (int) ((Settings.RESOLUTION.x-currentFrame.getRegionWidth())/2),
                 (int)((Settings.RESOLUTION.y-currentFrame.getRegionHeight())/2),

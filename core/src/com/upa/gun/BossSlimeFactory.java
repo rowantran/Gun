@@ -4,7 +4,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class BossSlimeFactory {
-    BossSlime makeBossSlime(int health, int x, int y, World world, GunWorld gunWorld) {
+    BossSlime makeBossSlime(int health, float x, float y, World world, GunWorld gunWorld) {
         CircleShape hitbox = new CircleShape();
         hitbox.setRadius(BossSlime.hitboxRadius);
 
