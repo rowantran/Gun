@@ -21,11 +21,11 @@ public abstract class ScriptedEventSequence {
                 event.onFinish(delta, gunWorld);
                 if (isNextEvent()) {
                     currentEvent++;
+                } else {
+                    active = false;
                 }
             } else {
-                if (!event.isFinished()) {
-                    event.update(delta, gunWorld);
-                }
+                event.update(delta, gunWorld);
             }
         }
     }
