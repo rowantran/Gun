@@ -1,6 +1,6 @@
 package com.upa.gun;
 
-public enum ActionState {
+public enum SpriteState {
     IDLE,
     MOVING,
     ATTACKING,

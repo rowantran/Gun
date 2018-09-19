@@ -1,22 +1,14 @@
 package com.upa.gun;
 
-import box2dLight.DirectionalLight;
 import box2dLight.Light;
-import box2dLight.PointLight;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
-import javax.swing.*;
-import java.util.ArrayList;
 import java.util.Map;
 
 import static com.upa.gun.Direction.LEFT;
@@ -132,15 +124,15 @@ class Renderer {
         }
     }
 
-    private void drawSlime(Slime slime, float x, float y, Map<ActionState, Map<Direction, Animation<TextureRegion>>> animationMap) {
+    private void drawSlime(Slime slime, float x, float y, Map<SpriteState, Map<Direction, Animation<TextureRegion>>> animationMap) {
         batch.enableBlending();
         batch.setColor(1.0f, 1.0f, 1.0f, slime.opacity);
 
-        ActionState state = slime.getState();
+        SpriteState state = slime.getState();
         Animation<TextureRegion> currentAnimation = animationMap.get(state).get(LEFT);
         TextureRegion currentFrame;
 
-        if (state == ActionState.ATTACKING) {
+        if (state == SpriteState.ATTACKING) {
             currentFrame = currentAnimation.getKeyFrame(slime.attackTimeElapsed);
         } else {
             currentFrame = currentAnimation.getKeyFrame(slime.timeElapsed);
@@ -158,11 +150,11 @@ class Renderer {
         batch.enableBlending();
         batch.setColor(1.0f, 1.0f, 1.0f, bossSlime.opacity);
 
-        ActionState state = bossSlime.getState();
+        SpriteState state = bossSlime.getState();
         Animation<TextureRegion> currentAnimation = Assets.bossSlimeAnimations.get(state).get(LEFT);
         TextureRegion currentFrame;
 
-        if (state == ActionState.ATTACKING) {
+        if (state == SpriteState.ATTACKING) {
             currentFrame = currentAnimation.getKeyFrame(bossSlime.attackTimeElapsed);
         } else {
             currentFrame = currentAnimation.getKeyFrame(bossSlime.timeElapsed);

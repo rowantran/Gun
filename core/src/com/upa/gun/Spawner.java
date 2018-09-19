@@ -65,7 +65,7 @@ public class Spawner {
     }
 
     void spawnBossSlime() {
-        TextureRegion bossSlimeHurt = Assets.bossSlimeAnimations.get(ActionState.HURT).get(Direction.LEFT).getKeyFrame(0);
+        TextureRegion bossSlimeHurt = Assets.bossSlimeAnimations.get(SpriteState.HURT).get(Direction.LEFT).getKeyFrame(0);
         float spawnX = ((Settings.RESOLUTION.x - (float)bossSlimeHurt.getRegionWidth()) / 2f) / Settings.PPM;
         float spawnY = ((Settings.RESOLUTION.y - (float)bossSlimeHurt.getRegionHeight()) / 2f) / Settings.PPM;
 

@@ -1,9 +1,5 @@
 package com.upa.gun;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -57,13 +53,13 @@ public class BossSlime extends Slime {
         //System.out.println(health);
     }
 
-    public ActionState getState() {
+    public SpriteState getState() {
         if (dying || hurt) {
-            return ActionState.HURT;
+            return SpriteState.HURT;
         } else if (!(rotation.currentAttack() instanceof NoAttack)) {
-            return ActionState.ATTACKING;
+            return SpriteState.ATTACKING;
         } else {
-            return ActionState.MOVING;
+            return SpriteState.MOVING;
         }
     }
 }

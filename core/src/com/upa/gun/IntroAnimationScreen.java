@@ -1,15 +1,12 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
-import javax.naming.NamingEnumeration;
 
 public class IntroAnimationScreen extends ScreenAdapter {
     GunGame game;
@@ -38,12 +35,12 @@ public class IntroAnimationScreen extends ScreenAdapter {
         this.textAlpha = textAlpha;
         timeElapsed = 0f;
 
-        TextureRegion playerIdleRightFrame = Assets.playerAnimations.get(ActionState.MOVING).get(Direction.RIGHT)
+        TextureRegion playerIdleRightFrame = Assets.playerAnimations.get(SpriteState.MOVING).get(Direction.RIGHT)
                 .getKeyFrame(0);
         playerX = (Settings.RESOLUTION.x - playerIdleRightFrame.getRegionWidth()) / 2;
         playerY = (Settings.RESOLUTION.y - playerIdleRightFrame.getRegionHeight()) / 2;
 
-        TextureRegion bossMoveFrame = Assets.bossSlimeAnimations.get(ActionState.MOVING).get(Direction.LEFT)
+        TextureRegion bossMoveFrame = Assets.bossSlimeAnimations.get(SpriteState.MOVING).get(Direction.LEFT)
                 .getKeyFrame(0);
         bossX = -200;
         bossY = (Settings.RESOLUTION.y - bossMoveFrame.getRegionHeight()) / 2 - 100;
@@ -77,8 +74,8 @@ public class IntroAnimationScreen extends ScreenAdapter {
 
         game.batch.end();
 
-        TextureRegion playerCurrentFrame = Assets.playerAnimations.get(ActionState.MOVING).get(Direction.RIGHT).getKeyFrame(timeElapsed);
-        TextureRegion bossCurrentFrame = Assets.bossSlimeAnimations.get(ActionState.MOVING).get(Direction.RIGHT).getKeyFrame(timeElapsed);
+        TextureRegion playerCurrentFrame = Assets.playerAnimations.get(SpriteState.MOVING).get(Direction.RIGHT).getKeyFrame(timeElapsed);
+        TextureRegion bossCurrentFrame = Assets.bossSlimeAnimations.get(SpriteState.MOVING).get(Direction.RIGHT).getKeyFrame(timeElapsed);
         bossCurrentFrame.getTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         TextureRegion slimeCurrentFrame;
 
@@ -91,9 +88,9 @@ public class IntroAnimationScreen extends ScreenAdapter {
         for (int i = 0; i < 5; i++) {
             tempX -= 50;
             if (slimesStrong[i]) {
-                slimeCurrentFrame = Assets.slimeAnimations.get(ActionState.MOVING).get(Direction.RIGHT).getKeyFrame(timeElapsed);
+                slimeCurrentFrame = Assets.slimeAnimations.get(SpriteState.MOVING).get(Direction.RIGHT).getKeyFrame(timeElapsed);
             } else {
-                slimeCurrentFrame = Assets.strongSlimeAnimations.get(ActionState.MOVING).get(Direction.RIGHT).getKeyFrame(timeElapsed);
+                slimeCurrentFrame = Assets.strongSlimeAnimations.get(SpriteState.MOVING).get(Direction.RIGHT).getKeyFrame(timeElapsed);
             }
             game.batch.draw(slimeCurrentFrame, (int) tempX, (int) bossY,
                     slimeCurrentFrame.getRegionWidth(), slimeCurrentFrame.getRegionHeight());

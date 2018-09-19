@@ -1,9 +1,5 @@
 package com.upa.gun;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
 public class Slime extends Enemy {
@@ -111,13 +107,13 @@ public class Slime extends Enemy {
     }
 
 
-    public ActionState getState() {
+    public SpriteState getState() {
         if (dying) {
-            return ActionState.HURT;
+            return SpriteState.HURT;
         } else if (!(rotation.currentAttack() instanceof NoAttack)) {
-            return ActionState.ATTACKING;
+            return SpriteState.ATTACKING;
         } else {
-            return ActionState.MOVING;
+            return SpriteState.MOVING;
         }
     }
 
