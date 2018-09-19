@@ -196,7 +196,8 @@ class Renderer {
     }
 
     private void drawIndicator(SpawnIndicator s) {
-        batch.draw(Assets.crosshair, s.x, s.y, Assets.crosshair.getWidth()*4, Assets.crosshair.getHeight()*4);
+        batch.draw(Assets.crosshair, s.x*Settings.PPM, s.y*Settings.PPM,
+                Assets.crosshair.getWidth()*2, Assets.crosshair.getHeight()*2);
     }
 
     private void drawFPS() {
@@ -251,12 +252,11 @@ class Renderer {
         rayHandler.updateAndRender();
         */
 
+        batch.setProjectionMatrix(hudCamera.combined);
         batch.begin();
         for (SpawnIndicator s : world.indicators) {
             drawIndicator(s);
         }
-
-        batch.setProjectionMatrix(hudCamera.combined);
         drawHealth(world.player.health);
         drawScore();
         if (Settings.DEV_MODE) {
