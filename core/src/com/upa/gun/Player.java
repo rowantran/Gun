@@ -83,7 +83,7 @@ public class Player {
     }
 
     void hurt(int damage) {
-        if (!iframe) {
+        if (!iframe && !game.world.cinematicHappening) {
             health -= damage;
             iframe = true;
             opacity = 0.5f;

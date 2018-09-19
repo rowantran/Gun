@@ -19,6 +19,8 @@ public class GunWorld {
     World world;
     Spawner spawner;
 
+    boolean cinematicHappening;
+
     GunGame game;
 
     GunWorld(GunGame game) {
@@ -46,26 +48,32 @@ public class GunWorld {
 
 
     public void update(float delta) {
-        player.update(delta);
-
-        for (Iterator<Bullet> iterator = bullets.iterator(); iterator.hasNext();) {
-            Bullet bullet = iterator.next();
-            bullet.update(delta);
-        }
-
+        cinematicHappening = false;
         for (ScriptedEventSequence sequence : sequences) {
             sequence.update(delta, this);
+            if (sequence.cinematic && sequence.active) {
+                cinematicHappening = true;
+            }
         }
 
-        for (Enemy enemy : enemies) {
-            enemy.update(delta);
-        }
+        if (!cinematicHappening) {
+            player.update(delta);
 
-        for (SpawnIndicator spawn : indicators) {
-            spawn.update(delta);
-            if (spawn.shouldSpawn()) {
-                spawner.createSpawn(spawn);
-                spawn.markedForDeletion = true;
+            for (Iterator<Bullet> iterator = bullets.iterator(); iterator.hasNext(); ) {
+                Bullet bullet = iterator.next();
+                bullet.update(delta);
+            }
+
+            for (Enemy enemy : enemies) {
+                enemy.update(delta);
+            }
+
+            for (SpawnIndicator spawn : indicators) {
+                spawn.update(delta);
+                if (spawn.shouldSpawn()) {
+                    spawner.createSpawn(spawn);
+                    spawn.markedForDeletion = true;
+                }
             }
         }
     }

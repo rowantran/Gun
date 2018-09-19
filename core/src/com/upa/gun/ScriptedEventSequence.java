@@ -7,6 +7,7 @@ public abstract class ScriptedEventSequence {
     List<ScriptedEvent> events;
     int currentEvent;
     boolean active;
+    boolean cinematic;
 
     ScriptedEventSequence() {
         events = new ArrayList<ScriptedEvent>();
