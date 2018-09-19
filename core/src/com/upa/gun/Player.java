@@ -13,7 +13,9 @@ public class Player {
     boolean moving;
     boolean dying;
     boolean fading;
+    boolean rolling;
     boolean hurt;
+    float timeRolling;
 
     Vector2 spawnPoint;
     float opacity;
@@ -45,6 +47,7 @@ public class Player {
 
         bulletCooldown = 0.4;
         timeElapsed = 0.0f;
+        timeRolling = 0f;
         moving = false;
         dying = false;
         hurt = false;
@@ -101,8 +104,13 @@ public class Player {
         }
     }
 
-    public void roll() {
-        System.out.println("roll");
+    void roll(Vector2 mousePos) {
+        if (!rolling) {
+            rolling = true;
+            Vector2 rollAngle = mousePos.sub(body.getTransform().getPosition());
+            rollAngle = rollAngle.scl(Settings.ROLL_SPEED/rollAngle.len());
+            body.setLinearVelocity(rollAngle);
+        }
     }
 
     public void update(float delta) {
@@ -134,9 +142,16 @@ public class Player {
                 this.body.setTransform(spawnPoint, 0);
                 game.setScreen(new GameOver(game));
             }
+        } if (rolling) {
+            timeRolling += delta;
+            if (timeRolling > Settings.ROLL_LENGTH) {
+                rolling = false;
+                timeRolling = 0f;
+                body.setLinearVelocity(0, 0);
+            }
         }
 
-        if (!dying && !fading) {
+        if (!dying && !fading && !rolling) {
             int angle = (int) body.getTransform().getRotation();
 
             if (Gdx.input.isKeyPressed(Settings.KEY_LEFT)) {
