@@ -105,12 +105,26 @@ public class Player {
     }
 
     void roll(Vector2 mousePos) {
-        if (!rolling) {
+        if (!rolling && moving) {
             rolling = true;
-            Vector2 rollAngle = mousePos.sub(body.getTransform().getPosition());
-            rollAngle = rollAngle.scl(Settings.ROLL_SPEED/rollAngle.len());
+            Vector2 rollAngle = Direction.getAngle(direction);
+            setLength(rollAngle, Settings.ROLL_SPEED);
             body.setLinearVelocity(rollAngle);
         }
+    }
+
+    void move(Direction dir) {
+        Vector2 moveAngle = Direction.getAngle(dir);
+        setLength(moveAngle, Settings.PLAYER_SPEED);
+        body.setLinearVelocity(moveAngle);
+    }
+
+    void stop() {
+        body.setLinearVelocity(0, 0);
+    }
+
+    void setLength(Vector2 vec, float length) {
+        vec.clamp(length, length);
     }
 
     public void update(float delta) {
