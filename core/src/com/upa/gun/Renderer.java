@@ -226,7 +226,7 @@ class Renderer {
 
         batch.begin();
         drawBackground();
-
+        drawPlayer(world.player);
         for (Body b : bodies) {
             Object id = b.getUserData();
             if (id != null) {
@@ -242,16 +242,15 @@ class Renderer {
                 }
             }
         }
-
         for (Crate b : world.crates) {
             drawCrate(b, b.x, b.y);
+            //System.out.println("crate");
         }
 
         for (Bullet b : world.bullets) {
             drawBullet(b, b.body.getPosition().x, b.body.getPosition().y);
         }
 
-        drawPlayer(world.player);
 
         batch.end();
 

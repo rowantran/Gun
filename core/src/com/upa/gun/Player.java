@@ -134,7 +134,7 @@ public class Player {
         if (iframe) {
             iframeTimer += delta;
             if (iframeTimer > iframeLength) {
-                System.out.println("iframe over");
+                //System.out.println("iframe over");
                 iframe = false;
                 opacity = 1f;
                 iframeTimer = 0f;

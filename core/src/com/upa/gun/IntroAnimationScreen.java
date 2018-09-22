@@ -23,6 +23,7 @@ public class IntroAnimationScreen extends ScreenAdapter {
     float playerX, playerY, bossX, bossY;
 
     boolean[] slimesStrong;
+    int[] yVals = new int[5];
 
     public IntroAnimationScreen(GunGame game, float textAlpha) {
         this.game = game;
@@ -50,6 +51,16 @@ public class IntroAnimationScreen extends ScreenAdapter {
             int rand = (int) (Math.random() * 2);
             slimesStrong[i] = rand == 0;
         }
+
+
+        //changing start animation? idk
+        /*
+        yVals = new int[5];
+        for(int i = 0; i < yVals.length; i++) {
+            float tempY = bossY + (int)(Math.random() * 201) - 100;
+            yVals[i] = (int)tempY;
+        }
+        */
     }
 
     void draw() {
@@ -85,6 +96,8 @@ public class IntroAnimationScreen extends ScreenAdapter {
         game.batch.draw(bossCurrentFrame, (int) bossX, (int) bossY,
                 bossCurrentFrame.getRegionWidth()*8, bossCurrentFrame.getRegionHeight()*8);
         float tempX = bossX - 100;
+
+
         for (int i = 0; i < 5; i++) {
             tempX -= 50;
             if (slimesStrong[i]) {
@@ -92,7 +105,7 @@ public class IntroAnimationScreen extends ScreenAdapter {
             } else {
                 slimeCurrentFrame = Assets.strongSlimeAnimations.get(SpriteState.MOVING).get(Direction.RIGHT).getKeyFrame(timeElapsed);
             }
-            game.batch.draw(slimeCurrentFrame, (int) tempX, (int) bossY,
+            game.batch.draw(slimeCurrentFrame, (int) tempX, bossY,
                     slimeCurrentFrame.getRegionWidth(), slimeCurrentFrame.getRegionHeight());
         }
         game.batch.end();

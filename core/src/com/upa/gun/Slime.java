@@ -211,7 +211,7 @@ public class Slime extends Enemy {
 
     //resets timers for random move and generates a new time until random move
     public void resetRandomMove() {
-        int newRand1 = (int)(Math.random() * 3) + 1;
+        int newRand1 = (int)(Math.random() * 2) + 1;
         timeUntilRandomMove = (float)(newRand1);
         timeSinceRandomMove = 0.0f;
         randomMoveLength = (float)((Math.random() * 2) + 1);

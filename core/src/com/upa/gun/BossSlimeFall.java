@@ -1,7 +1,7 @@
 package com.upa.gun;
 
 public class BossSlimeFall implements ScriptedEvent {
-    private static float FALL_SPEED = 1.2f;
+    private static float FALL_SPEED = 1.4f;
     private static float TIME_AFTER_FALL = 0.8f;
 
     private BossSlime slime;

@@ -18,7 +18,7 @@ public class GunContactListener implements ContactListener {
         Object b = contact.getFixtureB().getBody().getUserData();
 
         if (a instanceof Player) {
-            System.out.println("a");
+            //System.out.println("a");
             dieIfEnemy(b);
         } else if (b instanceof Player) {
             dieIfEnemy(a);
@@ -36,7 +36,7 @@ public class GunContactListener implements ContactListener {
 
         // do for enemies also
         if (a instanceof Player) {
-            System.out.println("player");
+            //System.out.println("player");
             if (b instanceof Crate) {
                 gunWorld.player.botStop = true;
                 System.out.println("botstop");
