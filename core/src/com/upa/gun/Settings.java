@@ -17,6 +17,8 @@ public class Settings {
     public static final float ENEMY_BULLET_SPEED = 3.5f;
     public static final float PLAYER_SPEED = 2.5f;
     public static final float SLIME_SPEED = 1f;
+    public static final float ROLL_SPEED = 4f;
+    public static final float ROLL_LENGTH = 0.3f;
 
     public static final float DEATH_ROTATE_SPEED = 80.0f;
     public static final float DEATH_FADE_SPEED = (DEATH_ROTATE_SPEED / 90.0f) * 1.0f;
@@ -27,6 +29,7 @@ public class Settings {
     public static final int KEY_RIGHT = Input.Keys.D;
     public static final int KEY_UP = Input.Keys.W;
     public static final int KEY_DOWN = Input.Keys.S;
+    public static final int KEY_ROLL = Input.Keys.SHIFT_LEFT;
 
     public static int PERCENT_SPAWN_CHANCE = 1;
     public static boolean PLAYER_DEATH = true;

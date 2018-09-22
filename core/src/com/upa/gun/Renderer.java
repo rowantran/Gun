@@ -3,9 +3,11 @@ package com.upa.gun;
 import box2dLight.Light;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
 
@@ -24,6 +26,8 @@ class Renderer {
     private BitmapFont font;
     private BitmapFont smallFont;
 
+    private ShapeRenderer sr;
+
     private RayHandler rayHandler;
 
     private Array<Light> lights;
@@ -41,6 +45,8 @@ class Renderer {
         layout = new GlyphLayout();
         font = new BitmapFont();
         font.getData().setScale(4);
+
+        sr = new ShapeRenderer();
 
         /*
         rayHandler = new RayHandler(world.world);
@@ -266,5 +272,14 @@ class Renderer {
             drawFPS();
         }
         batch.end();
+
+        if (world.cinematicHappening) {
+            sr.setProjectionMatrix(hudCamera.combined);
+            sr.begin(ShapeRenderer.ShapeType.Filled);
+            sr.setColor(Color.BLACK);
+            sr.rect(0, 0, Settings.RESOLUTION.x, Settings.RESOLUTION.y*0.2f);
+            sr.rect(0, Settings.RESOLUTION.y*0.8f, Settings.RESOLUTION.x, Settings.RESOLUTION.y*0.2f);
+            sr.end();
+        }
     }
 }

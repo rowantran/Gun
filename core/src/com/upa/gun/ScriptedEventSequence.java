@@ -7,6 +7,7 @@ public abstract class ScriptedEventSequence {
     List<ScriptedEvent> events;
     int currentEvent;
     boolean active;
+    boolean cinematic;
 
     ScriptedEventSequence() {
         events = new ArrayList<ScriptedEvent>();
@@ -18,7 +19,7 @@ public abstract class ScriptedEventSequence {
         if (active) {
             ScriptedEvent event = events.get(currentEvent);
             if (!event.onFinishCalled() && event.isFinished()) {
-                event.onFinish(delta, gunWorld);
+                event.onFinish(gunWorld);
                 if (isNextEvent()) {
                     currentEvent++;
                 } else {

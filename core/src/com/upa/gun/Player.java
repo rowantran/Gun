@@ -13,7 +13,9 @@ public class Player {
     boolean moving;
     boolean dying;
     boolean fading;
+    boolean rolling;
     boolean hurt;
+    float timeRolling;
 
     Vector2 spawnPoint;
     float opacity;
@@ -45,6 +47,7 @@ public class Player {
 
         bulletCooldown = 0.4;
         timeElapsed = 0.0f;
+        timeRolling = 0f;
         moving = false;
         dying = false;
         hurt = false;
@@ -83,7 +86,7 @@ public class Player {
     }
 
     void hurt(int damage) {
-        if (!iframe) {
+        if (!iframe && !game.world.cinematicHappening) {
             health -= damage;
             iframe = true;
             opacity = 0.5f;
@@ -99,6 +102,29 @@ public class Player {
         } else {
             return SpriteState.IDLE;
         }
+    }
+
+    void roll(Vector2 mousePos) {
+        if (!rolling && moving) {
+            rolling = true;
+            Vector2 rollAngle = Direction.getAngle(direction);
+            setLength(rollAngle, Settings.ROLL_SPEED);
+            body.setLinearVelocity(rollAngle);
+        }
+    }
+
+    void move(Direction dir) {
+        Vector2 moveAngle = Direction.getAngle(dir);
+        setLength(moveAngle, Settings.PLAYER_SPEED);
+        body.setLinearVelocity(moveAngle);
+    }
+
+    void stop() {
+        body.setLinearVelocity(0, 0);
+    }
+
+    void setLength(Vector2 vec, float length) {
+        vec.clamp(length, length);
     }
 
     public void update(float delta) {
@@ -130,9 +156,16 @@ public class Player {
                 this.body.setTransform(spawnPoint, 0);
                 game.setScreen(new GameOver(game));
             }
+        } if (rolling) {
+            timeRolling += delta;
+            if (timeRolling > Settings.ROLL_LENGTH) {
+                rolling = false;
+                timeRolling = 0f;
+                body.setLinearVelocity(0, 0);
+            }
         }
 
-        if (!dying && !fading) {
+        if (!dying && !fading && !rolling) {
             int angle = (int) body.getTransform().getRotation();
 
             if (Gdx.input.isKeyPressed(Settings.KEY_LEFT)) {
