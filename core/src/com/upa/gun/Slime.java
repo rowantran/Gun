@@ -190,8 +190,8 @@ public class Slime extends Enemy {
 
     //move in a random direction, occurs on a random interval
     public void randomMove() {
-        int x = (int)(Math.random() * Settings.SLIME_SPEED);
-        int y = getPythagY(x);
+        float x = (float)(Math.random() * Settings.SLIME_SPEED);
+        float y = getPythagY(x);
         int switchX = (int)(Math.random() * 2); //indicates whether x and y direction should be positive or negative
         int switchY = (int)(Math.random() * 2);
 
@@ -205,16 +205,16 @@ public class Slime extends Enemy {
     }
 
     //uses pythagorean theorem to find corresponding y value for an x value to maintain speed
-    public int getPythagY(int x) {
-        return (int)(Math.sqrt(Math.pow(Settings.SLIME_SPEED,2) - Math.pow(x,2)));
+    public float getPythagY(float x) {
+        return (float)(Math.sqrt(Math.pow(Settings.SLIME_SPEED,2) - Math.pow(x,2)));
     }
 
     //resets timers for random move and generates a new time until random move
     public void resetRandomMove() {
-        int newRand1 = (int)(Math.random() * 2) + 1;
+        int newRand1 = (int)(Math.random() * 3) + 1;
         timeUntilRandomMove = (float)(newRand1);
         timeSinceRandomMove = 0.0f;
-        randomMoveLength = (float)(Math.random() * 2) + 1;
+        randomMoveLength = (float)((Math.random() * 2) + 1);
         timeOfRandomMove = 0.0f;
         movingRandom = false;
     }
@@ -238,7 +238,6 @@ public class Slime extends Enemy {
                 }
             }
         }
-
     }
 
     public void fireSound() {
