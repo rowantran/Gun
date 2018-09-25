@@ -89,21 +89,21 @@ public class Player extends Entity {
             rolling = true;
             Vector2 rollAngle = Direction.getAngle(direction);
             setLength(rollAngle, Settings.ROLL_SPEED);
-            velocity = rollAngle;
+            setVelocity(rollAngle);
         }
     }
 
     void move(Direction dir) {
         Vector2 moveAngle = Direction.getAngle(dir);
         setLength(moveAngle, Settings.PLAYER_SPEED);
-        velocity = moveAngle;
+        setVelocity(moveAngle);
     }
 
-    void stop() {
-        setLength(velocity, 0);
+    private void stop() {
+        setVelocity(0, 0);
     }
 
-    void setLength(Vector2 vec, float length) {
+    private void setLength(Vector2 vec, float length) {
         vec.clamp(length, length);
     }
 

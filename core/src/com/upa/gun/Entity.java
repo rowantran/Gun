@@ -10,6 +10,15 @@ public class Entity implements Updatable {
         velocity = new Vector2(0f, 0f);
     }
 
+    public void setVelocity(float x, float y) {
+        velocity.x = x;
+        velocity.y = y;
+    }
+
+    public void setVelocity(Vector2 velocity) {
+        setVelocity(velocity.x, velocity.y);
+    }
+
     @Override
     public void update(float delta) {
         position.x += velocity.x * delta;
