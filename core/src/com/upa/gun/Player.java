@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 
-public class Player {
+public class Player extends Entity {
     public float timeElapsed;
     boolean moving;
     boolean dying;
@@ -32,8 +32,6 @@ public class Player {
 
     Direction direction;
 
-    Body body;
-
     boolean iframe;
     float iframeTimer;
     float iframeLength;
@@ -43,6 +41,7 @@ public class Player {
     Sound shot;
 
     Player(float x, float y, GunGame game, World world) {
+        super(x, y);
         spawnPoint = new Vector2(x, y);
 
         bulletCooldown = 0.4;
@@ -57,25 +56,6 @@ public class Player {
         rotation = 0f;
 
         direction = Direction.DOWN;
-
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(x, y);
-
-        body = world.createBody(bodyDef);
-        body.setUserData(this);
-
-        CircleShape hitbox = new CircleShape();
-        hitbox.setRadius(10f/Settings.PPM);
-
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = hitbox;
-        fixtureDef.density = 0.5f;
-        fixtureDef.friction = 0.0f;
-        fixtureDef.restitution = 0.0f;
-        fixtureDef.isSensor = true;
-
-        body.createFixture(fixtureDef);
 
         iframe = false;
         iframeTimer = 0f;
@@ -104,23 +84,23 @@ public class Player {
         }
     }
 
-    void roll(Vector2 mousePos) {
+    void roll() {
         if (!rolling && moving) {
             rolling = true;
             Vector2 rollAngle = Direction.getAngle(direction);
             setLength(rollAngle, Settings.ROLL_SPEED);
-            body.setLinearVelocity(rollAngle);
+            velocity = rollAngle;
         }
     }
 
     void move(Direction dir) {
         Vector2 moveAngle = Direction.getAngle(dir);
         setLength(moveAngle, Settings.PLAYER_SPEED);
-        body.setLinearVelocity(moveAngle);
+        velocity = moveAngle;
     }
 
     void stop() {
-        body.setLinearVelocity(0, 0);
+        setLength(velocity, 0);
     }
 
     void setLength(Vector2 vec, float length) {
@@ -153,16 +133,15 @@ public class Player {
                 opacity = 1.0f;
                 rotation = 0;
                 fading = false;
-                this.body.setTransform(spawnPoint, 0);
+                position = spawnPoint;
                 game.setScreen(new GameOver(game));
             }
         } if (rolling) {
             timeRolling += delta;
             if (timeRolling > Settings.ROLL_LENGTH) {
-                stop();
                 rolling = false;
                 timeRolling = 0f;
-                body.setLinearVelocity(0, 0);
+                stop();
             }
         }
 
