@@ -159,6 +159,7 @@ public class Player {
         } if (rolling) {
             timeRolling += delta;
             if (timeRolling > Settings.ROLL_LENGTH) {
+                stop();
                 rolling = false;
                 timeRolling = 0f;
                 body.setLinearVelocity(0, 0);
