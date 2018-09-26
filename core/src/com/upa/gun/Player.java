@@ -146,13 +146,9 @@ public class Player extends Entity {
         }
 
         if (!dying && !fading && !rolling) {
-            int angle = (int) body.getTransform().getRotation();
-
             if (Gdx.input.isKeyPressed(Settings.KEY_LEFT)) {
-                float currentX = body.getTransform().getPosition().x;
-                float currentY = body.getTransform().getPosition().y;
-                if(!((currentX - Settings.PLAYER_SPEED * delta)*Settings.PPM < 113)) {
-                    body.setTransform(currentX - Settings.PLAYER_SPEED * delta, currentY, angle);
+                if(!((position.x - Settings.PLAYER_SPEED * delta)*Settings.PPM < 113)) {
+                    modifyVelocity(-Settings.PLAYER_SPEED, 0);
                     moving = true;
                 }
                 direction = Direction.LEFT;
