@@ -21,7 +21,8 @@ public class GunGame extends Game {
         music.setLooping(true);
         music.play();
         batch = new SpriteBatch();
-        world = new GunWorld(this);
+        world = GunWorld.getInstance();
+        world.setGunGame(this);
         elapsed = 0.0f;
 
         setScreen(new MenuScreen(this));

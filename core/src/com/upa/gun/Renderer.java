@@ -88,8 +88,8 @@ class Renderer {
         Animation<TextureRegion> currentAnimation = Assets.playerAnimations.get(player.getState()).get(player.direction);
         TextureRegion currentFrame = currentAnimation.getKeyFrame(world.player.timeElapsed);
 
-        float playerX = (player.body.getPosition().x - (float)currentFrame.getRegionWidth()/2f/Settings.PPM);
-        float playerY = (player.body.getPosition().y - (float)currentFrame.getRegionHeight()/2f/Settings.PPM);
+        float playerX = (player.position.x - (float)currentFrame.getRegionWidth()/2f/Settings.PPM);
+        float playerY = (player.position.y - (float)currentFrame.getRegionHeight()/2f/Settings.PPM);
 
         batch.setColor(1.0f, 1.0f, 1.0f, player.opacity);
         drawShadow(playerX, playerY, (float)currentFrame.getRegionWidth()/Settings.PPM);

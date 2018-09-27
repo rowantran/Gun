@@ -136,8 +136,8 @@ public class Slime extends Enemy {
 
     //default move toward player; horizontal or diagonal depending on position
     public void defaultMove(float delta) {
-        float playerX = gunWorld.player.body.getTransform().getPosition().x;
-        float playerY = gunWorld.player.body.getTransform().getPosition().y;
+        float playerX = gunWorld.player.position.x;
+        float playerY = gunWorld.player.position.y;
 
         float slimeX = body.getTransform().getPosition().x;
         float slimeY = body.getTransform().getPosition().y;

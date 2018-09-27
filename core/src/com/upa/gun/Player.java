@@ -1,12 +1,8 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.*;
 
 public class Player extends Entity {
     public float timeElapsed;
@@ -38,9 +34,11 @@ public class Player extends Entity {
 
     private GunGame game;
 
+    private InputHandler inputHandler;
+
     Sound shot;
 
-    Player(float x, float y, GunGame game, World world) {
+    Player(float x, float y, GunGame game) {
         super(x, y);
         spawnPoint = new Vector2(x, y);
 
@@ -63,6 +61,8 @@ public class Player extends Entity {
 
         this.game = game;
         shot = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
+
+        inputHandler = new InputHandler();
     }
 
     void hurt(int damage) {
@@ -107,7 +107,10 @@ public class Player extends Entity {
         vec.clamp(length, length);
     }
 
+    @Override
     public void update(float delta) {
+        super.update(delta);
+
         moving = false;
         bulletCooldown -= delta;
 
@@ -133,7 +136,7 @@ public class Player extends Entity {
                 opacity = 1.0f;
                 rotation = 0;
                 fading = false;
-                position = spawnPoint;
+                setPosition(spawnPoint);
                 game.setScreen(new GameOver(game));
             }
         } if (rolling) {
@@ -146,66 +149,7 @@ public class Player extends Entity {
         }
 
         if (!dying && !fading && !rolling) {
-            if (Gdx.input.isKeyPressed(Settings.KEY_LEFT)) {
-                if(!((position.x - Settings.PLAYER_SPEED * delta)*Settings.PPM < 113)) {
-                    modifyVelocity(-Settings.PLAYER_SPEED, 0);
-                    moving = true;
-                }
-                direction = Direction.LEFT;
-            }
-
-            if (Gdx.input.isKeyPressed(Settings.KEY_RIGHT)) {
-                float currentX = body.getTransform().getPosition().x;
-                float currentY = body.getTransform().getPosition().y;
-                if(!((currentX + Settings.PLAYER_SPEED * delta)*Settings.PPM > 1164)) {
-                    body.setTransform(currentX + Settings.PLAYER_SPEED * delta, currentY, angle);
-                    moving = true;
-                }
-                direction = Direction.RIGHT;
-            }
-
-            if (Gdx.input.isKeyPressed(Settings.KEY_DOWN)) {
-                float currentX = body.getTransform().getPosition().x;
-                float currentY = body.getTransform().getPosition().y;
-                if(!botStop){
-                    body.setTransform(currentX, currentY - Settings.PLAYER_SPEED * delta, angle);
-                    moving = true;
-                }
-                direction = Direction.DOWN;
-            }
-
-            if (Gdx.input.isKeyPressed(Settings.KEY_UP)) {
-                float currentX = body.getTransform().getPosition().x;
-                float currentY = body.getTransform().getPosition().y;
-                if(!((currentY + Settings.PLAYER_SPEED * delta)*Settings.PPM > 702)){
-                    body.setTransform(currentX, currentY + Settings.PLAYER_SPEED * delta, angle);
-                    moving = true;
-                }
-                direction = Direction.UP;
-            }
-
-            if (!Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){
-                moving = false;
-            }
-
-            if (Gdx.input.justTouched()) {
-                OrthographicCamera camera = new OrthographicCamera();
-                camera.setToOrtho(false, Settings.RESOLUTION.x/Settings.PPM, Settings.RESOLUTION.y/Settings.PPM);
-
-                if(bulletCooldown <= 0) {
-
-                    Vector3 mousePos3 = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(),
-                            0));
-                    Vector2 mousePos = new Vector2(mousePos3.x, mousePos3.y);
-                    Vector2 bulletAngle = mousePos.sub(body.getTransform().getPosition());
-                    game.world.bullets.add(new FriendlyBullet(body.getTransform().getPosition().x,
-                            body.getTransform().getPosition().y,
-                            bulletAngle.angleRad(), game.world.world));
-                    shot.stop();
-                    shot.play(.5f);
-                    bulletCooldown = 0.4;
-                }
-            }
+            inputHandler.update(delta);
         }
 
         timeElapsed += delta;

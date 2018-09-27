@@ -13,6 +13,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class GunWorld {
+    private static GunWorld gunWorld = null;
+
     Player player;
     List<Bullet> bullets;
     List<Enemy> enemies;
@@ -28,7 +30,7 @@ public class GunWorld {
 
     GunGame game;
 
-    GunWorld(GunGame game) {
+    private GunWorld() {
         bullets = new ArrayList<Bullet>();
         enemies = new ArrayList<Enemy>();
         crates = new ArrayList<Crate>();
@@ -41,8 +43,6 @@ public class GunWorld {
         world = new World(new Vector2(0, 0), true);
         spawner = new Spawner(this, world);
 
-        player = new Player(2, 2, game, world);
-
         for(int i = 0; i < 14; i++) {
             crates.add(new Crate(((float)i * 64f + 32f)/Settings.PPM, 29f/Settings.PPM, Assets.crate, world));
         }
@@ -50,10 +50,20 @@ public class GunWorld {
         for(int i = 17; i < 19; i++) {
             crates.add(new Crate(((float)i * 64f + 32f)/Settings.PPM, 29f/Settings.PPM, Assets.crate, world));
         }
-
-        this.game = game;
     }
 
+    public static GunWorld getInstance() {
+        if (gunWorld == null) {
+            gunWorld = new GunWorld();
+        }
+
+        return gunWorld;
+    }
+
+    public void setGunGame(GunGame game) {
+        player = new Player(2, 2, game, world);
+        this.game = game;
+    }
 
     public void update(float delta) {
         cinematicHappening = false;
@@ -91,7 +101,7 @@ public class GunWorld {
         if (Gdx.input.isKeyPressed(Settings.KEY_ROLL)) {
             Vector3 mousePos3 = worldCamera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
             Vector2 mousePos = new Vector2(mousePos3.x, mousePos3.y);
-            player.roll(mousePos);
+            player.roll();
         }
     }
 

@@ -6,18 +6,15 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.*;
 
-public abstract class Bullet {
+public abstract class Bullet extends Entity {
     double angle;
-    Body body;
-
-    Sprite bulletSprite;
 
     boolean markedForDeletion;
 
-    World world;
-
-    Bullet(float x, float y, double angle, World world, TextureRegion texture) {
+    Bullet(float x, float y, double angle, TextureRegion texture) {
+        super(x, y);
         this.angle = angle;
+
         bulletSprite = new Sprite(texture);
         bulletSprite.setRotation((float) (angle * 180 / Math.PI));
         bulletSprite.setScale(1f/Settings.PPM);
