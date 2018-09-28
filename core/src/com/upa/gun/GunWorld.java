@@ -21,7 +21,6 @@ public class GunWorld {
     List<Crate> crates;
     List<SpawnIndicator> indicators;
     List<ScriptedEventSequence> sequences;
-    World world;
     Spawner spawner;
 
     boolean cinematicHappening;
@@ -33,15 +32,14 @@ public class GunWorld {
         indicators = new ArrayList<SpawnIndicator>();
         sequences = new ArrayList<ScriptedEventSequence>();
 
-        world = new World(new Vector2(0, 0), true);
-        spawner = new Spawner(this, world);
+        spawner = new Spawner(this);
 
         for(int i = 0; i < 14; i++) {
-            crates.add(new Crate(((float)i * 64f + 32f), 29f, Assets.crate, world));
+            crates.add(new Crate(((float)i * 64f + 32f), 29f, Assets.crate));
         }
 
         for(int i = 17; i < 19; i++) {
-            crates.add(new Crate(((float)i * 64f + 32f), 29f, Assets.crate, world));
+            crates.add(new Crate(((float)i * 64f + 32f), 29f, Assets.crate));
         }
     }
 
@@ -105,9 +103,6 @@ public class GunWorld {
 
         for (Iterator<Enemy> iterator = enemies.iterator(); iterator.hasNext();) {
             Enemy enemy = iterator.next();
-            if (enemy.dying) {
-                enemy.body.setActive(false);
-            }
 
             if (enemy.markedForDeletion) {
                 iterator.remove();

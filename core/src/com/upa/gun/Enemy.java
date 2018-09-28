@@ -1,21 +1,17 @@
 package com.upa.gun;
 
-import com.badlogic.gdx.physics.box2d.Body;
-
-public abstract class Enemy {
+public abstract class Enemy extends Entity {
     float timeElapsed;
     float timeSinceAttack;
     boolean dying;
     boolean markedForDeletion;
-    Body body;
-    GunWorld gunWorld;
     AttackRotation rotation;
 
-    Enemy(GunWorld gunWorld) {
+    Enemy(float x, float y, float width, float height) {
+        super(x, y, width, height);
         timeElapsed = 20.0f;
         dying = false;
         markedForDeletion = false;
-        this.gunWorld = gunWorld;
     }
 
     public void update(float delta) {

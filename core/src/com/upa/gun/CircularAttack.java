@@ -16,10 +16,10 @@ public class CircularAttack implements Attack {
     }
 
     @Override
-    public void attack(GunWorld world, Vector2 position) {
+    public void attack(Vector2 position) {
         for (int i = 0; i<32; i++) {
             double angle = angleInterval * (double) i;
-            world.bullets.add(new BossBullet(position.x, position.y, angle));
+            GunWorld.getInstance().bullets.add(new BossBullet(position.x, position.y, angle));
         }
     }
 

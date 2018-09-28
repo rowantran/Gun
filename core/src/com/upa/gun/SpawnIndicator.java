@@ -1,7 +1,5 @@
 package com.upa.gun;
 
-import com.badlogic.gdx.physics.box2d.World;
-
 public class SpawnIndicator {
     float x, y;
     float timeElapsed;
@@ -26,7 +24,7 @@ public class SpawnIndicator {
         return timeElapsed >= timeUntilSpawn;
     }
 
-    void createSpawn(World world, GunWorld gunWorld) {
-        gunWorld.enemies.add(factory.create(x, y, world, gunWorld));
+    void createSpawn(GunWorld world) {
+        world.enemies.add(factory.create(x, y));
     }
 }

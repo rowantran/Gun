@@ -22,7 +22,7 @@ public abstract class Bullet extends Entity {
     @Override
     void createHitbox(float width, float height) {
         Vector2 position = getPosition();
-        hitbox = new RectangularHitbox(position.x + width/2, position.y + height/2, width, height);
+        hitbox = new RectangularHitbox(position.x, position.y, width, height);
     }
 
     public void update(float delta) {

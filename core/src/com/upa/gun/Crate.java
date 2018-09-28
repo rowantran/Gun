@@ -17,44 +17,12 @@ public class Crate {
 
     Sprite crateSprite;
 
-    public Crate(float x, float y, Texture texture, World world) {
+    public Crate(float x, float y, Texture texture) {
 
         crateSprite = new Sprite(texture);
         crateSprite.setScale(1);
 
         this.x = x;
         this.y = y;
-
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(x, y);
-
-        body = world.createBody(bodyDef);
-        body.setUserData(this);
-        //body.setTransform(x, y, (float) 0);
-
-        PolygonShape crateBox = new PolygonShape();
-
-        Vector2 vert1 = new Vector2(0f,0f);
-        Vector2 vert2 = new Vector2(64f,0f);
-        Vector2 vert3 = new Vector2(64f, 64f);
-        Vector2 vert4 = new Vector2(0f, 64f);
-        vertices = new Vector2[] {vert1, vert2, vert3, vert4};
-        crateBox.set(vertices);
-
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = crateBox;
-        fixtureDef.density = 0.5f;
-        fixtureDef.friction = 0.0f;
-        fixtureDef.restitution = 0.0f;
-        fixtureDef.isSensor = true;
-
-        body.createFixture(fixtureDef);
-
     }
-
-
-
-
-
 }

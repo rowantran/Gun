@@ -68,7 +68,7 @@ public class Player extends Entity {
     @Override
     void createHitbox(float width, float height) {
         Vector2 position = getPosition();
-        hitbox = new RectangularHitbox(position.x+width, position.y+height, width, height);
+        hitbox = new RectangularHitbox(position.x, position.y, width, height);
     }
 
     void hurt(int damage) {

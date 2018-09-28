@@ -30,8 +30,8 @@ public class Slime extends Enemy {
         }
     }
 
-    Slime(float x, float y, World world, GunWorld gunWorld) {
-        super(gunWorld);
+    Slime(float x, float y) {
+        super(x, y, hitboxSize, hitboxSize);
         attackTimeElapsed = 0.0f;
         timeSinceAttack = 0.0f;
 
@@ -40,63 +40,15 @@ public class Slime extends Enemy {
         randomMoveLength = 0.0f;
         timeOfRandomMove = 0.0f;
 
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(x, y);
-
-        body = world.createBody(bodyDef);
-        body.setUserData(this);
-
-        CircleShape hitbox = new CircleShape();
-        hitbox.setRadius(hitboxSize);
-
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = hitbox;
-        fixtureDef.density = 0.5f;
-        fixtureDef.friction = 0.0f;
-        fixtureDef.restitution = 0.0f;
-        fixtureDef.isSensor = true;
-
-        body.createFixture(fixtureDef);
-
         opacity = 1.0f;
-
-        this.world = world;
 
         rotation = new SlimeAttackRotation();
     }
 
-    Slime(float x, float y, World world, GunWorld gunWorld, Shape hitbox) {
-        super(gunWorld);
-        attackTimeElapsed = 0.0f;
-        timeSinceAttack = 0.0f;
-
-        timeSinceRandomMove = 0f;
-        timeUntilRandomMove = 0f;
-        randomMoveLength = 0.0f;
-        timeOfRandomMove = 0.0f;
-
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(x, y);
-
-        body = world.createBody(bodyDef);
-        body.setUserData(this);
-
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = hitbox;
-        fixtureDef.density = 0.5f;
-        fixtureDef.friction = 0.0f;
-        fixtureDef.restitution = 0.0f;
-        fixtureDef.isSensor = true;
-
-        body.createFixture(fixtureDef);
-
-        opacity = 1.0f;
-
-        this.world = world;
-
-        rotation = new SlimeAttackRotation();
+    @Override
+    void createHitbox(float width, float height) {
+        Vector2 position = getPosition();
+        hitbox = new RectangularHitbox(position.x, position.y, width, height);
     }
 
     public void update(float delta) {
@@ -111,13 +63,13 @@ public class Slime extends Enemy {
             }
         } else {
             if (rotation.isAttacking()) {
-                rotation.attack(gunWorld, body.getPosition());
+                rotation.attack(getPosition());
                 fireSound();
             } else {
                 if (rotation.currentAttack().isMobile()) {
                     move(delta);
                 } else {
-                    body.setLinearVelocity(0, 0);
+                    setVelocity(0f, 0f);
                 }
             }
         }
@@ -137,55 +89,55 @@ public class Slime extends Enemy {
 
     //default move toward player; horizontal or diagonal depending on position
     public void defaultMove(float delta) {
-        Vector2 playerPos = gunWorld.player.getPosition();
+        Vector2 playerPos = GunWorld.getInstance().player.getPosition();
         float playerX = playerPos.x;
         float playerY = playerPos.y;
 
-        float slimeX = body.getTransform().getPosition().x;
-        float slimeY = body.getTransform().getPosition().y;
+        float slimeX = getPosition().x;
+        float slimeY = getPosition().y;
 
         float pythagMultiplier = 0.7071f;
 
         if(slimeX < playerX) {
-            body.setLinearVelocity(Settings.SLIME_SPEED, 0);
+            setVelocity(Settings.SLIME_SPEED, 0);
         } else if(slimeX > playerX) {
-            body.setLinearVelocity(-Settings.SLIME_SPEED, 0);
+            setVelocity(-Settings.SLIME_SPEED, 0);
         } else {
-            body.setLinearVelocity(0, 0);
+            setVelocity(0, 0);
         }
         if(slimeY < playerY) {
-            body.setLinearVelocity(body.getLinearVelocity().x * pythagMultiplier,
+            setVelocity(getVelocity().x * pythagMultiplier,
                     Settings.SLIME_SPEED * pythagMultiplier);
         } else if(slimeY > playerY) {
-            body.setLinearVelocity(body.getLinearVelocity().x * pythagMultiplier,
+            setVelocity(getVelocity().x * pythagMultiplier,
                     -Settings.SLIME_SPEED * pythagMultiplier);
         } else {
-            body.setLinearVelocity(body.getLinearVelocity().x, 0);
+            setVelocity(getVelocity().x, 0);
         }
-        if(body.getLinearVelocity().x == 0 && body.getLinearVelocity().y != 0) {
-            body.setLinearVelocity(0, body.getLinearVelocity().y / pythagMultiplier);
+        if(getVelocity().x == 0 && getVelocity().y != 0) {
+            setVelocity(0, getVelocity().y / pythagMultiplier);
         }
 
 
-        if(slimeX <= 113f && body.getLinearVelocity().x < 0) {
-            body.setLinearVelocity(0, body.getLinearVelocity().y);
+        if(slimeX <= 113f && getVelocity().x < 0) {
+            setVelocity(0, getVelocity().y);
         }
-        if(slimeX >= 1160f && body.getLinearVelocity().x > 0) {
-            body.setLinearVelocity(0, body.getLinearVelocity().y);
+        if(slimeX >= 1160f && getVelocity().x > 0) {
+            setVelocity(0, getVelocity().y);
         }
-        if(slimeY <= 136f && body.getLinearVelocity().y < 0) {
-            body.setLinearVelocity(body.getLinearVelocity().x, 0);
+        if(slimeY <= 136f && getVelocity().y < 0) {
+            setVelocity(getVelocity().x, 0);
         }
-        if(slimeY >= 674f && body.getLinearVelocity().y > 0) {
-            body.setLinearVelocity(body.getLinearVelocity().x, 0);
+        if(slimeY >= 674f && getVelocity().y > 0) {
+            setVelocity(getVelocity().x, 0);
         }
     }
 
 
     //check if the slime is on the edge of boundaries
     public boolean checkBounds() {
-        float x = body.getTransform().getPosition().x;
-        float y = body.getTransform().getPosition().y;
+        float x = getPosition().x;
+        float y = getPosition().y;
         return(x <= 113f || x >= 1160f || y <= 136f || y >= 674);
     }
 
@@ -203,7 +155,7 @@ public class Slime extends Enemy {
         if(switchY == 1) {
             y = -y;
         }
-        body.setLinearVelocity(x, y);
+        setVelocity(x, y);
     }
 
     //uses pythagorean theorem to find corresponding y value for an x value to maintain speed

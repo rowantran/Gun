@@ -12,7 +12,7 @@ public class NoAttack implements Attack {
     }
 
     @Override
-    public void attack(GunWorld world, Vector2 position) {}
+    public void attack(Vector2 position) {}
 
     @Override
     public float length() {

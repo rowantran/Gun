@@ -40,8 +40,8 @@ abstract class AttackRotation {
         return attacks.get(currentAttack);
     }
 
-    void attack(GunWorld world, Vector2 position) {
-        currentAttack().attack(world, position);
+    void attack(Vector2 position) {
+        currentAttack().attack(position);
         attacking = false;
         timeElapsedSinceAttack = 0f;
     }

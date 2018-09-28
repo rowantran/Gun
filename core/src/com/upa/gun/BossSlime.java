@@ -22,8 +22,8 @@ public class BossSlime extends Slime {
         }
     }
 
-    BossSlime(int health, float x, float y, World world, GunWorld gunWorld, Shape hitbox) {
-        super(x, y, world, gunWorld, hitbox);
+    BossSlime(int health, float x, float y) {
+        super(x, y);
         speedMultiplier = 0.5f;
 
         this.health = health;

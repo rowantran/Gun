@@ -1,11 +1,9 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.World;
 
 public class Spawner {
-    GunWorld gunWorld;
-    World world;
+    GunWorld world;
     public int slimesKilled;
     int slimesKilledSinceLastBoss;
 
@@ -23,8 +21,7 @@ public class Spawner {
     EnemyFactory<Slime> slimeFactory;
     EnemyFactory<StrongSlime> strongSlimeFactory;
 
-    Spawner(GunWorld gunWorld, World world) {
-        this.gunWorld = gunWorld;
+    Spawner(GunWorld world) {
         this.world = world;
 
         slimesKilled = 0;
@@ -50,7 +47,7 @@ public class Spawner {
     }
 
     void createSpawn(SpawnIndicator spawn) {
-        spawn.createSpawn(world, gunWorld);
+        spawn.createSpawn(world);
     }
 
     void spawnSlime() {
@@ -58,9 +55,9 @@ public class Spawner {
         float spawnY = (((float)Math.random() * 600) + 100);
         int slimeType = (int) (Math.random() * 4);
         if (slimeType == 0) {
-            gunWorld.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, strongSlimeFactory));
+            world.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, strongSlimeFactory));
         } else {
-            gunWorld.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, slimeFactory));
+            world.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, slimeFactory));
         }
     }
 
@@ -70,10 +67,10 @@ public class Spawner {
         float spawnY = Settings.RESOLUTION.y;
 
         BossSlimeFactory factory = new BossSlimeFactory();
-        BossSlime slime = factory.makeBossSlime(bossHealth, spawnX, spawnY, world, gunWorld);
+        BossSlime slime = factory.makeBossSlime(bossHealth, spawnX, spawnY);
         BossSlimeEntrance entrance = new BossSlimeEntrance(slime);
         entrance.start();
-        gunWorld.sequences.add(entrance);
+        world.sequences.add(entrance);
     }
 
     void update(float delta) {
