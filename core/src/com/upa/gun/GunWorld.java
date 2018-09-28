@@ -61,7 +61,7 @@ public class GunWorld {
     }
 
     public void setGunGame(GunGame game) {
-        player = new Player(2, 2, game, world);
+        player = new Player(2, 2, game);
         this.game = game;
     }
 
@@ -109,7 +109,6 @@ public class GunWorld {
         for (Iterator<Bullet> iterator = bullets.iterator(); iterator.hasNext();) {
             Bullet bullet = iterator.next();
             if (bullet.markedForDeletion) {
-                world.destroyBody(bullet.body);
                 iterator.remove();
             }
         }
@@ -121,7 +120,6 @@ public class GunWorld {
             }
 
             if (enemy.markedForDeletion) {
-                world.destroyBody(enemy.body);
                 iterator.remove();
             }
         }

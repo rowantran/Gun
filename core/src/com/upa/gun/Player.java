@@ -39,7 +39,7 @@ public class Player extends Entity {
     Sound shot;
 
     Player(float x, float y, GunGame game) {
-        super(x, y);
+        super(x, y, 10, 10);
         spawnPoint = new Vector2(x, y);
 
         bulletCooldown = 0.4;
@@ -63,6 +63,12 @@ public class Player extends Entity {
         shot = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
 
         inputHandler = new InputHandler();
+    }
+
+    @Override
+    void createHitbox(float width, float height) {
+        Vector2 position = getPosition();
+        hitbox = new RectangularHitbox(position.x+width, position.y+height, width, height);
     }
 
     void hurt(int damage) {

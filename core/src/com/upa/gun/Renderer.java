@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
 
@@ -88,8 +89,9 @@ class Renderer {
         Animation<TextureRegion> currentAnimation = Assets.playerAnimations.get(player.getState()).get(player.direction);
         TextureRegion currentFrame = currentAnimation.getKeyFrame(world.player.timeElapsed);
 
-        float playerX = (player.position.x - (float)currentFrame.getRegionWidth()/2f/Settings.PPM);
-        float playerY = (player.position.y - (float)currentFrame.getRegionHeight()/2f/Settings.PPM);
+        Vector2 playerPos = player.getPosition();
+        float playerX = (playerPos.x - (float)currentFrame.getRegionWidth()/2f/Settings.PPM);
+        float playerY = (playerPos.y - (float)currentFrame.getRegionHeight()/2f/Settings.PPM);
 
         batch.setColor(1.0f, 1.0f, 1.0f, player.opacity);
         drawShadow(playerX, playerY, (float)currentFrame.getRegionWidth()/Settings.PPM);
@@ -179,10 +181,7 @@ class Renderer {
 
     private void drawBullet(Bullet bullet, float x, float y) {
         batch.enableBlending();
-
-        bullet.bulletSprite.setX(x-(float)bullet.bulletSprite.getRegionWidth()/2f);
-        bullet.bulletSprite.setY(y-(float)bullet.bulletSprite.getRegionHeight()/2f);
-        bullet.bulletSprite.draw(batch);
+        batch.draw(Assets.bulletEnemy, x, y, 10, 10);
     }
 
     private void drawCrate(Crate crate, float x, float y) {
@@ -248,7 +247,7 @@ class Renderer {
         }
 
         for (Bullet b : world.bullets) {
-            drawBullet(b, b.body.getPosition().x, b.body.getPosition().y);
+            drawBullet(b, b.getPosition().x, b.getPosition().y);
         }
 
 

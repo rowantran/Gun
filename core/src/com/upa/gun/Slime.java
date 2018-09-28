@@ -1,5 +1,6 @@
 package com.upa.gun;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
 public class Slime extends Enemy {
@@ -136,8 +137,9 @@ public class Slime extends Enemy {
 
     //default move toward player; horizontal or diagonal depending on position
     public void defaultMove(float delta) {
-        float playerX = gunWorld.player.position.x;
-        float playerY = gunWorld.player.position.y;
+        Vector2 playerPos = gunWorld.player.getPosition();
+        float playerX = playerPos.x;
+        float playerY = playerPos.y;
 
         float slimeX = body.getTransform().getPosition().x;
         float slimeY = body.getTransform().getPosition().y;

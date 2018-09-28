@@ -2,15 +2,20 @@ package com.upa.gun;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class Entity implements Updatable {
+public abstract class Entity implements Updatable {
     private Vector2 position;
     private Vector2 velocity;
     private float rotation;
-    Entity(float x, float y) {
+    Hitbox hitbox;
+
+    Entity(float x, float y, float width, float height) {
         position = new Vector2(x, y);
         velocity = new Vector2(0f, 0f);
         rotation = 0f;
+        createHitbox(width, height);
     }
+
+    abstract void createHitbox(float width, float height);
 
     Vector2 getPosition() {
         return position.cpy();
@@ -50,6 +55,10 @@ public class Entity implements Updatable {
     public void update(float delta) {
         position.x += velocity.x * delta;
         position.y += velocity.y * delta;
+
+        // Update hitbox
+        hitbox.setX(position.x);
+        hitbox.setY(position.y);
 
         System.out.println(position);
     }

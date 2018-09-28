@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
 public abstract class Bullet extends Entity {
@@ -11,26 +12,33 @@ public abstract class Bullet extends Entity {
 
     boolean markedForDeletion;
 
-    private Hitbox hitbox;
-
-    Bullet(float x, float y, double angle, TextureRegion texture) {
-        super(x, y);
+    Bullet(float x, float y, double angle, float width, float height) {
+        super(x, y, width, height);
         this.angle = angle;
-
-        hitbox = new RectangularHitbox(x + texture.getRegionWidth()/2, y + texture.getRegionHeight() / 2,
-                texture.getRegionWidth(), texture.getRegionHeight());
 
         markedForDeletion = false;
     }
 
+    @Override
+    void createHitbox(float width, float height) {
+        Vector2 position = getPosition();
+        hitbox = new RectangularHitbox(position.x + width/2, position.y + height/2, width, height);
+    }
+
     public void update(float delta) {
-
-        int bulletX = (int)body.getTransform().getPosition().x;
-        int bulletY = (int)body.getTransform().getPosition().y;
-
-        if(bulletX < 0 || bulletX > 1280f/Settings.PPM || bulletY < 0 || bulletY > 800f/Settings.PPM) {
+        super.update(delta);
+        Vector2 position = getPosition();
+        if(position.x < 0 || position.x > 1280f/Settings.PPM || position.y < 0 || position.y > 800f/Settings.PPM) {
             markedForDeletion = true;
         }
 
+    	float vx = (float) Math.cos(angle) * Settings.BULLET_SPEED;
+    	float vy = (float) Math.sin(angle) * Settings.BULLET_SPEED;
+        if (Settings.SLOW_BULLETS) {
+            vx *= 0.1f;
+            vy *= 0.1f;
+        }
+
+        setVelocity(vx, vy);
     }
 }

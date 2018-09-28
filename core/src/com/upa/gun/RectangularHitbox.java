@@ -11,11 +11,21 @@ public class RectangularHitbox implements Hitbox {
 
     @Override
     public boolean colliding(Hitbox other) {
-        return other.collidingVisit(this);
+        return other.colliding(this);
     }
 
     @Override
-    public boolean collidingVisit(RectangularHitbox other) {
+    public boolean colliding(RectangularHitbox other) {
         return x+width > other.x && x < other.x+other.width && y < other.y+other.height && y+height > other.y;
+    }
+
+    @Override
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    @Override
+    public void setY(float y) {
+        this.y = y;
     }
 }

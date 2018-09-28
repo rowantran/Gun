@@ -16,8 +16,7 @@ public class TrackingBurstAttack implements Attack {
     @Override
     public void attack(GunWorld world, Vector2 position) {
         Vector2 bulletAngle = world.player.getPosition().sub(position);
-        world.bullets.add(new EnemyBullet(position.x, position.y, bulletAngle.angleRad(),
-                world.world, Assets.bulletEnemy));
+        world.bullets.add(new EnemyBullet(position.x, position.y, bulletAngle.angleRad(), Assets.bulletEnemy));
     }
 
     @Override
