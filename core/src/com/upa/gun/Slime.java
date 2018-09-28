@@ -1,7 +1,6 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
 
 public class Slime extends Enemy {
     public static int LEFT = 0;
@@ -20,8 +19,6 @@ public class Slime extends Enemy {
     float speedMultiplier = 1/2f;
 
     static float hitboxSize = 10f;
-
-    World world;
 
     class SlimeAttackRotation extends AttackRotation {
         SlimeAttackRotation() {
@@ -43,6 +40,11 @@ public class Slime extends Enemy {
         opacity = 1.0f;
 
         rotation = new SlimeAttackRotation();
+    }
+
+    @Override
+    Enemy create(float x, float y) {
+        return new Slime(x, y);
     }
 
     @Override

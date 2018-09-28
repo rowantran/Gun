@@ -1,7 +1,15 @@
 package com.upa.gun;
 
-import com.badlogic.gdx.physics.box2d.World;
+class EnemyFactory {
+    private Enemy prototype;
+    private GunWorld world;
 
-public interface EnemyFactory<T> {
-    T create(float x, float y);
+    EnemyFactory(Enemy prototype) {
+        this.prototype = prototype;
+        world = GunWorld.getInstance();
+    }
+
+    void spawn(float x, float y) {
+        world.enemies.add(prototype.create(x, y));
+    }
 }

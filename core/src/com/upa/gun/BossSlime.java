@@ -1,8 +1,5 @@
 package com.upa.gun;
 
-import com.badlogic.gdx.physics.box2d.Shape;
-import com.badlogic.gdx.physics.box2d.World;
-
 public class BossSlime extends Slime {
     boolean hurt;
 
@@ -33,6 +30,16 @@ public class BossSlime extends Slime {
         timeHurt = 0f;
 
         rotation = new BossSlimeRotation();
+    }
+
+    @Override
+    Enemy create(float x, float y) {
+	    return new BossSlime(20, x, y);
+    }
+
+    @Override
+    void createHitbox(float width, float height) {
+	    hitbox = new RectangularHitbox(getPosition().x, getPosition().y, width, height);
     }
 
     public void update(float delta) {
