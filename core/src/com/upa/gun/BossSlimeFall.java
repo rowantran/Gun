@@ -24,7 +24,7 @@ public class BossSlimeFall implements ScriptedEvent {
         float currentFallSpeed = slime.body.getLinearVelocity().y;
         slime.body.setLinearVelocity(0, currentFallSpeed - FALL_SPEED*delta);
 
-        if (slime.body.getPosition().y <= (Settings.RESOLUTION.x * 0.4f / Settings.PPM)) {
+        if (slime.body.getPosition().y <= (Settings.RESOLUTION.x * 0.4f)) {
             killEnemies.update(delta, gunWorld);
 
             slime.body.setLinearVelocity(0, 0);
@@ -41,7 +41,7 @@ public class BossSlimeFall implements ScriptedEvent {
     @Override
     public boolean isFinished() {
         return slime.body.getPosition().y <=
-                (Settings.RESOLUTION.x * 0.4f / Settings.PPM) && timeElapsed > TIME_AFTER_FALL;
+                (Settings.RESOLUTION.x * 0.4f) && timeElapsed > TIME_AFTER_FALL;
     }
 
     @Override

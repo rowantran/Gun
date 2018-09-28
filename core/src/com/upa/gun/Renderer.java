@@ -19,7 +19,6 @@ import static com.upa.gun.Direction.LEFT;
 class Renderer {
     private SpriteBatch batch;
     OrthographicCamera camera;
-    private OrthographicCamera hudCamera;
 
     private GunWorld world;
 
@@ -29,19 +28,12 @@ class Renderer {
 
     private ShapeRenderer sr;
 
-    private RayHandler rayHandler;
-
-    private Array<Light> lights;
-
     Renderer(SpriteBatch batch, GunWorld world) {
         this.batch = batch;
         this.world = world;
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, (float)Settings.RESOLUTION.x/Settings.PPM, (float)Settings.RESOLUTION.y/Settings.PPM);
-
-        hudCamera = new OrthographicCamera();
-        hudCamera.setToOrtho(false, Settings.RESOLUTION.x, Settings.RESOLUTION.y);
+        camera.setToOrtho(false, Settings.RESOLUTION.x, Settings.RESOLUTION.y);
 
         layout = new GlyphLayout();
         font = new BitmapFont();
@@ -73,8 +65,8 @@ class Renderer {
     private void drawBackground() {
         batch.disableBlending();
         batch.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-        batch.draw(Assets.backgroundRoom1, (Settings.RESOLUTION.x - Assets.backgroundRoom1.getWidth()) /2f/Settings.PPM,
-                0, (float)Assets.backgroundRoom1.getWidth()/Settings.PPM, (float)Assets.backgroundRoom1.getHeight()/Settings.PPM);
+        batch.draw(Assets.backgroundRoom1, (Settings.RESOLUTION.x - Assets.backgroundRoom1.getWidth()) /2f,
+                0, (float)Assets.backgroundRoom1.getWidth(), (float)Assets.backgroundRoom1.getHeight());
     }
 
     private void drawShadow(float x, float y, float objectWidth) {
@@ -90,13 +82,13 @@ class Renderer {
         TextureRegion currentFrame = currentAnimation.getKeyFrame(world.player.timeElapsed);
 
         Vector2 playerPos = player.getPosition();
-        float playerX = (playerPos.x - (float)currentFrame.getRegionWidth()/2f/Settings.PPM);
-        float playerY = (playerPos.y - (float)currentFrame.getRegionHeight()/2f/Settings.PPM);
+        float playerX = (playerPos.x - (float)currentFrame.getRegionWidth()/2f);
+        float playerY = (playerPos.y - (float)currentFrame.getRegionHeight()/2f);
 
         batch.setColor(1.0f, 1.0f, 1.0f, player.opacity);
-        drawShadow(playerX, playerY, (float)currentFrame.getRegionWidth()/Settings.PPM);
+        drawShadow(playerX, playerY, (float)currentFrame.getRegionWidth());
         batch.draw(currentFrame, playerX, playerY, 0, 0,
-                (float)currentFrame.getRegionWidth()/Settings.PPM, (float)currentFrame.getRegionHeight()/Settings.PPM,
+                (float)currentFrame.getRegionWidth(), (float)currentFrame.getRegionHeight(),
                 1, 1, world.player.rotation);
 }
 
@@ -147,12 +139,12 @@ class Renderer {
             currentFrame = currentAnimation.getKeyFrame(slime.timeElapsed);
         }
 
-        float slimeX = (x-(float)currentFrame.getRegionWidth()/2f/Settings.PPM);
-        float slimeY =  (y-(float)currentFrame.getRegionHeight()/2f/Settings.PPM);
+        float slimeX = (x-(float)currentFrame.getRegionWidth()/2f);
+        float slimeY =  (y-(float)currentFrame.getRegionHeight()/2f);
 
-        drawShadow(slimeX, slimeY, (float)currentFrame.getRegionWidth()/Settings.PPM);
+        drawShadow(slimeX, slimeY, (float)currentFrame.getRegionWidth());
         batch.draw(currentFrame, slimeX, slimeY,
-                (float)currentFrame.getRegionWidth()/Settings.PPM, (float)currentFrame.getRegionHeight()/Settings.PPM);
+                (float)currentFrame.getRegionWidth(), (float)currentFrame.getRegionHeight());
     }
 
     private void drawBossSlime(BossSlime bossSlime, float x, float y) {
@@ -169,10 +161,10 @@ class Renderer {
             currentFrame = currentAnimation.getKeyFrame(bossSlime.timeElapsed);
         }
 
-        float slimeX = x-(float)currentFrame.getRegionWidth()*4f/Settings.PPM;
-        float slimeY = y-(float)currentFrame.getRegionHeight()*4f/Settings.PPM;
-        float slimeWidth = (float)currentFrame.getRegionWidth()*8f/Settings.PPM;
-        float slimeHeight = (float)currentFrame.getRegionHeight()*8f/Settings.PPM;
+        float slimeX = x-(float)currentFrame.getRegionWidth()*4f;
+        float slimeY = y-(float)currentFrame.getRegionHeight()*4f;
+        float slimeWidth = (float)currentFrame.getRegionWidth()*8f;
+        float slimeHeight = (float)currentFrame.getRegionHeight()*8f;
 
         drawShadow(slimeX, slimeY, slimeWidth);
         currentFrame.getTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
@@ -202,7 +194,7 @@ class Renderer {
     }
 
     private void drawIndicator(SpawnIndicator s) {
-        batch.draw(Assets.crosshair, s.x*Settings.PPM, s.y*Settings.PPM,
+        batch.draw(Assets.crosshair, s.x, s.y,
                 Assets.crosshair.getWidth()*2, Assets.crosshair.getHeight()*2);
     }
 
@@ -259,7 +251,7 @@ class Renderer {
         */
 
         // Set projection matrix to pixels instead of meters
-        batch.setProjectionMatrix(hudCamera.combined);
+        batch.setProjectionMatrix(camera.combined);
         batch.begin();
         for (SpawnIndicator s : world.indicators) {
             drawIndicator(s);
@@ -272,7 +264,7 @@ class Renderer {
         batch.end();
 
         if (world.cinematicHappening) {
-            sr.setProjectionMatrix(hudCamera.combined);
+            sr.setProjectionMatrix(camera.combined);
             sr.begin(ShapeRenderer.ShapeType.Filled);
             sr.setColor(Color.BLACK);
             sr.rect(0, 0, Settings.RESOLUTION.x, Settings.RESOLUTION.y*0.2f);

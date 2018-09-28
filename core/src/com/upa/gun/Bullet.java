@@ -28,7 +28,7 @@ public abstract class Bullet extends Entity {
     public void update(float delta) {
         super.update(delta);
         Vector2 position = getPosition();
-        if(position.x < 0 || position.x > 1280f/Settings.PPM || position.y < 0 || position.y > 800f/Settings.PPM) {
+        if(position.x < 0 || position.x > Settings.RESOLUTION.x || position.y < 0 || position.y > Settings.RESOLUTION.y) {
             markedForDeletion = true;
         }
 

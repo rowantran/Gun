@@ -18,7 +18,7 @@ public class InputHandler implements Updatable {
         Vector2 velocity = new Vector2(0f, 0f);
 
         if (Gdx.input.isKeyPressed(Settings.KEY_LEFT)) {
-            if(!((world.player.getPosition().x - Settings.PLAYER_SPEED * delta)*Settings.PPM < 113)) {
+            if(!((world.player.getPosition().x - Settings.PLAYER_SPEED * delta) < 113)) {
                 velocity.x -= Settings.PLAYER_SPEED;
                 world.player.moving = true;
             }
@@ -26,7 +26,7 @@ public class InputHandler implements Updatable {
         }
 
         if (Gdx.input.isKeyPressed(Settings.KEY_RIGHT)) {
-            if(!((world.player.getPosition().x + Settings.PLAYER_SPEED * delta)*Settings.PPM > 1164)) {
+            if(!((world.player.getPosition().x + Settings.PLAYER_SPEED * delta) > 1164)) {
                 velocity.x += Settings.PLAYER_SPEED;
                 world.player.moving = true;
             }
@@ -42,7 +42,7 @@ public class InputHandler implements Updatable {
         }
 
         if (Gdx.input.isKeyPressed(Settings.KEY_UP)) {
-            if(!((world.player.getPosition().y + Settings.PLAYER_SPEED * delta)*Settings.PPM > 702)){
+            if(!((world.player.getPosition().y + Settings.PLAYER_SPEED * delta) > 702)){
                 velocity.y += Settings.PLAYER_SPEED;
                 world.player.moving = true;
             }
@@ -58,7 +58,7 @@ public class InputHandler implements Updatable {
 
         if (Gdx.input.justTouched()) {
             OrthographicCamera camera = new OrthographicCamera();
-            camera.setToOrtho(false, Settings.RESOLUTION.x/Settings.PPM, Settings.RESOLUTION.y/Settings.PPM);
+            camera.setToOrtho(false, Settings.RESOLUTION.x, Settings.RESOLUTION.y);
 
             if(world.player.bulletCooldown <= 0) {
 

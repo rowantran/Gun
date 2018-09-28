@@ -20,7 +20,7 @@ public class Crate {
     public Crate(float x, float y, Texture texture, World world) {
 
         crateSprite = new Sprite(texture);
-        crateSprite.setScale(1/Settings.PPM);
+        crateSprite.setScale(1);
 
         this.x = x;
         this.y = y;
@@ -36,9 +36,9 @@ public class Crate {
         PolygonShape crateBox = new PolygonShape();
 
         Vector2 vert1 = new Vector2(0f,0f);
-        Vector2 vert2 = new Vector2(64f/Settings.PPM,0f);
-        Vector2 vert3 = new Vector2(64f/Settings.PPM, 64f/Settings.PPM);
-        Vector2 vert4 = new Vector2(0f, 64f/Settings.PPM);
+        Vector2 vert2 = new Vector2(64f,0f);
+        Vector2 vert3 = new Vector2(64f, 64f);
+        Vector2 vert4 = new Vector2(0f, 64f);
         vertices = new Vector2[] {vert1, vert2, vert3, vert4};
         crateBox.set(vertices);
 

@@ -11,7 +11,7 @@ public class BossSlime extends Slime {
 	float timeHurt;
 	static float timeStayHurt = 0.5f;
 
-	static float hitboxRadius = 50f/Settings.PPM;
+	static float hitboxRadius = 50f;
 
 	class BossSlimeRotation extends AttackRotation {
 	    BossSlimeRotation() {

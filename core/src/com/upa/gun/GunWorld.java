@@ -24,11 +24,7 @@ public class GunWorld {
     World world;
     Spawner spawner;
 
-    private OrthographicCamera worldCamera;
-
     boolean cinematicHappening;
-
-    GunGame game;
 
     private GunWorld() {
         bullets = new ArrayList<Bullet>();
@@ -37,22 +33,19 @@ public class GunWorld {
         indicators = new ArrayList<SpawnIndicator>();
         sequences = new ArrayList<ScriptedEventSequence>();
 
-        worldCamera = new OrthographicCamera();
-        worldCamera.setToOrtho(false, Settings.RESOLUTION.x/Settings.PPM, Settings.RESOLUTION.y/Settings.PPM);
-
         world = new World(new Vector2(0, 0), true);
         spawner = new Spawner(this, world);
 
         for(int i = 0; i < 14; i++) {
-            crates.add(new Crate(((float)i * 64f + 32f)/Settings.PPM, 29f/Settings.PPM, Assets.crate, world));
+            crates.add(new Crate(((float)i * 64f + 32f), 29f, Assets.crate, world));
         }
 
         for(int i = 17; i < 19; i++) {
-            crates.add(new Crate(((float)i * 64f + 32f)/Settings.PPM, 29f/Settings.PPM, Assets.crate, world));
+            crates.add(new Crate(((float)i * 64f + 32f), 29f, Assets.crate, world));
         }
     }
 
-    public static GunWorld getInstance() {
+    static GunWorld getInstance() {
         if (gunWorld == null) {
             gunWorld = new GunWorld();
         }
@@ -60,9 +53,8 @@ public class GunWorld {
         return gunWorld;
     }
 
-    public void setGunGame(GunGame game) {
-        player = new Player(2, 2, game);
-        this.game = game;
+    void setGunGame(GunGame game) {
+        player = new Player(200, 200, game);
     }
 
     public void update(float delta) {
@@ -99,8 +91,6 @@ public class GunWorld {
 
     public void handleInput(float delta) {
         if (Gdx.input.isKeyPressed(Settings.KEY_ROLL)) {
-            Vector3 mousePos3 = worldCamera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
-            Vector2 mousePos = new Vector2(mousePos3.x, mousePos3.y);
             player.roll();
         }
     }
