@@ -125,6 +125,14 @@ class Renderer {
         }
     }
 
+    private void drawEnemy(Enemy e) {
+        batch.enableBlending();
+        batch.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+
+        SpriteState state = e.getState();
+        Animation<TextureRegion> animation = e.sprite().get(state).get(LEFT);
+    }
+
     private void drawSlime(Slime slime, float x, float y, Map<SpriteState, Map<Direction, Animation<TextureRegion>>> animationMap) {
         batch.enableBlending();
         batch.setColor(1.0f, 1.0f, 1.0f, slime.opacity);
@@ -208,6 +216,8 @@ class Renderer {
         font.draw(batch, layout, x, y);
     }
 
+
+
     void draw(GunWorld world) {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
@@ -219,7 +229,7 @@ class Renderer {
         drawPlayer(world.player);
 
         for (Enemy e : world.enemies) {
-
+            drawEnemy(e);
         }
         for (Body b : bodies) {
             Object id = b.getUserData();
