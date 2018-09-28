@@ -11,33 +11,14 @@ public abstract class Bullet extends Entity {
 
     boolean markedForDeletion;
 
+    private Hitbox hitbox;
+
     Bullet(float x, float y, double angle, TextureRegion texture) {
         super(x, y);
         this.angle = angle;
 
-        bulletSprite = new Sprite(texture);
-        bulletSprite.setRotation((float) (angle * 180 / Math.PI));
-        bulletSprite.setScale(1f/Settings.PPM);
-
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(x, y);
-
-        body = world.createBody(bodyDef);
-        body.setUserData(this);
-        body.setTransform(x, y, (float) angle);
-
-        PolygonShape bulletBox = new PolygonShape();
-        bulletBox.setAsBox(bulletSprite.getWidth()/2/Settings.PPM, bulletSprite.getHeight()/2/Settings.PPM);
-
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = bulletBox;
-        fixtureDef.density = 0.5f;
-        fixtureDef.friction = 0.0f;
-        fixtureDef.restitution = 0.0f;
-        fixtureDef.isSensor = true;
-
-        body.createFixture(fixtureDef);
+        hitbox = new RectangularHitbox(x + texture.getRegionWidth()/2, y + texture.getRegionHeight() / 2,
+                texture.getRegionWidth(), texture.getRegionHeight());
 
         markedForDeletion = false;
     }

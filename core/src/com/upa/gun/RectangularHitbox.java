@@ -16,8 +16,6 @@ public class RectangularHitbox implements Hitbox {
 
     @Override
     public boolean collidingVisit(RectangularHitbox other) {
-        boolean colliding = false;
-        // TODO: collision check
-        return colliding;
+        return x+width > other.x && x < other.x+other.width && y < other.y+other.height && y+height > other.y;
     }
 }
