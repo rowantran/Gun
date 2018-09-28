@@ -4,10 +4,10 @@ public class SpawnIndicator {
     float x, y;
     float timeElapsed;
     float timeUntilSpawn;
-    EnemyFactory<? extends Enemy> factory;
+    EnemyFactory factory;
     boolean markedForDeletion;
 
-    SpawnIndicator(float x, float y, float timeElapsed, float timeUntilSpawn, EnemyFactory<? extends Enemy> factory) {
+    SpawnIndicator(float x, float y, float timeElapsed, float timeUntilSpawn, EnemyFactory factory) {
         this.x = x;
         this.y = y;
         this.timeElapsed = timeElapsed;
@@ -24,7 +24,7 @@ public class SpawnIndicator {
         return timeElapsed >= timeUntilSpawn;
     }
 
-    void createSpawn(GunWorld world) {
-        world.enemies.add(factory.create(x, y));
+    void createSpawn() {
+        factory.spawn(x, y);
     }
 }

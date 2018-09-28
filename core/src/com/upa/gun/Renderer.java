@@ -213,11 +213,14 @@ class Renderer {
         batch.setProjectionMatrix(camera.combined);
 
         Array<Body> bodies = new Array<Body>();
-        world.world.getBodies(bodies);
 
         batch.begin();
         drawBackground();
         drawPlayer(world.player);
+
+        for (Enemy e : world.enemies) {
+
+        }
         for (Body b : bodies) {
             Object id = b.getUserData();
             if (id != null) {

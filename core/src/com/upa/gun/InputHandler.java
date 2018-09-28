@@ -68,7 +68,7 @@ public class InputHandler implements Updatable {
                 Vector2 bulletAngle = mousePos.sub(world.player.getPosition());
                 world.bullets.add(new FriendlyBullet(world.player.getPosition().x,
                         world.player.getPosition().y,
-                        bulletAngle.angleRad(), world.world));
+                        bulletAngle.angleRad()));
                 world.player.shot.stop();
                 world.player.shot.play(.5f);
                 world.player.bulletCooldown = 0.4;

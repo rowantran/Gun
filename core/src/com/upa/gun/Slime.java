@@ -3,22 +3,19 @@ package com.upa.gun;
 import com.badlogic.gdx.math.Vector2;
 
 public class Slime extends Enemy {
-    public static int LEFT = 0;
-    public static int RIGHT = 1;
+    float attackTimeElapsed;
+    private float timeSinceRandomMove; //time since last random move has been done
+    private float timeUntilRandomMove; //time between random moves, randomly generated
+    private float randomMoveLength; //length of time slime will travel in a random direction
+    private float timeOfRandomMove; //length of time slime has been travelling in a random direction
 
-    public float attackTimeElapsed;
-    public float timeSinceRandomMove; //time since last random move has been done
-    public float timeUntilRandomMove; //time between random moves, randomly generated
-    public float randomMoveLength; //length of time slime will travel in a random direction
-    public float timeOfRandomMove; //length of time slime has been travelling in a random direction
+    private boolean movingRandom = false;
 
-    public boolean movingRandom = false;
-
-    public float opacity;
+    float opacity;
 
     float speedMultiplier = 1/2f;
 
-    static float hitboxSize = 10f;
+    private static float hitboxSize = 10f;
 
     class SlimeAttackRotation extends AttackRotation {
         SlimeAttackRotation() {

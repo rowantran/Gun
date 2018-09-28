@@ -18,8 +18,8 @@ public class Spawner {
 
     int bossHealth;
 
-    EnemyFactory<Slime> slimeFactory;
-    EnemyFactory<StrongSlime> strongSlimeFactory;
+    EnemyFactory slimeFactory;
+    EnemyFactory strongSlimeFactory;
 
     Spawner(GunWorld world) {
         this.world = world;
@@ -38,19 +38,19 @@ public class Spawner {
 
         bossHealth = 30;
 
-        slimeFactory = new SlimeFactory();
-        strongSlimeFactory = new StrongSlimeFactory();
+        slimeFactory = new EnemyFactory(new Slime(0, 0));
+        strongSlimeFactory = new EnemyFactory(new StrongSlime(0, 0));
     }
 
-    float generateRandomSpawnTime() {
+    private float generateRandomSpawnTime() {
         return (float) Math.random() * maxSpawnTimeMax / Settings.PERCENT_SPAWN_CHANCE;
     }
 
     void createSpawn(SpawnIndicator spawn) {
-        spawn.createSpawn(world);
+        spawn.createSpawn();
     }
 
-    void spawnSlime() {
+    private void spawnSlime() {
         float spawnX = (((float)Math.random() * 1051) + 113);
         float spawnY = (((float)Math.random() * 600) + 100);
         int slimeType = (int) (Math.random() * 4);
@@ -61,7 +61,7 @@ public class Spawner {
         }
     }
 
-    void spawnBossSlime() {
+    private void spawnBossSlime() {
         TextureRegion bossSlimeHurt = Assets.bossSlimeAnimations.get(SpriteState.HURT).get(Direction.LEFT).getKeyFrame(0);
         float spawnX = ((Settings.RESOLUTION.x - (float)bossSlimeHurt.getRegionWidth()) / 2f);
         float spawnY = Settings.RESOLUTION.y;
