@@ -14,6 +14,8 @@ public abstract class Enemy extends Entity {
         markedForDeletion = false;
     }
 
+    abstract Enemy spawnEnemy(float x, float y);
+
     public void update(float delta) {
         timeElapsed += delta;
         rotation.cycle(delta);
