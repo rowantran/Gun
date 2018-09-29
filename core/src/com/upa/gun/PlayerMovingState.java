@@ -1,7 +1,14 @@
 package com.upa.gun;
 
-public class PlayerMovingState  extends PlayerState {
+/**
+ * Handles movement
+ */
+public class PlayerMovingState extends PlayerState {
 
+    /**
+     * Sets move state and increments time
+     * @param delta - time value
+     */
     void update(float delta) {
 
         timeElapsed += delta;

@@ -1,11 +1,14 @@
 package com.upa.gun;
 
+/**
+ * Handles idling
+ */
 public class PlayerIdleState extends PlayerState {
 
-    public PlayerIdleState() {
-
-    }
-
+    /**
+     * Sets idle state and increments time
+     * @param delta - time value
+     */
     void update(float delta) {
 
         timeElapsed += delta;

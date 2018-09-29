@@ -14,7 +14,6 @@ public abstract class PlayerState {
 
     public static PlayerIdleState idle; //when the player is not moving
     public static PlayerMovingState moving; //when the player is using arrow keys
-    public static PlayerIFrameState iframe; //when the player is invincible after being hit
     public static PlayerRollingState rolling; //when the player uses the roll key
     public static PlayerDyingState dying; //when the player dies
 
@@ -24,7 +23,6 @@ public abstract class PlayerState {
     static {
         idle = new PlayerIdleState();
         moving = new PlayerMovingState();
-        iframe = new PlayerIFrameState();
         rolling = new PlayerRollingState();
         dying = new PlayerDyingState();
     }
