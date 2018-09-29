@@ -5,7 +5,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player extends Entity {
-    public float timeElapsed;
     boolean dying;
     boolean fading;
     boolean rolling;
@@ -13,8 +12,6 @@ public class Player extends Entity {
     float timeRolling;
 
     Vector2 spawnPoint;
-    float opacity;
-    float rotation;
 
     double bulletCooldown;
 
@@ -50,14 +47,11 @@ public class Player extends Entity {
 
 
         bulletCooldown = 0.4;
-        timeElapsed = 0.0f;
         timeRolling = 0f;
         dying = false;
         hurt = false;
 
-        opacity = 1.0f;
         health = Settings.PLAYER_HEALTH;
-        rotation = 0f;
 
         direction = Direction.DOWN;
 
@@ -65,6 +59,7 @@ public class Player extends Entity {
         iframeTimer = 0f;
 
         this.game = game;
+        state.setGame(game);
         shot = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
 
         inputHandler = new InputHandler();
@@ -80,7 +75,7 @@ public class Player extends Entity {
         if (!iframe && !game.world.cinematicHappening) {
             health -= damage;
             iframe = true;
-            opacity = 0.5f;
+            //opacity = 0.5f;
             if (health <= 0) {
                 dying = true;
             }
@@ -116,38 +111,36 @@ public class Player extends Entity {
 
     @Override
     public void update(float delta) {
+
         super.update(delta);
 
         state.update(delta);
 
+        //will cause instant death before animation
+        /*
+        if(state.equals(state.dying)) {
+            setPosition(spawnPoint);
+            game.setScreen(new GameOver(game));
+        }
+        */
+
+
         bulletCooldown -= delta;
+
 
         if (iframe) {
             iframeTimer += delta;
             if (iframeTimer > Settings.I_FRAME_LENGTH) {
                 //System.out.println("iframe over");
                 iframe = false;
-                opacity = 1f;
+                //opacity = 1f;
                 iframeTimer = 0f;
             }
         }
 
-        if (dying) {
-            rotation += Settings.DEATH_ROTATE_SPEED * delta;
-            if (rotation > 90) {
-                dying = false;
-                fading = true;
-            }
-        } if (fading) {
-            opacity -= Settings.DEATH_FADE_SPEED * delta;
-            if (opacity < 0.0f) {
-                opacity = 1.0f;
-                rotation = 0;
-                fading = false;
-                setPosition(spawnPoint);
-                game.setScreen(new GameOver(game));
-            }
-        } if (rolling) {
+
+
+        if (rolling) {
             timeRolling += delta;
             if (timeRolling > Settings.ROLL_LENGTH) {
                 rolling = false;
@@ -156,10 +149,12 @@ public class Player extends Entity {
             }
         }
 
+
+
         if (!dying && !fading && !rolling) {
             inputHandler.update(delta);
         }
 
-        timeElapsed += delta;
+
     }
 }

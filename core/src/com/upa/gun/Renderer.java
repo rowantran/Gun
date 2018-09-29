@@ -56,17 +56,17 @@ class Renderer {
     private void drawPlayer(Player player) {
         batch.enableBlending();
         Animation<TextureRegion> currentAnimation = Assets.playerAnimations.get(player.getState()).get(player.direction);
-        TextureRegion currentFrame = currentAnimation.getKeyFrame(world.player.timeElapsed);
+        TextureRegion currentFrame = currentAnimation.getKeyFrame(world.player.state.timeElapsed);
 
         Vector2 playerPos = player.getPosition();
         float playerX = (playerPos.x - (float)currentFrame.getRegionWidth()/2f);
         float playerY = (playerPos.y - (float)currentFrame.getRegionHeight()/2f);
 
-        batch.setColor(1.0f, 1.0f, 1.0f, player.opacity);
+        batch.setColor(1.0f, 1.0f, 1.0f, player.state.opacity);
         drawShadow(playerX, playerY, (float)currentFrame.getRegionWidth());
         batch.draw(currentFrame, playerX, playerY, 0, 0,
                 (float)currentFrame.getRegionWidth(), (float)currentFrame.getRegionHeight(),
-                1, 1, world.player.rotation);
+                1, 1, world.player.state.rotation);
 }
 
     private void drawHealth(int health) {

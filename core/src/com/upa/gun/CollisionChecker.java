@@ -4,7 +4,7 @@ public class CollisionChecker implements Updatable {
     private void checkBulletsCollision() {
         for (Bullet b : World.bullets) {
             if (b.hitbox.colliding(World.player.hitbox)) {
-                System.out.println("PLAYER DIE");
+                World.player.state = World.player.state.dying; //will leave dying state when other condition occurs - needs fix
             }
         }
     }
