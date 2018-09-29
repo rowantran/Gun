@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Player extends Entity {
     public float timeElapsed;
-    boolean moving;
     boolean dying;
     boolean fading;
     boolean rolling;
@@ -53,7 +52,6 @@ public class Player extends Entity {
         bulletCooldown = 0.4;
         timeElapsed = 0.0f;
         timeRolling = 0f;
-        moving = false;
         dying = false;
         hurt = false;
 
@@ -90,15 +88,11 @@ public class Player extends Entity {
     }
 
     SpriteState getState() {
-        if (moving) {
-            return SpriteState.MOVING;
-        } else {
-            return SpriteState.IDLE;
-        }
+        return state.getTextureState();
     }
 
     void roll() {
-        if (!rolling && moving) {
+        if (!rolling) {
             rolling = true;
             Vector2 rollAngle = Direction.getAngle(direction);
             setLength(rollAngle, Settings.ROLL_SPEED);
@@ -124,7 +118,8 @@ public class Player extends Entity {
     public void update(float delta) {
         super.update(delta);
 
-        moving = false;
+        state.update(delta);
+
         bulletCooldown -= delta;
 
         if (iframe) {

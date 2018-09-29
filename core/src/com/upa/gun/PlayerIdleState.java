@@ -10,6 +10,7 @@ public class PlayerIdleState extends PlayerState {
 
         timeElapsed += delta;
         textureState = SpriteState.IDLE;
+        System.out.println("idle state");
 
     }
 

@@ -20,7 +20,7 @@ public class InputHandler implements Updatable {
         if (Gdx.input.isKeyPressed(Settings.KEY_LEFT)) {
             if(!((world.player.getPosition().x - Settings.PLAYER_SPEED * delta) < 113)) {
                 velocity.x -= Settings.PLAYER_SPEED;
-                world.player.moving = true;
+                world.player.state = world.player.state.moving;
             }
             world.player.direction = Direction.LEFT;
         }
@@ -28,7 +28,7 @@ public class InputHandler implements Updatable {
         if (Gdx.input.isKeyPressed(Settings.KEY_RIGHT)) {
             if(!((world.player.getPosition().x + Settings.PLAYER_SPEED * delta) > 1164)) {
                 velocity.x += Settings.PLAYER_SPEED;
-                world.player.moving = true;
+                world.player.state = world.player.state.moving;
             }
             world.player.direction = Direction.RIGHT;
         }
@@ -36,7 +36,7 @@ public class InputHandler implements Updatable {
         if (Gdx.input.isKeyPressed(Settings.KEY_DOWN)) {
             if(!world.player.botStop){
                 velocity.y -= Settings.PLAYER_SPEED;
-                world.player.moving = true;
+                world.player.state = world.player.state.moving;
             }
             world.player.direction = Direction.DOWN;
         }
@@ -44,13 +44,13 @@ public class InputHandler implements Updatable {
         if (Gdx.input.isKeyPressed(Settings.KEY_UP)) {
             if(!((world.player.getPosition().y + Settings.PLAYER_SPEED * delta) > 702)){
                 velocity.y += Settings.PLAYER_SPEED;
-                world.player.moving = true;
+                world.player.state = world.player.state.moving;
             }
             world.player.direction = Direction.UP;
         }
 
         if (!Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){
-            world.player.moving = false;
+            world.player.state = world.player.state.idle;
         }
 
         velocity.clamp(Settings.PLAYER_SPEED, Settings.PLAYER_SPEED);

@@ -10,6 +10,7 @@ public class PlayerMovingState  extends PlayerState {
 
         timeElapsed += delta;
         textureState = SpriteState.MOVING;
+        System.out.println("moving state");
 
     }
 
