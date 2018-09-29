@@ -1,7 +1,5 @@
 package com.upa.gun;
 
-import box2dLight.Light;
-import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -24,7 +22,6 @@ class Renderer {
 
     private GlyphLayout layout;
     private BitmapFont font;
-    private BitmapFont smallFont;
 
     private ShapeRenderer sr;
 
@@ -40,26 +37,6 @@ class Renderer {
         font.getData().setScale(4);
 
         sr = new ShapeRenderer();
-
-        /*
-        rayHandler = new RayHandler(world.world);
-        rayHandler.setShadows(true);
-        rayHandler.setAmbientLight(0.1f, 0.1f, 0.1f, 0f);
-        rayHandler.setBlurNum(3);
-
-        lights = new Array<Light>();
-        lights.add(new PointLight(rayHandler, 128, new Color(1f, 0.3f,1f,0.8f), 6, 1, 1));
-        lights.add(new PointLight(rayHandler, 128, new Color(1f, 0.3f, 1f, 0.8f), 6, 8, 8));
-        lights.add(new PointLight(rayHandler, 128, new Color(1f, 0.3f, 1f, 0.8f), 6, 1, 8));
-        lights.add(new PointLight(rayHandler, 128, new Color(1f, 0.3f, 1f, 0.8f), 6, 8, 1));
-        //lights.add(new DirectionalLight(rayHandler, 128, new Color(1f, 0.3f, 1f, 0.8f), -91));
-
-
-        for (Light l : lights) {
-            l.setStaticLight(false);
-            l.setSoft(true);
-        }
-        */
     }
 
     private void drawBackground() {
@@ -131,6 +108,16 @@ class Renderer {
 
         SpriteState state = e.getState();
         Animation<TextureRegion> animation = e.sprite().get(state).get(LEFT);
+
+        TextureRegion frame;
+        if (e.state == SpriteState.ATTACKING) {
+            frame = animation.getKeyFrame(e.attackTimeElapsed);
+        } else {
+            frame = animation.getKeyFrame(e.timeElapsed);
+        }
+
+        drawShadow(e.getPosition().x, e.getPosition().y, 20);
+        batch.draw(frame, e.getPosition().x, e.getPosition().y, 20, 20);
     }
 
     private void drawSlime(Slime slime, float x, float y, Map<SpriteState, Map<Direction, Animation<TextureRegion>>> animationMap) {
@@ -228,9 +215,10 @@ class Renderer {
         drawBackground();
         drawPlayer(world.player);
 
-        for (Enemy e : world.enemies) {
+        for (Enemy e : GunWorld.enemies) {
             drawEnemy(e);
         }
+
         for (Body b : bodies) {
             Object id = b.getUserData();
             if (id != null) {

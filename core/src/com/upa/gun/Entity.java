@@ -1,7 +1,5 @@
 package com.upa.gun;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Entity implements Updatable {
@@ -9,11 +7,13 @@ public abstract class Entity implements Updatable {
     private Vector2 velocity;
     private float rotation;
     Hitbox hitbox;
+    float attackTimeElapsed;
 
     Entity(float x, float y, float width, float height) {
         position = new Vector2(x, y);
         velocity = new Vector2(0f, 0f);
         rotation = 0f;
+        attackTimeElapsed = 0f;
         createHitbox(width, height);
     }
 

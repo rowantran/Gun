@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.Map;
 
 public class Slime extends Enemy {
-    float attackTimeElapsed;
     private float timeSinceRandomMove; //time since last random move has been done
     private float timeUntilRandomMove; //time between random moves, randomly generated
     private float randomMoveLength; //length of time slime will travel in a random direction
