@@ -12,9 +12,9 @@ public class World {
     static Player player;
     static List<Bullet> bullets;
     static List<Enemy> enemies;
-    List<Crate> crates;
-    List<SpawnIndicator> indicators;
-    List<ScriptedEventSequence> sequences;
+    static List<Crate> crates;
+    static List<SpawnIndicator> indicators;
+    static List<ScriptedEventSequence> sequences;
     Spawner spawner;
     private CollisionChecker collisionChecker;
 
