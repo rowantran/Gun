@@ -30,7 +30,6 @@ public class Player extends Entity {
 
     boolean iframe;
     float iframeTimer;
-    float iframeLength;
 
     private GunGame game;
 
@@ -38,9 +37,18 @@ public class Player extends Entity {
 
     Sound shot;
 
+
+
+    PlayerState state;
+
+
     Player(float x, float y, GunGame game) {
         super(x, y, 10, 10);
         spawnPoint = new Vector2(x, y);
+
+
+        state = PlayerState.idle;
+
 
         bulletCooldown = 0.4;
         timeElapsed = 0.0f;
@@ -57,7 +65,6 @@ public class Player extends Entity {
 
         iframe = false;
         iframeTimer = 0f;
-        iframeLength = 1.0f;
 
         this.game = game;
         shot = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
@@ -122,7 +129,7 @@ public class Player extends Entity {
 
         if (iframe) {
             iframeTimer += delta;
-            if (iframeTimer > iframeLength) {
+            if (iframeTimer > Settings.I_FRAME_LENGTH) {
                 //System.out.println("iframe over");
                 iframe = false;
                 opacity = 1f;
