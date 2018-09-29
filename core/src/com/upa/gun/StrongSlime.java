@@ -1,5 +1,9 @@
 package com.upa.gun;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import java.util.Map;
+
 class StrongSlime extends Slime {
     class StrongSlimeAttackRotation extends AttackRotation {
         StrongSlimeAttackRotation() {
@@ -12,6 +16,11 @@ class StrongSlime extends Slime {
         super(x, y);
         speedMultiplier = 0.75f;
         rotation = new StrongSlimeAttackRotation();
+    }
+
+    @Override
+    Map<SpriteState, Map<Direction, Animation<TextureRegion>>> loadSprite() {
+        return Assets.strongSlimeAnimations;
     }
 
     @Override

@@ -18,11 +18,6 @@ public class GameScreen extends ScreenAdapter {
         }
     }
 
-    @Override
-    public void show() {
-        System.out.println("Binding contact listener");
-        game.world.world.setContactListener(new GunContactListener(game.world));
-    }
 
     @Override
     public void render(float delta) {
@@ -30,11 +25,7 @@ public class GameScreen extends ScreenAdapter {
         game.world.spawner.update(delta);
 
         renderer.draw(game.world);
-        if (Settings.DEV_MODE) {
-            drenderer.render(game.world.world, renderer.camera.combined);
-        }
 
-        game.doPhysicsStep(delta);
         game.world.updatePostPhysics(delta);
     }
 }

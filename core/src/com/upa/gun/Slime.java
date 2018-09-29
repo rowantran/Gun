@@ -1,6 +1,10 @@
 package com.upa.gun;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+
+import java.util.Map;
 
 public class Slime extends Enemy {
     float attackTimeElapsed;
@@ -37,6 +41,11 @@ public class Slime extends Enemy {
         opacity = 1.0f;
 
         rotation = new SlimeAttackRotation();
+    }
+
+    @Override
+    Map<SpriteState, Map<Direction, Animation<TextureRegion>>> loadSprite() {
+        return Assets.slimeAnimations;
     }
 
     @Override

@@ -1,5 +1,10 @@
 package com.upa.gun;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
+import java.util.Map;
+
 public class BossSlime extends Slime {
     boolean hurt;
 
@@ -33,6 +38,11 @@ public class BossSlime extends Slime {
     }
 
     @Override
+    Map<SpriteState, Map<Direction, Animation<TextureRegion>>> loadSprite() {
+	    return Assets.bossSlimeAnimations;
+    }
+
+    @Override
     Enemy create(float x, float y) {
 	    return new BossSlime(20, x, y);
     }
@@ -57,7 +67,6 @@ public class BossSlime extends Slime {
             Assets.bossDieSound.play(1.0f);
             dying = true;
         }
-        //System.out.println(health);
     }
 
     public SpriteState getState() {

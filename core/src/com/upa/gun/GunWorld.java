@@ -1,23 +1,17 @@
 package com.upa.gun;
 
-import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class GunWorld {
-    private static GunWorld gunWorld = null;
+    private static GunWorld gunWorld = new GunWorld();
 
     Player player;
     List<Bullet> bullets;
-    List<Enemy> enemies;
+    static List<Enemy> enemies;
     List<Crate> crates;
     List<SpawnIndicator> indicators;
     List<ScriptedEventSequence> sequences;
@@ -26,6 +20,7 @@ public class GunWorld {
     boolean cinematicHappening;
 
     private GunWorld() {
+        System.out.println("Calling constructor");
         bullets = new ArrayList<Bullet>();
         enemies = new ArrayList<Enemy>();
         crates = new ArrayList<Crate>();
@@ -44,10 +39,6 @@ public class GunWorld {
     }
 
     static GunWorld getInstance() {
-        if (gunWorld == null) {
-            gunWorld = new GunWorld();
-        }
-
         return gunWorld;
     }
 
@@ -65,7 +56,7 @@ public class GunWorld {
         }
 
         if (!cinematicHappening) {
-            handleInput(delta);
+            handleInput();
             player.update(delta);
 
             for (Iterator<Bullet> iterator = bullets.iterator(); iterator.hasNext(); ) {
@@ -87,7 +78,7 @@ public class GunWorld {
         }
     }
 
-    public void handleInput(float delta) {
+    public void handleInput() {
         if (Gdx.input.isKeyPressed(Settings.KEY_ROLL)) {
             player.roll();
         }
