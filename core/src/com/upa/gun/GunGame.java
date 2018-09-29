@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GunGame extends Game {
 	public SpriteBatch batch;
-	public GunWorld world;
+	public World world;
 	private Music music;
 
 	@Override
@@ -18,7 +18,7 @@ public class GunGame extends Game {
         music.setLooping(true);
         music.play();
         batch = new SpriteBatch();
-        world = GunWorld.getInstance();
+        world = World.getInstance();
         world.setGunGame(this);
 
         setScreen(new MenuScreen(this));

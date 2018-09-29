@@ -15,18 +15,18 @@ public abstract class ScriptedEventSequence {
         active = false;
     }
 
-    void update(float delta, GunWorld gunWorld) {
+    void update(float delta, World world) {
         if (active) {
             ScriptedEvent event = events.get(currentEvent);
             if (!event.onFinishCalled() && event.isFinished()) {
-                event.onFinish(gunWorld);
+                event.onFinish(world);
                 if (isNextEvent()) {
                     currentEvent++;
                 } else {
                     active = false;
                 }
             } else {
-                event.update(delta, gunWorld);
+                event.update(delta, world);
             }
         }
     }

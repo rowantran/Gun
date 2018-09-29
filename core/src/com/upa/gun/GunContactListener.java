@@ -3,10 +3,10 @@ package com.upa.gun;
 import com.badlogic.gdx.physics.box2d.*;
 
 public class GunContactListener implements ContactListener {
-    private GunWorld gunWorld;
+    private World gunWorld;
 
-    GunContactListener(GunWorld gunWorld) {
-        this.gunWorld = gunWorld;
+    GunContactListener(World world) {
+        this.gunWorld = world;
     }
 
     @Override

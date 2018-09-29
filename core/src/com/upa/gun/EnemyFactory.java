@@ -8,6 +8,6 @@ class EnemyFactory {
     }
 
     void spawn(float x, float y) {
-        GunWorld.enemies.add(prototype.create(x, y));
+        World.enemies.add(prototype.create(x, y));
     }
 }

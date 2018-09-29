@@ -6,21 +6,21 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class GunWorld {
-    private static GunWorld gunWorld = new GunWorld();
+public class World {
+    private static World world = new World();
 
-    Player player;
-    List<Bullet> bullets;
+    static Player player;
+    static List<Bullet> bullets;
     static List<Enemy> enemies;
     List<Crate> crates;
     List<SpawnIndicator> indicators;
     List<ScriptedEventSequence> sequences;
     Spawner spawner;
+    private CollisionChecker collisionChecker;
 
     boolean cinematicHappening;
 
-    private GunWorld() {
-        System.out.println("Calling constructor");
+    private World() {
         bullets = new ArrayList<Bullet>();
         enemies = new ArrayList<Enemy>();
         crates = new ArrayList<Crate>();
@@ -28,6 +28,7 @@ public class GunWorld {
         sequences = new ArrayList<ScriptedEventSequence>();
 
         spawner = new Spawner(this);
+        collisionChecker = new CollisionChecker();
 
         for(int i = 0; i < 14; i++) {
             crates.add(new Crate(((float)i * 64f + 32f), 29f, Assets.crate));
@@ -38,8 +39,8 @@ public class GunWorld {
         }
     }
 
-    static GunWorld getInstance() {
-        return gunWorld;
+    static World getInstance() {
+        return world;
     }
 
     void setGunGame(GunGame game) {
@@ -59,8 +60,9 @@ public class GunWorld {
             handleInput();
             player.update(delta);
 
-            for (Iterator<Bullet> iterator = bullets.iterator(); iterator.hasNext(); ) {
-                Bullet bullet = iterator.next();
+            collisionChecker.update(delta);
+
+            for (Bullet bullet : bullets) {
                 bullet.update(delta);
             }
 
@@ -78,13 +80,13 @@ public class GunWorld {
         }
     }
 
-    public void handleInput() {
+    private void handleInput() {
         if (Gdx.input.isKeyPressed(Settings.KEY_ROLL)) {
             player.roll();
         }
     }
 
-    public void updatePostPhysics(float delta) {
+    void deleteMarkedForDeletion() {
         for (Iterator<Bullet> iterator = bullets.iterator(); iterator.hasNext();) {
             Bullet bullet = iterator.next();
             if (bullet.markedForDeletion) {

@@ -5,8 +5,8 @@ public class KillEnemies implements ScriptedEvent {
     private boolean finished = false;
 
     @Override
-    public void update(float delta, GunWorld gunWorld) {
-        for (Enemy enemy : gunWorld.enemies) {
+    public void update(float delta, World world) {
+        for (Enemy enemy : world.enemies) {
             if (!(enemy instanceof BossSlime)) {
                 enemy.dying = true;
             }
@@ -15,7 +15,7 @@ public class KillEnemies implements ScriptedEvent {
     }
 
     @Override
-    public void onFinish(GunWorld gunWorld) {
+    public void onFinish(World world) {
         finished = true;
     }
 

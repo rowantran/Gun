@@ -58,10 +58,8 @@ public abstract class Entity implements Updatable {
         position.x += velocity.x * delta;
         position.y += velocity.y * delta;
 
-        // Update hitbox
+        // Update hitbox to match new position
         hitbox.setX(position.x);
         hitbox.setY(position.y);
-
-        System.out.println(position);
     }
 }

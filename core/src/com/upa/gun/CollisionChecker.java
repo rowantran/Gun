@@ -1,22 +1,16 @@
 package com.upa.gun;
 
 public class CollisionChecker implements Updatable {
-    private GunWorld world;
-
-    CollisionChecker() {
-        world = GunWorld.getInstance();
-    }
-
-    public void checkBulletsCollision() {
-        for (Bullet b : world.bullets) {
-            if (b.hitbox.colliding(world.player.hitbox)) {
-               //  player die
+    private void checkBulletsCollision() {
+        for (Bullet b : World.bullets) {
+            if (b.hitbox.colliding(World.player.hitbox)) {
+                System.out.println("PLAYER DIE");
             }
         }
     }
 
     @Override
     public void update(float delta) {
-
+        checkBulletsCollision();
     }
 }

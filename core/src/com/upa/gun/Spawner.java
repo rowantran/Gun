@@ -3,7 +3,7 @@ package com.upa.gun;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Spawner {
-    GunWorld world;
+    World world;
     public int slimesKilled;
     int slimesKilledSinceLastBoss;
 
@@ -21,7 +21,7 @@ public class Spawner {
     EnemyFactory slimeFactory;
     EnemyFactory strongSlimeFactory;
 
-    Spawner(GunWorld world) {
+    Spawner(World world) {
         this.world = world;
 
         slimesKilled = 0;

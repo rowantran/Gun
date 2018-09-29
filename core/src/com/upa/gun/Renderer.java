@@ -18,14 +18,14 @@ class Renderer {
     private SpriteBatch batch;
     OrthographicCamera camera;
 
-    private GunWorld world;
+    private World world;
 
     private GlyphLayout layout;
     private BitmapFont font;
 
     private ShapeRenderer sr;
 
-    Renderer(SpriteBatch batch, GunWorld world) {
+    Renderer(SpriteBatch batch, World world) {
         this.batch = batch;
         this.world = world;
 
@@ -166,9 +166,10 @@ class Renderer {
         batch.draw(currentFrame, slimeX, slimeY, slimeWidth, slimeHeight);
     }
 
-    private void drawBullet(Bullet bullet, float x, float y) {
+    private void drawBullet(Bullet bullet) {
         batch.enableBlending();
-        batch.draw(Assets.bulletEnemy, x, y, 10, 10);
+        Vector2 pos = bullet.getPosition();
+        batch.draw(Assets.bulletEnemy, pos.x, pos.y, 10, 10);
     }
 
     private void drawCrate(Crate crate, float x, float y) {
@@ -203,9 +204,7 @@ class Renderer {
         font.draw(batch, layout, x, y);
     }
 
-
-
-    void draw(GunWorld world) {
+    void draw(World world) {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
 
@@ -215,7 +214,7 @@ class Renderer {
         drawBackground();
         drawPlayer(world.player);
 
-        for (Enemy e : GunWorld.enemies) {
+        for (Enemy e : World.enemies) {
             drawEnemy(e);
         }
 
@@ -240,26 +239,20 @@ class Renderer {
         }
 
         for (Bullet b : world.bullets) {
-            drawBullet(b, b.getPosition().x, b.getPosition().y);
+            drawBullet(b);
         }
 
-
-        batch.end();
-
-        /*batch.enableBlending();
-        rayHandler.setCombinedMatrix(camera);
-        rayHandler.updateAndRender();
-        */
-
-        batch.begin();
         for (SpawnIndicator s : world.indicators) {
             drawIndicator(s);
         }
+
         drawHealth(world.player.health);
         drawScore();
+
         if (Settings.DEV_MODE) {
             drawFPS();
         }
+
         batch.end();
 
         if (world.cinematicHappening) {
