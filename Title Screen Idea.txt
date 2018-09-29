@@ -1,4 +1,0 @@
-Idle:
-Player runs in place
-Start Pressed:
-Player runs right off screen, king slime chases and the small ones follow

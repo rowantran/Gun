@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 
 public class Settings {
+
     public static final boolean DEV_MODE = true;
     public static final boolean SLOW_BULLETS = false;
 
@@ -32,4 +33,9 @@ public class Settings {
 
     public static int PERCENT_SPAWN_CHANCE = 1;
     public static boolean PLAYER_DEATH = true;
+
+
+    //added since removal of box2d
+    public static final float I_FRAME_LENGTH = 1.0f;
+
 }
