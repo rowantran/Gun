@@ -11,8 +11,10 @@ public class PlayerRollingState extends PlayerState{
      */
     void update(float delta) {
 
+        controllable = false;
         timeElapsed += delta;
         textureState = SpriteState.IDLE;
+        System.out.println("rolling state");
 
     }
 

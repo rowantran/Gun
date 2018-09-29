@@ -7,6 +7,8 @@ public abstract class PlayerState {
 
     public static GunGame game; //for use in dying state
 
+    public boolean controllable; //if the player can control the character
+
     public float timeElapsed; //counts ticks
     public float rotation; //player rotation
     public float opacity; //player opacity
@@ -35,6 +37,7 @@ public abstract class PlayerState {
         timeElapsed = 0.0f;
         rotation = 0.0f;
         opacity = 1.0f;
+        controllable = true;
     }
 
     /**

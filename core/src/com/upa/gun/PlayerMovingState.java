@@ -11,6 +11,7 @@ public class PlayerMovingState extends PlayerState {
      */
     void update(float delta) {
 
+        controllable = true;
         timeElapsed += delta;
         textureState = SpriteState.MOVING;
         System.out.println("moving state");

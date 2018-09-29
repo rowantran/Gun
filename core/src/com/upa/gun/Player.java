@@ -5,8 +5,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player extends Entity {
-    boolean dying;
-    boolean fading;
     boolean rolling;
     boolean hurt;
     float timeRolling;
@@ -48,7 +46,6 @@ public class Player extends Entity {
 
         bulletCooldown = 0.4;
         timeRolling = 0f;
-        dying = false;
         hurt = false;
 
         health = Settings.PLAYER_HEALTH;
@@ -77,7 +74,7 @@ public class Player extends Entity {
             iframe = true;
             //opacity = 0.5f;
             if (health <= 0) {
-                dying = true;
+                state = state.dying;
             }
         }
     }
@@ -113,19 +110,13 @@ public class Player extends Entity {
     public void update(float delta) {
 
         super.update(delta);
-
         state.update(delta);
 
-        //will cause instant death before animation
-        /*
-        if(state.equals(state.dying)) {
-            setPosition(spawnPoint);
-            game.setScreen(new GameOver(game));
-        }
-        */
-
-
         bulletCooldown -= delta;
+
+        if(state.controllable) {
+            inputHandler.update(delta);
+        }
 
 
         if (iframe) {
@@ -148,13 +139,5 @@ public class Player extends Entity {
                 stop();
             }
         }
-
-
-
-        if (!dying && !fading && !rolling) {
-            inputHandler.update(delta);
-        }
-
-
     }
 }
