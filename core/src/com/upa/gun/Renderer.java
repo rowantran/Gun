@@ -7,8 +7,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.utils.Array;
 
 import java.util.Map;
 
@@ -208,8 +206,6 @@ class Renderer {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
 
-        Array<Body> bodies = new Array<Body>();
-
         batch.begin();
         drawBackground();
         drawPlayer(World.player);
@@ -218,21 +214,6 @@ class Renderer {
             drawEnemy(e);
         }
 
-        for (Body b : bodies) {
-            Object id = b.getUserData();
-            if (id != null) {
-                if (id instanceof BossSlime) {
-                    BossSlime bossSlime = (BossSlime) id;
-                    drawBossSlime(bossSlime, b.getPosition().x, b.getPosition().y);
-                } else if (id instanceof StrongSlime) {
-                    StrongSlime slime = (StrongSlime) id;
-                    drawSlime(slime, b.getPosition().x, b.getPosition().y, Assets.strongSlimeAnimations);
-                } else if (id instanceof Slime) {
-                    Slime slime = (Slime) id;
-                    drawSlime(slime, b.getPosition().x, b.getPosition().y, Assets.slimeAnimations);
-                }
-            }
-        }
         for (Crate b : World.crates) {
             drawCrate(b, b.x, b.y);
             //System.out.println("crate");

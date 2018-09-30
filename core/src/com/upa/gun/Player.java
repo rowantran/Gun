@@ -31,18 +31,13 @@ public class Player extends Entity {
 
     Sound shot;
 
-
-
     PlayerState state;
-
 
     Player(float x, float y, GunGame game) {
         super(x, y, 10, 10);
         spawnPoint = new Vector2(x, y);
 
-
         state = PlayerState.idle;
-
 
         bulletCooldown = 0.4;
         timeRolling = 0f;
@@ -74,7 +69,7 @@ public class Player extends Entity {
             iframe = true;
             //opacity = 0.5f;
             if (health <= 0) {
-                state = state.dying;
+                state = PlayerState.dying;
             }
         }
     }

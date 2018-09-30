@@ -68,6 +68,8 @@ public class Spawner {
 
         BossSlimeFactory factory = new BossSlimeFactory();
         BossSlime slime = factory.makeBossSlime(bossHealth, spawnX, spawnY);
+        World.enemies.add(slime);
+
         BossSlimeEntrance entrance = new BossSlimeEntrance(slime);
         entrance.start();
         world.sequences.add(entrance);
