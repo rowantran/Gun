@@ -20,16 +20,15 @@ public class Player extends Entity {
 
     public int health;
 
-    Direction direction;
-
     boolean iframe;
     float iframeTimer;
 
     private GunGame game;
-
     private InputHandler inputHandler;
 
     Sound shot;
+
+    Direction direction;
 
     PlayerState state;
 
@@ -85,12 +84,6 @@ public class Player extends Entity {
             setLength(rollAngle, Settings.ROLL_SPEED);
             setVelocity(rollAngle);
         }
-    }
-
-    void move(Direction dir) {
-        Vector2 moveAngle = Direction.getAngle(dir);
-        setLength(moveAngle, Settings.PLAYER_SPEED);
-        setVelocity(moveAngle);
     }
 
     private void stop() {
