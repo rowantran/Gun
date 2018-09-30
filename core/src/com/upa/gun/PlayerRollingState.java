@@ -16,6 +16,10 @@ public class PlayerRollingState extends PlayerState{
         textureState = SpriteState.IDLE;
         System.out.println("rolling state");
 
+        if(timeElapsed < Settings.ROLL_LENGTH) {
+
+        }
+
     }
 
 }
