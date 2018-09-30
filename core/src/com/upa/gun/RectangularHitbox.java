@@ -28,4 +28,14 @@ public class RectangularHitbox implements Hitbox {
     public void setY(float y) {
         this.y = y;
     }
+
+    @Override
+    public float getWidth() {
+        return width;
+    }
+
+    @Override
+    public float getHeight() {
+        return height;
+    }
 }

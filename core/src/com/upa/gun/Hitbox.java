@@ -6,4 +6,7 @@ public interface Hitbox {
 
     void setX(float x);
     void setY(float y);
+
+    float getWidth();
+    float getHeight();
 }

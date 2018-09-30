@@ -38,10 +38,12 @@ class Renderer {
     }
 
     private void drawBackground() {
+        batch.begin();
         batch.disableBlending();
         batch.setColor(1.0f, 1.0f, 1.0f, 1.0f);
         batch.draw(Assets.backgroundRoom1, (Settings.RESOLUTION.x - Assets.backgroundRoom1.getWidth()) /2f,
                 0, (float)Assets.backgroundRoom1.getWidth(), (float)Assets.backgroundRoom1.getHeight());
+        batch.end();
     }
 
     private void drawShadow(float x, float y, float objectWidth) {
@@ -52,6 +54,7 @@ class Renderer {
     }
 
     private void drawPlayer(Player player) {
+        batch.begin();
         batch.enableBlending();
         Animation<TextureRegion> currentAnimation = Assets.playerAnimations.get(player.getState()).get(player.direction);
         TextureRegion currentFrame = currentAnimation.getKeyFrame(World.player.state.timeElapsed);
@@ -65,6 +68,14 @@ class Renderer {
         batch.draw(currentFrame, playerX, playerY, 0, 0,
                 (float)currentFrame.getRegionWidth(), (float)currentFrame.getRegionHeight(),
                 1, 1, World.player.state.rotation);
+
+        batch.end();
+
+        if (Settings.DEV_MODE) {
+            sr.begin(ShapeRenderer.ShapeType.Line);
+            sr.rect(player.getPosition().x, player.getPosition().y, player.hitbox.getWidth(), player.hitbox.getHeight());
+            sr.end();
+        }
 }
 
     private void drawHealth(int health) {
@@ -101,6 +112,7 @@ class Renderer {
     }
 
     private void drawEnemy(Enemy e) {
+        batch.begin();
         batch.enableBlending();
         batch.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 
@@ -116,6 +128,14 @@ class Renderer {
 
         drawShadow(e.getPosition().x, e.getPosition().y, 20);
         batch.draw(frame, e.getPosition().x, e.getPosition().y, 20, 20);
+        batch.end();
+
+        if (Settings.DEV_MODE) {
+            sr.begin(ShapeRenderer.ShapeType.Line);
+            sr.rect(e.getPosition().x, e.getPosition().y, e.hitbox.getWidth(), e.hitbox.getHeight());
+            sr.end();
+        }
+
     }
 
     private void drawSlime(Slime slime, float x, float y, Map<SpriteState, Map<Direction, Animation<TextureRegion>>> animationMap) {
@@ -165,17 +185,28 @@ class Renderer {
     }
 
     private void drawBullet(Bullet bullet) {
+        batch.begin();
         batch.enableBlending();
         Vector2 pos = bullet.getPosition();
         batch.draw(Assets.bulletEnemy, pos.x, pos.y, 10, 10);
+        batch.end();
+
+        if (Settings.DEV_MODE) {
+            sr.begin(ShapeRenderer.ShapeType.Line);
+            sr.rect(bullet.getPosition().x, bullet.getPosition().y, bullet.hitbox.getWidth(), bullet.hitbox.getHeight());
+            sr.end();
+        }
     }
 
     private void drawCrate(Crate crate, float x, float y) {
+        batch.begin();
         batch.enableBlending();
 
         crate.crateSprite.setX(x);
         crate.crateSprite.setY(y);
         crate.crateSprite.draw(batch);
+
+        batch.end();
     }
 
     private void drawScore() {
@@ -206,7 +237,6 @@ class Renderer {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
 
-        batch.begin();
         drawBackground();
         drawPlayer(World.player);
 
@@ -227,6 +257,7 @@ class Renderer {
             drawBullet(b);
         }
 
+        batch.begin();
         for (SpawnIndicator s : World.indicators) {
             drawIndicator(s);
         }
