@@ -10,8 +10,9 @@ public class World {
     private static World world = new World();
 
     static Player player;
-    static List<Bullet> bullets;
     static List<Enemy> enemies;
+    static List<Bullet> enemyBullets;
+    static List<Bullet> playerBullets;
     static List<Crate> crates;
     static List<SpawnIndicator> indicators;
     static List<ScriptedEventSequence> sequences;
@@ -21,7 +22,8 @@ public class World {
     boolean cinematicHappening;
 
     private World() {
-        bullets = new ArrayList<Bullet>();
+        enemyBullets = new ArrayList<Bullet>();
+        playerBullets = new ArrayList<Bullet>();
         enemies = new ArrayList<Enemy>();
         crates = new ArrayList<Crate>();
         indicators = new ArrayList<SpawnIndicator>();
@@ -62,7 +64,11 @@ public class World {
 
             collisionChecker.update(delta);
 
-            for (Bullet bullet : bullets) {
+            for (Bullet bullet : playerBullets) {
+                bullet.update(delta);
+            }
+
+            for (Bullet bullet : enemyBullets) {
                 bullet.update(delta);
             }
 
@@ -87,7 +93,14 @@ public class World {
     }
 
     void deleteMarkedForDeletion() {
-        for (Iterator<Bullet> iterator = bullets.iterator(); iterator.hasNext();) {
+        for (Iterator<Bullet> iterator = playerBullets.iterator(); iterator.hasNext();) {
+            Bullet bullet = iterator.next();
+            if (bullet.markedForDeletion) {
+                iterator.remove();
+            }
+        }
+
+        for (Iterator<Bullet> iterator = enemyBullets.iterator(); iterator.hasNext();) {
             Bullet bullet = iterator.next();
             if (bullet.markedForDeletion) {
                 iterator.remove();

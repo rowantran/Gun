@@ -19,7 +19,7 @@ public class CircularAttack implements Attack {
     public void attack(Vector2 position) {
         for (int i = 0; i<32; i++) {
             double angle = angleInterval * (double) i;
-            World.getInstance().bullets.add(new BossBullet(position.x, position.y, angle));
+            World.enemyBullets.add(new BossBullet(position.x, position.y, angle));
         }
     }
 

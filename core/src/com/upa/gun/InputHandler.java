@@ -18,60 +18,60 @@ public class InputHandler implements Updatable {
         Vector2 velocity = new Vector2(0f, 0f);
 
         if (Gdx.input.isKeyPressed(Settings.KEY_LEFT)) {
-            if(!((world.player.getPosition().x - Settings.PLAYER_SPEED * delta) < 113)) {
+            if(!((World.player.getPosition().x - Settings.PLAYER_SPEED * delta) < 113)) {
                 velocity.x -= Settings.PLAYER_SPEED;
-                world.player.state = world.player.state.moving;
+                World.player.state = PlayerState.moving;
             }
-            world.player.direction = Direction.LEFT;
+            World.player.direction = Direction.LEFT;
         }
 
         if (Gdx.input.isKeyPressed(Settings.KEY_RIGHT)) {
-            if(!((world.player.getPosition().x + Settings.PLAYER_SPEED * delta) > 1164)) {
+            if(!((World.player.getPosition().x + Settings.PLAYER_SPEED * delta) > 1164)) {
                 velocity.x += Settings.PLAYER_SPEED;
-                world.player.state = world.player.state.moving;
+                World.player.state = PlayerState.moving;
             }
-            world.player.direction = Direction.RIGHT;
+            World.player.direction = Direction.RIGHT;
         }
 
         if (Gdx.input.isKeyPressed(Settings.KEY_DOWN)) {
-            if(!world.player.botStop){
+            if(!World.player.botStop){
                 velocity.y -= Settings.PLAYER_SPEED;
-                world.player.state = world.player.state.moving;
+                World.player.state = PlayerState.moving;
             }
-            world.player.direction = Direction.DOWN;
+            World.player.direction = Direction.DOWN;
         }
 
         if (Gdx.input.isKeyPressed(Settings.KEY_UP)) {
-            if(!((world.player.getPosition().y + Settings.PLAYER_SPEED * delta) > 702)){
+            if(!((World.player.getPosition().y + Settings.PLAYER_SPEED * delta) > 702)){
                 velocity.y += Settings.PLAYER_SPEED;
-                world.player.state = world.player.state.moving;
+                World.player.state = PlayerState.moving;
             }
-            world.player.direction = Direction.UP;
+            World.player.direction = Direction.UP;
         }
 
         if (!Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){
-            world.player.state = world.player.state.idle;
+            World.player.state = PlayerState.idle;
         }
 
         velocity.clamp(Settings.PLAYER_SPEED, Settings.PLAYER_SPEED);
-        world.player.setVelocity(velocity);
+        World.player.setVelocity(velocity);
 
         if (Gdx.input.justTouched()) {
             OrthographicCamera camera = new OrthographicCamera();
             camera.setToOrtho(false, Settings.RESOLUTION.x, Settings.RESOLUTION.y);
 
-            if(world.player.bulletCooldown <= 0) {
+            if(World.player.bulletCooldown <= 0) {
 
                 Vector3 mousePos3 = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(),
                         0));
                 Vector2 mousePos = new Vector2(mousePos3.x, mousePos3.y);
-                Vector2 bulletAngle = mousePos.sub(world.player.getPosition());
-                world.bullets.add(new FriendlyBullet(world.player.getPosition().x,
+                Vector2 bulletAngle = mousePos.sub(World.player.getPosition());
+                World.playerBullets.add(new FriendlyBullet(World.player.getPosition().x,
                         world.player.getPosition().y,
                         bulletAngle.angleRad()));
-                world.player.shot.stop();
-                world.player.shot.play(.5f);
-                world.player.bulletCooldown = 0.4;
+                World.player.shot.stop();
+                World.player.shot.play(.5f);
+                World.player.bulletCooldown = 0.4;
             }
         }
 

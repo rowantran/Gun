@@ -2,9 +2,9 @@ package com.upa.gun;
 
 public class CollisionChecker implements Updatable {
     private void checkBulletsCollision() {
-        for (Bullet b : World.bullets) {
+        for (Bullet b : World.enemyBullets) {
             if (b.hitbox.colliding(World.player.hitbox)) {
-                World.player.state = World.player.state.dying; //will leave dying state when other condition occurs - needs fix
+                World.player.state = PlayerState.dying; //will leave dying state when other condition occurs - needs fix
             }
         }
     }

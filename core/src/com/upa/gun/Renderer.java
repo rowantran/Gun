@@ -16,7 +16,7 @@ import static com.upa.gun.Direction.LEFT;
 
 class Renderer {
     private SpriteBatch batch;
-    OrthographicCamera camera;
+    private OrthographicCamera camera;
 
     private World world;
 
@@ -56,7 +56,7 @@ class Renderer {
     private void drawPlayer(Player player) {
         batch.enableBlending();
         Animation<TextureRegion> currentAnimation = Assets.playerAnimations.get(player.getState()).get(player.direction);
-        TextureRegion currentFrame = currentAnimation.getKeyFrame(world.player.state.timeElapsed);
+        TextureRegion currentFrame = currentAnimation.getKeyFrame(World.player.state.timeElapsed);
 
         Vector2 playerPos = player.getPosition();
         float playerX = (playerPos.x - (float)currentFrame.getRegionWidth()/2f);
@@ -66,7 +66,7 @@ class Renderer {
         drawShadow(playerX, playerY, (float)currentFrame.getRegionWidth());
         batch.draw(currentFrame, playerX, playerY, 0, 0,
                 (float)currentFrame.getRegionWidth(), (float)currentFrame.getRegionHeight(),
-                1, 1, world.player.state.rotation);
+                1, 1, World.player.state.rotation);
 }
 
     private void drawHealth(int health) {
@@ -212,7 +212,7 @@ class Renderer {
 
         batch.begin();
         drawBackground();
-        drawPlayer(world.player);
+        drawPlayer(World.player);
 
         for (Enemy e : World.enemies) {
             drawEnemy(e);
@@ -233,20 +233,24 @@ class Renderer {
                 }
             }
         }
-        for (Crate b : world.crates) {
+        for (Crate b : World.crates) {
             drawCrate(b, b.x, b.y);
             //System.out.println("crate");
         }
 
-        for (Bullet b : world.bullets) {
+        for (Bullet b : World.playerBullets) {
             drawBullet(b);
         }
 
-        for (SpawnIndicator s : world.indicators) {
+        for (Bullet b : World.enemyBullets) {
+            drawBullet(b);
+        }
+
+        for (SpawnIndicator s : World.indicators) {
             drawIndicator(s);
         }
 
-        drawHealth(world.player.health);
+        drawHealth(World.player.health);
         drawScore();
 
         if (Settings.DEV_MODE) {
