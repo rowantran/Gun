@@ -18,7 +18,7 @@ public class Player extends Entity {
     public boolean leftStop = false;
     public boolean rightStop = false;
 
-    public int health;
+    private int health;
 
     boolean iframe;
     float iframeTimer;
@@ -60,6 +60,10 @@ public class Player extends Entity {
     void createHitbox(float width, float height) {
         Vector2 position = getPosition();
         hitbox = new RectangularHitbox(position.x, position.y, width, height);
+    }
+
+    int getHealth() {
+        return health;
     }
 
     void hurt(int damage) {

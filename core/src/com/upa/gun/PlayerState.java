@@ -59,7 +59,7 @@ public abstract class PlayerState {
      * Sets the GunGame for use in the dying state
      */
     public void setGame(GunGame game) {
-        this.game = game;
+        PlayerState.game = game;
     }
 
     /**

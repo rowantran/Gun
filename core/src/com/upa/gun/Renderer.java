@@ -262,7 +262,7 @@ class Renderer {
             drawIndicator(s);
         }
 
-        drawHealth(World.player.health);
+        drawHealth(World.player.getHealth());
         drawScore();
 
         if (Settings.DEV_MODE) {

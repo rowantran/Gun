@@ -3,11 +3,11 @@ package com.upa.gun;
 /**
  * Handles death
  */
-public class PlayerDyingState extends PlayerState {
+class PlayerDyingState extends PlayerState {
 
     /**
      * Rotates player for 90 degrees, then fades out and displays game over screen
-     * @param delta - time value
+     * @param delta Frame time for current tick
      */
     void update(float delta) {
 

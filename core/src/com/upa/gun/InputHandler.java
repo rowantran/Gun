@@ -7,12 +7,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 public class InputHandler implements Updatable {
-    private World world;
 
-    InputHandler() {
-        world = World.getInstance();
-    }
-
+    /**
+     * Handle all player input
+     * @param delta Frame time for current tick
+     */
     @Override
     public void update(float delta) {
         Vector2 velocity = new Vector2(0f, 0f);
@@ -67,13 +66,13 @@ public class InputHandler implements Updatable {
                 Vector2 mousePos = new Vector2(mousePos3.x, mousePos3.y);
                 Vector2 bulletAngle = mousePos.sub(World.player.getPosition());
                 World.playerBullets.add(new FriendlyBullet(World.player.getPosition().x,
-                        world.player.getPosition().y,
+                        World.player.getPosition().y,
                         bulletAngle.angleRad()));
                 World.player.shot.stop();
                 World.player.shot.play(.5f);
                 World.player.bulletCooldown = 0.4;
             }
         }
-
     }
+
 }
