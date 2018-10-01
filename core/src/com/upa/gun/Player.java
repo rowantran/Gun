@@ -119,7 +119,6 @@ public class Player extends Entity {
 
     @Override
     public void update(float delta) {
-
         super.update(delta);
         state.update(delta);
 

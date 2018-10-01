@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 public class InputHandler implements Updatable {
-
     /**
      * Handle all player input
      * @param delta Frame time for current tick

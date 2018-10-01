@@ -3,7 +3,7 @@ package com.upa.gun;
 /**
  * Returns current state of player and handles updates
  */
-public abstract class PlayerState {
+public abstract class PlayerState implements Updatable {
 
     public static GunGame game; //for use in dying state
 
@@ -12,7 +12,6 @@ public abstract class PlayerState {
     public float timeElapsed; //counts ticks
     public float rotation; //player rotation
     public float opacity; //player opacity
-    SpriteState textureState; //information to choose sprite
 
     public static PlayerIdleState idle; //when the player is not moving
     public static PlayerMovingState moving; //when the player is using arrow keys
@@ -33,18 +32,11 @@ public abstract class PlayerState {
      * Constructor
      */
     public PlayerState() {
-        textureState = SpriteState.IDLE;
         timeElapsed = 0.0f;
         rotation = 0.0f;
         opacity = 1.0f;
         controllable = true;
     }
-
-    /**
-     * Abstract update function for each state
-     * @param delta - time value
-     */
-    abstract void update(float delta);
 
     /**
      * Resets the tick counter every time state changes
@@ -67,7 +59,7 @@ public abstract class PlayerState {
      * @return SpriteState - returns SpriteState enum
      */
     public SpriteState getTextureState() {
-        return textureState;
+        return SpriteState.IDLE;
     }
 
 }
