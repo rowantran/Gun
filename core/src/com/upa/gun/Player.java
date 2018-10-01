@@ -56,16 +56,30 @@ public class Player extends Entity {
         inputHandler = new InputHandler();
     }
 
+    /**
+     * Create player's hitbox (called by Entity constructor.)
+     * @param width Width of the hitbox in pixels.
+     * @param height Height of the hitbox in pixels.
+     */
     @Override
     void createHitbox(float width, float height) {
         Vector2 position = getPosition();
         hitbox = new RectangularHitbox(position.x, position.y, width, height);
     }
 
+    /**
+     * Return player's current health
+     * @return Player's current health
+     */
     int getHealth() {
         return health;
     }
 
+    /**
+     * Damages player if player is currently vulnerable, kills them if health drops below zero (this should probably be
+     * handled in update() instead.)
+      * @param damage Amount of damage in hit points to deal to player.
+     */
     void hurt(int damage) {
         if (!iframe && !game.world.cinematicHappening) {
             health -= damage;
@@ -77,25 +91,30 @@ public class Player extends Entity {
         }
     }
 
+    /**
+     * Returns the correct SpriteState mapping the player's current state to the corresponding texture.
+     * @return The SpriteState corresponding to the current state.
+     */
     SpriteState getState() {
         return state.getTextureState();
     }
 
+    /**
+     * Start a roll in the current direction of movement, if not already rolling.
+     */
     void roll() {
         if (!rolling) {
             rolling = true;
-            Vector2 rollAngle = Direction.getAngle(direction);
-            setLength(rollAngle, Settings.ROLL_SPEED);
+            Vector2 rollAngle = Direction.getAngle(direction).setLength(Settings.ROLL_SPEED);
             setVelocity(rollAngle);
         }
     }
 
+    /**
+     * Stop the player's movement.
+     */
     private void stop() {
         setVelocity(0, 0);
-    }
-
-    private void setLength(Vector2 vec, float length) {
-        vec.clamp(length, length);
     }
 
     @Override
