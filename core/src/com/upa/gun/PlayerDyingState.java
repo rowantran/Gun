@@ -4,13 +4,16 @@ package com.upa.gun;
  * Handles death
  */
 class PlayerDyingState extends PlayerState {
+    PlayerDyingState() {
+        controllable = false;
+    }
+
     /**
      * Rotates player for 90 degrees, then fades out and displays game over screen
      * @param delta Frame time for current tick
      */
     @Override
     public void update(float delta) {
-        controllable = false;
         timeElapsed += delta;
         System.out.println("dying state");
 

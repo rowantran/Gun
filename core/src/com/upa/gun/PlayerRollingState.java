@@ -10,13 +10,18 @@ class PlayerRollingState extends PlayerState {
 
     PlayerRollingState(Direction direction) {
         velocity = Direction.getAngle(direction).setLength(Settings.ROLL_SPEED);
+        controllable = false;
     }
 
+    /**
+     * Set player velocity to a roll in the direction specified at construction, end roll after Settings.ROLL_LENGTH
+     * has been reached.
+     * @param delta Frame time for current tick
+     */
     @Override
     public void update(float delta) {
         World.player.setVelocity(velocity);
 
-        controllable = false;
         timeElapsed += delta;
         System.out.println("rolling state");
 
