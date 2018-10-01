@@ -39,6 +39,10 @@ public class InputHandler implements Updatable {
             World.player.direction = Direction.DOWN;
         }
 
+        if (Gdx.input.isKeyPressed(Settings.KEY_ROLL)) {
+            World.player.roll();
+        }
+
         if (Gdx.input.isKeyPressed(Settings.KEY_UP)) {
             if(!((World.player.getPosition().y + Settings.PLAYER_SPEED * delta) > 702)){
                 velocity.y += Settings.PLAYER_SPEED;
@@ -51,7 +55,7 @@ public class InputHandler implements Updatable {
             World.player.state = PlayerState.idle;
         }
 
-        velocity.clamp(Settings.PLAYER_SPEED, Settings.PLAYER_SPEED);
+        velocity.setLength(Settings.PLAYER_SPEED);
         World.player.setVelocity(velocity);
 
         if (Gdx.input.justTouched()) {
