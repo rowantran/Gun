@@ -124,10 +124,9 @@ public class Player extends Entity {
 
         bulletCooldown -= delta;
 
-        if(state.controllable) {
+        if (state.controllable) {
             inputHandler.update(delta);
         }
-
 
         if (iframe) {
             iframeTimer += delta;
@@ -136,17 +135,6 @@ public class Player extends Entity {
                 iframe = false;
                 //opacity = 1f;
                 iframeTimer = 0f;
-            }
-        }
-
-
-
-        if (rolling) {
-            timeRolling += delta;
-            if (timeRolling > Settings.ROLL_LENGTH) {
-                rolling = false;
-                timeRolling = 0f;
-                stop();
             }
         }
     }

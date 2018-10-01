@@ -40,7 +40,7 @@ public class InputHandler implements Updatable {
         }
 
         if (Gdx.input.isKeyPressed(Settings.KEY_ROLL)) {
-            World.player.roll();
+            World.player.state = PlayerState.rolling;
         }
 
         if (Gdx.input.isKeyPressed(Settings.KEY_UP)) {
