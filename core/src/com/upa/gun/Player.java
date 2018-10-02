@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 public class Player extends Entity {
     boolean rolling;
     boolean hurt;
-    float timeRolling;
 
     Vector2 spawnPoint;
 
@@ -39,7 +38,6 @@ public class Player extends Entity {
         state = PlayerState.idle;
 
         bulletCooldown = 0.4;
-        timeRolling = 0f;
         hurt = false;
 
         health = Settings.PLAYER_HEALTH;
