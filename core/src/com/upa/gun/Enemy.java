@@ -11,6 +11,7 @@ public abstract class Enemy extends Entity {
     boolean dying;
     boolean markedForDeletion;
     AttackRotation rotation;
+    float opacity;
     private Map<SpriteState, Map<Direction, Animation<TextureRegion>>> sprite;
     SpriteState state;
 
@@ -21,6 +22,7 @@ public abstract class Enemy extends Entity {
         markedForDeletion = false;
         sprite = loadSprite();
         state = SpriteState.IDLE;
+        opacity = 1f;
     }
 
     abstract Map<SpriteState, Map<Direction, Animation<TextureRegion>>> loadSprite();

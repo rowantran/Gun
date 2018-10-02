@@ -114,7 +114,7 @@ class Renderer {
     private void drawEnemy(Enemy e) {
         batch.begin();
         batch.enableBlending();
-        batch.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+        batch.setColor(1.0f, 1.0f, 1.0f, e.opacity);
 
         SpriteState state = e.getState();
         Animation<TextureRegion> animation = e.sprite().get(state).get(LEFT);

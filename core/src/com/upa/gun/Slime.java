@@ -14,8 +14,6 @@ public class Slime extends Enemy {
 
     private boolean movingRandom = false;
 
-    float opacity;
-
     float speedMultiplier = 1/2f;
 
     private static float hitboxSize = 10f;
@@ -36,8 +34,6 @@ public class Slime extends Enemy {
         timeUntilRandomMove = 0.0f;
         randomMoveLength = 0.0f;
         timeOfRandomMove = 0.0f;
-
-        opacity = 1.0f;
 
         rotation = new SlimeAttackRotation();
     }
@@ -92,7 +88,6 @@ public class Slime extends Enemy {
             return SpriteState.MOVING;
         }
     }
-
 
     //default move toward player; horizontal or diagonal depending on position
     private void defaultMove(float delta) {

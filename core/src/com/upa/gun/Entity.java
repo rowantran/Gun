@@ -6,7 +6,9 @@ public abstract class Entity implements Updatable {
     private Vector2 position;
     private Vector2 velocity;
     private float rotation;
+
     Hitbox hitbox;
+
     float attackTimeElapsed;
 
     Entity(float x, float y, float width, float height) {
