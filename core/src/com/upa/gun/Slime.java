@@ -95,8 +95,8 @@ public class Slime extends Enemy {
 
 
     //default move toward player; horizontal or diagonal depending on position
-    public void defaultMove(float delta) {
-        Vector2 playerPos = World.getInstance().player.getPosition();
+    private void defaultMove(float delta) {
+        Vector2 playerPos = World.player.getPosition();
         float playerX = playerPos.x;
         float playerY = playerPos.y;
 

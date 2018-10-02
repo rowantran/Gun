@@ -36,6 +36,7 @@ public abstract class Enemy extends Entity {
     abstract Enemy create(float x, float y);
 
     public void update(float delta) {
+        super.update(delta);
         timeElapsed += delta;
         rotation.cycle(delta);
     }
