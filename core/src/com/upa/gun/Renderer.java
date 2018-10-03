@@ -127,7 +127,7 @@ class Renderer {
         }
 
         drawShadow(e.getPosition().x, e.getPosition().y, 20);
-        batch.draw(frame, e.getPosition().x, e.getPosition().y, 20, 20);
+        batch.draw(frame, e.getPosition().x, e.getPosition().y, e.getSize().x, e.getSize().y);
         batch.end();
 
         if (Settings.DEV_MODE) {

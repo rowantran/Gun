@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public abstract class Entity implements Updatable {
     private Vector2 position;
+    private Vector2 size;
     private Vector2 velocity;
     private float rotation;
 
@@ -13,6 +14,7 @@ public abstract class Entity implements Updatable {
 
     Entity(float x, float y, float width, float height) {
         position = new Vector2(x, y);
+        size = new Vector2(width, height);
         velocity = new Vector2(0f, 0f);
         rotation = 0f;
         attackTimeElapsed = 0f;
@@ -32,6 +34,10 @@ public abstract class Entity implements Updatable {
 
     void setPosition(Vector2 position) {
         setPosition(position.x, position.y);
+    }
+
+    Vector2 getSize() {
+        return size.cpy();
     }
 
     Vector2 getVelocity() {
