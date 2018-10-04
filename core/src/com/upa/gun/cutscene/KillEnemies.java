@@ -1,21 +1,23 @@
-package com.upa.gun;
+package com.upa.gun.cutscene;
+
+import com.upa.gun.Enemy;
+import com.upa.gun.World;
 
 public class KillEnemies implements ScriptedEvent {
     private boolean killed = false;
     private boolean finished = false;
 
     @Override
-    public void update(float delta, World world) {
-        for (Enemy enemy : world.enemies) {
-            if (!(enemy instanceof BossSlime)) {
-                enemy.dying = true;
-            }
+    public void update(float delta) {
+        for (Enemy enemy : World.enemies) {
+            enemy.setDying(true);
         }
+
         killed = true;
     }
 
     @Override
-    public void onFinish(World world) {
+    public void onFinish() {
         finished = true;
     }
 

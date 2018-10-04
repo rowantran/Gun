@@ -1,6 +1,7 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.Gdx;
+import com.upa.gun.cutscene.ScriptedEventSequence;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,28 +11,45 @@ public class World {
     private static World world = new World();
 
     static Player player;
-    static List<Enemy> enemies;
+
+    public static List<Enemy> enemies;
+    public static List<Enemy> bosses;
+
     static List<Bullet> enemyBullets;
     static List<Bullet> playerBullets;
+
     static List<Crate> crates;
+
     static List<SpawnIndicator> indicators;
+
     static List<ScriptedEventSequence> sequences;
+
     Spawner spawner;
+
     private CollisionChecker collisionChecker;
 
     boolean cinematicHappening;
 
     private World() {
+        enemies = new ArrayList<Enemy>();
+        bosses = new ArrayList<Enemy>();
+
         enemyBullets = new ArrayList<Bullet>();
         playerBullets = new ArrayList<Bullet>();
-        enemies = new ArrayList<Enemy>();
+
         crates = new ArrayList<Crate>();
+        createCrates();
+
         indicators = new ArrayList<SpawnIndicator>();
+
         sequences = new ArrayList<ScriptedEventSequence>();
 
         spawner = new Spawner(this);
-        collisionChecker = new CollisionChecker();
 
+        collisionChecker = new CollisionChecker();
+    }
+
+    private void createCrates() {
         for(int i = 0; i < 14; i++) {
             crates.add(new Crate(((float)i * 64f + 32f), 29f, Assets.crate));
         }
@@ -52,8 +70,8 @@ public class World {
     public void update(float delta) {
         cinematicHappening = false;
         for (ScriptedEventSequence sequence : sequences) {
-            sequence.update(delta, this);
-            if (sequence.cinematic && sequence.active) {
+            sequence.update(delta);
+            if (sequence.isCinematic() && sequence.isActive()) {
                 cinematicHappening = true;
             }
         }

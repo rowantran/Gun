@@ -1,13 +1,15 @@
-package com.upa.gun;
+package com.upa.gun.cutscene;
+
+import com.upa.gun.Updatable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ScriptedEventSequence {
+public abstract class ScriptedEventSequence implements Updatable {
     List<ScriptedEvent> events;
-    int currentEvent;
-    boolean active;
-    boolean cinematic;
+    private int currentEvent;
+    private boolean active;
+    private boolean cinematic;
 
     ScriptedEventSequence() {
         events = new ArrayList<ScriptedEvent>();
@@ -15,27 +17,40 @@ public abstract class ScriptedEventSequence {
         active = false;
     }
 
-    void update(float delta, World world) {
+    @Override
+    public void update(float delta) {
         if (active) {
             ScriptedEvent event = events.get(currentEvent);
             if (!event.onFinishCalled() && event.isFinished()) {
-                event.onFinish(world);
+                event.onFinish();
                 if (isNextEvent()) {
                     currentEvent++;
                 } else {
                     active = false;
                 }
             } else {
-                event.update(delta, world);
+                event.update(delta);
             }
         }
     }
 
-    void start() {
+    public void start() {
         active = true;
     }
 
     private boolean isNextEvent() {
         return currentEvent + 1 < events.size();
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public boolean isCinematic() {
+        return cinematic;
+    }
+
+    void setCinematic(boolean cinematic) {
+        this.cinematic = cinematic;
     }
 }

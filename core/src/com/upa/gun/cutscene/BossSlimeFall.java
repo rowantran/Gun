@@ -1,4 +1,8 @@
-package com.upa.gun;
+package com.upa.gun.cutscene;
+
+import com.upa.gun.BossSlime;
+import com.upa.gun.Settings;
+import com.upa.gun.World;
 
 public class BossSlimeFall implements ScriptedEvent {
     private static float FALL_SPEED = 1.4f;
@@ -20,12 +24,12 @@ public class BossSlimeFall implements ScriptedEvent {
     }
 
     @Override
-    public void update(float delta, World world) {
+    public void update(float delta) {
         float currentFallSpeed = slime.getVelocity().y;
         slime.setVelocity(0, currentFallSpeed - FALL_SPEED*delta);
 
         if (slime.getPosition().y <= (Settings.RESOLUTION.x * 0.4f)) {
-            killEnemies.update(delta, world);
+            killEnemies.update(delta);
 
             slime.setVelocity(0, 0);
             timeElapsed += delta;
@@ -33,8 +37,8 @@ public class BossSlimeFall implements ScriptedEvent {
     }
 
     @Override
-    public void onFinish(World world) {
-        world.enemies.add(slime);
+    public void onFinish() {
+        World.enemies.add(slime);
         finished = true;
     }
 

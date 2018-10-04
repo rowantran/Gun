@@ -1,6 +1,7 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.upa.gun.cutscene.BossSlimeEntrance;
 
 public class Spawner {
     World world;
@@ -68,7 +69,7 @@ public class Spawner {
 
         BossSlimeFactory factory = new BossSlimeFactory();
         BossSlime slime = factory.makeBossSlime(bossHealth, spawnX, spawnY);
-        World.enemies.add(slime);
+        World.bosses.add(slime);
 
         BossSlimeEntrance entrance = new BossSlimeEntrance(slime);
         entrance.start();

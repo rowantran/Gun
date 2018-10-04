@@ -42,4 +42,8 @@ public abstract class Enemy extends Entity {
         timeElapsed += delta;
         rotation.cycle(delta);
     }
+
+    public void setDying(boolean dying) {
+        this.dying = dying;
+    }
 }

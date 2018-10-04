@@ -23,11 +23,11 @@ public abstract class Entity implements Updatable {
 
     abstract void createHitbox(float width, float height);
 
-    Vector2 getPosition() {
+    public Vector2 getPosition() {
         return position.cpy();
     }
 
-    void setPosition(float x, float y) {
+    public void setPosition(float x, float y) {
         position.x = x;
         position.y = y;
     }
@@ -40,11 +40,11 @@ public abstract class Entity implements Updatable {
         return size.cpy();
     }
 
-    Vector2 getVelocity() {
+    public Vector2 getVelocity() {
         return velocity.cpy();
     }
 
-    void setVelocity(float x, float y) {
+    public void setVelocity(float x, float y) {
         velocity.x = x;
         velocity.y = y;
     }
