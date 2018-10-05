@@ -16,7 +16,7 @@ public abstract class Enemy extends Entity {
     SpriteState state;
 
     Enemy(float x, float y, float width, float height) {
-        super(x, y, width, height);
+        super(x, y, width, height, 0, 0);
         timeElapsed = 20.0f;
         dying = false;
         markedForDeletion = false;

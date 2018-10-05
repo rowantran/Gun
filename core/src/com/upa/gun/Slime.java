@@ -52,6 +52,7 @@ public class Slime extends Enemy {
     void createHitbox(float width, float height) {
         Vector2 position = getPosition();
         hitbox = new RectangularHitbox(position.x, position.y, width, height);
+        centerHitbox();
     }
 
     public void update(float delta) {

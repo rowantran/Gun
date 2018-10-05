@@ -32,7 +32,7 @@ public class Player extends Entity {
     PlayerState state;
 
     Player(float x, float y, GunGame game) {
-        super(x, y, 10, 10);
+        super(x, y, 10, 10, 0, 0);
         spawnPoint = new Vector2(x, y);
 
         state = PlayerState.idle;

@@ -9,19 +9,41 @@ public abstract class Entity implements Updatable {
     private float rotation;
 
     Hitbox hitbox;
+    private Vector2 hitboxOffset;
 
     float attackTimeElapsed;
 
-    Entity(float x, float y, float width, float height) {
-        position = new Vector2(x, y);
-        size = new Vector2(width, height);
+    Entity(Vector2 position, Vector2 size, Vector2 hitboxOffset) {
+        this.position = position.cpy();
+        this.size = size.cpy();
         velocity = new Vector2(0f, 0f);
         rotation = 0f;
+
+        this.hitboxOffset = hitboxOffset.cpy();
+        createHitbox(size.x, size.y);
+
         attackTimeElapsed = 0f;
-        createHitbox(width, height);
+    }
+
+    Entity(float x, float y, float width, float height, float hitboxOffsetX, float hitboxOffsetY) {
+        this(new Vector2(x, y), new Vector2(width, height), new Vector2(hitboxOffsetX, hitboxOffsetY));
     }
 
     abstract void createHitbox(float width, float height);
+
+    void centerHitbox() {
+        setHitboxOffset((getSize().x - hitbox.getWidth()) / 2, (getSize().y - hitbox.getHeight()) / 2);
+    }
+
+    @Override
+    public void update(float delta) {
+        position.x += velocity.x * delta;
+        position.y += velocity.y * delta;
+
+        // Update hitbox to match new position
+        hitbox.setX(position.x + hitboxOffset.x);
+        hitbox.setY(position.y + hitboxOffset.y);
+    }
 
     public Vector2 getPosition() {
         return position.cpy();
@@ -61,13 +83,8 @@ public abstract class Entity implements Updatable {
         this.rotation = rotation;
     }
 
-    @Override
-    public void update(float delta) {
-        position.x += velocity.x * delta;
-        position.y += velocity.y * delta;
-
-        // Update hitbox to match new position
-        hitbox.setX(position.x);
-        hitbox.setY(position.y);
+    void setHitboxOffset(float x, float y) {
+        hitboxOffset.x = x;
+        hitboxOffset.y = y;
     }
 }
