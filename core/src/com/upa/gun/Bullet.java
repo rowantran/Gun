@@ -30,10 +30,6 @@ public abstract class Bullet extends Entity {
 
     	float vx = (float) Math.cos(angle) * Settings.BULLET_SPEED;
     	float vy = (float) Math.sin(angle) * Settings.BULLET_SPEED;
-        if (Settings.SLOW_BULLETS) {
-            vx *= 0.1f;
-            vy *= 0.1f;
-        }
 
         setVelocity(vx, vy);
     }
