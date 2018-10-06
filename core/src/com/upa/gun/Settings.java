@@ -17,8 +17,8 @@ public class Settings {
     public static final float ENEMY_BULLET_SPEED = 350.0f;
     public static final float PLAYER_SPEED = 250.0f;
     public static final float SLIME_SPEED = 100.0f;
-    public static final float ROLL_SPEED = 400.0f;
-    public static final float ROLL_LENGTH = 0.3f;
+    public static final float ROLL_SPEED = 600.0f;
+    public static final float ROLL_LENGTH = 0.1f;
 
     public static final float DEATH_ROTATE_SPEED = 80.0f;
     public static final float DEATH_FADE_SPEED = (DEATH_ROTATE_SPEED / 90.0f) * 1.0f;

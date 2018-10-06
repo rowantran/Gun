@@ -15,7 +15,8 @@ class PlayerMovingState extends PlayerState {
     @Override
     public void update(float delta) {
         timeElapsed += delta;
-        System.out.println("moving state");
+        controllable = true;
+        //System.out.println("moving state");
     }
 
     @Override

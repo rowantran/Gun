@@ -7,12 +7,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 public class InputHandler implements Updatable {
-    /**
-     * Handle all player input
-     * @param delta Frame time for current tick
-     */
-    @Override
-    public void update(float delta) {
+
+
+
+    public Vector2 checkKeys(float delta) {
         Vector2 velocity = new Vector2(0f, 0f);
 
         if (Gdx.input.isKeyPressed(Settings.KEY_LEFT)) {
@@ -39,20 +37,36 @@ public class InputHandler implements Updatable {
             World.player.direction = Direction.DOWN;
         }
 
-        if (Gdx.input.isKeyPressed(Settings.KEY_ROLL)) {
-            World.player.state = new PlayerRollingState(World.player.direction);
-        }
-
         if (Gdx.input.isKeyPressed(Settings.KEY_UP)) {
-            if(!((World.player.getPosition().y + Settings.PLAYER_SPEED * delta) > 702)){
+            if (!((World.player.getPosition().y + Settings.PLAYER_SPEED * delta) > 702)) {
                 velocity.y += Settings.PLAYER_SPEED;
                 World.player.state = PlayerState.moving;
             }
             World.player.direction = Direction.UP;
         }
-
+        if (Gdx.input.isKeyPressed(Settings.KEY_ROLL)) {
+            System.out.println(World.player.state.timeElapsed);
+            if(World.player.state.timeElapsed >= 2.0f) {
+                World.player.state = PlayerState.rolling;
+                ((PlayerRollingState) World.player.state).setDirection(World.player.direction);
+            }
+        }
         if (!Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){
             World.player.state = PlayerState.idle;
+        }
+
+        return velocity;
+    }
+
+    /**
+     * Handle all player input
+     * @param delta Frame time for current tick
+     */
+    @Override
+    public void update(float delta) {
+        Vector2 velocity = new Vector2(0f, 0f);
+        if(World.player.state.controllable) {
+            velocity = checkKeys(delta);
         }
 
         World.player.setVelocity(velocity);

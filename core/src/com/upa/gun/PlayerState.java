@@ -15,6 +15,7 @@ public abstract class PlayerState implements Updatable {
 
     static PlayerIdleState idle; //when the player is not moving
     static PlayerMovingState moving; //when the player is using arrow keys
+    static PlayerRollingState rolling; //when the player is rolling
     static PlayerDyingState dying; //when the player dies
 
     /*
@@ -23,6 +24,7 @@ public abstract class PlayerState implements Updatable {
     static {
         idle = new PlayerIdleState();
         moving = new PlayerMovingState();
+        rolling = new PlayerRollingState(Direction.DOWN);
         dying = new PlayerDyingState();
     }
 

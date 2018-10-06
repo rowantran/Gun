@@ -15,7 +15,8 @@ public class PlayerIdleState extends PlayerState {
     @Override
     public void update(float delta) {
         timeElapsed += delta;
-        System.out.println("idle state");
+        controllable = true;
+        //System.out.println("idle state");
     }
 
     @Override

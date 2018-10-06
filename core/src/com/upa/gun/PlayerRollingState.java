@@ -21,13 +21,19 @@ class PlayerRollingState extends PlayerState {
     @Override
     public void update(float delta) {
         World.player.setVelocity(velocity);
+        controllable = false;
 
         timeElapsed += delta;
         System.out.println("rolling state");
 
         if (timeElapsed > Settings.ROLL_LENGTH) {
             World.player.state = PlayerState.idle;
-            timeElapsed = 0f;
+            System.out.println("over");
+            timeElapsed = 0.0f;
         }
+    }
+
+    public void setDirection(Direction direction) {
+        velocity = Direction.getAngle(direction).setLength(Settings.ROLL_SPEED);
     }
 }
