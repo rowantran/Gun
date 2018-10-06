@@ -44,9 +44,10 @@ public class InputHandler implements Updatable {
             }
             World.player.direction = Direction.UP;
         }
-        if (Gdx.input.isKeyPressed(Settings.KEY_ROLL)) {
+        if (Gdx.input.isKeyJustPressed(Settings.KEY_ROLL)) {
             System.out.println(World.player.state.timeElapsed);
-            if(World.player.state.timeElapsed >= 2.0f) {
+            if(World.player.state.timeElapsed >= Settings.ROLL_DELAY) {
+                World.player.state.resetState();
                 World.player.state = PlayerState.rolling;
                 ((PlayerRollingState) World.player.state).setDirection(World.player.direction);
             }

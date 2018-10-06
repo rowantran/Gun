@@ -24,12 +24,13 @@ class PlayerRollingState extends PlayerState {
         controllable = false;
 
         timeElapsed += delta;
-        System.out.println("rolling state");
+        System.out.println(timeElapsed);
 
         if (timeElapsed > Settings.ROLL_LENGTH) {
+            resetState();
             World.player.state = PlayerState.idle;
             System.out.println("over");
-            timeElapsed = 0.0f;
+            System.out.println(timeElapsed);
         }
     }
 
