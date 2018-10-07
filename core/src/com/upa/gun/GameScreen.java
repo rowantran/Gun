@@ -12,7 +12,6 @@ public class GameScreen extends ScreenAdapter {
         renderer = new Renderer(game.batch, game.world);
     }
 
-
     @Override
     public void render(float delta) {
         game.world.update(delta);

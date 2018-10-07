@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class World {
+public class World implements Updatable {
     private static World world = new World();
 
     static Player player;
@@ -67,6 +67,7 @@ public class World {
         player = new Player(200, 200, game);
     }
 
+    @Override
     public void update(float delta) {
         cinematicHappening = false;
         for (ScriptedEventSequence sequence : sequences) {
@@ -77,7 +78,6 @@ public class World {
         }
 
         if (!cinematicHappening) {
-            handleInput();
             player.update(delta);
 
             collisionChecker.update(delta);
@@ -101,12 +101,6 @@ public class World {
                     spawn.markedForDeletion = true;
                 }
             }
-        }
-    }
-
-    private void handleInput() {
-        if (Gdx.input.isKeyPressed(Settings.KEY_ROLL)) {
-            player.roll();
         }
     }
 
