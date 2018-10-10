@@ -5,6 +5,8 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player extends Entity {
+    private static final float HITBOX_SIZE = 15f;
+
     boolean rolling;
     boolean hurt;
 
@@ -56,13 +58,12 @@ public class Player extends Entity {
 
     /**
      * Create player's hitbox (called by Entity constructor.)
-     * @param width Width of the hitbox in pixels.
-     * @param height Height of the hitbox in pixels.
      */
     @Override
-    void createHitbox(float width, float height) {
+    void createHitbox() {
         Vector2 position = getPosition();
-        hitbox = new RectangularHitbox(position.x, position.y, width, height);
+        hitbox = new RectangularHitbox(position.x, position.y, HITBOX_SIZE, HITBOX_SIZE);
+        centerHitbox();
     }
 
     /**

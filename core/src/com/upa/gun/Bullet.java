@@ -5,19 +5,23 @@ import com.badlogic.gdx.math.Vector2;
 public abstract class Bullet extends Entity {
     double angle;
 
+    private float HITBOX_SIZE;
+
     boolean markedForDeletion;
 
     Bullet(float x, float y, double angle, float width, float height) {
         super(x, y, width, height, 0, 0);
         this.angle = angle;
 
+        HITBOX_SIZE = 20f;
+
         markedForDeletion = false;
     }
 
     @Override
-    void createHitbox(float width, float height) {
+    void createHitbox() {
         Vector2 position = getPosition();
-        hitbox = new RectangularHitbox(position.x, position.y, width, height);
+        hitbox = new RectangularHitbox(position.x, position.y, HITBOX_SIZE, HITBOX_SIZE);
         centerHitbox();
     }
 

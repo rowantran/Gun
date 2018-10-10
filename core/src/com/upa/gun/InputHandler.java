@@ -7,9 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 public class InputHandler implements Updatable {
-
-
-
     public Vector2 checkKeys(float delta) {
         Vector2 velocity = new Vector2(0f, 0f);
 

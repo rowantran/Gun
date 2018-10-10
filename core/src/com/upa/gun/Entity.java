@@ -20,7 +20,7 @@ public abstract class Entity implements Updatable {
         rotation = 0f;
 
         this.hitboxOffset = hitboxOffset.cpy();
-        createHitbox(size.x, size.y);
+        createHitbox();
 
         attackTimeElapsed = 0f;
     }
@@ -29,7 +29,7 @@ public abstract class Entity implements Updatable {
         this(new Vector2(x, y), new Vector2(width, height), new Vector2(hitboxOffsetX, hitboxOffsetY));
     }
 
-    abstract void createHitbox(float width, float height);
+    abstract void createHitbox();
 
     void centerHitbox() {
         setHitboxOffset((getSize().x - hitbox.getWidth()) / 2, (getSize().y - hitbox.getHeight()) / 2);

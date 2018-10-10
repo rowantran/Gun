@@ -13,7 +13,7 @@ public class BossSlime extends Slime {
 	float timeHurt;
 	static float timeStayHurt = 0.5f;
 
-	static float hitboxRadius = 50f;
+	static float HITBOX_RADIUS = 50f;
 
 	class BossSlimeRotation extends AttackRotation {
 	    BossSlimeRotation() {
@@ -48,8 +48,8 @@ public class BossSlime extends Slime {
     }
 
     @Override
-    void createHitbox(float width, float height) {
-	    hitbox = new RectangularHitbox(getPosition().x, getPosition().y, width, height);
+    void createHitbox() {
+	    hitbox = new RectangularHitbox(getPosition().x, getPosition().y, HITBOX_RADIUS, HITBOX_RADIUS);
     }
 
     public void update(float delta) {
