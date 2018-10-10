@@ -83,6 +83,10 @@ public abstract class Entity implements Updatable {
         this.rotation = rotation;
     }
 
+    Vector2 getHitboxOffset() {
+        return hitboxOffset.cpy();
+    }
+
     void setHitboxOffset(float x, float y) {
         hitboxOffset.x = x;
         hitboxOffset.y = y;

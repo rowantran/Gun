@@ -26,7 +26,7 @@ public class Slime extends Enemy {
     }
 
     Slime(float x, float y) {
-        super(x, y, HITBOX_SIZE, HITBOX_SIZE);
+        super(x, y, 36, 36);
         attackTimeElapsed = 0.0f;
         timeSinceAttack = 0.0f;
 

@@ -34,7 +34,8 @@ public class Player extends Entity {
     PlayerState state;
 
     Player(float x, float y, GunGame game) {
-        super(x, y, 10, 10, 0, 0);
+        super(x, y, Assets.getTextureSize(Assets.playerAnimations).x, Assets.getTextureSize(Assets.playerAnimations).y,
+                0, 0);
         spawnPoint = new Vector2(x, y);
 
         state = PlayerState.idle;
@@ -64,6 +65,9 @@ public class Player extends Entity {
         Vector2 position = getPosition();
         hitbox = new RectangularHitbox(position.x, position.y, HITBOX_SIZE, HITBOX_SIZE);
         centerHitbox();
+        System.out.println("Size: " + getSize());
+        System.out.println("Hitbox size: " + hitbox.getWidth() + ", " + hitbox.getHeight());
+        System.out.println("Offset: " + getHitboxOffset());
     }
 
     /**

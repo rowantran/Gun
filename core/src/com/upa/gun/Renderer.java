@@ -60,20 +60,17 @@ class Renderer {
         TextureRegion currentFrame = currentAnimation.getKeyFrame(World.player.state.timeElapsed);
 
         Vector2 playerPos = player.getPosition();
-        float playerX = (playerPos.x - (float)currentFrame.getRegionWidth()/2f);
-        float playerY = (playerPos.y - (float)currentFrame.getRegionHeight()/2f);
 
         batch.setColor(1.0f, 1.0f, 1.0f, player.state.opacity);
-        drawShadow(playerX, playerY, (float)currentFrame.getRegionWidth());
-        batch.draw(currentFrame, playerX, playerY, 0, 0,
-                (float)currentFrame.getRegionWidth(), (float)currentFrame.getRegionHeight(),
+        drawShadow(playerPos.x, playerPos.y, (float)currentFrame.getRegionWidth());
+        batch.draw(currentFrame, playerPos.x, playerPos.y, 0, 0, player.getSize().x, player.getSize().y,
                 1, 1, World.player.state.rotation);
 
         batch.end();
 
         if (Settings.DEV_MODE) {
             sr.begin(ShapeRenderer.ShapeType.Line);
-            sr.rect(player.getPosition().x, player.getPosition().y, player.hitbox.getWidth(), player.hitbox.getHeight());
+            sr.rect(player.hitbox.getX(), player.hitbox.getY(), player.hitbox.getWidth(), player.hitbox.getHeight());
             sr.end();
         }
 }
@@ -132,32 +129,9 @@ class Renderer {
 
         if (Settings.DEV_MODE) {
             sr.begin(ShapeRenderer.ShapeType.Line);
-            sr.rect(e.getPosition().x, e.getPosition().y, e.hitbox.getWidth(), e.hitbox.getHeight());
+            sr.rect(e.hitbox.getX(), e.hitbox.getY(), e.hitbox.getWidth(), e.hitbox.getHeight());
             sr.end();
         }
-
-    }
-
-    private void drawSlime(Slime slime, float x, float y, Map<SpriteState, Map<Direction, Animation<TextureRegion>>> animationMap) {
-        batch.enableBlending();
-        batch.setColor(1.0f, 1.0f, 1.0f, slime.opacity);
-
-        SpriteState state = slime.getState();
-        Animation<TextureRegion> currentAnimation = animationMap.get(state).get(LEFT);
-        TextureRegion currentFrame;
-
-        if (state == SpriteState.ATTACKING) {
-            currentFrame = currentAnimation.getKeyFrame(slime.attackTimeElapsed);
-        } else {
-            currentFrame = currentAnimation.getKeyFrame(slime.timeElapsed);
-        }
-
-        float slimeX = (x-(float)currentFrame.getRegionWidth()/2f);
-        float slimeY =  (y-(float)currentFrame.getRegionHeight()/2f);
-
-        drawShadow(slimeX, slimeY, (float)currentFrame.getRegionWidth());
-        batch.draw(currentFrame, slimeX, slimeY,
-                (float)currentFrame.getRegionWidth(), (float)currentFrame.getRegionHeight());
     }
 
     private void drawBossSlime(BossSlime bossSlime, float x, float y) {
@@ -188,12 +162,14 @@ class Renderer {
         batch.begin();
         batch.enableBlending();
         Vector2 pos = bullet.getPosition();
-        batch.draw(Assets.bulletEnemy, pos.x, pos.y, 10, 10);
+        batch.draw(Assets.bulletEnemy, pos.x, pos.y, bullet.getSize().x, bullet.getSize().y);
         batch.end();
 
         if (Settings.DEV_MODE) {
             sr.begin(ShapeRenderer.ShapeType.Line);
-            sr.rect(bullet.getPosition().x, bullet.getPosition().y, bullet.hitbox.getWidth(), bullet.hitbox.getHeight());
+            sr.rect(bullet.hitbox.getX(), bullet.hitbox.getY(), bullet.hitbox.getWidth(), bullet.hitbox.getHeight());
+            System.out.println("Drawing rect at " + bullet.hitbox.getX() + "," + bullet.hitbox.getY() + "@" +
+                    bullet.hitbox.getWidth() + "x" + bullet.hitbox.getHeight());
             sr.end();
         }
     }

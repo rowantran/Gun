@@ -14,6 +14,7 @@ public abstract class Bullet extends Entity {
         this.angle = angle;
 
         HITBOX_SIZE = 20f;
+        createHitbox();
 
         markedForDeletion = false;
     }
