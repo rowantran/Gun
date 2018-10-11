@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Player extends Entity {
     private static final float HITBOX_SIZE = 15f;
 
-    boolean hurt;
+    static final float IFRAME_AFTER_HIT_LENGTH = 0.2f;
 
     Vector2 spawnPoint;
 
@@ -39,7 +39,6 @@ public class Player extends Entity {
         state = PlayerState.idle;
 
         bulletCooldown = 0.2f;
-        hurt = false;
 
         health = Settings.PLAYER_HEALTH;
 
@@ -68,7 +67,6 @@ public class Player extends Entity {
     }
 
     /**
-     * Return player's current health
      * @return Player's current health
      */
     int getHealth() {
@@ -83,6 +81,7 @@ public class Player extends Entity {
     void hurt(int damage) {
         if (state.isVulnerable() && !game.world.cinematicHappening) {
             health -= damage;
+            state.vulnerable = false;
             if (health <= 0) {
                 state = PlayerState.dying;
             }
