@@ -8,6 +8,7 @@ public abstract class PlayerState implements Updatable {
     static GunGame game; //for use in dying state
 
     boolean controllable; //if the player can control the character
+    boolean vulnerable;
 
     public float timeElapsed; //counts ticks
     float rotation; //player rotation
@@ -34,6 +35,14 @@ public abstract class PlayerState implements Updatable {
         rotation = 0.0f;
         opacity = 1.0f;
         controllable = true;
+        vulnerable = true;
+    }
+
+    /**
+      * @return Whether the player can take damage in this state
+     */
+    boolean isVulnerable() {
+        return vulnerable;
     }
 
     /**

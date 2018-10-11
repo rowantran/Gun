@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 public class Player extends Entity {
     private static final float HITBOX_SIZE = 15f;
 
-    boolean rolling;
     boolean hurt;
 
     Vector2 spawnPoint;
@@ -20,9 +19,6 @@ public class Player extends Entity {
     public boolean rightStop = false;
 
     private int health;
-
-    boolean iframe;
-    float iframeTimer;
 
     private GunGame game;
     private InputHandler inputHandler;
@@ -48,9 +44,6 @@ public class Player extends Entity {
         health = Settings.PLAYER_HEALTH;
 
         direction = Direction.DOWN;
-
-        iframe = false;
-        iframeTimer = 0f;
 
         timeSinceRoll = Settings.ROLL_DELAY;
 
@@ -88,9 +81,8 @@ public class Player extends Entity {
       * @param damage Amount of damage in hit points to deal to player.
      */
     void hurt(int damage) {
-        if (!iframe && !game.world.cinematicHappening) {
+        if (state.isVulnerable() && !game.world.cinematicHappening) {
             health -= damage;
-            iframe = true;
             if (health <= 0) {
                 state = PlayerState.dying;
             }
@@ -105,24 +97,6 @@ public class Player extends Entity {
         return state.getTextureState();
     }
 
-    /**
-     * Start a roll in the current direction of movement, if not already rolling.
-     */
-    void roll() {
-        if (!rolling) {
-            rolling = true;
-            Vector2 rollAngle = Direction.getAngle(direction).setLength(Settings.ROLL_SPEED);
-            setVelocity(rollAngle);
-        }
-    }
-
-    /**
-     * Stop the player's movement.
-     */
-    private void stop() {
-        setVelocity(0, 0);
-    }
-
     @Override
     public void update(float delta) {
         super.update(delta);
@@ -134,16 +108,6 @@ public class Player extends Entity {
 
         if (state.controllable) {
             inputHandler.update(delta);
-        }
-
-        if (iframe) {
-            iframeTimer += delta;
-            if (iframeTimer > Settings.I_FRAME_LENGTH) {
-                //System.out.println("iframe over");
-                iframe = false;
-                //opacity = 1f;
-                iframeTimer = 0f;
-            }
         }
     }
 }

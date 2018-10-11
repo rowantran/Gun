@@ -11,6 +11,7 @@ class PlayerRollingState extends PlayerState {
     PlayerRollingState(Direction direction) {
         velocity = Direction.getAngle(direction).setLength(Settings.ROLL_SPEED);
         controllable = false;
+        vulnerable = false;
         opacity = 0.5f;
     }
 
