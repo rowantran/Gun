@@ -50,7 +50,7 @@ public class InputHandler implements Updatable {
             World.player.state = PlayerState.idle;
         }
 
-        return velocity;
+        return velocity.setLength(Settings.PLAYER_SPEED);
     }
 
     /**
