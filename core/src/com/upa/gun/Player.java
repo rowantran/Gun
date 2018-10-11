@@ -27,6 +27,8 @@ public class Player extends Entity {
     private GunGame game;
     private InputHandler inputHandler;
 
+    float timeSinceRoll;
+
     Sound shot;
 
     Direction direction;
@@ -49,6 +51,8 @@ public class Player extends Entity {
 
         iframe = false;
         iframeTimer = 0f;
+
+        timeSinceRoll = Settings.ROLL_DELAY;
 
         this.game = game;
         state.setGame(game);
@@ -87,7 +91,6 @@ public class Player extends Entity {
         if (!iframe && !game.world.cinematicHappening) {
             health -= damage;
             iframe = true;
-            //opacity = 0.5f;
             if (health <= 0) {
                 state = PlayerState.dying;
             }
@@ -124,6 +127,8 @@ public class Player extends Entity {
     public void update(float delta) {
         super.update(delta);
         state.update(delta);
+
+        timeSinceRoll += delta;
 
         bulletCooldown -= delta;
 

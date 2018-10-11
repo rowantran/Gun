@@ -168,8 +168,8 @@ class Renderer {
         if (Settings.DEV_MODE) {
             sr.begin(ShapeRenderer.ShapeType.Line);
             sr.rect(bullet.hitbox.getX(), bullet.hitbox.getY(), bullet.hitbox.getWidth(), bullet.hitbox.getHeight());
-            System.out.println("Drawing rect at " + bullet.hitbox.getX() + "," + bullet.hitbox.getY() + "@" +
-                    bullet.hitbox.getWidth() + "x" + bullet.hitbox.getHeight());
+            //System.out.println("Drawing rect at " + bullet.hitbox.getX() + "," + bullet.hitbox.getY() + "@" +
+            //        bullet.hitbox.getWidth() + "x" + bullet.hitbox.getHeight());
             sr.end();
         }
     }

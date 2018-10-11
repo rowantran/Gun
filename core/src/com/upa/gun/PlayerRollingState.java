@@ -11,6 +11,7 @@ class PlayerRollingState extends PlayerState {
     PlayerRollingState(Direction direction) {
         velocity = Direction.getAngle(direction).setLength(Settings.ROLL_SPEED);
         controllable = false;
+        opacity = 0.5f;
     }
 
     /**
@@ -24,13 +25,13 @@ class PlayerRollingState extends PlayerState {
         controllable = false;
 
         timeElapsed += delta;
-        System.out.println(timeElapsed);
+        //System.out.println(timeElapsed);
 
         if (timeElapsed > Settings.ROLL_LENGTH) {
             resetState();
             World.player.state = PlayerState.idle;
-            System.out.println("over");
-            System.out.println(timeElapsed);
+            System.out.println("iframe over");
+            //System.out.println(timeElapsed);
         }
     }
 
