@@ -16,7 +16,7 @@ public class Slime extends Enemy {
 
     float speedMultiplier = 1/2f;
 
-    private static float hitboxSize = 10f;
+    private static float HITBOX_SIZE = 10f;
 
     class SlimeAttackRotation extends AttackRotation {
         SlimeAttackRotation() {
@@ -26,7 +26,7 @@ public class Slime extends Enemy {
     }
 
     Slime(float x, float y) {
-        super(x, y, hitboxSize, hitboxSize);
+        super(x, y, 36, 36);
         attackTimeElapsed = 0.0f;
         timeSinceAttack = 0.0f;
 
@@ -49,9 +49,9 @@ public class Slime extends Enemy {
     }
 
     @Override
-    void createHitbox(float width, float height) {
+    void createHitbox() {
         Vector2 position = getPosition();
-        hitbox = new RectangularHitbox(position.x, position.y, width, height);
+        hitbox = new RectangularHitbox(position.x, position.y, HITBOX_SIZE, HITBOX_SIZE);
         centerHitbox();
     }
 

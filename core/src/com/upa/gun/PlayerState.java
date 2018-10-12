@@ -9,13 +9,15 @@ public abstract class PlayerState implements Updatable {
 
     boolean controllable; //if the player can control the character
 
+    boolean vulnerable;
+    float iframeTime;
+
     public float timeElapsed; //counts ticks
     float rotation; //player rotation
     float opacity; //player opacity
 
     static PlayerIdleState idle; //when the player is not moving
     static PlayerMovingState moving; //when the player is using arrow keys
-    static PlayerRollingState rolling; //when the player is rolling
     static PlayerDyingState dying; //when the player dies
 
     /*
@@ -24,7 +26,6 @@ public abstract class PlayerState implements Updatable {
     static {
         idle = new PlayerIdleState();
         moving = new PlayerMovingState();
-        rolling = new PlayerRollingState(Direction.DOWN);
         dying = new PlayerDyingState();
     }
 
@@ -36,6 +37,15 @@ public abstract class PlayerState implements Updatable {
         rotation = 0.0f;
         opacity = 1.0f;
         controllable = true;
+        vulnerable = true;
+        iframeTime = 0f;
+    }
+
+    /**
+      * @return Whether the player can take damage in this state
+     */
+    boolean isVulnerable() {
+        return vulnerable;
     }
 
     /**

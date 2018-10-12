@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.HashMap;
@@ -114,6 +115,11 @@ public class Assets {
         bossDieSound = Gdx.audio.newSound(Gdx.files.internal("sfx/bossdie.wav"));
     }
 
+    public static Vector2 getTextureSize(Map<SpriteState, Map<Direction, Animation<TextureRegion>>> map) {
+        TextureRegion frame = map.get(SpriteState.IDLE).get(Direction.DOWN).getKeyFrame(0);
+        return new Vector2(frame.getRegionWidth(), frame.getRegionHeight());
+    }
+
     private static Animation<TextureRegion> loadPlayerAnimation(String direction) {
         return new Animation<TextureRegion>(0.25f,
                 playerAtlas.findRegions("player" + direction), Animation.PlayMode.LOOP);
@@ -127,7 +133,11 @@ public class Assets {
         Map<Direction, Animation<TextureRegion>> playerMovingAnimations =
                 new HashMap<Direction, Animation<TextureRegion>>();
         playerMovingAnimations.put(Direction.DOWN, loadPlayerAnimation("Front"));
+        playerMovingAnimations.put(Direction.DOWN_LEFT, loadPlayerAnimation("Front"));
+        playerMovingAnimations.put(Direction.DOWN_RIGHT, loadPlayerAnimation("Front"));
         playerMovingAnimations.put(Direction.UP, loadPlayerAnimation("Back"));
+        playerMovingAnimations.put(Direction.UP_LEFT, loadPlayerAnimation("Back"));
+        playerMovingAnimations.put(Direction.UP_RIGHT, loadPlayerAnimation("Back"));
         playerMovingAnimations.put(Direction.LEFT, loadPlayerAnimation("Left"));
         playerMovingAnimations.put(Direction.RIGHT, loadPlayerAnimation("Right"));
         playerAnimations.put(SpriteState.MOVING, playerMovingAnimations);
@@ -135,7 +145,11 @@ public class Assets {
         Map<Direction, Animation<TextureRegion>> playerIdleAnimations =
                 new HashMap<Direction, Animation<TextureRegion>>();
         playerIdleAnimations.put(Direction.DOWN, loadPlayerIdleAnimation("Front"));
+        playerIdleAnimations.put(Direction.DOWN_LEFT, loadPlayerIdleAnimation("Front"));
+        playerIdleAnimations.put(Direction.DOWN_RIGHT, loadPlayerIdleAnimation("Front"));
         playerIdleAnimations.put(Direction.UP, loadPlayerIdleAnimation("Back"));
+        playerIdleAnimations.put(Direction.UP_LEFT, loadPlayerIdleAnimation("Back"));
+        playerIdleAnimations.put(Direction.UP_RIGHT, loadPlayerIdleAnimation("Back"));
         playerIdleAnimations.put(Direction.LEFT, loadPlayerIdleAnimation("Left"));
         playerIdleAnimations.put(Direction.RIGHT, loadPlayerIdleAnimation("Right"));
         playerAnimations.put(SpriteState.IDLE, playerIdleAnimations);

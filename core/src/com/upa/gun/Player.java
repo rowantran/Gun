@@ -5,8 +5,9 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player extends Entity {
-    boolean rolling;
-    boolean hurt;
+    private static final float HITBOX_SIZE = 15f;
+
+    static final float IFRAME_AFTER_HIT_LENGTH = 0.2f;
 
     Vector2 spawnPoint;
 
@@ -19,11 +20,10 @@ public class Player extends Entity {
 
     private int health;
 
-    boolean iframe;
-    float iframeTimer;
-
     private GunGame game;
     private InputHandler inputHandler;
+
+    float timeSinceRoll;
 
     Sound shot;
 
@@ -32,20 +32,19 @@ public class Player extends Entity {
     PlayerState state;
 
     Player(float x, float y, GunGame game) {
-        super(x, y, 10, 10, 0, 0);
+        super(x, y, Assets.getTextureSize(Assets.playerAnimations).x, Assets.getTextureSize(Assets.playerAnimations).y,
+                0, 0);
         spawnPoint = new Vector2(x, y);
 
         state = PlayerState.idle;
 
-        bulletCooldown = 0.4;
-        hurt = false;
+        bulletCooldown = 0.2f;
 
         health = Settings.PLAYER_HEALTH;
 
         direction = Direction.DOWN;
 
-        iframe = false;
-        iframeTimer = 0f;
+        timeSinceRoll = Settings.ROLL_DELAY;
 
         this.game = game;
         state.setGame(game);
@@ -56,17 +55,18 @@ public class Player extends Entity {
 
     /**
      * Create player's hitbox (called by Entity constructor.)
-     * @param width Width of the hitbox in pixels.
-     * @param height Height of the hitbox in pixels.
      */
     @Override
-    void createHitbox(float width, float height) {
+    void createHitbox() {
         Vector2 position = getPosition();
-        hitbox = new RectangularHitbox(position.x, position.y, width, height);
+        hitbox = new RectangularHitbox(position.x, position.y, HITBOX_SIZE, HITBOX_SIZE);
+        centerHitbox();
+        System.out.println("Size: " + getSize());
+        System.out.println("Hitbox size: " + hitbox.getWidth() + ", " + hitbox.getHeight());
+        System.out.println("Offset: " + getHitboxOffset());
     }
 
     /**
-     * Return player's current health
      * @return Player's current health
      */
     int getHealth() {
@@ -79,10 +79,9 @@ public class Player extends Entity {
       * @param damage Amount of damage in hit points to deal to player.
      */
     void hurt(int damage) {
-        if (!iframe && !game.world.cinematicHappening) {
+        if (state.isVulnerable() && !game.world.cinematicHappening) {
             health -= damage;
-            iframe = true;
-            //opacity = 0.5f;
+            state.vulnerable = false;
             if (health <= 0) {
                 state = PlayerState.dying;
             }
@@ -97,43 +96,17 @@ public class Player extends Entity {
         return state.getTextureState();
     }
 
-    /**
-     * Start a roll in the current direction of movement, if not already rolling.
-     */
-    void roll() {
-        if (!rolling) {
-            rolling = true;
-            Vector2 rollAngle = Direction.getAngle(direction).setLength(Settings.ROLL_SPEED);
-            setVelocity(rollAngle);
-        }
-    }
-
-    /**
-     * Stop the player's movement.
-     */
-    private void stop() {
-        setVelocity(0, 0);
-    }
-
     @Override
     public void update(float delta) {
         super.update(delta);
         state.update(delta);
 
+        timeSinceRoll += delta;
+
         bulletCooldown -= delta;
 
         if (state.controllable) {
             inputHandler.update(delta);
-        }
-
-        if (iframe) {
-            iframeTimer += delta;
-            if (iframeTimer > Settings.I_FRAME_LENGTH) {
-                //System.out.println("iframe over");
-                iframe = false;
-                //opacity = 1f;
-                iframeTimer = 0f;
-            }
         }
     }
 }

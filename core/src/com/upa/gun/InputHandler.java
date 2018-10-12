@@ -7,9 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 public class InputHandler implements Updatable {
-
-
-
     public Vector2 checkKeys(float delta) {
         Vector2 velocity = new Vector2(0f, 0f);
 
@@ -18,7 +15,6 @@ public class InputHandler implements Updatable {
                 velocity.x -= Settings.PLAYER_SPEED;
                 World.player.state = PlayerState.moving;
             }
-            World.player.direction = Direction.LEFT;
         }
 
         if (Gdx.input.isKeyPressed(Settings.KEY_RIGHT)) {
@@ -26,7 +22,6 @@ public class InputHandler implements Updatable {
                 velocity.x += Settings.PLAYER_SPEED;
                 World.player.state = PlayerState.moving;
             }
-            World.player.direction = Direction.RIGHT;
         }
 
         if (Gdx.input.isKeyPressed(Settings.KEY_DOWN)) {
@@ -34,7 +29,6 @@ public class InputHandler implements Updatable {
                 velocity.y -= Settings.PLAYER_SPEED;
                 World.player.state = PlayerState.moving;
             }
-            World.player.direction = Direction.DOWN;
         }
 
         if (Gdx.input.isKeyPressed(Settings.KEY_UP)) {
@@ -42,20 +36,21 @@ public class InputHandler implements Updatable {
                 velocity.y += Settings.PLAYER_SPEED;
                 World.player.state = PlayerState.moving;
             }
-            World.player.direction = Direction.UP;
         }
+
         if (Gdx.input.isKeyJustPressed(Settings.KEY_ROLL)) {
             System.out.println(World.player.state.timeElapsed);
-            if(World.player.state.timeElapsed >= Settings.ROLL_DELAY) {
-                World.player.state.setState(PlayerState.rolling);
-                ((PlayerRollingState) World.player.state).setDirection(World.player.direction);
+            if(World.player.timeSinceRoll >= Settings.ROLL_DELAY) {
+                World.player.timeSinceRoll = 0f;
+                World.player.state = new PlayerRollingState(World.player.direction);
             }
         }
+
         if (!Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){
             World.player.state = PlayerState.idle;
         }
 
-        return velocity;
+        return velocity.setLength(Settings.PLAYER_SPEED);
     }
 
     /**
@@ -65,8 +60,9 @@ public class InputHandler implements Updatable {
     @Override
     public void update(float delta) {
         Vector2 velocity = new Vector2(0f, 0f);
-        if(World.player.state.controllable) {
+        if (World.player.state.controllable) {
             velocity = checkKeys(delta);
+            World.player.direction = Direction.getDirection(velocity);
         }
 
         World.player.setVelocity(velocity);

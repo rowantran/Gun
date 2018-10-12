@@ -20,6 +20,16 @@ public class RectangularHitbox implements Hitbox {
     }
 
     @Override
+    public float getX() {
+        return x;
+    }
+
+    @Override
+    public float getY() {
+        return y;
+    }
+
+    @Override
     public void setX(float x) {
         this.x = x;
     }

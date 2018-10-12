@@ -45,4 +45,24 @@ public enum Direction {
         }
         return angle;
     }
+
+    static Direction getDirection(Vector2 velocity) {
+        if (velocity.y == 0) {
+            return pick(velocity.x, LEFT, LEFT, RIGHT);
+        } else if (velocity.y < 0) {
+            return pick(velocity.x, DOWN_LEFT, DOWN, DOWN_RIGHT);
+        } else {
+            return pick(velocity.x, UP_LEFT, UP, UP_RIGHT);
+        }
+    }
+
+    private static Direction pick(float scalar, Direction lessThanZero, Direction zero, Direction greaterThanZero) {
+        if (scalar < 0) {
+            return lessThanZero;
+        } else if (scalar == 0) {
+            return zero;
+        } else {
+            return greaterThanZero;
+        }
+    }
 }

@@ -16,6 +16,13 @@ public class PlayerIdleState extends PlayerState {
     public void update(float delta) {
         timeElapsed += delta;
         controllable = true;
+        if (!vulnerable) {
+            iframeTime += delta;
+            if (iframeTime > Player.IFRAME_AFTER_HIT_LENGTH) {
+                vulnerable = true;
+                iframeTime = 0;
+            }
+        }
         //System.out.println("idle state");
     }
 

@@ -15,6 +15,12 @@ class PlayerMovingState extends PlayerState {
     @Override
     public void update(float delta) {
         timeElapsed += delta;
+        if (!vulnerable) {
+            iframeTime += delta;
+            if (iframeTime > Player.IFRAME_AFTER_HIT_LENGTH) {
+                vulnerable = true;
+            }
+        }
         controllable = true;
         //System.out.println("moving state");
     }
