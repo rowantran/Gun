@@ -17,16 +17,12 @@ public class Assets {
     public static Texture shadow;
 
     public static TextureAtlas playerAtlas;
-    public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> playerAnimations;
 
     public static TextureAtlas slimeAtlas;
-    public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> slimeAnimations;
 
     public static TextureAtlas strongSlimeAtlas;
-    public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> strongSlimeAnimations;
 
     public static TextureAtlas bossSlimeAtlas;
-    public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> bossSlimeAnimations;
 
     public static Texture bullets;
     public static TextureRegion bulletLaser;
@@ -43,28 +39,43 @@ public class Assets {
     public static Sound bulletSound;
     public static Sound bossDieSound;
 
-    public static Texture healthFullLeft;
-    public static Texture healthFullRight;
-    public static Texture healthFullMid;
-    public static Texture healthEmptyLeft;
-    public static Texture healthEmptyRight;
-    public static Texture healthEmptyMid;
+    public static TextureRegion healthFullLeft;
+    public static TextureRegion healthFullRight;
+    public static TextureRegion healthFullMid;
+    public static TextureRegion healthEmptyLeft;
+    public static TextureRegion healthEmptyRight;
+    public static TextureRegion healthEmptyMid;
+    public static TextureRegion[] healthTextures = {healthFullLeft, healthFullRight, healthFullMid, healthEmptyLeft,
+    healthEmptyRight, healthEmptyMid};
+
+    public static TextureAtlas spriteAtlas;
+    public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> playerAnimations;
+    public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> slimeAnimations;
+    public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> strongSlimeAnimations;
+    public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> bossSlimeAnimations;
+
+
 
     public static Texture loadTexture(String filepath) {
         return new Texture(Gdx.files.internal(filepath));
     }
 
     public static void load() {
-        backgroundRoom1 = loadTexture("sprites/background1.png");
-        crate = loadTexture("sprites/crate.png");
-        shadow = loadTexture("sprites/shadow.png");
+
+        spriteAtlas = new TextureAtlas(Gdx.files.internal("sprites/sprites.atlas"));
+
+        loadHealthBar();
+
+        backgroundRoom1 = loadTexture("sprites/stages/background1.png");
+        crate = loadTexture("sprites//terrain/crate.png");
+        shadow = loadTexture("sprites/miscellaneous/shadow.png");
         shadow.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
         playerAtlas = new TextureAtlas(Gdx.files.internal("sprites/player.atlas"));
         playerAnimations = new HashMap<SpriteState, Map<Direction, Animation<TextureRegion>>>();
         loadPlayerAnimations();
 
-        crosshair = new Texture("sprites/crosshair.png");
+        crosshair = new Texture("sprites/miscellaneous/crosshair.png");
         crosshair.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         /*Pixmap pm = new Pixmap(Gdx.files.internal("sprites/crosshair.png"));
         int xHotSpot = pm.getWidth() / 2;
@@ -86,18 +97,19 @@ public class Assets {
         bossSlimeAnimations = new HashMap<SpriteState, Map<Direction, Animation<TextureRegion>>>();
         loadBossSlimeAnimations();
 
-        bullets = loadTexture("sprites/laserBullet.png");
+        bullets = loadTexture("sprites/bullets/laserBullet.png");
 
         bulletLaser = new TextureRegion(bullets, 0, 0, 33, 14);
 
-        bulletsEnemies = loadTexture("sprites/slimePellet.png");
+        bulletsEnemies = loadTexture("sprites/bullets/slimePellet.png");
         bulletEnemy = new TextureRegion(bulletsEnemies, 0, 0, 13, 16);
 
-        bulletsEnemiesBoss = loadTexture("sprites/bossPellet.png");
+        bulletsEnemiesBoss = loadTexture("sprites/bullets/bossPellet.png");
         bulletBoss = new TextureRegion(bulletsEnemiesBoss, 0, 0,13,16);
 
         menuFont = new BitmapFont();
 
+        /*
         healthFullLeft = loadTexture("sprites/health_full_left.png");
         healthFullLeft.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         healthFullRight = loadTexture("sprites/health_full_right.png");
@@ -110,6 +122,7 @@ public class Assets {
         healthFullRight.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         healthEmptyMid = loadTexture("sprites/health_empty_mid.png");
         healthEmptyMid.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        */
 
         bulletSound = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
         bossDieSound = Gdx.audio.newSound(Gdx.files.internal("sfx/bossdie.wav"));
@@ -120,9 +133,26 @@ public class Assets {
         return new Vector2(frame.getRegionWidth(), frame.getRegionHeight());
     }
 
+    private static void loadHealthBar() {
+        healthFullLeft = spriteAtlas.findRegion("health_full_left");
+        healthFullRight = spriteAtlas.findRegion("health_full_right");
+        healthFullMid = spriteAtlas.findRegion("health_full_mid");
+        healthEmptyLeft = spriteAtlas.findRegion("health_empty_left");
+        healthEmptyRight = spriteAtlas.findRegion("health_empty_right");
+        healthEmptyMid = spriteAtlas.findRegion("health_empty_mid");
+
+        /* null
+        String[] regions = {"full_left", "full_right", "full_mid", "empty_left", "empty_right", "empty_mid"};
+        for(int i = 0; i < regions.length; i++) {
+            healthTextures[i] = spriteAtlas.findRegion("health_" + regions[i]);
+        }
+        */
+    }
+
+
     private static Animation<TextureRegion> loadPlayerAnimation(String direction) {
         return new Animation<TextureRegion>(0.25f,
-                playerAtlas.findRegions("player" + direction), Animation.PlayMode.LOOP);
+                spriteAtlas.findRegions("tempPlayer" + direction), Animation.PlayMode.LOOP);
     }
 
     private static Animation<TextureRegion> loadPlayerIdleAnimation(String direction) {

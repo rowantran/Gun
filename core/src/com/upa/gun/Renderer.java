@@ -80,31 +80,31 @@ class Renderer {
         int incrementX = 32;
         int startY = 72;
         if (health > 0) {
-            batch.draw(Assets.healthFullLeft, startX, startY, Assets.healthFullLeft.getWidth(),
-                    Assets.healthFullLeft.getHeight());
+            batch.draw(Assets.healthFullLeft, startX, startY, Assets.healthFullLeft.getRegionWidth(),
+                    Assets.healthFullLeft.getRegionHeight());
             startX += incrementX;
         } else {
-            batch.draw(Assets.healthEmptyLeft, startX, startY, Assets.healthEmptyLeft.getWidth(),
-                    Assets.healthEmptyLeft.getHeight());
+            batch.draw(Assets.healthEmptyLeft, startX, startY, Assets.healthEmptyLeft.getRegionWidth(),
+                    Assets.healthEmptyLeft.getRegionHeight());
             startX += incrementX;
         }
         for (int i = 2; i < Settings.PLAYER_HEALTH; i++) {
             if (i <= health) {
-                batch.draw(Assets.healthFullMid, startX, startY, Assets.healthFullMid.getWidth(),
-                        Assets.healthFullMid.getHeight());
+                batch.draw(Assets.healthFullMid, startX, startY, Assets.healthFullMid.getRegionWidth(),
+                        Assets.healthFullMid.getRegionHeight());
                 startX += incrementX;
             } else {
-                batch.draw(Assets.healthEmptyMid, startX, startY, Assets.healthEmptyMid.getWidth(),
-                        Assets.healthFullMid.getHeight());
+                batch.draw(Assets.healthEmptyMid, startX, startY, Assets.healthEmptyMid.getRegionWidth(),
+                        Assets.healthFullMid.getRegionHeight());
                 startX += incrementX;
             }
         }
         if (health == Settings.PLAYER_HEALTH) {
-            batch.draw(Assets.healthFullRight, startX, startY, Assets.healthFullRight.getWidth(),
-                    Assets.healthFullRight.getHeight());
+            batch.draw(Assets.healthFullRight, startX, startY, Assets.healthFullRight.getRegionWidth(),
+                    Assets.healthFullRight.getRegionHeight());
         } else {
-            batch.draw(Assets.healthEmptyRight, startX, startY, Assets.healthEmptyRight.getWidth(),
-                    Assets.healthEmptyRight.getHeight());
+            batch.draw(Assets.healthEmptyRight, startX, startY, Assets.healthEmptyRight.getRegionWidth(),
+                    Assets.healthEmptyRight.getRegionHeight());
         }
     }
 

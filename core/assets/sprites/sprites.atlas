@@ -1,0 +1,362 @@
+sprites.png
+size: 1567, 864
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+background1
+  rotate: false
+  xy: 287, 64
+  size: 1280, 800
+  orig: 1280, 800
+  offset: 0, 0
+  index: -1
+barrel_full
+  rotate: false
+  xy: 223, 64
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: -1
+bossPellet
+  rotate: false
+  xy: 110, 0
+  size: 13, 16
+  orig: 13, 16
+  offset: 0, 0
+  index: -1
+bossSlime-hurt
+  rotate: false
+  xy: 631, 0
+  size: 35, 37
+  orig: 35, 37
+  offset: 0, 0
+  index: -1
+bossSlime
+  rotate: false
+  xy: 563, 0
+  size: 34, 34
+  orig: 34, 34
+  offset: 0, 0
+  index: 0
+bossSlime
+  rotate: false
+  xy: 493, 0
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: 1
+bossSlimeAttack
+  rotate: false
+  xy: 215, 0
+  size: 35, 25
+  orig: 35, 25
+  offset: 0, 0
+  index: 0
+bossSlimeAttack
+  rotate: false
+  xy: 528, 0
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: 1
+bossSlimeAttack
+  rotate: false
+  xy: 597, 0
+  size: 34, 37
+  orig: 34, 37
+  offset: 0, 0
+  index: 2
+bullet
+  rotate: false
+  xy: 186, 0
+  size: 29, 20
+  orig: 29, 20
+  offset: 0, 0
+  index: -1
+crate
+  rotate: false
+  xy: 0, 64
+  size: 64, 91
+  orig: 64, 91
+  offset: 0, 0
+  index: -1
+crosshair
+  rotate: false
+  xy: 33, 0
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+health_empty_left
+  rotate: false
+  xy: 378, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+health_empty_mid
+  rotate: false
+  xy: 250, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+health_empty_right
+  rotate: false
+  xy: 410, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+health_full_left
+  rotate: false
+  xy: 282, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+health_full_mid
+  rotate: false
+  xy: 314, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+health_full_right
+  rotate: false
+  xy: 346, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Laser Gun
+  rotate: false
+  xy: 123, 0
+  size: 30, 19
+  orig: 30, 19
+  offset: 0, 0
+  index: -1
+laserBullet
+  rotate: false
+  xy: 0, 0
+  size: 33, 14
+  orig: 33, 14
+  offset: 0, 0
+  index: -1
+playerIdle
+  rotate: false
+  xy: 117, 64
+  size: 53, 125
+  orig: 53, 125
+  offset: 0, 0
+  index: 1
+playerIdle
+  rotate: false
+  xy: 170, 64
+  size: 53, 125
+  orig: 53, 125
+  offset: 0, 0
+  index: 2
+playerIdle
+  rotate: false
+  xy: 64, 64
+  size: 53, 125
+  orig: 53, 125
+  offset: 0, 0
+  index: 3
+shadow
+  rotate: false
+  xy: 49, 0
+  size: 48, 16
+  orig: 48, 16
+  offset: 0, 0
+  index: -1
+slime-death
+  rotate: false
+  xy: 1016, 0
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: -1
+slime
+  rotate: false
+  xy: 701, 0
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: 0
+slime
+  rotate: false
+  xy: 666, 0
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: 1
+slimeAttack
+  rotate: false
+  xy: 981, 0
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: 0
+slimeAttack
+  rotate: false
+  xy: 946, 0
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: 1
+slimeAttack
+  rotate: false
+  xy: 1051, 0
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: 2
+slimePellet
+  rotate: false
+  xy: 97, 0
+  size: 13, 16
+  orig: 13, 16
+  offset: 0, 0
+  index: -1
+strongSlime-death
+  rotate: false
+  xy: 736, 0
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: -1
+strongSlime
+  rotate: false
+  xy: 911, 0
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: 0
+strongSlime
+  rotate: false
+  xy: 841, 0
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: 1
+strongSlimeAttack
+  rotate: false
+  xy: 806, 0
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: 0
+strongSlimeAttack
+  rotate: false
+  xy: 876, 0
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: 1
+strongSlimeAttack
+  rotate: false
+  xy: 771, 0
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: 2
+Super Gun
+  rotate: false
+  xy: 442, 0
+  size: 51, 32
+  orig: 51, 32
+  offset: 0, 0
+  index: -1
+tempPlayerBack-idle
+  rotate: false
+  xy: 1438, 0
+  size: 35, 64
+  orig: 35, 64
+  offset: 0, 0
+  index: -1
+tempPlayerBack
+  rotate: false
+  xy: 1368, 0
+  size: 35, 64
+  orig: 35, 64
+  offset: 0, 0
+  index: 0
+tempPlayerBack
+  rotate: false
+  xy: 1403, 0
+  size: 35, 64
+  orig: 35, 64
+  offset: 0, 0
+  index: 1
+tempPlayerFront-idle
+  rotate: false
+  xy: 1297, 0
+  size: 35, 64
+  orig: 35, 64
+  offset: 0, 0
+  index: -1
+tempPlayerFront
+  rotate: false
+  xy: 1121, 0
+  size: 35, 64
+  orig: 35, 64
+  offset: 0, 0
+  index: 0
+tempPlayerLeft-idle
+  rotate: false
+  xy: 1086, 0
+  size: 35, 64
+  orig: 35, 64
+  offset: 0, 0
+  index: -1
+tempPlayerLeft
+  rotate: false
+  xy: 1156, 0
+  size: 35, 64
+  orig: 35, 64
+  offset: 0, 0
+  index: 0
+tempPlayerLeft
+  rotate: false
+  xy: 1226, 0
+  size: 36, 64
+  orig: 36, 64
+  offset: 0, 0
+  index: 1
+tempPlayerRight-idle
+  rotate: false
+  xy: 1191, 0
+  size: 35, 64
+  orig: 35, 64
+  offset: 0, 0
+  index: -1
+tempPlayerRight
+  rotate: false
+  xy: 1332, 0
+  size: 36, 64
+  orig: 36, 64
+  offset: 0, 0
+  index: 0
+tempPlayerRight
+  rotate: false
+  xy: 1262, 0
+  size: 35, 64
+  orig: 35, 64
+  offset: 0, 0
+  index: 1
+tepmpPlayerFront
+  rotate: false
+  xy: 1473, 0
+  size: 35, 64
+  orig: 35, 64
+  offset: 0, 0
+  index: 1
+Ultra Super Gun
+  rotate: false
+  xy: 153, 0
+  size: 33, 19
+  orig: 33, 19
+  offset: 0, 0
+  index: -1
