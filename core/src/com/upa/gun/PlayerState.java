@@ -55,6 +55,15 @@ public abstract class PlayerState implements Updatable {
     }
 
     /**
+     * Sets the state and resets state variables
+     * @param newState
+     */
+    void setState(PlayerState newState) {
+        resetState();
+        game.world.player.state = newState;
+    }
+
+    /**
      * Returns the state of player
      * @return SpriteState - returns SpriteState enum
      */

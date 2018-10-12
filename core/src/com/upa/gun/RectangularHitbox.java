@@ -30,6 +30,12 @@ public class RectangularHitbox implements Hitbox {
     }
 
     @Override
+    public float getX() { return x; }
+
+    @Override
+    public float getY() { return y; }
+
+    @Override
     public float getWidth() {
         return width;
     }
