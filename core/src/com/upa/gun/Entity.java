@@ -9,7 +9,7 @@ public abstract class Entity implements Updatable {
     private float rotation;
 
     Hitbox hitbox;
-    private Vector2 hitboxOffset;
+    private Vector2 hitboxOffset; // Represents where the hitbox should be placed relative to the entity's position
 
     float attackTimeElapsed;
 
