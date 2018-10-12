@@ -1,5 +1,7 @@
 package com.upa.gun;
 
+import com.upa.gun.enemy.Enemy;
+
 public class CollisionChecker implements Updatable {
     private void checkPlayerHit() {
         for (Bullet b : World.enemyBullets) {

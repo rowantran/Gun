@@ -1,8 +1,9 @@
-package com.upa.gun;
+package com.upa.gun.enemy;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.upa.gun.*;
 
 import java.util.Map;
 
@@ -49,7 +50,7 @@ public class Slime extends Enemy {
     }
 
     @Override
-    void createHitbox() {
+    public void createHitbox() {
         Vector2 position = getPosition();
         hitbox = new RectangularHitbox(position.x, position.y, HITBOX_SIZE, HITBOX_SIZE);
         centerHitbox();

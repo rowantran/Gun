@@ -1,6 +1,6 @@
 package com.upa.gun.cutscene;
 
-import com.upa.gun.Enemy;
+import com.upa.gun.enemy.Enemy;
 import com.upa.gun.World;
 
 public class KillEnemies implements ScriptedEvent {

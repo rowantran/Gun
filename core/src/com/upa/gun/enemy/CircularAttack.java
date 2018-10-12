@@ -1,6 +1,7 @@
-package com.upa.gun;
+package com.upa.gun.enemy;
 
 import com.badlogic.gdx.math.Vector2;
+import com.upa.gun.World;
 
 public class CircularAttack implements Attack {
     private float attackLength;

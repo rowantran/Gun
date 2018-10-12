@@ -1,19 +1,22 @@
-package com.upa.gun;
+package com.upa.gun.enemy;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.upa.gun.Direction;
+import com.upa.gun.Entity;
+import com.upa.gun.SpriteState;
 
 import java.util.Map;
 
 public abstract class Enemy extends Entity {
-    float timeElapsed;
+    public float timeElapsed;
     float timeSinceAttack;
-    boolean dying;
-    boolean markedForDeletion;
+    public boolean dying;
+    public boolean markedForDeletion;
     AttackRotation rotation;
-    float opacity;
+    public float opacity;
     private Map<SpriteState, Map<Direction, Animation<TextureRegion>>> sprite;
-    SpriteState state;
+    public SpriteState state;
 
     Enemy(float x, float y, float width, float height) {
         super(x, y, width, height, 0, 0);
@@ -27,11 +30,11 @@ public abstract class Enemy extends Entity {
 
     abstract Map<SpriteState, Map<Direction, Animation<TextureRegion>>> loadSprite();
 
-    Map<SpriteState, Map<Direction, Animation<TextureRegion>>> sprite() {
+    public Map<SpriteState, Map<Direction, Animation<TextureRegion>>> sprite() {
         return sprite;
     }
 
-    SpriteState getState() {
+    public SpriteState getState() {
         return state;
     }
 

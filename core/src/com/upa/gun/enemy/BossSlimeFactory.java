@@ -1,4 +1,4 @@
-package com.upa.gun;
+package com.upa.gun.enemy;
 
 class BossSlimeFactory {
     BossSlime makeBossSlime(int health, float x, float y) {

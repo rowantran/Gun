@@ -9,7 +9,7 @@ public abstract class Bullet extends Entity {
 
     boolean markedForDeletion;
 
-    Bullet(float x, float y, double angle, float width, float height) {
+    public Bullet(float x, float y, double angle, float width, float height) {
         super(x, y, width, height, 0, 0);
         this.angle = angle;
 
@@ -20,7 +20,7 @@ public abstract class Bullet extends Entity {
     }
 
     @Override
-    void createHitbox() {
+    public void createHitbox() {
         Vector2 position = getPosition();
         hitbox = new RectangularHitbox(position.x, position.y, HITBOX_SIZE, HITBOX_SIZE);
         centerHitbox();

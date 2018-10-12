@@ -57,7 +57,7 @@ public class Player extends Entity {
      * Create player's hitbox (called by Entity constructor.)
      */
     @Override
-    void createHitbox() {
+    public void createHitbox() {
         Vector2 position = getPosition();
         hitbox = new RectangularHitbox(position.x, position.y, HITBOX_SIZE, HITBOX_SIZE);
         centerHitbox();

@@ -1,12 +1,13 @@
-package com.upa.gun;
+package com.upa.gun.enemy;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.upa.gun.*;
 import com.upa.gun.cutscene.BossSlimeEntrance;
 
-public class Spawner {
+public class Spawner implements Updatable {
     World world;
     public int slimesKilled;
-    int slimesKilledSinceLastBoss;
+    public int slimesKilledSinceLastBoss;
 
     float timeAccumulated;
 
@@ -22,7 +23,7 @@ public class Spawner {
     EnemyFactory slimeFactory;
     EnemyFactory strongSlimeFactory;
 
-    Spawner(World world) {
+    public Spawner(World world) {
         this.world = world;
 
         slimesKilled = 0;
@@ -47,7 +48,7 @@ public class Spawner {
         return (float) Math.random() * maxSpawnTimeMax / Settings.PERCENT_SPAWN_CHANCE;
     }
 
-    void createSpawn(SpawnIndicator spawn) {
+    public void createSpawn(SpawnIndicator spawn) {
         spawn.createSpawn();
     }
 
@@ -76,7 +77,8 @@ public class Spawner {
         World.sequences.add(entrance);
     }
 
-    void update(float delta) {
+    @Override
+    public void update(float delta) {
         timeAccumulated += delta;
         if (slimesKilledSinceLastBoss == bossThreshold && !bossAlive) {
             spawnBossSlime();

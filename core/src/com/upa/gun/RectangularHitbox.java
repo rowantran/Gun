@@ -2,7 +2,7 @@ package com.upa.gun;
 
 public class RectangularHitbox implements Hitbox {
     float x, y, width, height;
-    RectangularHitbox(float x, float y, float width, float height) {
+    public RectangularHitbox(float x, float y, float width, float height) {
         this.x = x;
         this.y = y;
         this.width = width;

@@ -1,7 +1,11 @@
-package com.upa.gun;
+package com.upa.gun.enemy;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.upa.gun.Assets;
+import com.upa.gun.Direction;
+import com.upa.gun.SpriteState;
+
 import java.util.Map;
 
 class StrongSlime extends Slime {

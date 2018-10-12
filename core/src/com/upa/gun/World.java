@@ -1,7 +1,9 @@
 package com.upa.gun;
 
-import com.badlogic.gdx.Gdx;
 import com.upa.gun.cutscene.ScriptedEventSequence;
+import com.upa.gun.enemy.Enemy;
+import com.upa.gun.enemy.SpawnIndicator;
+import com.upa.gun.enemy.Spawner;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,19 +12,19 @@ import java.util.List;
 public class World implements Updatable {
     private static World world = new World();
 
-    static Player player;
+    public static Player player;
 
     public static List<Enemy> enemies;
     public static List<Enemy> bosses;
 
-    static List<Bullet> enemyBullets;
+    public static List<Bullet> enemyBullets;
     static List<Bullet> playerBullets;
 
     static List<Crate> crates;
 
-    static List<SpawnIndicator> indicators;
+    public static List<SpawnIndicator> indicators;
 
-    static List<ScriptedEventSequence> sequences;
+    public static List<ScriptedEventSequence> sequences;
 
     static Spawner spawner;
 

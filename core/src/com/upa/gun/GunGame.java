@@ -6,31 +6,31 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GunGame extends Game {
-	public SpriteBatch batch;
+	SpriteBatch batch;
+
 	public World world;
 	private Music music;
 
 	@Override
-	public void create () {
+	public void create() {
 	    Assets.load();
 
-	    music = Gdx.audio.newMusic(Gdx.files.internal("sfx/music.mp3"));
-        music.setLooping(true);
-        music.play();
         batch = new SpriteBatch();
+
         world = World.getInstance();
         world.setGunGame(this);
+
+        music = Gdx.audio.newMusic(Gdx.files.internal("sfx/music.mp3"));
+        music.setLooping(true);
+        music.play();
 
         setScreen(new MenuScreen(this));
         
 	}
 
-	public void render() {
-	    super.render();
-    }
-
 	@Override
-	public void dispose () {
+	public void dispose() {
+	    super.dispose();
 		batch.dispose();
 	}
 }

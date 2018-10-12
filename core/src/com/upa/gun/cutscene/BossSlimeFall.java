@@ -1,7 +1,7 @@
 package com.upa.gun.cutscene;
 
 import com.badlogic.gdx.math.Vector2;
-import com.upa.gun.BossSlime;
+import com.upa.gun.enemy.BossSlime;
 import com.upa.gun.Settings;
 import com.upa.gun.World;
 

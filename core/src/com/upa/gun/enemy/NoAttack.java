@@ -1,4 +1,4 @@
-package com.upa.gun;
+package com.upa.gun.enemy;
 
 import com.badlogic.gdx.math.Vector2;
 

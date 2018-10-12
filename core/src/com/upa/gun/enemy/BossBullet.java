@@ -1,4 +1,6 @@
-package com.upa.gun;
+package com.upa.gun.enemy;
+
+import com.upa.gun.Assets;
 
 class BossBullet extends EnemyBullet {
     BossBullet(float x, float y, double angle) {

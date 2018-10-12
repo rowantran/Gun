@@ -1,6 +1,8 @@
-package com.upa.gun;
+package com.upa.gun.enemy;
 
-class EnemyFactory {
+import com.upa.gun.World;
+
+public class EnemyFactory {
     private Enemy prototype;
 
     EnemyFactory(Enemy prototype) {

@@ -1,6 +1,7 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,6 +13,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Assets {
+    @SuppressWarnings("LibGDXStaticResource")
+    private static AssetManager assets;
+
     public static Texture backgroundRoom1;
     public static Texture crate;
     public static Texture shadow;
@@ -56,11 +60,12 @@ public class Assets {
 
 
 
-    public static Texture loadTexture(String filepath) {
+    private static Texture loadTexture(String filepath) {
         return new Texture(Gdx.files.internal(filepath));
     }
 
-    public static void load() {
+    static void load() {
+        assets = new AssetManager();
 
         spriteAtlas = new TextureAtlas(Gdx.files.internal("sprites/sprites.atlas"));
 
@@ -128,7 +133,7 @@ public class Assets {
         bossDieSound = Gdx.audio.newSound(Gdx.files.internal("sfx/bossdie.wav"));
     }
 
-    public static Vector2 getTextureSize(Map<SpriteState, Map<Direction, Animation<TextureRegion>>> map) {
+    static Vector2 getTextureSize(Map<SpriteState, Map<Direction, Animation<TextureRegion>>> map) {
         TextureRegion frame = map.get(SpriteState.IDLE).get(Direction.DOWN).getKeyFrame(0);
         return new Vector2(frame.getRegionWidth(), frame.getRegionHeight());
     }

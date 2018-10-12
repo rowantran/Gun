@@ -1,6 +1,6 @@
 package com.upa.gun.cutscene;
 
-import com.upa.gun.BossSlime;
+import com.upa.gun.enemy.BossSlime;
 
 public class BossSlimeEntrance extends ScriptedEventSequence {
     public BossSlimeEntrance(BossSlime slime) {

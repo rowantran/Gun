@@ -1,7 +1,11 @@
-package com.upa.gun;
+package com.upa.gun.enemy;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.upa.gun.Assets;
+import com.upa.gun.Direction;
+import com.upa.gun.RectangularHitbox;
+import com.upa.gun.SpriteState;
 
 import java.util.Map;
 
@@ -48,7 +52,7 @@ public class BossSlime extends Slime {
     }
 
     @Override
-    void createHitbox() {
+    public void createHitbox() {
 	    hitbox = new RectangularHitbox(getPosition().x, getPosition().y, HITBOX_RADIUS, HITBOX_RADIUS);
     }
 

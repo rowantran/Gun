@@ -1,11 +1,13 @@
-package com.upa.gun;
+package com.upa.gun.enemy;
 
-public class SpawnIndicator {
-    float x, y;
+import com.upa.gun.Updatable;
+
+public class SpawnIndicator implements Updatable {
+    public float x, y;
     float timeElapsed;
     float timeUntilSpawn;
     EnemyFactory factory;
-    boolean markedForDeletion;
+    public boolean markedForDeletion;
 
     SpawnIndicator(float x, float y, float timeElapsed, float timeUntilSpawn, EnemyFactory factory) {
         this.x = x;
@@ -16,11 +18,12 @@ public class SpawnIndicator {
         markedForDeletion = false;
     }
 
-    void update(float delta) {
+    @Override
+    public void update(float delta) {
         timeElapsed += delta;
     }
 
-    boolean shouldSpawn() {
+    public boolean shouldSpawn() {
         return timeElapsed >= timeUntilSpawn;
     }
 

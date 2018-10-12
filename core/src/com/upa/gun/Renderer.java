@@ -7,8 +7,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-
-import java.util.Map;
+import com.upa.gun.enemy.BossSlime;
+import com.upa.gun.enemy.Enemy;
+import com.upa.gun.enemy.SpawnIndicator;
 
 import static com.upa.gun.Direction.LEFT;
 
