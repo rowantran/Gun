@@ -94,6 +94,8 @@ public class World implements Updatable {
                 enemy.update(delta);
             }
 
+            spawner.update(delta);
+
             for (SpawnIndicator spawn : indicators) {
                 spawn.update(delta);
                 if (spawn.shouldSpawn()) {

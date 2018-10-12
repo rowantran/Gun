@@ -15,7 +15,6 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         game.world.update(delta);
-        game.world.spawner.update(delta);
 
         renderer.draw(game.world);
 
