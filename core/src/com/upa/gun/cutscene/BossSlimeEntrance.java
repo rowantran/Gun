@@ -7,4 +7,9 @@ public class BossSlimeEntrance extends ScriptedEventSequence {
         setCinematic(true);
         events.add(new BossSlimeFall(slime));
     }
+
+    @Override
+    public void update(float delta) {
+        super.update(delta);
+    }
 }

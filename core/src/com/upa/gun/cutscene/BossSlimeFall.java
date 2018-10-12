@@ -1,5 +1,6 @@
 package com.upa.gun.cutscene;
 
+import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.BossSlime;
 import com.upa.gun.Settings;
 import com.upa.gun.World;
@@ -9,6 +10,7 @@ public class BossSlimeFall implements ScriptedEvent {
     private static float TIME_AFTER_FALL = 0.8f;
 
     private BossSlime slime;
+    private float velocity;
     private boolean finished;
 
     private float timeElapsed;
@@ -17,6 +19,7 @@ public class BossSlimeFall implements ScriptedEvent {
 
     BossSlimeFall(BossSlime slime) {
         this.slime = slime;
+        velocity = 0f;
         finished = false;
         timeElapsed = 0f;
 
@@ -25,8 +28,11 @@ public class BossSlimeFall implements ScriptedEvent {
 
     @Override
     public void update(float delta) {
-        float currentFallSpeed = slime.getVelocity().y;
-        slime.setVelocity(0, currentFallSpeed - FALL_SPEED*delta);
+        velocity -= FALL_SPEED * delta;
+
+        Vector2 currentPos = slime.getPosition();
+        currentPos.y += velocity;
+        slime.setPosition(currentPos);
 
         if (slime.getPosition().y <= (Settings.RESOLUTION.x * 0.4f)) {
             killEnemies.update(delta);

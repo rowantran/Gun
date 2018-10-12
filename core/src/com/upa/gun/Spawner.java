@@ -73,7 +73,7 @@ public class Spawner {
 
         BossSlimeEntrance entrance = new BossSlimeEntrance(slime);
         entrance.start();
-        world.sequences.add(entrance);
+        World.sequences.add(entrance);
     }
 
     void update(float delta) {

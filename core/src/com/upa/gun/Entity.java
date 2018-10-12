@@ -54,7 +54,7 @@ public abstract class Entity implements Updatable {
         position.y = y;
     }
 
-    void setPosition(Vector2 position) {
+    public void setPosition(Vector2 position) {
         setPosition(position.x, position.y);
     }
 
