@@ -15,6 +15,8 @@ public class CollisionChecker implements Updatable {
                 if (b.hitbox.colliding(e.hitbox)) {
                     e.dying = true;
                     b.markedForDeletion = true;
+                    World.spawner.slimesKilled++;
+                    World.spawner.slimesKilledSinceLastBoss++;
                 }
             }
         }
