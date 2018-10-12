@@ -69,9 +69,7 @@ class Renderer {
         batch.end();
 
         if (Settings.DEV_MODE) {
-            sr.begin(ShapeRenderer.ShapeType.Line);
-            sr.rect(player.hitbox.getX(), player.hitbox.getY(), player.hitbox.getWidth(), player.hitbox.getHeight());
-            sr.end();
+            drawHitbox(player);
         }
 }
 
@@ -128,9 +126,7 @@ class Renderer {
         batch.end();
 
         if (Settings.DEV_MODE) {
-            sr.begin(ShapeRenderer.ShapeType.Line);
-            sr.rect(e.hitbox.getX(), e.hitbox.getY(), e.hitbox.getWidth(), e.hitbox.getHeight());
-            sr.end();
+            drawHitbox(e);
         }
     }
 
@@ -166,11 +162,7 @@ class Renderer {
         batch.end();
 
         if (Settings.DEV_MODE) {
-            sr.begin(ShapeRenderer.ShapeType.Line);
-            sr.rect(bullet.hitbox.getX(), bullet.hitbox.getY(), bullet.hitbox.getWidth(), bullet.hitbox.getHeight());
-            //System.out.println("Drawing rect at " + bullet.hitbox.getX() + "," + bullet.hitbox.getY() + "@" +
-            //        bullet.hitbox.getWidth() + "x" + bullet.hitbox.getHeight());
-            sr.end();
+            drawHitbox(bullet);
         }
     }
 
@@ -207,6 +199,13 @@ class Renderer {
         float x = 0;
         float y = layout.height;
         font.draw(batch, layout, x, y);
+    }
+
+    private void drawHitbox(Entity e) {
+        sr.setProjectionMatrix(camera.combined);
+        sr.begin(ShapeRenderer.ShapeType.Line);
+        sr.rect(e.hitbox.getX(), e.hitbox.getY(), e.hitbox.getWidth(), e.hitbox.getHeight());
+        sr.end();
     }
 
     void draw(World world) {
