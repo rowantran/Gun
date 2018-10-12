@@ -40,13 +40,9 @@ public abstract class Entity implements Updatable {
         position.x += velocity.x * delta;
         position.y += velocity.y * delta;
 
-        //fixed hitbox movement?
-        hitbox.setX(hitbox.getX() + velocity.x * delta);
-        hitbox.setY(hitbox.getY() + velocity.y * delta);
-
         // Update hitbox to match new position
-        //hitbox.setX(position.x + hitboxOffset.x);
-        //hitbox.setY(position.y + hitboxOffset.y);
+        hitbox.setX(position.x + hitboxOffset.x);
+        hitbox.setY(position.y + hitboxOffset.y);
     }
 
     public Vector2 getPosition() {
