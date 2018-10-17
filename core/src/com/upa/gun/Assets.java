@@ -8,7 +8,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
+import com.upa.gun.enemy.EnemyInfo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,13 +61,28 @@ public class Assets {
     public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> strongSlimeAnimations;
     public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> bossSlimeAnimations;
 
-
-
     private static Texture loadTexture(String filepath) {
         return new Texture(Gdx.files.internal(filepath));
     }
 
+    static class EnemyInfoList {
+        public ArrayList<EnemyInfo> enemyInfoList;
+
+        EnemyInfoList(ArrayList<EnemyInfo> list) {
+            enemyInfoList = list;
+        }
+    }
+
     static void load() {
+        EnemyInfo info1 = new EnemyInfo(0, 10, "a");
+        EnemyInfo info2 = new EnemyInfo(1, 15, "b");
+        ArrayList<EnemyInfo> list = new ArrayList<EnemyInfo>();
+        list.add(info1);
+        list.add(info2);
+        Json json = new Json();
+        System.out.println(json.prettyPrint(list));
+        System.out.println(json.prettyPrint(new EnemyInfoList(list)));
+
         assets = new AssetManager();
 
         spriteAtlas = new TextureAtlas(Gdx.files.internal("sprites/sprites.atlas"));
