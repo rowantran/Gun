@@ -47,7 +47,7 @@ public class GameOver extends ScreenAdapter {
         game.batch.begin();
         Assets.menuFont.setColor(1,1,1,1);
         Assets.menuFont.getData().setScale(2);
-        layout.setText(Assets.menuFont, "By Rowan, Scott, Tushar, and Ishan.");
+        layout.setText(Assets.menuFont, "By Rowan-James Tran, Scott Lin, and Tushar Lakshminarayanan.");
         Assets.menuFont.draw(game.batch, layout, (Settings.RESOLUTION.x - layout.width) / 2,
                 Settings.RESOLUTION.y*3/5 + layout.height*0.5f);
         game.batch.end();
