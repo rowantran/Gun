@@ -2,13 +2,18 @@
   "enemyInfoList": [
     {
       "id": 0,
-      "health": 10,
-      "sprite": "f"
+      "health": 1,
+      "sprite": "slime"
     },
     {
       "id": 1,
-      "health": 15,
-      "sprite": "g"
+      "health": 2,
+      "sprite": "strongslime"
+    },
+    {
+      "id": 2,
+      "health": 20,
+      "sprite": "bossslime"
     }
   ]
 }
