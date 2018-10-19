@@ -68,20 +68,17 @@ public class Assets {
     static class EnemyInfoList {
         public ArrayList<EnemyInfo> enemyInfoList;
 
+        EnemyInfoList() {
+            enemyInfoList = new ArrayList<EnemyInfo>();
+        }
         EnemyInfoList(ArrayList<EnemyInfo> list) {
             enemyInfoList = list;
         }
     }
 
     static void load() {
-        EnemyInfo info1 = new EnemyInfo(0, 10, "a");
-        EnemyInfo info2 = new EnemyInfo(1, 15, "b");
-        ArrayList<EnemyInfo> list = new ArrayList<EnemyInfo>();
-        list.add(info1);
-        list.add(info2);
         Json json = new Json();
-        System.out.println(json.prettyPrint(list));
-        System.out.println(json.prettyPrint(new EnemyInfoList(list)));
+        EnemyInfoList enemies = json.fromJson(EnemyInfoList.class, Gdx.files.internal("enemies.json"));
 
         assets = new AssetManager();
 
