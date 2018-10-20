@@ -65,21 +65,7 @@ public class Assets {
         return new Texture(Gdx.files.internal(filepath));
     }
 
-    static class EnemyInfoList {
-        public ArrayList<EnemyInfo> enemyInfoList;
-
-        EnemyInfoList() {
-            enemyInfoList = new ArrayList<EnemyInfo>();
-        }
-        EnemyInfoList(ArrayList<EnemyInfo> list) {
-            enemyInfoList = list;
-        }
-    }
-
     static void load() {
-        Json json = new Json();
-        EnemyInfoList enemies = json.fromJson(EnemyInfoList.class, Gdx.files.internal("enemies.json"));
-
         assets = new AssetManager();
 
         spriteAtlas = new TextureAtlas(Gdx.files.internal("sprites/sprites.atlas"));
