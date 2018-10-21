@@ -13,14 +13,7 @@ public class EnemyFactory {
     private Map<String, EnemyInfo> enemies;
 
     static class EnemyInfoList {
-        public ArrayList<EnemyInfo> enemyInfoList;
-
-        EnemyInfoList() {
-            enemyInfoList = new ArrayList<EnemyInfo>();
-        }
-        EnemyInfoList(ArrayList<EnemyInfo> list) {
-            enemyInfoList = list;
-        }
+        public ArrayList<EnemyInfo> list;
     }
 
     EnemyFactory(Enemy prototype) {
@@ -30,9 +23,11 @@ public class EnemyFactory {
         Json json = new Json();
         EnemyInfoList enemiesJson = json.fromJson(EnemyInfoList.class, Gdx.files.internal("enemies.json"));
 
-        for (EnemyInfo info : enemiesJson.enemyInfoList) {
+        for (EnemyInfo info : enemiesJson.list) {
             enemies.put(Integer.toString(info.id), info);
         }
+
+        System.out.println("Done loading enemies");
     }
 
     void spawn(float x, float y) {
