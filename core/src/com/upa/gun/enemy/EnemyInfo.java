@@ -4,6 +4,10 @@ public class EnemyInfo {
     public int id;
     public int health;
 
+    public String hitboxType;
+    public int hitboxWidth;
+    public int hitboxHeight;
+
     public int width;
     public int height;
 

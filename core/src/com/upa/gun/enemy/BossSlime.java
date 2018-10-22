@@ -41,21 +41,6 @@ public class BossSlime extends Slime {
         rotation = new BossSlimeRotation();
     }
 
-    @Override
-    Map<SpriteState, Map<Direction, Animation<TextureRegion>>> loadSprite() {
-	    return Assets.bossSlimeAnimations;
-    }
-
-    @Override
-    Enemy create(float x, float y) {
-	    return new BossSlime(20, x, y);
-    }
-
-    @Override
-    public void createHitbox() {
-	    hitbox = new RectangularHitbox(getPosition().x, getPosition().y, HITBOX_RADIUS, HITBOX_RADIUS);
-    }
-
     public void update(float delta) {
         super.update(delta);
         if (hurt) {

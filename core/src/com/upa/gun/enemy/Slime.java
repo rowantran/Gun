@@ -27,7 +27,7 @@ public class Slime extends Enemy {
     }
 
     Slime(float x, float y) {
-        super(x, y, 36, 36);
+        super(new EnemyInfo(), x, y);
         attackTimeElapsed = 0.0f;
         timeSinceAttack = 0.0f;
 
@@ -37,23 +37,6 @@ public class Slime extends Enemy {
         timeOfRandomMove = 0.0f;
 
         rotation = new SlimeAttackRotation();
-    }
-
-    @Override
-    Map<SpriteState, Map<Direction, Animation<TextureRegion>>> loadSprite() {
-        return Assets.slimeAnimations;
-    }
-
-    @Override
-    Enemy create(float x, float y) {
-        return new Slime(x, y);
-    }
-
-    @Override
-    public void createHitbox() {
-        Vector2 position = getPosition();
-        hitbox = new RectangularHitbox(position.x, position.y, HITBOX_SIZE, HITBOX_SIZE);
-        centerHitbox();
     }
 
     public void update(float delta) {

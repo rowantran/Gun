@@ -40,8 +40,8 @@ public class Spawner implements Updatable {
 
         bossHealth = 30;
 
-        slimeFactory = new EnemyFactory(new Slime(0, 0));
-        strongSlimeFactory = new EnemyFactory(new StrongSlime(0, 0));
+        //slimeFactory = new EnemyFactory(new Slime(0, 0));
+        //strongSlimeFactory = new EnemyFactory(new StrongSlime(0, 0));
     }
 
     private float generateRandomSpawnTime() {

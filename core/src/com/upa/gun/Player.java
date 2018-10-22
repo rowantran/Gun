@@ -56,15 +56,6 @@ public class Player extends Entity {
     /**
      * Create player's hitbox (called by Entity constructor.)
      */
-    @Override
-    public void createHitbox() {
-        Vector2 position = getPosition();
-        hitbox = new RectangularHitbox(position.x, position.y, HITBOX_SIZE, HITBOX_SIZE);
-        centerHitbox();
-        System.out.println("Size: " + getSize());
-        System.out.println("Hitbox size: " + hitbox.getWidth() + ", " + hitbox.getHeight());
-        System.out.println("Offset: " + getHitboxOffset());
-    }
 
     /**
      * @return Player's current health

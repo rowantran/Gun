@@ -28,6 +28,5 @@ public class SpawnIndicator implements Updatable {
     }
 
     void createSpawn() {
-        factory.spawn(x, y);
     }
 }

@@ -2,35 +2,36 @@ package com.upa.gun.enemy;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Json;
-import com.upa.gun.World;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class EnemyFactory {
-    private Enemy prototype;
-    private Map<String, EnemyInfo> enemies;
+    Map<Integer, EnemyInfo> enemies;
 
-    static class EnemyInfoList {
-        public ArrayList<EnemyInfo> list;
+    public static class EnemiesWrapper {
+        public ArrayList<EnemyInfo> enemies;
+
+        public EnemiesWrapper() {
+            enemies = new ArrayList<EnemyInfo>();
+        }
     }
 
-    EnemyFactory(Enemy prototype) {
-        this.prototype = prototype;
-        enemies = new HashMap<String, EnemyInfo>();
+    public EnemyFactory(String path) {
+        enemies = new HashMap<Integer, EnemyInfo>();
 
         Json json = new Json();
-        EnemyInfoList enemiesJson = json.fromJson(EnemyInfoList.class, Gdx.files.internal("enemies.json"));
+        EnemiesWrapper enemiesWrapper = json.fromJson(EnemiesWrapper.class, Gdx.files.internal(path));
 
-        for (EnemyInfo info : enemiesJson.list) {
-            enemies.put(Integer.toString(info.id), info);
+        for (EnemyInfo info : enemiesWrapper.enemies) {
+            enemies.put(info.id, info);
         }
 
         System.out.println("Done loading enemies");
     }
 
-    void spawn(float x, float y) {
-        World.enemies.add(prototype.create(x, y));
+    Enemy spawnEnemy(int id, int x, int y) {
+        return new Enemy(enemies.get(id), x, y);
     }
 }

@@ -19,7 +19,6 @@ public abstract class Bullet extends Entity {
         markedForDeletion = false;
     }
 
-    @Override
     public void createHitbox() {
         Vector2 position = getPosition();
         hitbox = new RectangularHitbox(position.x, position.y, HITBOX_SIZE, HITBOX_SIZE);

@@ -21,14 +21,4 @@ class StrongSlime extends Slime {
         speedMultiplier = 0.75f;
         rotation = new StrongSlimeAttackRotation();
     }
-
-    @Override
-    Map<SpriteState, Map<Direction, Animation<TextureRegion>>> loadSprite() {
-        return Assets.strongSlimeAnimations;
-    }
-
-    @Override
-    Enemy create(float x, float y) {
-        return new StrongSlime(x, y);
-    }
 }
