@@ -18,8 +18,12 @@ public abstract class Enemy extends Entity {
     private Map<SpriteState, Map<Direction, Animation<TextureRegion>>> sprite;
     public SpriteState state;
 
-    Enemy(float x, float y, float width, float height) {
-        super(x, y, width, height, 0, 0);
+    private EnemyInfo info;
+
+    Enemy(EnemyInfo info, float x, float y) {
+        super(x, y, info.width, info.height, 0, 0);
+        this.info = info;
+
         timeElapsed = 20.0f;
         dying = false;
         markedForDeletion = false;
