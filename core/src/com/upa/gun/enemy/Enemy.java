@@ -22,7 +22,12 @@ public class Enemy extends Entity {
         super(x, y, info.width, info.height, 0, 0);
         this.info = info;
 
-        createHitbox(info.hitboxType, info.hitboxWidth, info.hitboxHeight);
+        try {
+            createHitbox(info.hitboxType, info.hitboxWidth, info.hitboxHeight);
+        } catch (UnrecognizedHitboxTypeException e) {
+            e.printStackTrace();
+        }
+
         timeElapsed = 20.0f;
         dying = false;
         markedForDeletion = false;
@@ -31,9 +36,11 @@ public class Enemy extends Entity {
         opacity = 1f;
     }
 
-    private void createHitbox(String hitboxType, int width, int height) {
+    private void createHitbox(String hitboxType, int width, int height) throws UnrecognizedHitboxTypeException {
         if (hitboxType.equals("rectangular")) {
             hitbox = new RectangularHitbox(getPosition().x, getPosition().y, width, height);
+        } else {
+            throw new UnrecognizedHitboxTypeException();
         }
 
         centerHitbox();
