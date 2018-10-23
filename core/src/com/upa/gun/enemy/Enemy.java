@@ -40,7 +40,7 @@ public class Enemy extends Entity {
         if (hitboxType.equals("rectangular")) {
             hitbox = new RectangularHitbox(getPosition().x, getPosition().y, width, height);
         } else {
-            throw new UnrecognizedHitboxTypeException();
+            throw new UnrecognizedHitboxTypeException(hitboxType);
         }
 
         centerHitbox();
