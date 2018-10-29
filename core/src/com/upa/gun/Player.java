@@ -9,6 +9,8 @@ public class Player extends Entity {
 
     static final float IFRAME_AFTER_HIT_LENGTH = 0.2f;
 
+    Hitbox hitbox;
+
     Vector2 spawnPoint;
 
     double bulletCooldown;
@@ -51,11 +53,14 @@ public class Player extends Entity {
         shot = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
 
         inputHandler = new InputHandler();
+
+        hitbox = new RectangularHitbox(x, y, HITBOX_SIZE, HITBOX_SIZE);
     }
 
-    /**
-     * Create player's hitbox (called by Entity constructor.)
-     */
+    @Override
+    public Hitbox getHitbox() {
+        return hitbox;
+    }
 
     /**
      * @return Player's current health

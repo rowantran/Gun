@@ -31,7 +31,7 @@ public class EnemyFactory {
         System.out.println("Done loading enemies");
     }
 
-    Enemy spawnEnemy(int id, int x, int y) {
+    Enemy createEnemy(int id, int x, int y) {
         return new Enemy(enemies.get(id), x, y);
     }
 }

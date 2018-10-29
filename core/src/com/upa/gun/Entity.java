@@ -8,7 +8,6 @@ public abstract class Entity implements Updatable {
     private Vector2 velocity;
     private float rotation;
 
-    public Hitbox hitbox;
     private Vector2 hitboxOffset; // Represents where the hitbox should be placed relative to the entity's position
 
     public float attackTimeElapsed;
@@ -28,7 +27,13 @@ public abstract class Entity implements Updatable {
         this(new Vector2(x, y), new Vector2(width, height), new Vector2(hitboxOffsetX, hitboxOffsetY));
     }
 
+    /**
+     * @return The hitbox of this entity.
+     */
+    public abstract Hitbox getHitbox();
+
     protected void centerHitbox() {
+        Hitbox hitbox = getHitbox();
         setHitboxOffset((getSize().x - hitbox.getWidth()) / 2, (getSize().y - hitbox.getHeight()) / 2);
     }
 
@@ -38,6 +43,7 @@ public abstract class Entity implements Updatable {
         position.y += velocity.y * delta;
 
         // Update hitbox to match new position
+        Hitbox hitbox = getHitbox();
         hitbox.setX(position.x + hitboxOffset.x);
         hitbox.setY(position.y + hitboxOffset.y);
     }

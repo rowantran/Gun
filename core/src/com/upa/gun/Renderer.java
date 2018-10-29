@@ -205,7 +205,7 @@ class Renderer {
     private void drawHitbox(Entity e) {
         sr.setProjectionMatrix(camera.combined);
         sr.begin(ShapeRenderer.ShapeType.Line);
-        sr.rect(e.hitbox.getX(), e.hitbox.getY(), e.hitbox.getWidth(), e.hitbox.getHeight());
+        sr.rect(e.getHitbox().getX(), e.getHitbox().getY(), e.getHitbox().getWidth(), e.getHitbox().getHeight());
         sr.end();
     }
 

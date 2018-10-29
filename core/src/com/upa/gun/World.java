@@ -2,6 +2,7 @@ package com.upa.gun;
 
 import com.upa.gun.cutscene.ScriptedEventSequence;
 import com.upa.gun.enemy.Enemy;
+import com.upa.gun.enemy.EnemyFactory;
 import com.upa.gun.enemy.SpawnIndicator;
 import com.upa.gun.enemy.Spawner;
 
@@ -32,6 +33,8 @@ public class World implements Updatable {
 
     boolean cinematicHappening;
 
+    EnemyFactory enemyFactory;
+
     private World() {
         enemies = new ArrayList<Enemy>();
         bosses = new ArrayList<Enemy>();
@@ -49,6 +52,8 @@ public class World implements Updatable {
         spawner = new Spawner(this);
 
         collisionChecker = new CollisionChecker();
+
+        enemyFactory = new EnemyFactory("enemies.json");
     }
 
     private void createCrates() {

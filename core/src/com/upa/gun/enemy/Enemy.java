@@ -15,12 +15,10 @@ public class Enemy extends Entity {
     public float opacity;
     private Map<SpriteState, Map<Direction, Animation<TextureRegion>>> sprite;
     public SpriteState state;
-
-    private EnemyInfo info;
+    private Hitbox hitbox;
 
     Enemy(EnemyInfo info, float x, float y) {
         super(x, y, info.width, info.height, 0, 0);
-        this.info = info;
 
         try {
             createHitbox(info.hitboxType, info.hitboxWidth, info.hitboxHeight);
@@ -34,6 +32,11 @@ public class Enemy extends Entity {
         sprite = loadSprite(info.sprite);
         state = SpriteState.IDLE;
         opacity = 1f;
+    }
+
+    @Override
+    public Hitbox getHitbox() {
+        return hitbox;
     }
 
     private void createHitbox(String hitboxType, int width, int height) throws UnrecognizedHitboxTypeException {

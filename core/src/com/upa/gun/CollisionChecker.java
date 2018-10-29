@@ -14,7 +14,7 @@ public class CollisionChecker implements Updatable {
     private void checkEnemiesHit() {
         for (Bullet b : World.playerBullets) {
             for (Enemy e: World.enemies) {
-                if (b.hitbox.colliding(e.hitbox)) {
+                if (b.hitbox.colliding(e.getHitbox())) {
                     e.dying = true;
                     b.markedForDeletion = true;
                     World.spawner.slimesKilled++;
