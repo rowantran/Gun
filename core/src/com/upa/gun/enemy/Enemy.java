@@ -17,6 +17,13 @@ public class Enemy extends Entity {
     public SpriteState state;
     private Hitbox hitbox;
 
+    class SlimeAttackRotation extends AttackRotation {
+        SlimeAttackRotation() {
+            attacks.add(new TrackingBurstAttack(0.75f, 0.15f, true));
+            attacks.add(new NoAttack(3.0f, true));
+        }
+    }
+
     Enemy(EnemyInfo info, float x, float y) {
         super(x, y, info.width, info.height, 0, 0);
 
@@ -32,6 +39,7 @@ public class Enemy extends Entity {
         sprite = loadSprite(info.sprite);
         state = SpriteState.IDLE;
         opacity = 1f;
+        rotation = new SlimeAttackRotation();
     }
 
     @Override

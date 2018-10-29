@@ -6,16 +6,20 @@ public class SpawnIndicator implements Updatable {
     public float x, y;
     float timeElapsed;
     float timeUntilSpawn;
-    EnemyFactory factory;
     public boolean markedForDeletion;
 
-    SpawnIndicator(float x, float y, float timeElapsed, float timeUntilSpawn, EnemyFactory factory) {
+    private EnemyFactory factory;
+    private int id;
+
+    SpawnIndicator(float x, float y, float timeElapsed, float timeUntilSpawn, EnemyFactory factory, int id) {
         this.x = x;
         this.y = y;
         this.timeElapsed = timeElapsed;
         this.timeUntilSpawn = timeUntilSpawn;
-        this.factory = factory;
         markedForDeletion = false;
+
+        this.factory = factory;
+        this.id = id;
     }
 
     @Override
@@ -27,6 +31,7 @@ public class SpawnIndicator implements Updatable {
         return timeElapsed >= timeUntilSpawn;
     }
 
-    void createSpawn() {
+    public Enemy createSpawn() {
+        return factory.createEnemy(id, (int) x, (int) y);
     }
 }

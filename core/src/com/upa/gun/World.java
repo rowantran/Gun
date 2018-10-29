@@ -33,7 +33,7 @@ public class World implements Updatable {
 
     boolean cinematicHappening;
 
-    EnemyFactory enemyFactory;
+    private EnemyFactory enemyFactory;
 
     private World() {
         enemies = new ArrayList<Enemy>();
@@ -106,7 +106,7 @@ public class World implements Updatable {
             for (SpawnIndicator spawn : indicators) {
                 spawn.update(delta);
                 if (spawn.shouldSpawn()) {
-                    spawner.createSpawn(spawn);
+                    enemies.add(spawn.createSpawn());
                     spawn.markedForDeletion = true;
                 }
             }
@@ -142,5 +142,9 @@ public class World implements Updatable {
                 iterator.remove();
             }
         }
+    }
+
+    public EnemyFactory getEnemyFactory() {
+        return enemyFactory;
     }
 }

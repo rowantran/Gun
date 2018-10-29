@@ -20,9 +20,6 @@ public class Spawner implements Updatable {
 
     int bossHealth;
 
-    EnemyFactory slimeFactory;
-    EnemyFactory strongSlimeFactory;
-
     public Spawner(World world) {
         this.world = world;
 
@@ -48,18 +45,14 @@ public class Spawner implements Updatable {
         return (float) Math.random() * maxSpawnTimeMax / Settings.PERCENT_SPAWN_CHANCE;
     }
 
-    public void createSpawn(SpawnIndicator spawn) {
-        spawn.createSpawn();
-    }
-
     private void spawnSlime() {
         float spawnX = (((float)Math.random() * 1051) + 113);
         float spawnY = (((float)Math.random() * 600) + 100);
         int slimeType = (int) (Math.random() * 4);
         if (slimeType == 0) {
-            world.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, strongSlimeFactory));
+            World.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, world.getEnemyFactory(), 1));
         } else {
-            world.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, slimeFactory));
+            World.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, world.getEnemyFactory(), 0));
         }
     }
 
