@@ -1,7 +1,7 @@
 package com.upa.gun.desktop;
 
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.upa.gun.GunGame;
 import com.upa.gun.Settings;
 public class DesktopLauncher {
@@ -10,14 +10,11 @@ public class DesktopLauncher {
 			Settings.PERCENT_SPAWN_CHANCE = Integer.parseInt(arg[0]);
 		}
 
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = "There is no Gun";
-		config.width = (int) Settings.RESOLUTION.x;
-		config.height = (int) Settings.RESOLUTION.y;
-		config.vSyncEnabled = false;
-		config.foregroundFPS = 144;
-		config.backgroundFPS = 144;
+		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+		config.setTitle("There is no Gun");
+		config.setWindowedMode((int) Settings.RESOLUTION.x, (int) Settings.RESOLUTION.y);
+		config.setIdleFPS(144);
 
-		new LwjglApplication(new GunGame(), config);
+		new Lwjgl3Application(new GunGame(), config);
 	}
 }
