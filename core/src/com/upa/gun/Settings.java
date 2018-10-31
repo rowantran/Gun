@@ -1,9 +1,11 @@
 package com.upa.gun;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 
 public class Settings {
+    public static final int LOG_LEVEL = Application.LOG_DEBUG;
 
     public static final boolean DEV_MODE = true;
     public static final boolean SLOW_BULLETS = false;

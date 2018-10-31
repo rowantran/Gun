@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 import java.util.List;
 
-abstract class AttackRotation {
+class AttackRotation {
     private float timeElapsed;
     private float timeElapsedSinceAttack;
     private boolean attacking;

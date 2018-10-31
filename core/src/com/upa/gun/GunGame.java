@@ -13,6 +13,8 @@ public class GunGame extends Game {
 
 	@Override
 	public void create() {
+		Gdx.app.setLogLevel(Settings.LOG_LEVEL);
+
 	    Assets.load();
 
         batch = new SpriteBatch();
