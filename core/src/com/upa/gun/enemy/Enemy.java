@@ -39,7 +39,7 @@ public class Enemy extends Entity {
         sprite = loadSprite(info.sprite);
         state = SpriteState.IDLE;
         opacity = 1f;
-        rotation = new SlimeAttackRotation();
+        rotation = info.rotation.copy();
     }
 
     @Override
@@ -69,6 +69,10 @@ public class Enemy extends Entity {
         super.update(delta);
         timeElapsed += delta;
         rotation.cycle(delta);
+
+        if (rotation.isAttacking()) {
+            rotation.attack(this.getPosition());
+        }
     }
 
     public void setDying(boolean dying) {

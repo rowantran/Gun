@@ -1,6 +1,8 @@
 package com.upa.gun.enemy;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.upa.gun.World;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +43,7 @@ class AttackRotation {
     }
 
     void attack(Vector2 position) {
+        Gdx.app.debug("AttackRotation", "Casting attack");
         currentAttack().attack(position);
         attacking = false;
         timeElapsedSinceAttack = 0f;
@@ -48,5 +51,15 @@ class AttackRotation {
 
     boolean isAttacking() {
         return attacking;
+    }
+
+    /**
+     * @return A copy of this rotation for a new enemy
+     */
+    AttackRotation copy() {
+        AttackRotation cpy = new AttackRotation();
+        cpy.attacks.addAll(attacks);
+
+        return cpy;
     }
 }
