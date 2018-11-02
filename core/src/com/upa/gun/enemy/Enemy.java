@@ -68,11 +68,7 @@ public class Enemy extends Entity {
     public void update(float delta) {
         super.update(delta);
         timeElapsed += delta;
-        rotation.cycle(delta);
-
-        if (rotation.isAttacking()) {
-            rotation.attack(this.getPosition());
-        }
+        rotation.cycle(delta, getPosition());
     }
 
     public void setDying(boolean dying) {

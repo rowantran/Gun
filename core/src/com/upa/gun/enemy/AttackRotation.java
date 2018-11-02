@@ -2,7 +2,6 @@ package com.upa.gun.enemy;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.upa.gun.World;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +9,6 @@ import java.util.List;
 class AttackRotation {
     private float timeElapsed;
     private float timeElapsedSinceAttack;
-    private boolean attacking;
 
     List<Attack> attacks;
     private int currentAttack;
@@ -18,15 +16,14 @@ class AttackRotation {
     AttackRotation() {
         attacks = new ArrayList<Attack>();
         currentAttack = 0;
-        attacking = false;
     }
 
-    void cycle(float delta) {
+    void cycle(float delta, Vector2 position) {
         timeElapsed += delta;
         timeElapsedSinceAttack += delta;
 
         if (timeElapsedSinceAttack >= attacks.get(currentAttack).interval()) {
-            attacking = true;
+            attack(position);
         }
 
         if (timeElapsed >= attacks.get(currentAttack).length()) {
@@ -45,12 +42,7 @@ class AttackRotation {
     void attack(Vector2 position) {
         Gdx.app.debug("AttackRotation", "Casting attack");
         currentAttack().attack(position);
-        attacking = false;
         timeElapsedSinceAttack = 0f;
-    }
-
-    boolean isAttacking() {
-        return attacking;
     }
 
     /**

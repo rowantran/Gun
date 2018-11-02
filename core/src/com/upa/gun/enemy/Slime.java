@@ -50,17 +50,6 @@ public class Slime extends Enemy {
                 opacity = 0.0f;
                 markedForDeletion = true;
             }
-        } else {
-            if (rotation.isAttacking()) {
-                rotation.attack(getPosition());
-                fireSound();
-            } else {
-                if (rotation.currentAttack().isMobile()) {
-                    move(delta);
-                } else {
-                    setVelocity(0f, 0f);
-                }
-            }
         }
     }
 
