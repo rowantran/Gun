@@ -68,7 +68,9 @@ public class Assets {
     static void load() {
         assets = new AssetManager();
 
-        spriteAtlas = new TextureAtlas(Gdx.files.internal("sprites/sprites.atlas"));
+        assets.load("sprites/sprites.atlas", TextureAtlas.class);
+
+        TextureAtlas spriteAtlas = assets.get("sprites/sprites.atlas", TextureAtlas.class);
 
         loadHealthBar();
 

@@ -1,11 +1,7 @@
 package com.upa.gun.enemy;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.*;
-
-import java.util.Map;
 
 public class Slime extends Enemy {
     private float timeSinceRandomMove; //time since last random move has been done

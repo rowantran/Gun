@@ -1,14 +1,19 @@
 package com.upa.gun.enemy;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.upa.gun.Direction;
+import com.upa.gun.SpriteState;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class EnemyFactory {
     Map<Integer, EnemyInfo> enemies;
+    Map<Integer, Map<Direction, Map<SpriteState, Animation<TextureRegion>>>> animations;
 
     public EnemyFactory(String path) {
         enemies = new HashMap<Integer, EnemyInfo>();
