@@ -1,10 +1,6 @@
 package com.upa.gun.enemy;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.upa.gun.*;
-
-import java.util.Map;
 
 public class Enemy extends Entity {
     public float timeElapsed;
@@ -13,7 +9,7 @@ public class Enemy extends Entity {
     public boolean markedForDeletion;
     AttackRotation rotation;
     public float opacity;
-    private Map<SpriteState, Map<Direction, Animation<TextureRegion>>> sprite;
+    public String sprite;
     public SpriteState state;
     private Hitbox hitbox;
 
@@ -36,7 +32,7 @@ public class Enemy extends Entity {
         timeElapsed = 20.0f;
         dying = false;
         markedForDeletion = false;
-        sprite = loadSprite(info.sprite);
+        sprite = info.sprite;
         state = SpriteState.IDLE;
         opacity = 1f;
         rotation = info.rotation.copy();
@@ -57,10 +53,6 @@ public class Enemy extends Entity {
         centerHitbox();
     }
 
-    public Map<SpriteState, Map<Direction, Animation<TextureRegion>>> sprite() {
-        return sprite;
-    }
-
     public SpriteState getState() {
         return state;
     }
@@ -73,9 +65,5 @@ public class Enemy extends Entity {
 
     public void setDying(boolean dying) {
         this.dying = dying;
-    }
-
-    private Map<SpriteState, Map<Direction, Animation<TextureRegion>>> loadSprite(String sprite) {
-        return Assets.playerAnimations;
     }
 }

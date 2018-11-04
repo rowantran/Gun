@@ -8,16 +8,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Json;
-import com.upa.gun.enemy.EnemyInfo;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Assets {
     @SuppressWarnings("LibGDXStaticResource")
-    private static AssetManager assets;
+    private static AssetManager assetManager;
 
     public static Texture backgroundRoom1;
     public static Texture crate;
@@ -61,16 +58,19 @@ public class Assets {
     public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> strongSlimeAnimations;
     public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> bossSlimeAnimations;
 
+    private static Map<AnimationKey, Animation<TextureRegion>> animations;
+
     private static Texture loadTexture(String filepath) {
         return new Texture(Gdx.files.internal(filepath));
     }
 
     static void load() {
-        assets = new AssetManager();
+        assetManager = new AssetManager();
+        animations = new HashMap<AnimationKey, Animation<TextureRegion>>();
 
-        assets.load("sprites/sprites.atlas", TextureAtlas.class);
-
-        TextureAtlas spriteAtlas = assets.get("sprites/sprites.atlas", TextureAtlas.class);
+        assetManager.load("sprites/enemies.atlas", TextureAtlas.class);
+        assetManager.finishLoading();
+        spriteAtlas = new TextureAtlas(Gdx.files.internal("sprites/sprites.atlas"));
 
         loadHealthBar();
 
@@ -134,6 +134,18 @@ public class Assets {
 
         bulletSound = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
         bossDieSound = Gdx.audio.newSound(Gdx.files.internal("sfx/bossdie.wav"));
+    }
+
+    public static Animation<TextureRegion> getAnimation(AnimationKey key) {
+        if (animations.containsKey(key)) {
+            return animations.get(key);
+        } else {
+            TextureAtlas atlas = assetManager.get(key.getAtlas(), TextureAtlas.class);
+            Array<TextureAtlas.AtlasRegion> frames = atlas.findRegions(key.getAnimationName());
+            Animation<TextureRegion> animation = new Animation<TextureRegion>(0.25f, frames, Animation.PlayMode.LOOP);
+            animations.put(key, animation);
+            return animation;
+        }
     }
 
     static Vector2 getTextureSize(Map<SpriteState, Map<Direction, Animation<TextureRegion>>> map) {

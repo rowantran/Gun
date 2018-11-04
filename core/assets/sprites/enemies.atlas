@@ -1,0 +1,131 @@
+enemies.png
+size: 35, 799
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bossSlime-hurt
+  rotate: false
+  xy: 0, 0
+  size: 35, 37
+  orig: 35, 37
+  offset: 0, 0
+  index: -1
+bossSlime
+  rotate: false
+  xy: 0, 37
+  size: 34, 34
+  orig: 34, 34
+  offset: 0, 0
+  index: 0
+bossSlime
+  rotate: false
+  xy: 0, 71
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: 1
+bossSlimeAttack
+  rotate: false
+  xy: 0, 104
+  size: 35, 25
+  orig: 35, 25
+  offset: 0, 0
+  index: 0
+bossSlimeAttack
+  rotate: false
+  xy: 0, 129
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: 1
+bossSlimeAttack
+  rotate: false
+  xy: 0, 162
+  size: 34, 37
+  orig: 34, 37
+  offset: 0, 0
+  index: 2
+slime-death
+  rotate: false
+  xy: 0, 199
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: -1
+slime
+  rotate: false
+  xy: 0, 249
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: 0
+slime
+  rotate: false
+  xy: 0, 299
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: 1
+slimeAttack
+  rotate: false
+  xy: 0, 349
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: 0
+slimeAttack
+  rotate: false
+  xy: 0, 399
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: 1
+slimeAttack
+  rotate: false
+  xy: 0, 449
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: 2
+strongSlime-death
+  rotate: false
+  xy: 0, 499
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: -1
+strongSlime
+  rotate: false
+  xy: 0, 549
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: 0
+strongSlime
+  rotate: false
+  xy: 0, 599
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: 1
+strongSlimeAttack
+  rotate: false
+  xy: 0, 649
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: 0
+strongSlimeAttack
+  rotate: false
+  xy: 0, 699
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: 1
+strongSlimeAttack
+  rotate: false
+  xy: 0, 749
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: 2

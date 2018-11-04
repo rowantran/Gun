@@ -22,7 +22,7 @@
       "hitboxHeight": 10,
       "width": 36,
       "height": 36,
-      "sprite": "strongslime",
+      "sprite": "strongSlime",
       "rotation": [
         "trackingBurst 0.75 0.075 true",
         "none 3.0 3.0 true"

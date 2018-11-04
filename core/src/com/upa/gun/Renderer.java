@@ -113,7 +113,8 @@ class Renderer {
         batch.setColor(1.0f, 1.0f, 1.0f, e.opacity);
 
         SpriteState state = e.getState();
-        Animation<TextureRegion> animation = e.sprite().get(state).get(LEFT);
+        Animation<TextureRegion> animation = Assets.getAnimation(new AnimationKey("sprites/enemies.atlas",
+                e.sprite));
 
         TextureRegion frame;
         if (e.state == SpriteState.ATTACKING) {
