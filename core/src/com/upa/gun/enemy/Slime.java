@@ -60,6 +60,7 @@ public class Slime extends Enemy {
         }
     }
 
+    /*
     //default move toward player; horizontal or diagonal depending on position
     private void defaultMove(float delta) {
         Vector2 playerPos = World.player.getPosition();
@@ -104,7 +105,7 @@ public class Slime extends Enemy {
         if(slimeY >= 674f && getVelocity().y > 0) {
             setVelocity(getVelocity().x, 0);
         }
-    }
+    } */
 
 
     //check if the slime is on the edge of boundaries
@@ -146,6 +147,7 @@ public class Slime extends Enemy {
         movingRandom = false;
     }
 
+    /*
     public void move(float delta) {
         if(timeSinceRandomMove < timeUntilRandomMove) { //normal moving time
             defaultMove(delta);
@@ -165,7 +167,7 @@ public class Slime extends Enemy {
                 }
             }
         }
-    }
+    } */
 
     public void fireSound() {
         Assets.bulletSound.stop();

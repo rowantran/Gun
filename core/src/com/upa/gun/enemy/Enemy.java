@@ -1,6 +1,7 @@
 package com.upa.gun.enemy;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.*;
 
 public class Enemy extends Entity {
@@ -63,6 +64,12 @@ public class Enemy extends Entity {
         timeElapsed += delta;
         rotation.cycle(delta, getPosition());
 
+        if (rotation.currentAttack().isMobile()) {
+            move();
+        } else {
+            setVelocity(0, 0);
+        }
+
         if (dying) {
             opacity -= Settings.DEATH_FADE_SPEED * delta;
             if (opacity <= 0f) {
@@ -74,5 +81,50 @@ public class Enemy extends Entity {
     public void setDying(boolean dying) {
         this.dying = dying;
         Gdx.app.debug("Enemy", "Marked dying as " + dying);
+    }
+
+    private void move() {
+        Vector2 playerPos = World.player.getPosition();
+        float playerX = playerPos.x;
+        float playerY = playerPos.y;
+
+        float slimeX = getPosition().x;
+        float slimeY = getPosition().y;
+
+        float pythagMultiplier = 0.7071f;
+
+        if(slimeX < playerX) {
+            setVelocity(Settings.SLIME_SPEED, 0);
+        } else if(slimeX > playerX) {
+            setVelocity(-Settings.SLIME_SPEED, 0);
+        } else {
+            setVelocity(0, 0);
+        }
+        if(slimeY < playerY) {
+            setVelocity(getVelocity().x * pythagMultiplier,
+                    Settings.SLIME_SPEED * pythagMultiplier);
+        } else if(slimeY > playerY) {
+            setVelocity(getVelocity().x * pythagMultiplier,
+                    -Settings.SLIME_SPEED * pythagMultiplier);
+        } else {
+            setVelocity(getVelocity().x, 0);
+        }
+        if(getVelocity().x == 0 && getVelocity().y != 0) {
+            setVelocity(0, getVelocity().y / pythagMultiplier);
+        }
+
+
+        if(slimeX <= 113f && getVelocity().x < 0) {
+            setVelocity(0, getVelocity().y);
+        }
+        if(slimeX >= 1160f && getVelocity().x > 0) {
+            setVelocity(0, getVelocity().y);
+        }
+        if(slimeY <= 136f && getVelocity().y < 0) {
+            setVelocity(getVelocity().x, 0);
+        }
+        if(slimeY >= 674f && getVelocity().y > 0) {
+            setVelocity(getVelocity().x, 0);
+        }
     }
 }
