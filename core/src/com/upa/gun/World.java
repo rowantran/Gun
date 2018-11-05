@@ -1,5 +1,6 @@
 package com.upa.gun;
 
+import com.badlogic.gdx.Gdx;
 import com.upa.gun.cutscene.ScriptedEventSequence;
 import com.upa.gun.enemy.Enemy;
 import com.upa.gun.enemy.EnemyFactory;
@@ -133,6 +134,7 @@ public class World implements Updatable {
 
             if (enemy.markedForDeletion) {
                 iterator.remove();
+                Gdx.app.debug("World", "Removed enemy");
             }
         }
 

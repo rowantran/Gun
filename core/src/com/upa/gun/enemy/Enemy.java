@@ -1,5 +1,6 @@
 package com.upa.gun.enemy;
 
+import com.badlogic.gdx.Gdx;
 import com.upa.gun.*;
 
 public class Enemy extends Entity {
@@ -61,9 +62,17 @@ public class Enemy extends Entity {
         super.update(delta);
         timeElapsed += delta;
         rotation.cycle(delta, getPosition());
+
+        if (dying) {
+            opacity -= Settings.DEATH_FADE_SPEED * delta;
+            if (opacity <= 0f) {
+                markedForDeletion = true;
+            }
+        }
     }
 
     public void setDying(boolean dying) {
         this.dying = dying;
+        Gdx.app.debug("Enemy", "Marked dying as " + dying);
     }
 }

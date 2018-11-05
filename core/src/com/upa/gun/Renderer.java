@@ -3,15 +3,11 @@ package com.upa.gun;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.upa.gun.enemy.BossSlime;
 import com.upa.gun.enemy.Enemy;
 import com.upa.gun.enemy.SpawnIndicator;
-
-import static com.upa.gun.Direction.LEFT;
 
 class Renderer {
     private SpriteBatch batch;
@@ -132,29 +128,7 @@ class Renderer {
         }
     }
 
-    private void drawBossSlime(BossSlime bossSlime, float x, float y) {
-        batch.enableBlending();
-        batch.setColor(1.0f, 1.0f, 1.0f, bossSlime.opacity);
 
-        SpriteState state = bossSlime.getState();
-        Animation<TextureRegion> currentAnimation = Assets.bossSlimeAnimations.get(state).get(LEFT);
-        TextureRegion currentFrame;
-
-        if (state == SpriteState.ATTACKING) {
-            currentFrame = currentAnimation.getKeyFrame(bossSlime.attackTimeElapsed);
-        } else {
-            currentFrame = currentAnimation.getKeyFrame(bossSlime.timeElapsed);
-        }
-
-        float slimeX = x-(float)currentFrame.getRegionWidth()*4f;
-        float slimeY = y-(float)currentFrame.getRegionHeight()*4f;
-        float slimeWidth = (float)currentFrame.getRegionWidth()*8f;
-        float slimeHeight = (float)currentFrame.getRegionHeight()*8f;
-
-        drawShadow(slimeX, slimeY, slimeWidth);
-        currentFrame.getTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        batch.draw(currentFrame, slimeX, slimeY, slimeWidth, slimeHeight);
-    }
 
     private void drawBullet(Bullet bullet) {
         batch.begin();
@@ -261,4 +235,32 @@ class Renderer {
             sr.end();
         }
     }
+
+    /*
+    Unused code
+
+    private void drawBossSlime(BossSlime bossSlime, float x, float y) {
+        batch.enableBlending();
+        batch.setColor(1.0f, 1.0f, 1.0f, bossSlime.opacity);
+
+        SpriteState state = bossSlime.getState();
+        Animation<TextureRegion> currentAnimation = Assets.bossSlimeAnimations.get(state).get(LEFT);
+        TextureRegion currentFrame;
+
+        if (state == SpriteState.ATTACKING) {
+            currentFrame = currentAnimation.getKeyFrame(bossSlime.attackTimeElapsed);
+        } else {
+            currentFrame = currentAnimation.getKeyFrame(bossSlime.timeElapsed);
+        }
+
+        float slimeX = x-(float)currentFrame.getRegionWidth()*4f;
+        float slimeY = y-(float)currentFrame.getRegionHeight()*4f;
+        float slimeWidth = (float)currentFrame.getRegionWidth()*8f;
+        float slimeHeight = (float)currentFrame.getRegionHeight()*8f;
+
+        drawShadow(slimeX, slimeY, slimeWidth);
+        currentFrame.getTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        batch.draw(currentFrame, slimeX, slimeY, slimeWidth, slimeHeight);
+    }
+    */
 }

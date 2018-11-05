@@ -1,15 +1,15 @@
 package com.upa.gun.cutscene;
 
 import com.badlogic.gdx.math.Vector2;
-import com.upa.gun.enemy.BossSlime;
 import com.upa.gun.Settings;
 import com.upa.gun.World;
+import com.upa.gun.enemy.Enemy;
 
 public class BossSlimeFall implements ScriptedEvent {
     private static float FALL_SPEED = 1.4f;
     private static float TIME_AFTER_FALL = 0.8f;
 
-    private BossSlime slime;
+    private Enemy slime;
     private float velocity;
     private boolean finished;
 
@@ -17,7 +17,7 @@ public class BossSlimeFall implements ScriptedEvent {
 
     private KillEnemies killEnemies;
 
-    BossSlimeFall(BossSlime slime) {
+    BossSlimeFall(Enemy slime) {
         this.slime = slime;
         velocity = 0f;
         finished = false;

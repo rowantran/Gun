@@ -61,11 +61,10 @@ public class Spawner implements Updatable {
         float spawnX = ((Settings.RESOLUTION.x - (float)bossSlimeHurt.getRegionWidth()) / 2f);
         float spawnY = Settings.RESOLUTION.y;
 
-        BossSlimeFactory factory = new BossSlimeFactory();
-        BossSlime slime = factory.makeBossSlime(bossHealth, spawnX, spawnY);
-        World.bosses.add(slime);
+        Enemy boss = world.getEnemyFactory().createEnemy(2, spawnX, spawnY);
+        World.bosses.add(boss);
 
-        BossSlimeEntrance entrance = new BossSlimeEntrance(slime);
+        BossSlimeEntrance entrance = new BossSlimeEntrance(boss);
         entrance.start();
         World.sequences.add(entrance);
     }

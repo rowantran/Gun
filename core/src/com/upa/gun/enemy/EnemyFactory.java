@@ -62,7 +62,7 @@ public class EnemyFactory {
         Gdx.app.log("EnemyFactory", "Completed loading enemies");
     }
 
-    Enemy createEnemy(int id, int x, int y) {
+    Enemy createEnemy(int id, float x, float y) {
         return new Enemy(enemies.get(id), x, y);
     }
 }
