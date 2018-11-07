@@ -8,7 +8,10 @@
       "hitboxHeight": 10,
       "width": 36,
       "height": 36,
-      "sprite": "slime",
+      "sprites": {
+        "default": "slime",
+        "hurt": "slimeHurt"
+      },
       "rotation": [
         "trackingBurst 0.75 0.15 true",
         "none 3.0 3.0 true"
@@ -22,7 +25,10 @@
       "hitboxHeight": 10,
       "width": 36,
       "height": 36,
-      "sprite": "strongSlime",
+      "sprites": {
+        "default": "strongSlime",
+        "hurt": "strongSlimeHurt"
+      },
       "rotation": [
         "trackingBurst 0.75 0.075 true",
         "none 3.0 3.0 true"
@@ -36,7 +42,10 @@
       "hitboxHeight": 40,
       "width": 100,
       "height": 100,
-      "sprite": "bossSlime",
+      "sprites": {
+        "default": "bossSlime",
+        "hurt": "bossSlimeHurt"
+      },
       "rotation": [
         "circular 0.75 0.075 false",
         "none 2.0 2.0 true",
