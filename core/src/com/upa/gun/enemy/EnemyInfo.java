@@ -1,5 +1,7 @@
 package com.upa.gun.enemy;
 
+import java.util.Map;
+
 public class EnemyInfo {
     public int id;
     public int health;
@@ -11,12 +13,12 @@ public class EnemyInfo {
     public int width;
     public int height;
 
-    public String sprite;
+    public Map<String, String> sprites;
 
     public AttackRotation rotation;
 
     EnemyInfo(int id, int health, String hitboxType, int hitboxWidth, int hitboxHeight, int width, int height,
-              String sprite, AttackRotation rotation) {
+              Map<String, String> sprites, AttackRotation rotation) {
         this.id = id;
         this.health = health;
         this.hitboxType = hitboxType;
@@ -24,7 +26,7 @@ public class EnemyInfo {
         this.hitboxHeight = hitboxHeight;
         this.width = width;
         this.height = height;
-        this.sprite = sprite;
+        this.sprites = sprites;
         this.rotation = rotation;
     }
 }
