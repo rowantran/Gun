@@ -3,6 +3,8 @@ package com.upa.gun.enemy;
 import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.*;
 
+import java.util.HashMap;
+
 public class Slime extends Enemy {
     private float timeSinceRandomMove; //time since last random move has been done
     private float timeUntilRandomMove; //time between random moves, randomly generated
@@ -22,8 +24,10 @@ public class Slime extends Enemy {
         }
     }
 
+
     Slime(float x, float y) {
-        super(new EnemyInfo(1, 1, "a", 1, 1, 1, 1, "a",
+        super(new EnemyInfo(1, 1, "a", 1, 1, 1, 1,
+                new HashMap<String, String>(),
                 new AttackRotation()), x, y);
         attackTimeElapsed = 0.0f;
         timeSinceAttack = 0.0f;

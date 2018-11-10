@@ -34,7 +34,11 @@ public class EnemyFactory {
 
             JsonValue spritesVal = enemy.get("sprites");
             Map<String, String> sprites = new HashMap<String, String>();
-            for (JsonValue
+            for (JsonValue sprite : spritesVal) {
+                String spriteName = sprite.name;
+                String spriteVal = sprite.asString();
+                sprites.put(spriteName, spriteVal);
+            }
 
             JsonValue rotationVal = enemy.get("rotation");
             AttackRotation rotation = new AttackRotation();
@@ -57,7 +61,7 @@ public class EnemyFactory {
                 }
             }
 
-            EnemyInfo info = new EnemyInfo(id, health, hitboxType, hitboxWidth, hitboxHeight, width, height, sprite,
+            EnemyInfo info = new EnemyInfo(id, health, hitboxType, hitboxWidth, hitboxHeight, width, height, sprites,
                     rotation);
             enemies.put(id, info);
         }

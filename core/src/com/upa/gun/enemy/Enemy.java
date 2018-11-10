@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.*;
 
+import java.util.Map;
+
 public class Enemy extends Entity {
     public float timeElapsed;
     float timeSinceAttack;
@@ -11,7 +13,7 @@ public class Enemy extends Entity {
     public boolean markedForDeletion;
     AttackRotation rotation;
     public float opacity;
-    public String sprite;
+    public Map<String, String> sprites;
     public SpriteState state;
     private Hitbox hitbox;
 
@@ -34,7 +36,7 @@ public class Enemy extends Entity {
         timeElapsed = 20.0f;
         dying = false;
         markedForDeletion = false;
-        sprite = info.sprite;
+        sprites = info.sprites;
         state = SpriteState.IDLE;
         opacity = 1f;
         rotation = info.rotation.copy();
