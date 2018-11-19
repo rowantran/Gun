@@ -29,7 +29,6 @@ public class Slime extends Enemy {
         super(new EnemyInfo(1, 1, "a", 1, 1, 1, 1,
                 new HashMap<String, String>(),
                 new AttackRotation()), x, y);
-        attackTimeElapsed = 0.0f;
         timeSinceAttack = 0.0f;
 
         timeSinceRandomMove = 0.0f;

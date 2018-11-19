@@ -10,8 +10,6 @@ public abstract class Entity implements Updatable {
 
     private Vector2 hitboxOffset; // Represents where the hitbox should be placed relative to the entity's position
 
-    public float attackTimeElapsed;
-
     Entity(Vector2 position, Vector2 size, Vector2 hitboxOffset) {
         this.position = position.cpy();
         this.size = size.cpy();
@@ -19,8 +17,6 @@ public abstract class Entity implements Updatable {
         rotation = 0f;
 
         this.hitboxOffset = hitboxOffset.cpy();
-
-        attackTimeElapsed = 0f;
     }
 
     public Entity(float x, float y, float width, float height, float hitboxOffsetX, float hitboxOffsetY) {
