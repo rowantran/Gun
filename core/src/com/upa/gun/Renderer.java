@@ -112,11 +112,11 @@ class Renderer {
                 e.sprites.get(e.sprite)));
 
         TextureRegion frame;
-        if (e.sprite.equals("attacking")) {
+        /*if (e.sprite.equals("attacking")) {
             frame = animation.getKeyFrame(e.attackTimeElapsed);
         } else {
-            frame = animation.getKeyFrame(e.timeElapsed);
-        }
+           */ frame = animation.getKeyFrame(e.timeElapsed);
+        //}
 
         drawShadow(e.getPosition().x, e.getPosition().y, 20);
         batch.draw(frame, e.getPosition().x, e.getPosition().y, e.getSize().x, e.getSize().y);

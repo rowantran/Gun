@@ -62,6 +62,7 @@ public class Enemy extends Entity {
     public void changeSprite(String spriteKey) {
         if (sprites.containsKey((spriteKey))) {
             sprite = spriteKey;
+            Gdx.app.debug("Enemy", "Changing sprite key to " + spriteKey);
         }
     }
 
