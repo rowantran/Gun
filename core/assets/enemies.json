@@ -10,7 +10,8 @@
       "height": 36,
       "sprites": {
         "default": "slime",
-        "hurt": "slimeHurt"
+        "hurt": "slimeHurt",
+        "attacking": "slimeAttack"
       },
       "rotation": [
         "trackingBurst 0.75 0.15 true",
@@ -27,7 +28,8 @@
       "height": 36,
       "sprites": {
         "default": "strongSlime",
-        "hurt": "strongSlimeHurt"
+        "hurt": "strongSlimeHurt",
+        "attacking": "strongSlimeAttack"
       },
       "rotation": [
         "trackingBurst 0.75 0.075 true",
@@ -44,7 +46,8 @@
       "height": 100,
       "sprites": {
         "default": "bossSlime",
-        "hurt": "bossSlimeHurt"
+        "hurt": "bossSlimeHurt",
+        "attacking": "bossSlimeAttack"
       },
       "rotation": [
         "circular 0.75 0.075 false",

@@ -108,12 +108,11 @@ class Renderer {
         batch.enableBlending();
         batch.setColor(1.0f, 1.0f, 1.0f, e.opacity);
 
-        SpriteState state = e.getState();
         Animation<TextureRegion> animation = Assets.getAnimation(new AnimationKey("sprites/enemies.atlas",
-                e.sprites.get("default")));
+                e.sprites.get(e.sprite)));
 
         TextureRegion frame;
-        if (e.state == SpriteState.ATTACKING) {
+        if (e.sprite.equals("attacking")) {
             frame = animation.getKeyFrame(e.attackTimeElapsed);
         } else {
             frame = animation.getKeyFrame(e.timeElapsed);

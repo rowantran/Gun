@@ -5,6 +5,8 @@ import com.upa.gun.Assets;
 import com.upa.gun.World;
 
 public class TrackingBurstAttack implements Attack {
+    private static final String SPRITE_KEY = "attacking";
+
     private float attackLength;
     private float attackInterval;
     private boolean mobile;
@@ -34,5 +36,10 @@ public class TrackingBurstAttack implements Attack {
     @Override
     public boolean isMobile() {
         return mobile;
+    }
+
+    @Override
+    public String getSprite() {
+        return SPRITE_KEY;
     }
 }

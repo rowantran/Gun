@@ -23,4 +23,9 @@ interface Attack {
      * @return Whether the enemy can continue to move while executing this attack.
      */
     boolean isMobile();
+
+    /**
+     * @return The sprite key corresponding to this attack.
+     */
+    String getSprite();
 }

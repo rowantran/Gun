@@ -4,6 +4,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.World;
 
 public class CircularAttack implements Attack {
+    private static final String SPRITE_KEY = "attacking";
+
     private float attackLength;
     private float attackInterval;
     private boolean mobile;
@@ -37,5 +39,10 @@ public class CircularAttack implements Attack {
     @Override
     public boolean isMobile() {
         return mobile;
+    }
+
+    @Override
+    public String getSprite() {
+        return SPRITE_KEY;
     }
 }

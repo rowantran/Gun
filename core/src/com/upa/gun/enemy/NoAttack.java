@@ -3,6 +3,8 @@ package com.upa.gun.enemy;
 import com.badlogic.gdx.math.Vector2;
 
 public class NoAttack implements Attack {
+    private static final String SPRITE_KEY = "default";
+
     private float length;
     private boolean mobile;
 
@@ -27,5 +29,10 @@ public class NoAttack implements Attack {
     @Override
     public boolean isMobile() {
         return mobile;
+    }
+
+    @Override
+    public String getSprite() {
+        return SPRITE_KEY;
     }
 }

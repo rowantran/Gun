@@ -9,20 +9,18 @@ import java.util.Map;
 public class Enemy extends Entity {
     public float timeElapsed;
     float timeSinceAttack;
+
     public boolean dying;
     public boolean markedForDeletion;
-    AttackRotation rotation;
-    public float opacity;
-    public Map<String, String> sprites;
-    public SpriteState state;
-    private Hitbox hitbox;
 
-    class SlimeAttackRotation extends AttackRotation {
-        SlimeAttackRotation() {
-            attacks.add(new TrackingBurstAttack(0.75f, 0.15f, true));
-            attacks.add(new NoAttack(3.0f, true));
-        }
-    }
+    AttackRotation rotation;
+
+    public float opacity;
+
+    public Map<String, String> sprites;
+    public String sprite;
+
+    private Hitbox hitbox;
 
     Enemy(EnemyInfo info, float x, float y) {
         super(x, y, info.width, info.height, 0, 0);
@@ -37,7 +35,7 @@ public class Enemy extends Entity {
         dying = false;
         markedForDeletion = false;
         sprites = info.sprites;
-        state = SpriteState.IDLE;
+        sprite = "default";
         opacity = 1f;
         rotation = info.rotation.copy();
     }
@@ -57,14 +55,22 @@ public class Enemy extends Entity {
         centerHitbox();
     }
 
-    public SpriteState getState() {
-        return state;
+    /**
+     * Change this enemy's currently showing sprite.
+     * @param spriteKey Key of the sprite to change to
+     */
+    public void changeSprite(String spriteKey) {
+        if (sprites.containsKey((spriteKey))) {
+            sprite = spriteKey;
+        }
     }
 
     public void update(float delta) {
         super.update(delta);
         timeElapsed += delta;
         rotation.cycle(delta, getPosition());
+
+        changeSprite(rotation.currentAttack().getSprite());
 
         if (rotation.currentAttack().isMobile()) {
             move();
