@@ -110,7 +110,7 @@ class Renderer {
 
         SpriteState state = e.getState();
         Animation<TextureRegion> animation = Assets.getAnimation(new AnimationKey("sprites/enemies.atlas",
-                e.sprites.get(0)));
+                e.sprites.get("default")));
 
         TextureRegion frame;
         if (e.state == SpriteState.ATTACKING) {
