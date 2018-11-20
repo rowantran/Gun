@@ -112,11 +112,8 @@ class Renderer {
                 e.sprites.get(e.sprite)));
 
         TextureRegion frame;
-        /*if (e.sprite.equals("attacking")) {
-            frame = animation.getKeyFrame(e.attackTimeElapsed);
-        } else {
-           */ frame = animation.getKeyFrame(e.timeElapsed);
-        //}
+        frame = animation.getKeyFrame(e.timeElapsed);
+        Gdx.app.debug("Renderer", "Enemy has time elapsed of " + e.timeElapsed);
 
         drawShadow(e.getPosition().x, e.getPosition().y, 20);
         batch.draw(frame, e.getPosition().x, e.getPosition().y, e.getSize().x, e.getSize().y);

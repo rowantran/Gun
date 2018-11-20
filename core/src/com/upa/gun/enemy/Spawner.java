@@ -20,6 +20,8 @@ public class Spawner implements Updatable {
 
     int bossHealth;
 
+    boolean oneSlimeSpawned;
+
     public Spawner(World world) {
         this.world = world;
 
@@ -39,6 +41,8 @@ public class Spawner implements Updatable {
 
         //slimeFactory = new EnemyFactory(new Slime(0, 0));
         //strongSlimeFactory = new EnemyFactory(new StrongSlime(0, 0));
+
+        oneSlimeSpawned = false;
     }
 
     private float generateRandomSpawnTime() {
@@ -81,10 +85,12 @@ public class Spawner implements Updatable {
         }
 
         if (timeAccumulated >= maxSpawnTime && !bossAlive) {
-            spawnSlime();
+            if (!oneSlimeSpawned) {
+                spawnSlime();
+                oneSlimeSpawned = true;
+            }
             maxSpawnTime = generateRandomSpawnTime();
             timeAccumulated = 0;
         }
     }
-
 }

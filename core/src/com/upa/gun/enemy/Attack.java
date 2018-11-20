@@ -10,6 +10,12 @@ interface Attack {
     void attack(Vector2 position);
 
     /**
+     * Called when this attack begins.
+     * @param enemy The Enemy executing this attack.
+     */
+    void onBegin(Enemy enemy);
+
+    /**
      * @return The length (in seconds) of this attack.
      */
     float length();

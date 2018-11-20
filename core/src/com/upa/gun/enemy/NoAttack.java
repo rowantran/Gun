@@ -17,6 +17,11 @@ public class NoAttack implements Attack {
     public void attack(Vector2 position) {}
 
     @Override
+    public void onBegin(Enemy enemy) {
+        enemy.setTimeElapsed(0f);
+    }
+
+    @Override
     public float length() {
         return length;
     }

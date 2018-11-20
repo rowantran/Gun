@@ -8,6 +8,7 @@ import java.util.Map;
 
 public class Enemy extends Entity {
     public float timeElapsed;
+
     float timeSinceAttack;
 
     public boolean dying;
@@ -37,7 +38,9 @@ public class Enemy extends Entity {
         sprites = info.sprites;
         sprite = "default";
         opacity = 1f;
+
         rotation = info.rotation.copy();
+        rotation.setEnemy(this);
     }
 
     @Override
@@ -62,7 +65,6 @@ public class Enemy extends Entity {
     public void changeSprite(String spriteKey) {
         if (sprites.containsKey((spriteKey))) {
             sprite = spriteKey;
-            Gdx.app.debug("Enemy", "Changing sprite key to " + spriteKey);
         }
     }
 
@@ -135,5 +137,9 @@ public class Enemy extends Entity {
         if(slimeY >= 674f && getVelocity().y > 0) {
             setVelocity(getVelocity().x, 0);
         }
+    }
+
+    public void setTimeElapsed(float timeElapsed) {
+        this.timeElapsed = timeElapsed;
     }
 }

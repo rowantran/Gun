@@ -24,6 +24,11 @@ public class TrackingBurstAttack implements Attack {
     }
 
     @Override
+    public void onBegin(Enemy enemy) {
+        enemy.setTimeElapsed(0f);
+    }
+
+    @Override
     public float length() {
         return attackLength;
     }

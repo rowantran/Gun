@@ -13,6 +13,8 @@ class AttackRotation {
     List<Attack> attacks;
     private int currentAttack;
 
+    private Enemy enemy;
+
     AttackRotation() {
         attacks = new ArrayList<Attack>();
         currentAttack = 0;
@@ -27,11 +29,10 @@ class AttackRotation {
         }
 
         if (timeElapsed >= attacks.get(currentAttack).length()) {
-            currentAttack++;
+            incrementAttack();
             timeElapsed = 0f;
-            if (currentAttack >= attacks.size()) {
-                currentAttack = 0;
-            }
+
+            attacks.get(currentAttack).onBegin(getEnemy());
         }
     }
 
@@ -46,6 +47,17 @@ class AttackRotation {
     }
 
     /**
+     * Cycle to the next attack in the rotation.
+     */
+    private void incrementAttack() {
+        currentAttack++;
+
+        if (currentAttack >= attacks.size()) {
+            currentAttack = 0;
+        }
+    }
+
+    /**
      * @return A copy of this rotation for a new enemy
      */
     AttackRotation copy() {
@@ -53,5 +65,13 @@ class AttackRotation {
         cpy.attacks.addAll(attacks);
 
         return cpy;
+    }
+
+    public Enemy getEnemy() {
+        return enemy;
+    }
+
+    public void setEnemy(Enemy enemy) {
+        this.enemy = enemy;
     }
 }
