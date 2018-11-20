@@ -55,6 +55,7 @@ public class Player extends Entity {
         inputHandler = new InputHandler();
 
         hitbox = new RectangularHitbox(x, y, HITBOX_SIZE, HITBOX_SIZE);
+        centerHitbox();
     }
 
     @Override
