@@ -3,6 +3,7 @@ package com.upa.gun;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -111,8 +112,8 @@ class Renderer {
         Animation<TextureRegion> animation = Assets.getAnimation(new AnimationKey("sprites/enemies.atlas",
                 e.sprites.get(e.sprite)));
 
-        TextureRegion frame;
-        frame = animation.getKeyFrame(e.timeElapsed);
+        TextureRegion frame = animation.getKeyFrame(e.timeElapsed);
+
         //Gdx.app.debug("Renderer", "Enemy has time elapsed of " + e.timeElapsed);
 
         drawShadow(e.getPosition().x, e.getPosition().y, 20);

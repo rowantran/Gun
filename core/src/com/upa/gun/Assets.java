@@ -136,16 +136,32 @@ public class Assets {
         bossDieSound = Gdx.audio.newSound(Gdx.files.internal("sfx/bossdie.wav"));
     }
 
-    public static Animation<TextureRegion> getAnimation(AnimationKey key) {
-        if (animations.containsKey(key)) {
-            return animations.get(key);
-        } else {
-            TextureAtlas atlas = assetManager.get(key.getAtlas(), TextureAtlas.class);
-            Array<TextureAtlas.AtlasRegion> frames = atlas.findRegions(key.getAnimationName());
-            Animation<TextureRegion> animation = new Animation<TextureRegion>(0.25f, frames, Animation.PlayMode.LOOP);
-            animations.put(key, animation);
-            return animation;
+    /**
+     * Load or return the given animation.
+     * @param key The key identifying the animation.
+     * @return The animation corresponding to the key.
+     */
+    static Animation<TextureRegion> getAnimation(AnimationKey key) {
+        if (!animations.containsKey(key)) {
+            loadAnimation(key);
         }
+
+        return animations.get(key);
+    }
+
+    /**
+     * Load the given animation.
+     * @param key The key identifying the animation.
+     */
+    private static void loadAnimation(AnimationKey key) {
+        TextureAtlas atlas = assetManager.get(key.getAtlas(), TextureAtlas.class);
+        Array<TextureAtlas.AtlasRegion> frames = atlas.findRegions(key.getAnimationName());
+
+        for (TextureAtlas.AtlasRegion frame : frames) {
+            frame.getTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        }
+        Animation<TextureRegion> animation = new Animation<TextureRegion>(0.25f, frames, Animation.PlayMode.LOOP);
+        animations.put(key, animation);
     }
 
     static Vector2 getTextureSize(Map<SpriteState, Map<Direction, Animation<TextureRegion>>> map) {
