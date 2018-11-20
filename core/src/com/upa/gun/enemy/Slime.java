@@ -1,7 +1,8 @@
 package com.upa.gun.enemy;
 
-import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.*;
+import com.upa.gun.enemy.attacks.NoAttack;
+import com.upa.gun.enemy.attacks.TrackingBurstAttack;
 
 import java.util.HashMap;
 

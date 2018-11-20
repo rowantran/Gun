@@ -1,8 +1,9 @@
-package com.upa.gun.enemy;
+package com.upa.gun.enemy.attacks;
 
 import com.badlogic.gdx.math.Vector2;
+import com.upa.gun.enemy.Enemy;
 
-interface Attack {
+public interface Attack {
     /**
      * Execute one cycle of this attack.
      * @param position The current position of the enemy executing this attack.

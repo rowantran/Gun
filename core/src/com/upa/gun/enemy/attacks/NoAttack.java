@@ -1,6 +1,7 @@
-package com.upa.gun.enemy;
+package com.upa.gun.enemy.attacks;
 
 import com.badlogic.gdx.math.Vector2;
+import com.upa.gun.enemy.Enemy;
 
 public class NoAttack implements Attack {
     private static final String SPRITE_KEY = "default";
@@ -8,7 +9,7 @@ public class NoAttack implements Attack {
     private float length;
     private boolean mobile;
 
-    NoAttack(float length, boolean mobile) {
+    public NoAttack(float length, boolean mobile) {
         this.length = length;
         this.mobile = mobile;
     }

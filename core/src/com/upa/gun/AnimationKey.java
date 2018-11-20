@@ -8,16 +8,16 @@ public class AnimationKey {
     private String atlas;
     private String animationName;
 
-    public AnimationKey(String atlas, String animationName) {
+    AnimationKey(String atlas, String animationName) {
        this.atlas = atlas;
        this.animationName = animationName;
     }
 
-    public String getAtlas() {
+    String getAtlas() {
         return atlas;
     }
 
-    public String getAnimationName() {
+    String getAnimationName() {
         return animationName;
     }
 

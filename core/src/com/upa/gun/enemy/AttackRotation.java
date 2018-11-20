@@ -2,6 +2,7 @@ package com.upa.gun.enemy;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.upa.gun.enemy.attacks.Attack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,11 @@ class AttackRotation {
         currentAttack = 0;
     }
 
+    /**
+     * Update the attack rotation.
+     * @param delta Frame time.
+     * @param position The current position of the enemy using this rotation, used to cast each cycle.
+     */
     void cycle(float delta, Vector2 position) {
         timeElapsed += delta;
         timeElapsedSinceAttack += delta;
@@ -40,6 +46,10 @@ class AttackRotation {
         return attacks.get(currentAttack);
     }
 
+    /**
+     * Cast one cycle of the current attack.
+     * @param position The current position of the enemy casting this attack.
+     */
     void attack(Vector2 position) {
         Gdx.app.debug("AttackRotation", "Casting attack");
         currentAttack().attack(position);
@@ -58,7 +68,7 @@ class AttackRotation {
     }
 
     /**
-     * @return A copy of this rotation for a new enemy
+     * @return A copy of this rotation for a new enemy.
      */
     AttackRotation copy() {
         AttackRotation cpy = new AttackRotation();

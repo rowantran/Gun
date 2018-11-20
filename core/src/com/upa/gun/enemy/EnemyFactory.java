@@ -7,6 +7,9 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.upa.gun.Direction;
 import com.upa.gun.SpriteState;
+import com.upa.gun.enemy.attacks.CircularAttack;
+import com.upa.gun.enemy.attacks.NoAttack;
+import com.upa.gun.enemy.attacks.TrackingBurstAttack;
 
 import java.util.HashMap;
 import java.util.Map;
