@@ -1,6 +1,7 @@
 package com.upa.gun;
 
 import com.upa.gun.enemy.Enemy;
+import com.upa.gun.enemy.EnemyFadingState;
 
 public class CollisionChecker implements Updatable {
     private void checkPlayerHit() {
@@ -15,7 +16,7 @@ public class CollisionChecker implements Updatable {
         for (Bullet b : World.playerBullets) {
             for (Enemy e: World.enemies) {
                 if (b.hitbox.colliding(e.getHitbox())) {
-                    e.setState(Enemy.fading);
+                    e.setState(new EnemyFadingState(e));
                     b.markedForDeletion = true;
                     World.spawner.slimesKilled++;
                     World.spawner.slimesKilledSinceLastBoss++;

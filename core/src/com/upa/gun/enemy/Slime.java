@@ -43,13 +43,7 @@ public class Slime extends Enemy {
     public void update(float delta) {
         super.update(delta);
 
-        if (getState() == Enemy.fading) {
-            opacity -= Settings.DEATH_FADE_SPEED * delta;
-            if (opacity <= 0.0f) {
-                setState(Enemy.dying);
-                opacity = 0.0f;
-            }
-        }
+        getState().update(delta);
     }
 
     /*

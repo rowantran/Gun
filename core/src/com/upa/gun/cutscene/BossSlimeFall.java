@@ -29,16 +29,16 @@ public class BossSlimeFall implements ScriptedEvent {
     @Override
     public void update(float delta) {
         velocity -= FALL_SPEED * delta;
+        timeElapsed += delta;
 
         Vector2 currentPos = slime.getPosition();
         currentPos.y += velocity;
         slime.setPosition(currentPos);
 
-        if (slime.getPosition().y <= (Settings.RESOLUTION.x * 0.4f)) {
+        if (isFinished()) {
             killEnemies.update(delta);
 
             slime.setVelocity(0, 0);
-            timeElapsed += delta;
         }
     }
 

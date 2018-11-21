@@ -2,6 +2,7 @@ package com.upa.gun.cutscene;
 
 import com.upa.gun.enemy.Enemy;
 import com.upa.gun.World;
+import com.upa.gun.enemy.EnemyFadingState;
 
 public class KillEnemies implements ScriptedEvent {
     private boolean killed = false;
@@ -10,7 +11,7 @@ public class KillEnemies implements ScriptedEvent {
     @Override
     public void update(float delta) {
         for (Enemy enemy : World.enemies) {
-            enemy.setState(Enemy.fading);
+            enemy.setState(new EnemyFadingState(enemy));
         }
 
         killed = true;

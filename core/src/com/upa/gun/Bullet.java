@@ -10,7 +10,9 @@ public abstract class Bullet extends Entity {
 
     boolean markedForDeletion;
 
-    public Bullet(float x, float y, double angle, float width, float height) {
+    float speedMult;
+
+    public Bullet(float x, float y, double angle, float width, float height, float speedMult) {
         super(x, y, width, height, 0, 0);
         this.angle = angle;
 
@@ -18,6 +20,8 @@ public abstract class Bullet extends Entity {
         createHitbox();
 
         markedForDeletion = false;
+
+        this.speedMult = speedMult;
     }
 
     private void createHitbox() {
@@ -38,12 +42,8 @@ public abstract class Bullet extends Entity {
             markedForDeletion = true;
         }
 
-    	float vx = (float) Math.cos(angle) * Settings.BULLET_SPEED;
-    	float vy = (float) Math.sin(angle) * Settings.BULLET_SPEED;
-        if (Settings.SLOW_BULLETS) {
-            vx *= 0.1f;
-            vy *= 0.1f;
-        }
+    	float vx = (float) Math.cos(angle) * Settings.BULLET_SPEED * speedMult;
+    	float vy = (float) Math.sin(angle) * Settings.BULLET_SPEED * speedMult;
 
         setVelocity(vx, vy);
     }

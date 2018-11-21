@@ -10,6 +10,7 @@ import com.upa.gun.enemy.Spawner;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 public class World implements Updatable {
     private static World world = new World();
@@ -127,13 +128,10 @@ public class World implements Updatable {
             }
         }
 
-        for (Iterator<Enemy> iterator = enemies.iterator(); iterator.hasNext();) {
-            Enemy enemy = iterator.next();
-
-            if (enemy.getState() == Enemy.dying) {
-                iterator.remove();
-                Gdx.app.debug("World", "Removed enemy");
-            }
+        ListIterator<Enemy> enemyIterator = enemies.listIterator();
+        while (enemyIterator.hasNext()) {
+            Enemy enemy = enemyIterator.next();
+            enemy.getState().iterationUpdate(enemyIterator);
         }
 
         for (Iterator<SpawnIndicator> iterator = indicators.iterator(); iterator.hasNext();) {

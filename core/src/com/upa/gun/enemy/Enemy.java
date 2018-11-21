@@ -11,9 +11,6 @@ public class Enemy extends Entity {
 
     float timeSinceAttack;
 
-    private static EnemyState active;
-    public static EnemyState fading;
-    public static EnemyState dying;
     private EnemyState state;
 
     AttackRotation rotation;
@@ -36,10 +33,7 @@ public class Enemy extends Entity {
 
         timeElapsed = 20.0f;
 
-        active = new EnemyActiveState();
-        fading = new EnemyFadingState();
-        dying = new EnemyDyingState();
-        state = Enemy.active;
+        state = new EnemyActiveState();
 
         sprites = info.sprites;
         sprite = "default";
@@ -87,13 +81,7 @@ public class Enemy extends Entity {
             setVelocity(0, 0);
         }
 
-        if (state == Enemy.fading) {
-            opacity -= Settings.DEATH_FADE_SPEED * delta;
-            if (opacity <= 0f) {
-                Gdx.app.debug("Enemy", "Changing to dying state");
-                state = Enemy.dying;
-            }
-        }
+        state.update(delta);
     }
 
     private void move() {

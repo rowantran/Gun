@@ -8,7 +8,6 @@ public class Settings {
     public static final int LOG_LEVEL = Application.LOG_DEBUG;
 
     public static final boolean DEV_MODE = true;
-    public static final boolean SLOW_BULLETS = false;
 
     public static final float STEP_TIME = 1/300f;
 
@@ -16,7 +15,9 @@ public class Settings {
     public static int PLAYER_HEALTH = 10;
 
     public static final float BULLET_SPEED = 500.0f;
-    public static final float ENEMY_BULLET_SPEED = 350.0f;
+
+    public static final float ENEMY_BULLET_SPEED_MULTIPLIER = 0.1f;
+
     public static final float PLAYER_SPEED = 250.0f;
     public static final float SLIME_SPEED = 100.0f;
     public static final float ROLL_DELAY = 1.5f;
