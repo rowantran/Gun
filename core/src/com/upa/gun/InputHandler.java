@@ -62,7 +62,9 @@ public class InputHandler implements Updatable {
         Vector2 velocity = new Vector2(0f, 0f);
         if (World.player.state.controllable) {
             velocity = checkKeys(delta);
-            World.player.direction = Direction.getDirection(velocity);
+            if (velocity.x != 0f || velocity.y != 0f) {
+                World.player.direction = Direction.getDirection(velocity);
+            }
         }
 
         World.player.setVelocity(velocity);
