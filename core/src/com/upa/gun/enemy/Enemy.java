@@ -11,8 +11,10 @@ public class Enemy extends Entity {
 
     float timeSinceAttack;
 
-    public boolean dying;
-    public boolean markedForDeletion;
+    private static EnemyState active;
+    public static EnemyState fading;
+    public static EnemyState dying;
+    private EnemyState state;
 
     AttackRotation rotation;
 
@@ -33,8 +35,12 @@ public class Enemy extends Entity {
         }
 
         timeElapsed = 20.0f;
-        dying = false;
-        markedForDeletion = false;
+
+        active = new EnemyActiveState();
+        fading = new EnemyFadingState();
+        dying = new EnemyDyingState();
+        state = Enemy.active;
+
         sprites = info.sprites;
         sprite = "default";
         opacity = 1f;
@@ -62,7 +68,7 @@ public class Enemy extends Entity {
      * Change this enemy's currently showing sprite.
      * @param spriteKey Key of the sprite to change to
      */
-    public void changeSprite(String spriteKey) {
+    private void changeSprite(String spriteKey) {
         if (sprites.containsKey((spriteKey))) {
             sprite = spriteKey;
         }
@@ -81,17 +87,13 @@ public class Enemy extends Entity {
             setVelocity(0, 0);
         }
 
-        if (dying) {
+        if (state == Enemy.fading) {
             opacity -= Settings.DEATH_FADE_SPEED * delta;
             if (opacity <= 0f) {
-                markedForDeletion = true;
+                Gdx.app.debug("Enemy", "Changing to dying state");
+                state = Enemy.dying;
             }
         }
-    }
-
-    public void setDying(boolean dying) {
-        this.dying = dying;
-        Gdx.app.debug("Enemy", "Marked dying as " + dying);
     }
 
     private void move() {
@@ -137,6 +139,14 @@ public class Enemy extends Entity {
         if(slimeY >= 674f && getVelocity().y > 0) {
             setVelocity(getVelocity().x, 0);
         }
+    }
+
+    public EnemyState getState() {
+        return state;
+    }
+
+    public void setState(EnemyState state) {
+        this.state = state;
     }
 
     public void setTimeElapsed(float timeElapsed) {

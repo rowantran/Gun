@@ -10,7 +10,7 @@ public class KillEnemies implements ScriptedEvent {
     @Override
     public void update(float delta) {
         for (Enemy enemy : World.enemies) {
-            enemy.setDying(true);
+            enemy.setState(Enemy.fading);
         }
 
         killed = true;

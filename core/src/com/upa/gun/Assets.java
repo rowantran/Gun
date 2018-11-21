@@ -160,6 +160,7 @@ public class Assets {
         for (TextureAtlas.AtlasRegion frame : frames) {
             frame.getTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         }
+
         Animation<TextureRegion> animation = new Animation<TextureRegion>(0.25f, frames, Animation.PlayMode.LOOP);
         animations.put(key, animation);
     }

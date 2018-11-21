@@ -192,10 +192,6 @@ class Renderer {
             drawEnemy(e);
         }
 
-        for (Enemy e : World.bosses) {
-            drawEnemy(e);
-        }
-
         for (Crate b : World.crates) {
             drawCrate(b, b.x, b.y);
             //System.out.println("crate");

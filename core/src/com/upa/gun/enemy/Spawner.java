@@ -62,7 +62,7 @@ public class Spawner implements Updatable {
         float spawnY = Settings.RESOLUTION.y;
 
         Enemy boss = world.getEnemyFactory().createEnemy(2, spawnX, spawnY);
-        World.bosses.add(boss);
+        World.enemies.add(boss);
 
         BossSlimeEntrance entrance = new BossSlimeEntrance(boss);
         entrance.start();

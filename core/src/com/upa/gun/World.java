@@ -17,7 +17,6 @@ public class World implements Updatable {
     public static Player player;
 
     public static List<Enemy> enemies;
-    public static List<Enemy> bosses;
 
     public static List<Bullet> enemyBullets;
     static List<Bullet> playerBullets;
@@ -38,7 +37,6 @@ public class World implements Updatable {
 
     private World() {
         enemies = new ArrayList<Enemy>();
-        bosses = new ArrayList<Enemy>();
 
         enemyBullets = new ArrayList<Bullet>();
         playerBullets = new ArrayList<Bullet>();
@@ -132,7 +130,7 @@ public class World implements Updatable {
         for (Iterator<Enemy> iterator = enemies.iterator(); iterator.hasNext();) {
             Enemy enemy = iterator.next();
 
-            if (enemy.markedForDeletion) {
+            if (enemy.getState() == Enemy.dying) {
                 iterator.remove();
                 Gdx.app.debug("World", "Removed enemy");
             }
