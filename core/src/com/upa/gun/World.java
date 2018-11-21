@@ -28,7 +28,7 @@ public class World implements Updatable {
 
     public static List<ScriptedEventSequence> sequences;
 
-    static Spawner spawner;
+    public static Spawner spawner;
 
     private CollisionChecker collisionChecker;
 

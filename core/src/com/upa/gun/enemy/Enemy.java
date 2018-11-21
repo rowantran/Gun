@@ -1,6 +1,5 @@
 package com.upa.gun.enemy;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.*;
 
@@ -8,6 +7,8 @@ import java.util.Map;
 
 public class Enemy extends Entity {
     public float timeElapsed;
+
+    private int health;
 
     float timeSinceAttack;
 
@@ -33,6 +34,8 @@ public class Enemy extends Entity {
 
         timeElapsed = 20.0f;
 
+        health = info.health;
+
         state = new EnemyActiveState();
 
         sprites = info.sprites;
@@ -56,6 +59,15 @@ public class Enemy extends Entity {
         }
 
         centerHitbox();
+    }
+
+    public void damage(int damage) {
+        health -= damage;
+        if (health <= 0) {
+            state = new EnemyFadingState(this);
+            World.spawner.slimesKilled++;
+            World.spawner.slimesKilledSinceLastBoss++;
+        }
     }
 
     /**
