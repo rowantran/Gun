@@ -1,6 +1,7 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -58,7 +59,14 @@ public class GameOver extends ScreenAdapter {
         layout.setText(Assets.menuFont, "Your Score: " + game.world.spawner.slimesKilled);
         Assets.menuFont.draw(game.batch, layout, (Settings.RESOLUTION.x - layout.width) / 2,
                 (Settings.RESOLUTION.x/6));
+        game.batch.end();
 
+        game.batch.begin();
+        Assets.menuFont.setColor(1, 1, 1,textAlpha);
+        Assets.menuFont.getData().setScale(2);
+        layout.setText(Assets.menuFont, "Press R to restart.");
+        Assets.menuFont.draw(game.batch, layout, (Settings.RESOLUTION.x - layout.width) / 2,
+                (Settings.RESOLUTION.y * 1/10));
         game.batch.end();
     }
 
@@ -73,6 +81,11 @@ public class GameOver extends ScreenAdapter {
             if (textAlpha >= 1.0f) {
                 fading = true;
             }
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.R)) {
+            game.world.reset();
+            game.setScreen(new GameScreen(game));
         }
     }
 

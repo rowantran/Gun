@@ -58,6 +58,20 @@ public class Player extends Entity {
         centerHitbox();
     }
 
+    public void reset() {
+        setPosition(spawnPoint);
+
+        state = PlayerState.idle;
+
+        health = Settings.PLAYER_HEALTH;
+
+        direction = Direction.DOWN;
+
+        timeSinceRoll = Settings.ROLL_DELAY;
+
+        centerHitbox();
+    }
+
     @Override
     public Hitbox getHitbox() {
         return hitbox;

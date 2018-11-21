@@ -41,6 +41,22 @@ public class Spawner implements Updatable {
         //strongSlimeFactory = new EnemyFactory(new StrongSlime(0, 0));
     }
 
+    /**
+     * Reset this spawner to the default state, as if it were newly constructed.
+     */
+    public void reset() {
+        slimesKilled = 0;
+        slimesKilledSinceLastBoss = 0;
+
+        timeAccumulated = 0f;
+
+        maxSpawnTime = generateRandomSpawnTime();
+
+        bossAlive = false;
+        bossThreshold = 5;
+        bossHealth = 30;
+    }
+
     private float generateRandomSpawnTime() {
         return (float) Math.random() * maxSpawnTimeMax / Settings.PERCENT_SPAWN_CHANCE;
     }

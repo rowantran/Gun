@@ -56,6 +56,21 @@ public class World implements Updatable {
         enemyFactory = new EnemyFactory("enemies.json");
     }
 
+    public void reset() {
+        player.reset();
+
+        enemies.clear();
+
+        enemyBullets.clear();
+        playerBullets.clear();
+
+        indicators.clear();
+
+        sequences.clear();
+
+        spawner.reset();
+    }
+
     private void createCrates() {
         for(int i = 0; i < 14; i++) {
             crates.add(new Crate(((float)i * 64f + 32f), 29f, Assets.crate));
