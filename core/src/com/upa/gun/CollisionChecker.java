@@ -1,7 +1,7 @@
 package com.upa.gun;
 
+import com.badlogic.gdx.Gdx;
 import com.upa.gun.enemy.Enemy;
-import com.upa.gun.enemy.EnemyFadingState;
 
 public class CollisionChecker implements Updatable {
     private void checkPlayerHit() {
@@ -16,6 +16,7 @@ public class CollisionChecker implements Updatable {
         for (Bullet b : World.playerBullets) {
             for (Enemy e: World.enemies) {
                 if (b.hitbox.colliding(e.getHitbox())) {
+                    Gdx.app.debug("CollisionChecker", "Enemy hit by bullet");
                     e.damage(1);
                     b.markedForDeletion = true;
                 }

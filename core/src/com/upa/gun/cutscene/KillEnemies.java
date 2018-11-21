@@ -8,10 +8,18 @@ public class KillEnemies implements ScriptedEvent {
     private boolean killed = false;
     private boolean finished = false;
 
+    private Enemy boss;
+
+    public KillEnemies(Enemy boss) {
+        this.boss = boss;
+    }
+
     @Override
     public void update(float delta) {
         for (Enemy enemy : World.enemies) {
-            enemy.setState(new EnemyFadingState(enemy));
+            if (enemy != boss) {
+                enemy.setState(new EnemyFadingState(enemy));
+            }
         }
 
         killed = true;

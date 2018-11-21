@@ -23,7 +23,7 @@ public class BossSlimeFall implements ScriptedEvent {
         finished = false;
         timeElapsed = 0f;
 
-        killEnemies = new KillEnemies();
+        killEnemies = new KillEnemies(slime);
     }
 
     @Override
