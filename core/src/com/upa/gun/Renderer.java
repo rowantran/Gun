@@ -108,6 +108,9 @@ class Renderer {
         batch.begin();
         batch.enableBlending();
 
+        layout.setText(font, "BIG OL' BAD OL' BOSS");
+        font.draw(batch, layout, Settings.RESOLUTION.x / 2 - layout.width/2, 770);
+
         float startX = (Settings.RESOLUTION.x / 2) - (maxHealth / 2 * Assets.enemyHealthFullLeft.getRegionWidth());
         float incrementX = Assets.enemyHealthFullLeft.getRegionWidth();
         float startY = 700;

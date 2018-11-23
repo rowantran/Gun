@@ -57,8 +57,6 @@ public class Assets {
     public static TextureRegion healthEmptyLeft;
     public static TextureRegion healthEmptyRight;
     public static TextureRegion healthEmptyMid;
-    public static TextureRegion[] healthTextures = {healthFullLeft, healthFullRight, healthFullMid, healthEmptyLeft,
-    healthEmptyRight, healthEmptyMid};
 
     public static TextureAtlas spriteAtlas;
     public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> playerAnimations;
@@ -178,15 +176,6 @@ public class Assets {
         enemyHealthEmptyLeft = spriteAtlas.findRegion("boss_health_empty_left");
         enemyHealthEmptyRight = spriteAtlas.findRegion("boss_health_empty_right");
         enemyHealthEmptyMid = spriteAtlas.findRegion("boss_health_empty_mid");
-
-
-
-        /* null
-        String[] regions = {"full_left", "full_right", "full_mid", "empty_left", "empty_right", "empty_mid"};
-        for(int i = 0; i < regions.length; i++) {
-            healthTextures[i] = spriteAtlas.findRegion("health_" + regions[i]);
-        }
-        */
     }
 
 
