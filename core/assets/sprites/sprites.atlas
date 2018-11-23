@@ -1,88 +1,88 @@
 sprites.png
-size: 1637, 864
+size: 1640, 864
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 background1
   rotate: false
-  xy: 357, 64
+  xy: 359, 64
   size: 1280, 800
   orig: 1280, 800
   offset: 0, 0
   index: -1
 barrel_full
   rotate: false
-  xy: 293, 64
+  xy: 295, 64
   size: 64, 128
   orig: 64, 128
   offset: 0, 0
   index: -1
 boss_health_empty_left
   rotate: false
-  xy: 190, 0
+  xy: 171, 0
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 boss_health_empty_mid
   rotate: false
-  xy: 129, 0
+  xy: 75, 0
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 boss_health_empty_right
   rotate: false
-  xy: 97, 0
+  xy: 107, 0
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 boss_health_full_left
   rotate: false
-  xy: 65, 0
+  xy: 139, 0
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 boss_health_full_mid
   rotate: false
-  xy: 33, 0
+  xy: 203, 0
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 boss_health_full_right
   rotate: false
-  xy: 283, 0
+  xy: 235, 0
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 bossPellet
   rotate: false
-  xy: 161, 0
+  xy: 0, 0
   size: 13, 16
   orig: 13, 16
   offset: 0, 0
   index: -1
 bossSlime-hurt
   rotate: false
-  xy: 789, 0
+  xy: 772, 0
   size: 35, 37
   orig: 35, 37
   offset: 0, 0
   index: -1
 bossSlime
   rotate: false
-  xy: 755, 0
+  xy: 704, 0
   size: 34, 34
   orig: 34, 34
   offset: 0, 0
   index: 0
 bossSlime
   rotate: false
-  xy: 720, 0
+  xy: 669, 0
   size: 35, 33
   orig: 35, 33
   offset: 0, 0
@@ -96,49 +96,49 @@ bossSlimeAttack
   index: 0
 bossSlimeAttack
   rotate: false
-  xy: 685, 0
+  xy: 634, 0
   size: 35, 33
   orig: 35, 33
   offset: 0, 0
   index: 1
 bossSlimeAttack
   rotate: false
-  xy: 824, 0
+  xy: 738, 0
   size: 34, 37
   orig: 34, 37
   offset: 0, 0
   index: 2
 bullet
   rotate: false
-  xy: 378, 0
+  xy: 297, 0
   size: 29, 20
   orig: 29, 20
   offset: 0, 0
   index: -1
 crate
   rotate: false
-  xy: 70, 64
+  xy: 72, 64
   size: 64, 91
   orig: 64, 91
   offset: 0, 0
   index: -1
 crosshair
   rotate: false
-  xy: 174, 0
+  xy: 26, 0
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 health_empty_left
   rotate: false
-  xy: 442, 0
+  xy: 506, 0
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 health_empty_mid
   rotate: false
-  xy: 538, 0
+  xy: 474, 0
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -152,252 +152,252 @@ health_empty_right
   index: -1
 health_full_left
   rotate: false
-  xy: 506, 0
+  xy: 570, 0
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 health_full_mid
   rotate: false
-  xy: 570, 0
+  xy: 538, 0
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 health_full_right
   rotate: false
-  xy: 474, 0
+  xy: 442, 0
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 Laser Gun
   rotate: false
-  xy: 315, 0
+  xy: 267, 0
   size: 30, 19
   orig: 30, 19
   offset: 0, 0
   index: -1
 laserBullet
   rotate: false
-  xy: 0, 0
+  xy: 42, 0
   size: 33, 14
   orig: 33, 14
   offset: 0, 0
   index: -1
 playerIdle
   rotate: false
-  xy: 240, 64
+  xy: 136, 64
   size: 53, 125
   orig: 53, 125
   offset: 0, 0
   index: 1
 playerIdle
   rotate: false
-  xy: 187, 64
+  xy: 189, 64
   size: 53, 125
   orig: 53, 125
   offset: 0, 0
   index: 2
 playerIdle
   rotate: false
-  xy: 134, 64
+  xy: 242, 64
   size: 53, 125
   orig: 53, 125
   offset: 0, 0
   index: 3
 shadow
   rotate: false
-  xy: 235, 0
+  xy: 359, 0
   size: 48, 16
   orig: 48, 16
   offset: 0, 0
   index: -1
 slime-death
   rotate: false
-  xy: 1208, 0
-  size: 35, 50
-  orig: 35, 50
+  xy: 1203, 0
+  size: 36, 36
+  orig: 36, 36
   offset: 0, 0
   index: -1
 slime
   rotate: false
-  xy: 893, 0
-  size: 35, 50
-  orig: 35, 50
+  xy: 915, 0
+  size: 36, 36
+  orig: 36, 36
   offset: 0, 0
   index: 0
 slime
   rotate: false
-  xy: 858, 0
-  size: 35, 50
-  orig: 35, 50
+  xy: 843, 0
+  size: 36, 36
+  orig: 36, 36
   offset: 0, 0
   index: 1
 slimeAttack
   rotate: false
-  xy: 1173, 0
-  size: 35, 50
-  orig: 35, 50
+  xy: 1131, 0
+  size: 36, 36
+  orig: 36, 36
   offset: 0, 0
   index: 0
 slimeAttack
   rotate: false
-  xy: 1138, 0
-  size: 35, 50
-  orig: 35, 50
+  xy: 1167, 0
+  size: 36, 36
+  orig: 36, 36
   offset: 0, 0
   index: 1
 slimeAttack
   rotate: false
-  xy: 1243, 0
-  size: 35, 50
-  orig: 35, 50
+  xy: 1059, 0
+  size: 36, 36
+  orig: 36, 36
   offset: 0, 0
   index: 2
 slimePellet
   rotate: false
-  xy: 222, 0
+  xy: 13, 0
   size: 13, 16
   orig: 13, 16
   offset: 0, 0
   index: -1
 strongSlime-death
   rotate: false
-  xy: 928, 0
-  size: 35, 50
-  orig: 35, 50
+  xy: 807, 0
+  size: 36, 36
+  orig: 36, 36
   offset: 0, 0
   index: -1
 strongSlime
   rotate: false
-  xy: 1033, 0
-  size: 35, 50
-  orig: 35, 50
+  xy: 1095, 0
+  size: 36, 36
+  orig: 36, 36
   offset: 0, 0
   index: 0
 strongSlime
   rotate: false
-  xy: 1068, 0
-  size: 35, 50
-  orig: 35, 50
+  xy: 1023, 0
+  size: 36, 36
+  orig: 36, 36
   offset: 0, 0
   index: 1
 strongSlimeAttack
   rotate: false
-  xy: 998, 0
-  size: 35, 50
-  orig: 35, 50
+  xy: 879, 0
+  size: 36, 36
+  orig: 36, 36
   offset: 0, 0
   index: 0
 strongSlimeAttack
   rotate: false
-  xy: 963, 0
-  size: 35, 50
-  orig: 35, 50
+  xy: 987, 0
+  size: 36, 36
+  orig: 36, 36
   offset: 0, 0
   index: 1
 strongSlimeAttack
   rotate: false
-  xy: 1103, 0
-  size: 35, 50
-  orig: 35, 50
+  xy: 951, 0
+  size: 36, 36
+  orig: 36, 36
   offset: 0, 0
   index: 2
 Super Gun
   rotate: false
-  xy: 634, 0
+  xy: 1239, 0
   size: 51, 32
   orig: 51, 32
   offset: 0, 0
   index: -1
 tempPlayerBack-idle
   rotate: false
-  xy: 1595, 0
+  xy: 1605, 0
   size: 35, 64
   orig: 35, 64
   offset: 0, 0
   index: -1
 tempPlayerBack
   rotate: false
-  xy: 35, 64
+  xy: 1570, 0
   size: 35, 64
   orig: 35, 64
   offset: 0, 0
   index: 0
 tempPlayerBack
   rotate: false
-  xy: 0, 64
+  xy: 1290, 0
   size: 35, 64
   orig: 35, 64
   offset: 0, 0
   index: 1
 tempPlayerFront-idle
   rotate: false
-  xy: 1278, 0
+  xy: 1430, 0
   size: 35, 64
   orig: 35, 64
   offset: 0, 0
   index: -1
 tempPlayerFront
   rotate: false
-  xy: 1313, 0
+  xy: 1500, 0
   size: 35, 64
   orig: 35, 64
   offset: 0, 0
   index: 0
 tempPlayerLeft-idle
   rotate: false
-  xy: 1525, 0
+  xy: 1395, 0
   size: 35, 64
   orig: 35, 64
   offset: 0, 0
   index: -1
 tempPlayerLeft
   rotate: false
-  xy: 1384, 0
+  xy: 1360, 0
   size: 35, 64
   orig: 35, 64
   offset: 0, 0
   index: 0
 tempPlayerLeft
   rotate: false
-  xy: 1419, 0
+  xy: 36, 64
   size: 36, 64
   orig: 36, 64
   offset: 0, 0
   index: 1
 tempPlayerRight-idle
   rotate: false
-  xy: 1490, 0
+  xy: 1325, 0
   size: 35, 64
   orig: 35, 64
   offset: 0, 0
   index: -1
 tempPlayerRight
   rotate: false
-  xy: 1348, 0
+  xy: 0, 64
   size: 36, 64
   orig: 36, 64
   offset: 0, 0
   index: 0
 tempPlayerRight
   rotate: false
-  xy: 1455, 0
+  xy: 1465, 0
   size: 35, 64
   orig: 35, 64
   offset: 0, 0
   index: 1
 tepmpPlayerFront
   rotate: false
-  xy: 1560, 0
+  xy: 1535, 0
   size: 35, 64
   orig: 35, 64
   offset: 0, 0
   index: 1
 Ultra Super Gun
   rotate: false
-  xy: 345, 0
+  xy: 326, 0
   size: 33, 19
   orig: 33, 19
   offset: 0, 0
