@@ -34,7 +34,7 @@
         <key>dataFormat</key>
         <string>libgdx</string>
         <key>textureFileName</key>
-        <filename></filename>
+        <filename>enemies.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -132,7 +132,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename></filename>
+                <filename>enemies.atlas</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -253,33 +253,33 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>9,13,17,25</rect>
+                <rect>9,9,18,18</rect>
                 <key>scale9Paddings</key>
-                <rect>9,13,17,25</rect>
+                <rect>9,9,18,18</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
         </map>
         <key>fileList</key>
         <array>
-            <filename>slimeSprites/slime_00.png</filename>
-            <filename>slimeSprites/slime_01.png</filename>
-            <filename>slimeSprites/slime-death.png</filename>
-            <filename>slimeSprites/slimeAttack_00.png</filename>
-            <filename>slimeSprites/slimeAttack_01.png</filename>
-            <filename>slimeSprites/slimeAttack_02.png</filename>
             <filename>bossSlimeSprite/bossSlime_00.png</filename>
             <filename>bossSlimeSprite/bossSlime_01.png</filename>
             <filename>bossSlimeSprite/bossSlime-hurt.png</filename>
             <filename>bossSlimeSprite/bossSlimeAttack_00.png</filename>
             <filename>bossSlimeSprite/bossSlimeAttack_01.png</filename>
             <filename>bossSlimeSprite/bossSlimeAttack_02.png</filename>
+            <filename>slimeSprites/slime_00.png</filename>
+            <filename>slimeSprites/slime_01.png</filename>
+            <filename>slimeSprites/slimeAttack_00.png</filename>
+            <filename>slimeSprites/slimeAttack_01.png</filename>
+            <filename>slimeSprites/slimeAttack_02.png</filename>
+            <filename>slimeSprites/slime-death.png</filename>
             <filename>strongSlimeSprites/strongSlime_00.png</filename>
             <filename>strongSlimeSprites/strongSlime_01.png</filename>
-            <filename>strongSlimeSprites/strongSlime-death.png</filename>
             <filename>strongSlimeSprites/strongSlimeAttack_00.png</filename>
             <filename>strongSlimeSprites/strongSlimeAttack_01.png</filename>
             <filename>strongSlimeSprites/strongSlimeAttack_02.png</filename>
+            <filename>strongSlimeSprites/strongSlime-death.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
