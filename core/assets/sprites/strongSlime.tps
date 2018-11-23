@@ -34,7 +34,7 @@
         <key>dataFormat</key>
         <string>libgdx</string>
         <key>textureFileName</key>
-        <filename></filename>
+        <filename>C:/Users/linterface/Documents/strongSlime.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -132,7 +132,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename></filename>
+                <filename>strongSlime.atlas</filename>
             </struct>
         </map>
         <key>multiPack</key>
