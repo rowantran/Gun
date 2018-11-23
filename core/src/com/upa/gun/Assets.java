@@ -43,6 +43,14 @@ public class Assets {
     public static Sound bulletSound;
     public static Sound bossDieSound;
 
+    public static Texture enemyHealthFullLeft;
+    public static Texture enemyHealthFullRight;
+    public static Texture enemyHealthFullMid;
+    public static Texture enemyHealthEmptyLeft;
+    public static Texture enemyHealthEmptyRight;
+    public static Texture enemyHealthEmptyMid;
+
+
     public static TextureRegion healthFullLeft;
     public static TextureRegion healthFullRight;
     public static TextureRegion healthFullMid;
@@ -117,20 +125,18 @@ public class Assets {
 
         menuFont = new BitmapFont();
 
-        /*
-        healthFullLeft = loadTexture("sprites/health_full_left.png");
-        healthFullLeft.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        healthFullRight = loadTexture("sprites/health_full_right.png");
-        healthFullRight.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        healthFullMid = loadTexture("sprites/health_full_mid.png");
-        healthFullMid.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        healthEmptyLeft = loadTexture("sprites/health_empty_left.png");
-        healthEmptyLeft.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        healthEmptyRight = loadTexture("sprites/health_empty_right.png");
-        healthFullRight.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        healthEmptyMid = loadTexture("sprites/health_empty_mid.png");
-        healthEmptyMid.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        */
+        enemyHealthFullLeft = loadTexture("sprites/healthBars/boss_health_full_left.png");
+        enemyHealthFullLeft.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        enemyHealthFullRight = loadTexture("sprites/healthBars/boss_health_full_right.png");
+        enemyHealthFullRight.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        enemyHealthFullMid = loadTexture("sprites/healthBars/boss_health_full_mid.png");
+        enemyHealthFullMid.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        enemyHealthEmptyLeft = loadTexture("sprites/healthBars/boss_health_empty_left.png");
+        enemyHealthEmptyLeft.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        enemyHealthEmptyRight = loadTexture("sprites/healthBars/boss_health_empty_right.png");
+        enemyHealthFullRight.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        enemyHealthEmptyMid = loadTexture("sprites/healthBars/boss_health_empty_mid.png");
+        enemyHealthEmptyMid.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
         bulletSound = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
         bossDieSound = Gdx.audio.newSound(Gdx.files.internal("sfx/bossdie.wav"));

@@ -8,6 +8,7 @@ import java.util.Map;
 public class Enemy extends Entity {
     public float timeElapsed;
 
+    private int startHealth;
     private int health;
 
     float timeSinceAttack;
@@ -23,6 +24,8 @@ public class Enemy extends Entity {
 
     private Hitbox hitbox;
 
+    private int id;
+
     Enemy(EnemyInfo info, float x, float y) {
         super(x, y, info.width, info.height, 0, 0);
 
@@ -35,6 +38,7 @@ public class Enemy extends Entity {
         timeElapsed = 20.0f;
 
         health = info.health;
+        startHealth = health;
 
         state = new EnemyActiveState();
 
@@ -44,7 +48,14 @@ public class Enemy extends Entity {
 
         rotation = info.rotation.copy();
         rotation.setEnemy(this);
+
+        id = info.id;
     }
+
+    public int getID() { return id; }
+    public int getStartHealth() { return startHealth; }
+    public int getHealth() { return health; }
+
 
     @Override
     public Hitbox getHitbox() {

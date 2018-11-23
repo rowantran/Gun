@@ -104,6 +104,45 @@ class Renderer {
         }
     }
 
+    private void drawBossHealth(int health, int maxHealth) {
+        batch.begin();
+        batch.enableBlending();
+
+        float startX = (Settings.RESOLUTION.x / 2) - (maxHealth / 2 * Assets.enemyHealthFullLeft.getWidth());
+        float incrementX = Assets.enemyHealthFullLeft.getWidth();
+        float startY = 700;
+        if(health > 0) {
+            batch.draw(Assets.enemyHealthFullLeft, startX, startY, Assets.enemyHealthFullLeft.getWidth(),
+                    Assets.enemyHealthFullLeft.getHeight());
+        }
+        else {
+            batch.draw(Assets.enemyHealthEmptyLeft, startX, startY, Assets.enemyHealthEmptyLeft.getWidth(),
+                    Assets.enemyHealthEmptyLeft.getHeight());
+        }
+        startX += incrementX;
+        for(int i = 2; i <= health; i++) {
+            if(i == maxHealth) {
+                batch.draw(Assets.enemyHealthFullRight, startX, startY, Assets.enemyHealthFullRight.getWidth(),
+                        Assets.enemyHealthFullRight.getHeight());
+            }
+            else {
+                batch.draw(Assets.enemyHealthFullMid, startX, startY, Assets.enemyHealthFullMid.getWidth(),
+                        Assets.enemyHealthFullMid.getHeight());
+            }
+            startX += incrementX;
+        }
+        for(int i = health; i < maxHealth-1; i++) {
+            batch.draw(Assets.enemyHealthEmptyMid, startX, startY, Assets.enemyHealthEmptyMid.getWidth(),
+                    Assets.enemyHealthEmptyMid.getHeight());
+            startX += incrementX;
+        }
+        if(health < maxHealth) {
+            batch.draw(Assets.enemyHealthEmptyRight, startX, startY, Assets.enemyHealthEmptyRight.getWidth(),
+                    Assets.enemyHealthEmptyRight.getHeight());
+        }
+        batch.end();
+    }
+
     private void drawEnemy(Enemy e) {
         batch.begin();
         batch.enableBlending();
@@ -190,6 +229,9 @@ class Renderer {
 
         for (Enemy e : World.enemies) {
             drawEnemy(e);
+            if(e.getID() == 2) {
+                drawBossHealth(e.getHealth(), e.getStartHealth());
+            }
         }
 
         for (Crate b : World.crates) {
