@@ -1,47 +1,47 @@
 strongSlime.png
-size: 37, 217
+size: 216, 36
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 strongSlime-death
   rotate: false
-  xy: 1, 1
-  size: 35, 38
-  orig: 35, 50
-  offset: 0, 10
+  xy: 0, 0
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
   index: -1
 strongSlime
   rotate: false
-  xy: 1, 81
-  size: 35, 35
-  orig: 35, 50
-  offset: 0, 10
+  xy: 36, 0
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
   index: 0
 strongSlime
   rotate: false
-  xy: 1, 154
-  size: 35, 34
-  orig: 35, 50
-  offset: 0, 10
+  xy: 72, 0
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
   index: 1
 strongSlimeAttack
   rotate: false
-  xy: 1, 190
-  size: 35, 26
-  orig: 35, 50
-  offset: 0, 10
+  xy: 108, 0
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
   index: 0
 strongSlimeAttack
   rotate: false
-  xy: 1, 118
-  size: 35, 34
-  orig: 35, 50
-  offset: 0, 10
+  xy: 144, 0
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
   index: 1
 strongSlimeAttack
   rotate: false
-  xy: 1, 41
-  size: 35, 38
-  orig: 35, 50
-  offset: 0, 10
+  xy: 180, 0
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
   index: 2
