@@ -16,7 +16,7 @@ public class Settings {
 
     public static final float BULLET_SPEED = 500.0f;
 
-    public static final float ENEMY_BULLET_SPEED_MULTIPLIER = 0.1f;
+    public static final float ENEMY_BULLET_SPEED_MULTIPLIER = 0.8f;
 
     public static final float PLAYER_SPEED = 250.0f;
     public static final float SLIME_SPEED = 100.0f;
