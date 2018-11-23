@@ -74,7 +74,7 @@
         <key>jpgQuality</key>
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
-        <uint>0</uint>
+        <uint>1</uint>
         <key>webpQualityLevel</key>
         <uint>101</uint>
         <key>textureSubPath</key>
@@ -149,7 +149,7 @@
             <string></string>
         </struct>
         <key>autoAliasEnabled</key>
-        <false/>
+        <true/>
         <key>trimSpriteNames</key>
         <false/>
         <key>prependSmartFolderName</key>
@@ -163,13 +163,13 @@
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
             <key>extrude</key>
-            <uint>0</uint>
+            <uint>1</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMargin</key>
             <uint>1</uint>
             <key>trimMode</key>
-            <enum type="SpriteSettings::TrimMode">None</enum>
+            <enum type="SpriteSettings::TrimMode">Trim</enum>
             <key>tracerTolerance</key>
             <int>200</int>
             <key>heuristicMask</key>
@@ -311,6 +311,24 @@
                 <rect>8,5,17,9</rect>
                 <key>scale9Paddings</key>
                 <rect>8,5,17,9</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">healthBars/boss_health_empty_left.png</key>
+            <key type="filename">healthBars/boss_health_empty_mid.png</key>
+            <key type="filename">healthBars/boss_health_empty_right.png</key>
+            <key type="filename">healthBars/boss_health_full_left.png</key>
+            <key type="filename">healthBars/boss_health_full_mid.png</key>
+            <key type="filename">healthBars/boss_health_full_right.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>8,4,16,8</rect>
+                <key>scale9Paddings</key>
+                <rect>8,4,16,8</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -475,8 +493,6 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>bossSlimeSprite</filename>
-            <filename>bullets</filename>
             <filename>guns</filename>
             <filename>healthBars</filename>
             <filename>miscellaneous</filename>
@@ -486,6 +502,8 @@
             <filename>strongSlimeSprites</filename>
             <filename>tempPlayerSprites</filename>
             <filename>terrain</filename>
+            <filename>bossSlimeSprite</filename>
+            <filename>bullets</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

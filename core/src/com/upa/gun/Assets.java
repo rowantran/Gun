@@ -43,12 +43,12 @@ public class Assets {
     public static Sound bulletSound;
     public static Sound bossDieSound;
 
-    public static Texture enemyHealthFullLeft;
-    public static Texture enemyHealthFullRight;
-    public static Texture enemyHealthFullMid;
-    public static Texture enemyHealthEmptyLeft;
-    public static Texture enemyHealthEmptyRight;
-    public static Texture enemyHealthEmptyMid;
+    public static TextureRegion enemyHealthFullLeft;
+    public static TextureRegion enemyHealthFullRight;
+    public static TextureRegion enemyHealthFullMid;
+    public static TextureRegion enemyHealthEmptyLeft;
+    public static TextureRegion enemyHealthEmptyRight;
+    public static TextureRegion enemyHealthEmptyMid;
 
 
     public static TextureRegion healthFullLeft;
@@ -125,18 +125,6 @@ public class Assets {
 
         menuFont = new BitmapFont();
 
-        enemyHealthFullLeft = loadTexture("sprites/healthBars/boss_health_full_left.png");
-        enemyHealthFullLeft.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        enemyHealthFullRight = loadTexture("sprites/healthBars/boss_health_full_right.png");
-        enemyHealthFullRight.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        enemyHealthFullMid = loadTexture("sprites/healthBars/boss_health_full_mid.png");
-        enemyHealthFullMid.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        enemyHealthEmptyLeft = loadTexture("sprites/healthBars/boss_health_empty_left.png");
-        enemyHealthEmptyLeft.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        enemyHealthEmptyRight = loadTexture("sprites/healthBars/boss_health_empty_right.png");
-        enemyHealthFullRight.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        enemyHealthEmptyMid = loadTexture("sprites/healthBars/boss_health_empty_mid.png");
-        enemyHealthEmptyMid.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
         bulletSound = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
         bossDieSound = Gdx.audio.newSound(Gdx.files.internal("sfx/bossdie.wav"));
@@ -183,6 +171,15 @@ public class Assets {
         healthEmptyLeft = spriteAtlas.findRegion("health_empty_left");
         healthEmptyRight = spriteAtlas.findRegion("health_empty_right");
         healthEmptyMid = spriteAtlas.findRegion("health_empty_mid");
+
+        enemyHealthFullLeft = spriteAtlas.findRegion("boss_health_full_left");
+        enemyHealthFullRight = spriteAtlas.findRegion("boss_health_full_right");
+        enemyHealthFullMid = spriteAtlas.findRegion("boss_health_full_mid");
+        enemyHealthEmptyLeft = spriteAtlas.findRegion("boss_health_empty_left");
+        enemyHealthEmptyRight = spriteAtlas.findRegion("boss_health_empty_right");
+        enemyHealthEmptyMid = spriteAtlas.findRegion("boss_health_empty_mid");
+
+
 
         /* null
         String[] regions = {"full_left", "full_right", "full_mid", "empty_left", "empty_right", "empty_mid"};
