@@ -3,6 +3,7 @@ package com.upa.gun;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -89,8 +90,7 @@ public class Assets {
         playerAnimations = new HashMap<SpriteState, Map<Direction, Animation<TextureRegion>>>();
         loadPlayerAnimations();
 
-        crosshair = new Texture("sprites/miscellaneous/crosshair.png");
-        crosshair.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+
         /*Pixmap pm = new Pixmap(Gdx.files.internal("sprites/crosshair.png"));
         int xHotSpot = pm.getWidth() / 2;
         int yHotSpot = pm.getHeight() / 2;
@@ -98,6 +98,13 @@ public class Assets {
         Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, xHotSpot, yHotSpot));
         pm.dispose();
     */
+
+        crosshair = new Texture(Gdx.files.internal("sprites/miscellaneous/crosshair.png"));
+        crosshair.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+
+        Pixmap crosshairPixmap = new Pixmap(Gdx.files.internal("sprites/miscellaneous/crosshair.png"));
+		Cursor cursor = Gdx.graphics.newCursor(crosshairPixmap, crosshairPixmap.getWidth()/2, crosshairPixmap.getHeight()/2);
+		Gdx.graphics.setCursor(cursor);
 
         slimeAtlas = new TextureAtlas(Gdx.files.internal("sprites/slime.atlas"));
         slimeAnimations = new HashMap<SpriteState, Map<Direction, Animation<TextureRegion>>>();
