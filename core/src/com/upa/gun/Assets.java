@@ -51,6 +51,9 @@ public class Assets {
     public static TextureRegion enemyHealthEmptyRight;
     public static TextureRegion enemyHealthEmptyMid;
 
+    public static TextureRegion[] enemyHealthLeft;
+    public static TextureRegion[] enemyHealthMid;
+    public static TextureRegion[] enemyHealthRight;
 
     public static TextureRegion healthFullLeft;
     public static TextureRegion healthFullRight;
@@ -183,6 +186,10 @@ public class Assets {
         enemyHealthEmptyLeft = spriteAtlas.findRegion("boss_health_empty_left");
         enemyHealthEmptyRight = spriteAtlas.findRegion("boss_health_empty_right");
         enemyHealthEmptyMid = spriteAtlas.findRegion("boss_health_empty_mid");
+
+        enemyHealthLeft = new TextureRegion[]{enemyHealthEmptyLeft, enemyHealthFullLeft};
+        enemyHealthMid = new TextureRegion[]{enemyHealthEmptyMid, enemyHealthFullMid};
+        enemyHealthRight = new TextureRegion[]{enemyHealthEmptyRight, enemyHealthFullRight};
     }
 
 

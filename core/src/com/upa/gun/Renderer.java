@@ -111,23 +111,18 @@ class Renderer {
         layout.setText(font, "BIG OL' BAD OL' BOSS");
         font.draw(batch, layout, Settings.RESOLUTION.x / 2 - layout.width/2, 770);
 
-        float startX = (Settings.RESOLUTION.x / 2) - (maxHealth / 2 * Assets.enemyHealthFullLeft.getRegionWidth());
-        float incrementX = Assets.enemyHealthFullLeft.getRegionWidth();
+        float x = (Settings.RESOLUTION.x / 2) - (maxHealth / 2 * Assets.enemyHealthFullLeft.getRegionWidth());
         float y = 700;
 
         for (int i = 1; i <= maxHealth; i++) {
-            float x = startX + incrementX * (i - 1);
-            TextureRegion[] textures = new TextureRegion[2];
+            TextureRegion[] textures;
 
             if (i == 1) {
-                textures[0] = Assets.enemyHealthEmptyLeft;
-                textures[1] = Assets.enemyHealthFullLeft;
+                textures = Assets.enemyHealthLeft;
             } else if (i < maxHealth) {
-                textures[0] = Assets.enemyHealthEmptyMid;
-                textures[1] = Assets.enemyHealthFullMid;
+                textures = Assets.enemyHealthMid;
             } else {
-                textures[0] = Assets.enemyHealthEmptyRight;
-                textures[1] = Assets.enemyHealthFullRight;
+                textures = Assets.enemyHealthRight;
             }
 
             TextureRegion texture;
@@ -137,6 +132,7 @@ class Renderer {
                 texture = textures[0];
             }
 
+            x += texture.getRegionWidth();
             batch.draw(texture, x, y, texture.getRegionWidth(), texture.getRegionHeight());
         }
 
