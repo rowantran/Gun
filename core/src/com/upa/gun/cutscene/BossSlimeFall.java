@@ -44,7 +44,6 @@ public class BossSlimeFall implements ScriptedEvent {
 
     @Override
     public void onFinish() {
-        World.enemies.add(slime);
         finished = true;
     }
 

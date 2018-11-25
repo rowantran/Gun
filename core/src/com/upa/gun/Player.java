@@ -90,7 +90,7 @@ public class Player extends Entity {
       * @param damage Amount of damage in hit points to deal to player.
      */
     void hurt(int damage) {
-        if (state.isVulnerable() && !game.world.cinematicHappening) {
+        if ((state.isVulnerable() && !Settings.INVINCIBLE) && !game.world.cinematicHappening) {
             health -= damage;
             state.vulnerable = false;
             if (health <= 0) {

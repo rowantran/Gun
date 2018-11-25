@@ -113,36 +113,33 @@ class Renderer {
 
         float startX = (Settings.RESOLUTION.x / 2) - (maxHealth / 2 * Assets.enemyHealthFullLeft.getRegionWidth());
         float incrementX = Assets.enemyHealthFullLeft.getRegionWidth();
-        float startY = 700;
-        if(health > 0) {
-            batch.draw(Assets.enemyHealthFullLeft, startX, startY, Assets.enemyHealthFullLeft.getRegionWidth(),
-                    Assets.enemyHealthFullLeft.getRegionHeight());
-        }
-        else {
-            batch.draw(Assets.enemyHealthEmptyLeft, startX, startY, Assets.enemyHealthEmptyLeft.getRegionWidth(),
-                    Assets.enemyHealthEmptyLeft.getRegionHeight());
-        }
-        startX += incrementX;
-        for(int i = 2; i <= health; i++) {
-            if(i == maxHealth) {
-                batch.draw(Assets.enemyHealthFullRight, startX, startY, Assets.enemyHealthFullRight.getRegionWidth(),
-                        Assets.enemyHealthFullRight.getRegionHeight());
+        float y = 700;
+
+        for (int i = 1; i <= maxHealth; i++) {
+            float x = startX + incrementX * (i - 1);
+            TextureRegion[] textures = new TextureRegion[2];
+
+            if (i == 1) {
+                textures[0] = Assets.enemyHealthEmptyLeft;
+                textures[1] = Assets.enemyHealthFullLeft;
+            } else if (i < maxHealth) {
+                textures[0] = Assets.enemyHealthEmptyMid;
+                textures[1] = Assets.enemyHealthFullMid;
+            } else {
+                textures[0] = Assets.enemyHealthEmptyRight;
+                textures[1] = Assets.enemyHealthFullRight;
             }
-            else {
-                batch.draw(Assets.enemyHealthFullMid, startX, startY, Assets.enemyHealthFullMid.getRegionWidth(),
-                        Assets.enemyHealthFullMid.getRegionHeight());
+
+            TextureRegion texture;
+            if (health >= i) {
+                texture = textures[1];
+            } else {
+                texture = textures[0];
             }
-            startX += incrementX;
+
+            batch.draw(texture, x, y, texture.getRegionWidth(), texture.getRegionHeight());
         }
-        for(int i = health; i < maxHealth-1; i++) {
-            batch.draw(Assets.enemyHealthEmptyMid, startX, startY, Assets.enemyHealthEmptyMid.getRegionWidth(),
-                    Assets.enemyHealthEmptyMid.getRegionHeight());
-            startX += incrementX;
-        }
-        if(health < maxHealth) {
-            batch.draw(Assets.enemyHealthEmptyRight, startX, startY, Assets.enemyHealthEmptyRight.getRegionWidth(),
-                    Assets.enemyHealthEmptyRight.getRegionHeight());
-        }
+
         batch.end();
     }
 
