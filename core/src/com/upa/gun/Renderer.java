@@ -142,7 +142,11 @@ class Renderer {
     private void drawEnemy(Enemy e) {
         batch.begin();
         batch.enableBlending();
-        batch.setColor(1.0f, 1.0f, 1.0f, e.opacity);
+        if (e.damagedFrame) {
+            batch.setColor(1.0f, 0.0f, 0.0f, e.opacity);
+        } else {
+            batch.setColor(1.0f, 1.0f, 1.0f, e.opacity);
+        }
 
         Animation<TextureRegion> animation = Assets.getAnimation(new AnimationKey("sprites/enemies.atlas",
                 e.sprites.get(e.sprite)));
