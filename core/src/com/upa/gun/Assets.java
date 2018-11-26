@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
@@ -67,6 +68,8 @@ public class Assets {
     public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> slimeAnimations;
     public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> strongSlimeAnimations;
     public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> bossSlimeAnimations;
+
+    public static ShaderProgram flashWhiteShader;
 
     private static Map<AnimationKey, Animation<TextureRegion>> animations;
 
@@ -133,6 +136,7 @@ public class Assets {
 
         menuFont = new BitmapFont();
 
+        loadShaders();
 
         bulletSound = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
         bossDieSound = Gdx.audio.newSound(Gdx.files.internal("sfx/bossdie.wav"));
@@ -149,6 +153,11 @@ public class Assets {
         }
 
         return animations.get(key);
+    }
+
+    private static void loadShaders() {
+        flashWhiteShader = new ShaderProgram(Gdx.files.internal("shaders/flash-white-vertex.glsl"),
+                Gdx.files.internal("shaders/flash-white-fragment.glsl"));
     }
 
     /**

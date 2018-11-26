@@ -142,10 +142,10 @@ class Renderer {
     private void drawEnemy(Enemy e) {
         batch.begin();
         batch.enableBlending();
+        batch.setColor(1.0f, 1.0f, 1.0f, e.opacity);
+
         if (e.damagedFrame) {
-            batch.setColor(1.0f, 0.0f, 0.0f, e.opacity);
-        } else {
-            batch.setColor(1.0f, 1.0f, 1.0f, e.opacity);
+            batch.setShader(Assets.flashWhiteShader);
         }
 
         Animation<TextureRegion> animation = Assets.getAnimation(new AnimationKey("sprites/enemies.atlas",
@@ -157,6 +157,7 @@ class Renderer {
 
         drawShadow(e.getPosition().x, e.getPosition().y, 20);
         batch.draw(frame, e.getPosition().x, e.getPosition().y, e.getSize().x, e.getSize().y);
+        batch.setShader(null);
         batch.end();
 
         if (Settings.DEV_MODE) {
