@@ -8,5 +8,9 @@ interface ScriptedEvent extends Updatable {
 
     void onFinish();
     boolean isFinished();
+
+    /**
+     * @return Whether the onFinish() function has been called.
+     */
     boolean onFinishCalled();
 }
