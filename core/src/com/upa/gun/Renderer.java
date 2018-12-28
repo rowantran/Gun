@@ -73,7 +73,7 @@ class Renderer {
 
     private void drawHealth(int health) {
         int startX = 50;
-        int incrementX = 32;
+        int incrementX = Assets.healthFullLeft.getRegionWidth();
         int startY = 72;
         if (health > 0) {
             batch.draw(Assets.healthFullLeft, startX, startY, Assets.healthFullLeft.getRegionWidth(),
