@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
@@ -51,6 +52,9 @@ public class Assets {
     public static TextureRegion enemyHealthEmptyRight;
     public static TextureRegion enemyHealthEmptyMid;
 
+    public static TextureRegion[] enemyHealthLeft;
+    public static TextureRegion[] enemyHealthMid;
+    public static TextureRegion[] enemyHealthRight;
 
     public static TextureRegion healthFullLeft;
     public static TextureRegion healthFullRight;
@@ -64,6 +68,8 @@ public class Assets {
     public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> slimeAnimations;
     public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> strongSlimeAnimations;
     public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> bossSlimeAnimations;
+
+    public static ShaderProgram flashWhiteShader;
 
     private static Map<AnimationKey, Animation<TextureRegion>> animations;
 
@@ -130,6 +136,7 @@ public class Assets {
 
         menuFont = new BitmapFont();
 
+        loadShaders();
 
         bulletSound = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
         bossDieSound = Gdx.audio.newSound(Gdx.files.internal("sfx/bossdie.wav"));
@@ -146,6 +153,11 @@ public class Assets {
         }
 
         return animations.get(key);
+    }
+
+    private static void loadShaders() {
+        flashWhiteShader = new ShaderProgram(Gdx.files.internal("shaders/flash-white-vertex.glsl"),
+                Gdx.files.internal("shaders/flash-white-fragment.glsl"));
     }
 
     /**
@@ -183,6 +195,10 @@ public class Assets {
         enemyHealthEmptyLeft = spriteAtlas.findRegion("boss_health_empty_left");
         enemyHealthEmptyRight = spriteAtlas.findRegion("boss_health_empty_right");
         enemyHealthEmptyMid = spriteAtlas.findRegion("boss_health_empty_mid");
+
+        enemyHealthLeft = new TextureRegion[]{enemyHealthEmptyLeft, enemyHealthFullLeft};
+        enemyHealthMid = new TextureRegion[]{enemyHealthEmptyMid, enemyHealthFullMid};
+        enemyHealthRight = new TextureRegion[]{enemyHealthEmptyRight, enemyHealthFullRight};
     }
 
 

@@ -2,11 +2,10 @@ package com.upa.gun.cutscene;
 
 import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.Settings;
-import com.upa.gun.World;
 import com.upa.gun.enemy.Enemy;
 
 public class BossSlimeFall implements ScriptedEvent {
-    private static float FALL_SPEED = 1.4f;
+    private static float FALL_SPEED = 3.0f;
     private static float TIME_AFTER_FALL = 0.8f;
 
     private Enemy slime;
@@ -44,14 +43,13 @@ public class BossSlimeFall implements ScriptedEvent {
 
     @Override
     public void onFinish() {
-        World.enemies.add(slime);
         finished = true;
     }
 
     @Override
     public boolean isFinished() {
         return slime.getPosition().y <=
-                (Settings.RESOLUTION.x * 0.4f) && timeElapsed > TIME_AFTER_FALL;
+                (Settings.RESOLUTION.y * 0.4f) && timeElapsed > TIME_AFTER_FALL;
     }
 
     @Override

@@ -111,38 +111,31 @@ class Renderer {
         layout.setText(font, "BIG OL' BAD OL' BOSS");
         font.draw(batch, layout, Settings.RESOLUTION.x / 2 - layout.width/2, 770);
 
-        float startX = (Settings.RESOLUTION.x / 2) - (maxHealth / 2 * Assets.enemyHealthFullLeft.getRegionWidth());
-        float incrementX = Assets.enemyHealthFullLeft.getRegionWidth();
-        float startY = 700;
-        if(health > 0) {
-            batch.draw(Assets.enemyHealthFullLeft, startX, startY, Assets.enemyHealthFullLeft.getRegionWidth(),
-                    Assets.enemyHealthFullLeft.getRegionHeight());
-        }
-        else {
-            batch.draw(Assets.enemyHealthEmptyLeft, startX, startY, Assets.enemyHealthEmptyLeft.getRegionWidth(),
-                    Assets.enemyHealthEmptyLeft.getRegionHeight());
-        }
-        startX += incrementX;
-        for(int i = 2; i <= health; i++) {
-            if(i == maxHealth) {
-                batch.draw(Assets.enemyHealthFullRight, startX, startY, Assets.enemyHealthFullRight.getRegionWidth(),
-                        Assets.enemyHealthFullRight.getRegionHeight());
+        float x = (Settings.RESOLUTION.x / 2) - (maxHealth / 2 * Assets.enemyHealthFullLeft.getRegionWidth());
+        float y = 700;
+
+        for (int i = 1; i <= maxHealth; i++) {
+            TextureRegion[] textures;
+
+            if (i == 1) {
+                textures = Assets.enemyHealthLeft;
+            } else if (i < maxHealth) {
+                textures = Assets.enemyHealthMid;
+            } else {
+                textures = Assets.enemyHealthRight;
             }
-            else {
-                batch.draw(Assets.enemyHealthFullMid, startX, startY, Assets.enemyHealthFullMid.getRegionWidth(),
-                        Assets.enemyHealthFullMid.getRegionHeight());
+
+            TextureRegion texture;
+            if (health >= i) {
+                texture = textures[1];
+            } else {
+                texture = textures[0];
             }
-            startX += incrementX;
+
+            x += texture.getRegionWidth();
+            batch.draw(texture, x, y, texture.getRegionWidth(), texture.getRegionHeight());
         }
-        for(int i = health; i < maxHealth-1; i++) {
-            batch.draw(Assets.enemyHealthEmptyMid, startX, startY, Assets.enemyHealthEmptyMid.getRegionWidth(),
-                    Assets.enemyHealthEmptyMid.getRegionHeight());
-            startX += incrementX;
-        }
-        if(health < maxHealth) {
-            batch.draw(Assets.enemyHealthEmptyRight, startX, startY, Assets.enemyHealthEmptyRight.getRegionWidth(),
-                    Assets.enemyHealthEmptyRight.getRegionHeight());
-        }
+
         batch.end();
     }
 
@@ -150,6 +143,10 @@ class Renderer {
         batch.begin();
         batch.enableBlending();
         batch.setColor(1.0f, 1.0f, 1.0f, e.opacity);
+
+        if (e.damagedFrame) {
+            batch.setShader(Assets.flashWhiteShader);
+        }
 
         Animation<TextureRegion> animation = Assets.getAnimation(new AnimationKey("sprites/enemies.atlas",
                 e.sprites.get(e.sprite)));
@@ -160,6 +157,9 @@ class Renderer {
 
         drawShadow(e.getPosition().x, e.getPosition().y, 20);
         batch.draw(frame, e.getPosition().x, e.getPosition().y, e.getSize().x, e.getSize().y);
+
+        batch.setShader(null);
+        batch.setColor(1.0f, 1.0f, 1.0f, 1.0f);
         batch.end();
 
         if (Settings.DEV_MODE) {

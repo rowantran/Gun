@@ -6,6 +6,8 @@ import com.upa.gun.*;
 import java.util.Map;
 
 public class Enemy extends Entity {
+    private static final float DAMAGE_FLASH_LENGTH = 1/20f;
+
     public float timeElapsed;
 
     private int startHealth;
@@ -14,6 +16,9 @@ public class Enemy extends Entity {
     float timeSinceAttack;
 
     private EnemyState state;
+
+    public boolean damagedFrame;
+    private float damagedFrameTime;
 
     AttackRotation rotation;
 
@@ -41,6 +46,9 @@ public class Enemy extends Entity {
         startHealth = health;
 
         state = new EnemyActiveState();
+
+        damagedFrame = false;
+        damagedFrameTime = 0f;
 
         sprites = info.sprites;
         sprite = "default";
@@ -78,6 +86,8 @@ public class Enemy extends Entity {
             state = new EnemyFadingState(this);
             World.spawner.slimesKilled++;
             World.spawner.slimesKilledSinceLastBoss++;
+        } else {
+            damagedFrame = true;
         }
     }
 
@@ -97,6 +107,14 @@ public class Enemy extends Entity {
         rotation.cycle(delta, getPosition());
 
         changeSprite(rotation.currentAttack().getSprite());
+
+        if (damagedFrame) {
+            damagedFrameTime += delta;
+            if (damagedFrameTime >= DAMAGE_FLASH_LENGTH) {
+                damagedFrame = false;
+                damagedFrameTime = 0f;
+            }
+        }
 
         if (rotation.currentAttack().isMobile()) {
             move();
