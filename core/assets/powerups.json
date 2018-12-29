@@ -1,0 +1,16 @@
+{
+  "powerups": [
+    {
+	  "id": 0,
+	  "damageMultiplier": 1,
+	  "speedMultiplier": 1,
+	  "bulletCooldownMultiplier": 0.8  
+	},
+	{
+	  "id": 1,
+	  "damageMultiplier": 1,
+	  "speedMultiplier": 1,
+	  "bulletCooldownMultiplier": 0.8
+	}
+  ]	  
+}

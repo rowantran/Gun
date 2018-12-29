@@ -84,6 +84,8 @@ public class Enemy extends Entity {
         health -= damage;
         if (health <= 0) {
             state = new EnemyFadingState(this);
+
+
             World.spawner.slimesKilled++;
             World.spawner.slimesKilledSinceLastBoss++;
         } else {

@@ -3,6 +3,7 @@ package com.upa.gun;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import java.util.ArrayList;
 
 public class Settings {
     public static final int LOG_LEVEL = Application.LOG_DEBUG;
@@ -38,9 +39,8 @@ public class Settings {
 
     public static int PERCENT_SPAWN_CHANCE = 1;
     public static boolean PLAYER_DEATH = true;
-
-
-    //added since removal of box2d
     public static final float I_FRAME_LENGTH = 1.0f;
+
+    public static float bulletCooldown = 0.4f;
 
 }

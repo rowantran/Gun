@@ -84,7 +84,7 @@ public class InputHandler implements Updatable {
                         bulletAngle.angleRad()));
                 World.player.shot.stop();
                 World.player.shot.play(.5f);
-                World.player.bulletCooldown = 0.4;
+                World.player.bulletCooldown = Settings.bulletCooldown;
             }
         }
     }
