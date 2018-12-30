@@ -2,15 +2,34 @@
   "powerups": [
     {
 	  "id": 0,
+	  "name": "Dual Wield",
+	  "sprite": "twoHands",
+	  "description": "Why didn't I think of this before?",
+	  "effectDescription": "Fire rate up!",
 	  "damageMultiplier": 1,
 	  "speedMultiplier": 1,
-	  "bulletCooldownMultiplier": 0.8  
+	  "bulletCooldownMultiplier": 0.8,
+	  "width": 36,
+	  "height": 36,
+	  "hitboxType": "rectangular",
+	  "hitboxWidth": 18,
+	  "hitboxHeight": 18
+	  
 	},
 	{
 	  "id": 1,
+	  "name": "Three Hands",
+	  "sprite": "b",
+	  "description": "This cannot be natural.",
+	  "effectDescription	": "Fire rate up!",
 	  "damageMultiplier": 1,
 	  "speedMultiplier": 1,
-	  "bulletCooldownMultiplier": 0.8
+	  "bulletCooldownMultiplier": 0.8,
+	  "width": 36,
+	  "height": 36,
+	  "hitboxType": "rectangular",
+	  "hitboxWidth": 18,
+	  "hitboxHeight": 18
 	}
   ]	  
 }

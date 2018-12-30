@@ -86,6 +86,7 @@ public class Enemy extends Entity {
             state = new EnemyFadingState(this);
 
 
+
             World.spawner.slimesKilled++;
             World.spawner.slimesKilledSinceLastBoss++;
         } else {
