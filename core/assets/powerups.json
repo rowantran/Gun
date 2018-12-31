@@ -21,7 +21,7 @@
 	  "name": "Three Hands",
 	  "sprite": "b",
 	  "description": "This cannot be natural.",
-	  "effectDescription	": "Fire rate up!",
+	  "effectDescription": "Fire rate up!",
 	  "damageMultiplier": 1,
 	  "speedMultiplier": 1,
 	  "bulletCooldownMultiplier": 0.8,

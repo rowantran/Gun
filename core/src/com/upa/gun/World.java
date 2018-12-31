@@ -4,6 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.upa.gun.cutscene.ScriptedEventSequence;
 import com.upa.gun.enemy.Enemy;
 import com.upa.gun.enemy.EnemyFactory;
+
+import com.upa.gun.enemy.PowerupFactory; //these should not be in enemy... need to fix later.
+import com.upa.gun.enemy.Powerup;
+
 import com.upa.gun.enemy.SpawnIndicator;
 import com.upa.gun.enemy.Spawner;
 
@@ -18,6 +22,7 @@ public class World implements Updatable {
     public static Player player;
 
     public static List<Enemy> enemies;
+    public static List<Powerup> powerups;
 
     public static List<Bullet> enemyBullets;
     static List<Bullet> playerBullets;
@@ -35,9 +40,11 @@ public class World implements Updatable {
     boolean cinematicHappening;
 
     private EnemyFactory enemyFactory;
+    public static PowerupFactory powerupFactory;
 
     private World() {
         enemies = new ArrayList<Enemy>();
+        powerups = new ArrayList<Powerup>();
 
         enemyBullets = new ArrayList<Bullet>();
         playerBullets = new ArrayList<Bullet>();
@@ -54,12 +61,14 @@ public class World implements Updatable {
         collisionChecker = new CollisionChecker();
 
         enemyFactory = new EnemyFactory("enemies.json");
+        powerupFactory = new PowerupFactory("powerups.json");
     }
 
     public void reset() {
         player.reset();
 
         enemies.clear();
+        powerups.clear();
 
         enemyBullets.clear();
         playerBullets.clear();
@@ -160,4 +169,5 @@ public class World implements Updatable {
     public EnemyFactory getEnemyFactory() {
         return enemyFactory;
     }
+    public PowerupFactory getPowerupFactory() { return powerupFactory;}
 }

@@ -18,6 +18,9 @@ public class Assets {
     @SuppressWarnings("LibGDXStaticResource")
     private static AssetManager assetManager;
 
+    public static Texture powerup1; //temp, will make atlas later
+
+
     public static Texture backgroundRoom1;
     public static Texture crate;
     public static Texture shadow;
@@ -140,6 +143,9 @@ public class Assets {
 
         bulletSound = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
         bossDieSound = Gdx.audio.newSound(Gdx.files.internal("sfx/bossdie.wav"));
+
+        powerup1 = loadTexture("sprites/powerups/twoHands.png");
+
     }
 
     /**

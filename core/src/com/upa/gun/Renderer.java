@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.enemy.Enemy;
 import com.upa.gun.enemy.SpawnIndicator;
+import com.upa.gun.enemy.Powerup;
 
 class Renderer {
     private SpriteBatch batch;
@@ -139,6 +140,17 @@ class Renderer {
         batch.end();
     }
 
+    private void drawPowerup(Powerup p) {
+        batch.begin();
+        batch.enableBlending();
+        batch.draw(Assets.powerup1, p.getPosition().x, p.getPosition().y, p.getSize().x, p.getSize().y);
+        batch.end();
+        if(Settings.DEV_MODE) {
+            drawHitbox(p);
+        }
+
+    }
+
     private void drawEnemy(Enemy e) {
         batch.begin();
         batch.enableBlending();
@@ -237,8 +249,12 @@ class Renderer {
             }
         }
 
-        for (Crate b : World.crates) {
-            drawCrate(b, b.x, b.y);
+        for (Powerup p : World.powerups) {
+            drawPowerup(p);
+        }
+
+        for (Crate c : World.crates) {
+            drawCrate(c, c.x, c.y);
             //System.out.println("crate");
         }
 

@@ -22,7 +22,11 @@ public class Powerup extends Entity {
         }
 
         opacity = 1f;
+        id = info.id;
+    }
 
+    public int getId() {
+        return id;
     }
 
     @Override
