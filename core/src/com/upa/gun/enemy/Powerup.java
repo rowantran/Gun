@@ -6,11 +6,11 @@ import java.util.Map;
 
 public class Powerup extends Entity {
 
-    public float opacity;
     public Map<String, String> sprites;
     public String sprite;
     private Hitbox hitbox;
     private int id;
+    private PowerupInfo info;
     public boolean markedForDeletion;
 
     Powerup(PowerupInfo info, float x, float y) {
@@ -23,6 +23,7 @@ public class Powerup extends Entity {
         }
 
         markedForDeletion = false;
+        this.info = info;
         id = info.id;
     }
 
@@ -33,6 +34,13 @@ public class Powerup extends Entity {
     @Override
     public Hitbox getHitbox() {
         return hitbox;
+    }
+
+    public void markForDeletion() {
+        markedForDeletion = true;
+        Settings.playerSpeed *= info.speedMultiplier;
+        Settings.playerDamage *= info.damageMultiplier;
+        Settings.playerBulletCooldown *= info.bulletCooldownMultiplier;
     }
 
     private void createHitbox(String hitboxType, int width, int height) throws UnrecognizedHitboxTypeException {

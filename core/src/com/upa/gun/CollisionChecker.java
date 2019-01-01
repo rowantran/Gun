@@ -29,7 +29,7 @@ public class CollisionChecker implements Updatable {
     private void checkPowerupCollect() {
         for(Powerup p : World.powerups) {
             if (p.getHitbox().colliding(World.player.hitbox)) {
-                p.markedForDeletion = true;
+                p.markForDeletion();
             }
         }
     }

@@ -20,7 +20,6 @@ public class Settings {
 
     public static final float ENEMY_BULLET_SPEED_MULTIPLIER = 0.8f;
 
-    public static final float PLAYER_SPEED = 250.0f;
     public static final float SLIME_SPEED = 100.0f;
     public static final float ROLL_DELAY = 1.5f;
     public static final float ROLL_SPEED = 500.0f;
@@ -41,6 +40,11 @@ public class Settings {
     public static boolean PLAYER_DEATH = true;
     public static final float I_FRAME_LENGTH = 1.0f;
 
-    public static float bulletCooldown = 0.4f;
+
+    //player variables
+    public static double playerBulletCooldown = 1.0;
+    public static float playerSpeed = 250.0f;
+    public static float playerDamage = 1f; //currently not in use
+
 
 }

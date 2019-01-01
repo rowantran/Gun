@@ -11,29 +11,29 @@ public class InputHandler implements Updatable {
         Vector2 velocity = new Vector2(0f, 0f);
 
         if (Gdx.input.isKeyPressed(Settings.KEY_LEFT)) {
-            if(!((World.player.getPosition().x - Settings.PLAYER_SPEED * delta) < 113)) {
-                velocity.x -= Settings.PLAYER_SPEED;
+            if(!((World.player.getPosition().x - Settings.playerSpeed * delta) < 113)) {
+                velocity.x -= Settings.playerSpeed;
                 World.player.state = PlayerState.moving;
             }
         }
 
         if (Gdx.input.isKeyPressed(Settings.KEY_RIGHT)) {
-            if(!((World.player.getPosition().x + Settings.PLAYER_SPEED * delta) > 1164)) {
-                velocity.x += Settings.PLAYER_SPEED;
+            if(!((World.player.getPosition().x + Settings.playerSpeed * delta) > 1164)) {
+                velocity.x += Settings.playerSpeed;
                 World.player.state = PlayerState.moving;
             }
         }
 
         if (Gdx.input.isKeyPressed(Settings.KEY_DOWN)) {
             if(!World.player.botStop){
-                velocity.y -= Settings.PLAYER_SPEED;
+                velocity.y -= Settings.playerSpeed;
                 World.player.state = PlayerState.moving;
             }
         }
 
         if (Gdx.input.isKeyPressed(Settings.KEY_UP)) {
-            if (!((World.player.getPosition().y + Settings.PLAYER_SPEED * delta) > 702)) {
-                velocity.y += Settings.PLAYER_SPEED;
+            if (!((World.player.getPosition().y + Settings.playerSpeed * delta) > 702)) {
+                velocity.y += Settings.playerSpeed;
                 World.player.state = PlayerState.moving;
             }
         }
@@ -50,7 +50,7 @@ public class InputHandler implements Updatable {
             World.player.state = PlayerState.idle;
         }
 
-        return velocity.setLength(Settings.PLAYER_SPEED);
+        return velocity.setLength(Settings.playerSpeed);
     }
 
     /**
@@ -84,7 +84,7 @@ public class InputHandler implements Updatable {
                         bulletAngle.angleRad()));
                 World.player.shot.stop();
                 World.player.shot.play(.5f);
-                World.player.bulletCooldown = Settings.bulletCooldown;
+                World.player.bulletCooldown = Settings.playerBulletCooldown;
             }
         }
     }

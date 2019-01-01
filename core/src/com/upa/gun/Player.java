@@ -40,7 +40,7 @@ public class Player extends Entity {
 
         state = PlayerState.idle;
 
-        bulletCooldown = 0.2f;
+        bulletCooldown = Settings.playerBulletCooldown;
 
         health = Settings.PLAYER_HEALTH;
 
