@@ -12,8 +12,8 @@
 	  "width": 36,
 	  "height": 36,
 	  "hitboxType": "rectangular",
-	  "hitboxWidth": 18,
-	  "hitboxHeight": 18
+	  "hitboxWidth": 36,
+	  "hitboxHeight": 36
 	  
 	},
 	{
@@ -28,8 +28,8 @@
 	  "width": 36,
 	  "height": 36,
 	  "hitboxType": "rectangular",
-	  "hitboxWidth": 18,
-	  "hitboxHeight": 18
+	  "hitboxWidth": 36,
+	  "hitboxHeight": 36
 	}
   ]	  
 }

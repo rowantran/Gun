@@ -40,7 +40,7 @@ public class World implements Updatable {
     boolean cinematicHappening;
 
     private EnemyFactory enemyFactory;
-    public static PowerupFactory powerupFactory;
+    private PowerupFactory powerupFactory;
 
     private World() {
         enemies = new ArrayList<Enemy>();
@@ -90,7 +90,7 @@ public class World implements Updatable {
         }
     }
 
-    static World getInstance() {
+    public static World getInstance() {
         return world;
     }
 
@@ -148,6 +148,13 @@ public class World implements Updatable {
         for (Iterator<Bullet> iterator = enemyBullets.iterator(); iterator.hasNext();) {
             Bullet bullet = iterator.next();
             if (bullet.markedForDeletion) {
+                iterator.remove();
+            }
+        }
+
+        for (Iterator<Powerup> iterator = powerups.iterator(); iterator.hasNext();) {
+            Powerup powerup = iterator.next();
+            if (powerup.markedForDeletion) {
                 iterator.remove();
             }
         }

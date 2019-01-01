@@ -11,6 +11,7 @@ public class Powerup extends Entity {
     public String sprite;
     private Hitbox hitbox;
     private int id;
+    public boolean markedForDeletion;
 
     Powerup(PowerupInfo info, float x, float y) {
         super(x, y, info.width, info.height, 0 ,0);
@@ -21,7 +22,7 @@ public class Powerup extends Entity {
             //do nothing I guess
         }
 
-        opacity = 1f;
+        markedForDeletion = false;
         id = info.id;
     }
 

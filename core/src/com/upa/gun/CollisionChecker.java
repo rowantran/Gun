@@ -2,6 +2,7 @@ package com.upa.gun;
 
 import com.badlogic.gdx.Gdx;
 import com.upa.gun.enemy.Enemy;
+import com.upa.gun.enemy.Powerup;
 
 public class CollisionChecker implements Updatable {
     private void checkPlayerHit() {
@@ -25,9 +26,18 @@ public class CollisionChecker implements Updatable {
         }
     }
 
+    private void checkPowerupCollect() {
+        for(Powerup p : World.powerups) {
+            if (p.getHitbox().colliding(World.player.hitbox)) {
+                p.markedForDeletion = true;
+            }
+        }
+    }
+
     @Override
     public void update(float delta) {
         checkPlayerHit();
         checkEnemiesHit();
+        checkPowerupCollect();
     }
 }
