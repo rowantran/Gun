@@ -17,10 +17,11 @@ public class PowerupInfo {
     public float damageMultiplier;
     public float speedMultiplier;
     public float bulletCooldownMultiplier;
+    public int healthBonus;
 
     PowerupInfo(int id, int width, int height, String hitboxType, int hitboxWidth, int hitboxHeight, String name,
                 String sprite, String description, String effectDescription, float damageMultiplier,
-                float speedMultiplier, float bulletCooldownMultiplier) {
+                float speedMultiplier, float bulletCooldownMultiplier, int healthBonus) {
         this.id = id;
         this.width = width;
         this.height = height;
@@ -34,6 +35,7 @@ public class PowerupInfo {
         this.damageMultiplier = damageMultiplier;
         this.speedMultiplier = speedMultiplier;
         this.bulletCooldownMultiplier = bulletCooldownMultiplier;
+        this.healthBonus = healthBonus;
     }
 
 

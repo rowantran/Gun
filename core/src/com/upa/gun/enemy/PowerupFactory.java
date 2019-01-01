@@ -34,6 +34,7 @@ public class PowerupFactory {
             float damageMultiplier = powerup.getFloat("damageMultiplier");
             float speedMultiplier = powerup.getFloat("speedMultiplier");
             float bulletCooldownMultiplier = powerup.getFloat("bulletCooldownMultiplier");
+            int healthBonus = powerup.getInt("healthBonus");
             String name = powerup.getString("name");
             String spriteName = powerup.getString("sprite");
             String description = powerup.getString("description");
@@ -41,7 +42,7 @@ public class PowerupFactory {
 
             PowerupInfo info = new PowerupInfo(id, width, height, hitboxType, hitboxWidth, hitboxHeight, name,
                     spriteName, description, effectDescription, damageMultiplier, speedMultiplier,
-                    bulletCooldownMultiplier);
+                    bulletCooldownMultiplier, healthBonus);
             powerups.put(id, info);
         }
 

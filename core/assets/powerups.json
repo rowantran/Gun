@@ -9,22 +9,55 @@
 	  "damageMultiplier": 1,
 	  "speedMultiplier": 1,
 	  "bulletCooldownMultiplier": 0.75,
+	  "healthBonus": 0,
 	  "width": 36,
 	  "height": 36,
 	  "hitboxType": "rectangular",
 	  "hitboxWidth": 36,
-	  "hitboxHeight": 36
-	  
+	  "hitboxHeight": 36 
 	},
 	{
 	  "id": 1,
 	  "name": "Three Hands",
-	  "sprite": "b",
+	  "sprite": "?",
 	  "description": "This cannot be natural.",
 	  "effectDescription": "Fire rate up!",
 	  "damageMultiplier": 1,
 	  "speedMultiplier": 1,
 	  "bulletCooldownMultiplier": 0.75,
+	  "healthBonus": 0,
+	  "width": 36,
+	  "height": 36,
+	  "hitboxType": "rectangular",
+	  "hitboxWidth": 36,
+	  "hitboxHeight": 36
+	}
+	{
+	  "id": 2,
+	  "name": "Hearty",
+	  "sprite": "?",
+	  "description": "Feeling hearty. More hearts!",
+	  "effectDescription": "Max health up!",
+	  "damageMultiplier": 1,
+	  "speedMultiplier": 1,
+	  "bulletCooldownMultiplier": 1,
+	  "healthBonus": 2,
+	  "width": 36,
+	  "height": 36,
+	  "hitboxType": "rectangular",
+	  "hitboxWidth": 36,
+	  "hitboxHeight": 36
+	}
+	{
+	  "id": 3,
+	  "name": "?",
+	  "sprite": "?",
+	  "description": "?",
+	  "effectDescription": "Speed up!",
+	  "damageMultiplier": 1,
+	  "speedMultiplier": 1.2,
+	  "bulletCooldownMultiplier": 1,
+	  "healthBonus": 0,
 	  "width": 36,
 	  "height": 36,
 	  "hitboxType": "rectangular",

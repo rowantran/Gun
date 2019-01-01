@@ -85,7 +85,7 @@ class Renderer {
                     Assets.healthEmptyLeft.getRegionHeight());
             startX += incrementX;
         }
-        for (int i = 2; i < Settings.PLAYER_HEALTH; i++) {
+        for (int i = 2; i < Settings.playerHealth; i++) {
             if (i <= health) {
                 batch.draw(Assets.healthFullMid, startX, startY, Assets.healthFullMid.getRegionWidth(),
                         Assets.healthFullMid.getRegionHeight());
@@ -96,7 +96,7 @@ class Renderer {
                 startX += incrementX;
             }
         }
-        if (health == Settings.PLAYER_HEALTH) {
+        if (health == Settings.playerHealth) {
             batch.draw(Assets.healthFullRight, startX, startY, Assets.healthFullRight.getRegionWidth(),
                     Assets.healthFullRight.getRegionHeight());
         } else {

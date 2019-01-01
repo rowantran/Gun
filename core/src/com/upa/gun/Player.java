@@ -42,7 +42,7 @@ public class Player extends Entity {
 
         bulletCooldown = Settings.playerBulletCooldown;
 
-        health = Settings.PLAYER_HEALTH;
+        health = Settings.playerHealth;
 
         direction = Direction.DOWN;
 
@@ -63,7 +63,7 @@ public class Player extends Entity {
 
         state = PlayerState.idle;
 
-        health = Settings.PLAYER_HEALTH;
+        health = Settings.playerHealth;
 
         direction = Direction.DOWN;
 

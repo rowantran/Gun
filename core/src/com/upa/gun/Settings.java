@@ -14,7 +14,6 @@ public class Settings {
     public static final float STEP_TIME = 1/300f;
 
     public static final Vector2 RESOLUTION = new Vector2(1280, 800);
-    public static int PLAYER_HEALTH = 10;
 
     public static final float BULLET_SPEED = 500.0f;
 
@@ -45,6 +44,5 @@ public class Settings {
     public static double playerBulletCooldown = 1.0;
     public static float playerSpeed = 250.0f;
     public static float playerDamage = 1f; //currently not in use
-
-
+    public static int playerHealth = 10;
 }

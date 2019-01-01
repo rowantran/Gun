@@ -41,6 +41,7 @@ public class Powerup extends Entity {
         Settings.playerSpeed *= info.speedMultiplier;
         Settings.playerDamage *= info.damageMultiplier;
         Settings.playerBulletCooldown *= info.bulletCooldownMultiplier;
+        Settings.playerHealth += info.healthBonus;
     }
 
     private void createHitbox(String hitboxType, int width, int height) throws UnrecognizedHitboxTypeException {
