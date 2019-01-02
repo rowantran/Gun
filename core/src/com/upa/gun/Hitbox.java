@@ -12,4 +12,7 @@ public interface Hitbox {
 
     float getWidth();
     float getHeight();
+
+    boolean isActive();
+    void setActive(boolean active);
 }

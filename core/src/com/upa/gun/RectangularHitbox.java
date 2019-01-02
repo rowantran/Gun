@@ -1,17 +1,21 @@
 package com.upa.gun;
 
 public class RectangularHitbox implements Hitbox {
+    private boolean active;
+
     float x, y, width, height;
     public RectangularHitbox(float x, float y, float width, float height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+
+        active = true;
     }
 
     @Override
     public boolean colliding(Hitbox other) {
-        return other.colliding(this);
+        return active && other.colliding(this);
     }
 
     @Override
@@ -44,4 +48,15 @@ public class RectangularHitbox implements Hitbox {
     public float getHeight() {
         return height;
     }
+
+    @Override
+    public boolean isActive() {
+        return active;
+    }
+
+    @Override
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
 }

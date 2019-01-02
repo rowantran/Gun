@@ -230,10 +230,12 @@ class Renderer {
     }
 
     private void drawHitbox(Entity e) {
-        sr.setProjectionMatrix(camera.combined);
-        sr.begin(ShapeRenderer.ShapeType.Line);
-        sr.rect(e.getHitbox().getX(), e.getHitbox().getY(), e.getHitbox().getWidth(), e.getHitbox().getHeight());
-        sr.end();
+        if (e.getHitbox().isActive()) {
+            sr.setProjectionMatrix(camera.combined);
+            sr.begin(ShapeRenderer.ShapeType.Line);
+            sr.rect(e.getHitbox().getX(), e.getHitbox().getY(), e.getHitbox().getWidth(), e.getHitbox().getHeight());
+            sr.end();
+        }
     }
 
     void draw(World world) {

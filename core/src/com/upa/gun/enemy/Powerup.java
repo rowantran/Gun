@@ -53,6 +53,8 @@ public class Powerup extends Entity {
 
             setPosition(startX, 72);
 
+            getHitbox().setActive(false);
+
             player.powerupsActive.add(this);
         }
     }
