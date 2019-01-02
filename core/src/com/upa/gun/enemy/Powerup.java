@@ -36,12 +36,27 @@ public class Powerup extends Entity {
         return hitbox;
     }
 
-    public void markForDeletion() {
+    /**
+     * Delete this powerup from the map and apply it to the player.
+     */
+    public void markForDeletion(Player player) {
         markedForDeletion = true;
-        Settings.playerSpeed *= info.speedMultiplier;
-        Settings.playerDamage *= info.damageMultiplier;
-        Settings.playerBulletCooldown *= info.bulletCooldownMultiplier;
-        Settings.playerHealth += info.healthBonus;
+
+        if (!player.hasPowerup(getId())) {
+            Settings.playerSpeed *= info.speedMultiplier;
+            Settings.playerDamage *= info.damageMultiplier;
+            Settings.playerBulletCooldown *= info.bulletCooldownMultiplier;
+            Settings.playerHealth += info.healthBonus;
+
+            float startX = 80 + (Assets.healthFullLeft.getRegionWidth() * Settings.playerHealth);
+            startX += (getSize().x * player.powerupsActive.size);
+
+            setPosition(startX, 72);
+
+            getHitbox().setActive(false);
+
+            player.powerupsActive.add(this);
+        }
     }
 
     private void createHitbox(String hitboxType, int width, int height) throws UnrecognizedHitboxTypeException {

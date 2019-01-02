@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.upa.gun.enemy.Enemy;
 import com.upa.gun.enemy.SpawnIndicator;
 import com.upa.gun.enemy.Powerup;
@@ -229,10 +230,12 @@ class Renderer {
     }
 
     private void drawHitbox(Entity e) {
-        sr.setProjectionMatrix(camera.combined);
-        sr.begin(ShapeRenderer.ShapeType.Line);
-        sr.rect(e.getHitbox().getX(), e.getHitbox().getY(), e.getHitbox().getWidth(), e.getHitbox().getHeight());
-        sr.end();
+        if (e.getHitbox().isActive()) {
+            sr.setProjectionMatrix(camera.combined);
+            sr.begin(ShapeRenderer.ShapeType.Line);
+            sr.rect(e.getHitbox().getX(), e.getHitbox().getY(), e.getHitbox().getWidth(), e.getHitbox().getHeight());
+            sr.end();
+        }
     }
 
     void draw(World world) {
@@ -279,6 +282,11 @@ class Renderer {
         }
 
         batch.end();
+
+        // Draw powerups attached to player
+        for (Powerup p : new Array.ArrayIterator<Powerup>(World.player.powerupsActive)) {
+            drawPowerup(p);
+        }
 
         if (world.cinematicHappening) {
             sr.setProjectionMatrix(camera.combined);
