@@ -3,6 +3,11 @@ package com.upa.gun;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.IntArray;
+import com.upa.gun.enemy.Powerup;
+
+import java.util.List;
 
 public class Player extends Entity {
     private static final float HITBOX_SIZE = 15f;
@@ -27,6 +32,8 @@ public class Player extends Entity {
 
     float timeSinceRoll;
 
+    public Array<Powerup> powerupsActive;
+
     Sound shot;
 
     Direction direction;
@@ -47,6 +54,8 @@ public class Player extends Entity {
         direction = Direction.DOWN;
 
         timeSinceRoll = Settings.ROLL_DELAY;
+
+        powerupsActive = new Array<Powerup>();
 
         this.game = game;
         state.setGame(game);
@@ -97,6 +106,19 @@ public class Player extends Entity {
                 state = PlayerState.dying;
             }
         }
+    }
+
+    /**
+     * @return Whether the powerup with the given ID is currently active.
+     */
+    public boolean hasPowerup(int id) {
+        for (Powerup powerup : new Array.ArrayIterator<Powerup>(powerupsActive)) {
+            if (powerup.getId() == id) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
