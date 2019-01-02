@@ -85,7 +85,14 @@ public class Enemy extends Entity {
         if (health <= 0) {
             state = new EnemyFadingState(this);
 
-            World.powerups.add(World.getInstance().getPowerupFactory().createPowerup(3, this.getPosition().x, this.getPosition().y));
+            int rand = (int)(Math.random() * 20); //random powerup checker
+            if(rand == 0) {
+                int type = (int)(Math.random() * PowerupFactory.getInstance().powerups.size());
+                World.powerups.add(World.getInstance().getPowerupFactory().createPowerup(type, this.getPosition().x, this.getPosition().y));
+                Powerup added = World.powerups.get(World.powerups.size()-1);
+                System.out.println(added.info.effectDescription);
+            }
+
 
             World.spawner.slimesKilled++;
             World.spawner.slimesKilledSinceLastBoss++;
