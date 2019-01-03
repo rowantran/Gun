@@ -34,10 +34,19 @@ public class CollisionChecker implements Updatable {
         }
     }
 
+    private void checkCrateTouch() {
+        for(CrateTop c : World.currentMap.getCrateTops()) {
+            if(c.getHitbox().colliding(World.player.hitbox)) {
+                System.out.println("touch");
+            }
+        }
+    }
+
     @Override
     public void update(float delta) {
         checkPlayerHit();
         checkEnemiesHit();
         checkPowerupCollect();
+        checkCrateTouch();
     }
 }

@@ -244,6 +244,9 @@ class Renderer {
             top.crateTopSprite.setX(top.x);
             top.crateTopSprite.setY(top.y);
             top.crateTopSprite.draw(batch);
+            if (Settings.DEV_MODE) {
+                //drawHitbox(top); erases the crate?
+            }
         }
         ArrayList<CrateSide> crateSides = map.getCrateSides();
         for(CrateSide side : crateSides) {
