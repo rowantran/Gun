@@ -15,7 +15,8 @@ import java.util.Map;
 
 public class PowerupFactory {
 
-    Map<Integer, PowerupInfo> powerups;
+    public static PowerupFactory powerupFactory = new PowerupFactory("powerups.json");
+    public Map<Integer, PowerupInfo> powerups;
 
     public PowerupFactory(String path) {
 
@@ -46,6 +47,10 @@ public class PowerupFactory {
             powerups.put(id, info);
         }
 
+    }
+
+    public static PowerupFactory getInstance() {
+        return powerupFactory;
     }
 
     Powerup createPowerup(int id, float x, float y) {

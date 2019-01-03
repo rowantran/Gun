@@ -10,7 +10,7 @@ public class Powerup extends Entity {
     public String sprite;
     private Hitbox hitbox;
     private int id;
-    private PowerupInfo info;
+    public PowerupInfo info;
     public boolean markedForDeletion;
 
     Powerup(PowerupInfo info, float x, float y) {
