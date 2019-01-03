@@ -163,11 +163,11 @@ public class Enemy extends Entity {
 
         switch(horizontalDirection) {
             case 0:
-                setVelocity(-Settings.SLIME_SPEED, getVelocity().y);
-                break;
-            case 1:
                 setVelocity(0, getVelocity().y);
                 diag = false;
+                break;
+            case 1:
+                setVelocity(-Settings.SLIME_SPEED, getVelocity().y);
                 break;
             case 2:
                 setVelocity(Settings.SLIME_SPEED, getVelocity().y);
@@ -175,11 +175,11 @@ public class Enemy extends Entity {
         }
         switch(verticalDirection) {
             case 0:
-                setVelocity(getVelocity().x, -Settings.SLIME_SPEED);
-                break;
-            case 1:
                 setVelocity(getVelocity().x, 0);
                 diag = false;
+                break;
+            case 1:
+                setVelocity(getVelocity().x, -Settings.SLIME_SPEED);
                 break;
             case 2:
                 setVelocity(getVelocity().x, Settings.SLIME_SPEED);
