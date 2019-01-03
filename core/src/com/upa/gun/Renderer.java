@@ -111,30 +111,34 @@ class Renderer {
         batch.enableBlending();
 
         //display boss health by percentage. 700px bar.
-        float y = 698; //not 700 b/c crate face bottoms show
+
+        int barWidth = 700;
+
+        float y = 698; //arbitrary value. not 700 b/c crate face bottoms show
+        float x = Settings.RESOLUTION.x / 2; //center of screen
         Texture edge = Assets.bossHealthEdge;
         Texture full = Assets.bossHealthFull;
         Texture empty = Assets.bossHealthEmpty;
 
         layout.setText(font, bossName);
-        font.draw(batch, layout, Settings.RESOLUTION.x / 2 - layout.width/2, 770);
+        font.draw(batch, layout, Settings.RESOLUTION.x / 2 - layout.width/2, 770); //sets boss title over health bar
 
         double h = (double) health;
         double hMax = (double) maxHealth;
-        double barsFull = (h / hMax) * 694;
+        double barsFull = (h / hMax) * (double)barWidth - (2 * (double)edge.getWidth());
         int barsToDraw = (int) barsFull;
 
-        batch.draw(edge, Settings.RESOLUTION.x/2 - 350, y, edge.getWidth(), edge.getHeight()); //left edge
-        batch.draw(edge, Settings.RESOLUTION.x/2 + 347, y, edge.getWidth(), edge.getHeight()); //right edge
+        batch.draw(edge, x - barWidth/2, y, edge.getWidth(), edge.getHeight()); //left edge
+        batch.draw(edge, x + (barWidth/2 - edge.getWidth()), y, edge.getWidth(), edge.getHeight()); //right edge
 
         for(int i = 0; i < barsToDraw; i++) {
-            int offset = -347 + i;
-            batch.draw(full, Settings.RESOLUTION.x/2 + offset, y, full.getWidth(), full.getHeight());
+            int offset = barWidth/2 - edge.getWidth() - i;
+            batch.draw(full, x - offset, y, full.getWidth(), full.getHeight());
         }
 
-        for(int i = barsToDraw; i < 694; i++) {
-            int offset = -347 + i;
-            batch.draw(empty, Settings.RESOLUTION.x/2 + offset, y, empty.getWidth(), empty.getHeight());
+        for(int i = barsToDraw; i < (double)barWidth - (2 * (double)edge.getWidth()); i++) {
+            int offset = barWidth/2 - edge.getWidth() - i;
+            batch.draw(empty, x - offset, y, empty.getWidth(), empty.getHeight());
         }
 
         batch.end();
@@ -145,28 +149,31 @@ class Renderer {
         batch.enableBlending();
 
         //display slime health by percentage. 40px bar.
-        float y = yLocation + 42;
-        float x = xLocation + 24;
+
+        int barWidth = 40;
+
+        float y = yLocation + 42; //arbitrary value for height
+        float x = xLocation + 24; //horizontal center of slime
         Texture edge = Assets.slimeHealthEdge;
         Texture full = Assets.slimeHealthFull;
         Texture empty = Assets.slimeHealthEmpty;
 
         double h = (double) health;
         double hMax = (double) maxHealth;
-        double barsFull = (h / hMax) * 36;
+        double barsFull = (h / hMax) * (double)barWidth - (2 * (double)edge.getWidth());
         int barsToDraw = (int) barsFull;
 
-        batch.draw(edge, x - 20, y, edge.getWidth(), edge.getHeight());
-        batch.draw(edge, x + 18, y, edge.getWidth(), edge.getHeight());
+        batch.draw(edge, x - barWidth/2, y, edge.getWidth(), edge.getHeight());
+        batch.draw(edge, x + (barWidth/2 - edge.getWidth()), y, edge.getWidth(), edge.getHeight());
 
         for(int i = 0; i < barsToDraw; i++) {
-            int offset = -18 + i;
-            batch.draw(full, x + offset, y, full.getWidth(), full.getHeight());
+            int offset = barWidth/2 - edge.getWidth() - i; //increments placement of next bar
+            batch.draw(full, x - offset, y, full.getWidth(), full.getHeight());
         }
 
-        for(int i = barsToDraw; i < 36; i++) {
-            int offset = -18 + i;
-            batch.draw(empty, x + offset, y, empty.getWidth(), empty.getHeight());
+        for(int i = barsToDraw; i < (double)barWidth - (2 * (double)edge.getWidth()); i++) {
+            int offset = barWidth/2 - edge.getWidth() - i; //increments placement of next bar
+            batch.draw(empty, x - offset, y, empty.getWidth(), empty.getHeight());
         }
 
         batch.end();
