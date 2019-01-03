@@ -110,34 +110,34 @@ class Renderer {
         batch.begin();
         batch.enableBlending();
 
+        //display boss health by percentage. 506px bar.
+
+        float y = 700;
+        Texture edge = Assets.bossHealthEdge;
+        Texture full = Assets.bossHealthFull;
+        Texture empty = Assets.bossHealthEmpty;
+
         layout.setText(font, "BIG OL' BAD OL' BOSS");
         font.draw(batch, layout, Settings.RESOLUTION.x / 2 - layout.width/2, 770);
 
-        float x = (Settings.RESOLUTION.x / 2) - (maxHealth / 2 * Assets.enemyHealthFullLeft.getRegionWidth());
-        float y = 700;
+        double h = (double) health;
+        double hMax = (double) maxHealth;
+        double barsFull = (h / hMax) * 500;
+        int barsToDraw = (int) barsFull;
 
-        for (int i = 1; i <= maxHealth; i++) {
-            TextureRegion[] textures;
+        batch.draw(edge, Settings.RESOLUTION.x/2 - 253, y, edge.getWidth(), edge.getHeight()); //left edge
+        batch.draw(edge, Settings.RESOLUTION.x/2 + 250, y, edge.getWidth(), edge.getHeight()); //right edge
 
-            if (i == 1) {
-                textures = Assets.enemyHealthLeft;
-            } else if (i < maxHealth) {
-                textures = Assets.enemyHealthMid;
-            } else {
-                textures = Assets.enemyHealthRight;
-            }
-
-            TextureRegion texture;
-            if (health >= i) {
-                texture = textures[1];
-            } else {
-                texture = textures[0];
-            }
-
-            x += texture.getRegionWidth();
-            batch.draw(texture, x, y, texture.getRegionWidth(), texture.getRegionHeight());
+        for(int i = 0; i < barsToDraw; i++) {
+            int offset = -250 + i;
+            batch.draw(full, Settings.RESOLUTION.x/2 + offset, y, full.getWidth(), full.getHeight());
         }
 
+        for(int i = barsToDraw; i < 500; i++) {
+            int offset = -250 + i;
+            batch.draw(empty, Settings.RESOLUTION.x/2 + offset, y, empty.getWidth(), empty.getHeight());
+        }
+        
         batch.end();
     }
 

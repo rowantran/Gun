@@ -59,6 +59,11 @@ public class Assets {
     public static TextureRegion[] enemyHealthMid;
     public static TextureRegion[] enemyHealthRight;
 
+    //should use atlas later
+    public static Texture bossHealthEdge;
+    public static Texture bossHealthFull;
+    public static Texture bossHealthEmpty;
+
     public static TextureRegion healthFullLeft;
     public static TextureRegion healthFullRight;
     public static TextureRegion healthFullMid;
@@ -94,6 +99,10 @@ public class Assets {
         crate = loadTexture("sprites//terrain/crate.png");
         shadow = loadTexture("sprites/miscellaneous/shadow.png");
         shadow.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+
+        bossHealthEdge = loadTexture("sprites/healthBars/boss_health_edge.png");
+        bossHealthFull = loadTexture("sprites/healthBars/boss_health_full.png");
+        bossHealthEmpty = loadTexture("sprites/healthBars/boss_health_empty.png");
 
         playerAtlas = new TextureAtlas(Gdx.files.internal("sprites/player.atlas"));
         playerAnimations = new HashMap<SpriteState, Map<Direction, Animation<TextureRegion>>>();
