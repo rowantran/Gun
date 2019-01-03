@@ -12,6 +12,8 @@ import com.upa.gun.enemy.Enemy;
 import com.upa.gun.enemy.SpawnIndicator;
 import com.upa.gun.enemy.Powerup;
 
+import java.util.ArrayList;
+
 class Renderer {
     private SpriteBatch batch;
     private OrthographicCamera camera;
@@ -232,15 +234,26 @@ class Renderer {
         }
     }
 
-    private void drawCrate(Crate crate, float x, float y) {
+    private void drawCrates(MapLayout map) {
+
         batch.begin();
         batch.enableBlending();
 
-        crate.crateSprite.setX(x);
-        crate.crateSprite.setY(y);
-        crate.crateSprite.draw(batch);
+        ArrayList<CrateTop> crateTops = map.getCrateTops();
+        for(CrateTop top : crateTops) {
+            top.crateTopSprite.setX(top.x);
+            top.crateTopSprite.setY(top.y);
+            top.crateTopSprite.draw(batch);
+        }
+        ArrayList<CrateSide> crateSides = map.getCrateSides();
+        for(CrateSide side : crateSides) {
+            side.crateSideSprite.setX(side.x);
+            side.crateSideSprite.setY(side.y);
+            side.crateSideSprite.draw(batch);
+        }
 
         batch.end();
+
     }
 
     private void drawScore() {
@@ -281,6 +294,7 @@ class Renderer {
         batch.setProjectionMatrix(camera.combined);
 
         drawBackground();
+        drawCrates(World.currentMap);
         drawPlayer(World.player);
 
         for (Enemy e : World.enemies) {
@@ -295,11 +309,6 @@ class Renderer {
 
         for (Powerup p : World.powerups) {
             drawPowerup(p);
-        }
-
-        for (Crate c : World.crates) {
-            drawCrate(c, c.x, c.y);
-            //System.out.println("crate");
         }
 
         for (Bullet b : World.playerBullets) {

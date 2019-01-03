@@ -41,6 +41,9 @@ public class World implements Updatable {
 
     private EnemyFactory enemyFactory;
     private PowerupFactory powerupFactory;
+    private MapFactory mapFactory;
+
+    public static MapLayout currentMap; //may move
 
     private World() {
         enemies = new ArrayList<Enemy>();
@@ -50,7 +53,6 @@ public class World implements Updatable {
         playerBullets = new ArrayList<Bullet>();
 
         crates = new ArrayList<Crate>();
-        createCrates();
 
         indicators = new ArrayList<SpawnIndicator>();
 
@@ -62,6 +64,10 @@ public class World implements Updatable {
 
         enemyFactory = new EnemyFactory("enemies.json");
         powerupFactory = new PowerupFactory("powerups.json");
+        mapFactory = new MapFactory("maps.json");
+
+        currentMap = mapFactory.createMap(0);
+
     }
 
     public void reset() {
@@ -78,16 +84,6 @@ public class World implements Updatable {
         sequences.clear();
 
         spawner.reset();
-    }
-
-    private void createCrates() {
-        for(int i = 0; i < 14; i++) {
-            crates.add(new Crate(((float)i * 64f + 32f), 29f, Assets.crate));
-        }
-
-        for(int i = 17; i < 19; i++) {
-            crates.add(new Crate(((float)i * 64f + 32f), 29f, Assets.crate));
-        }
     }
 
     public static World getInstance() {

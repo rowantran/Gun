@@ -1,11 +1,11 @@
 package com.upa.gun;
 
-//TODO: parent class for all objects to include collsion, etc.?
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Crate {
+
+    private Hitbox hitbox;
 
     public float x;
     public float y;

@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EnemyFactory {
+
     Map<Integer, EnemyInfo> enemies;
     Map<Integer, Map<Direction, Map<SpriteState, Animation<TextureRegion>>>> animations;
 

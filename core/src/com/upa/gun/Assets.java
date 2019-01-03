@@ -22,7 +22,11 @@ public class Assets {
 
 
     public static Texture backgroundRoom1;
+
     public static Texture crate;
+    public static Texture crateTop;
+    public static Texture crateSide;
+
     public static Texture shadow;
 
     public static TextureAtlas playerAtlas;
@@ -99,7 +103,9 @@ public class Assets {
         loadHealthBar();
 
         backgroundRoom1 = loadTexture("sprites/stages/background1.png");
-        crate = loadTexture("sprites//terrain/crate.png");
+        crate = loadTexture("sprites/terrain/crate.png");
+        crateTop = loadTexture("sprites/terrain/crate_top.png");
+        crateSide = loadTexture("sprites/terrain/crate_side.png");
         shadow = loadTexture("sprites/miscellaneous/shadow.png");
         shadow.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 

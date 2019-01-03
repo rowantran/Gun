@@ -1,15 +1,8 @@
 package com.upa.gun.enemy;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
-import com.upa.gun.Direction;
-import com.upa.gun.SpriteState;
-import com.upa.gun.enemy.attacks.CircularAttack;
-import com.upa.gun.enemy.attacks.NoAttack;
-import com.upa.gun.enemy.attacks.TrackingBurstAttack;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,6 +40,7 @@ public class PowerupFactory {
             powerups.put(id, info);
         }
 
+        Gdx.app.log("PowerupFactory", "Completed loading powerups");
     }
 
     public static PowerupFactory getInstance() {
