@@ -85,7 +85,7 @@ public class Enemy extends Entity {
         if (health <= 0) {
             state = new EnemyFadingState(this);
 
-            int rand = (int)(Math.random() * 20); //random powerup checker
+            int rand = (int)(Math.random() * 1); //random powerup checker
             if(rand == 0) {
                 int type = (int)(Math.random() * PowerupFactory.getInstance().powerups.size());
                 World.powerups.add(World.getInstance().getPowerupFactory().createPowerup(type, this.getPosition().x, this.getPosition().y));
