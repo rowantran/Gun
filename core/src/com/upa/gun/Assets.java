@@ -59,10 +59,13 @@ public class Assets {
     public static TextureRegion[] enemyHealthMid;
     public static TextureRegion[] enemyHealthRight;
 
-    //should use atlas later
+    //should use atlas later. but manually loading while subject to change
     public static Texture bossHealthEdge;
     public static Texture bossHealthFull;
     public static Texture bossHealthEmpty;
+    public static Texture slimeHealthEdge;
+    public static Texture slimeHealthFull;
+    public static Texture slimeHealthEmpty;
 
     public static TextureRegion healthFullLeft;
     public static TextureRegion healthFullRight;
@@ -103,6 +106,9 @@ public class Assets {
         bossHealthEdge = loadTexture("sprites/healthBars/boss_health_edge.png");
         bossHealthFull = loadTexture("sprites/healthBars/boss_health_full.png");
         bossHealthEmpty = loadTexture("sprites/healthBars/boss_health_empty.png");
+        slimeHealthEdge = loadTexture("sprites/healthBars/slime_health_edge.png");
+        slimeHealthFull = loadTexture("sprites/healthBars/slime_health_full.png");
+        slimeHealthEmpty = loadTexture("sprites/healthBars/slime_health_empty.png");
 
         playerAtlas = new TextureAtlas(Gdx.files.internal("sprites/player.atlas"));
         playerAnimations = new HashMap<SpriteState, Map<Direction, Animation<TextureRegion>>>();

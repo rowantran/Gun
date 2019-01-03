@@ -106,17 +106,17 @@ class Renderer {
         }
     }
 
-    private void drawBossHealth(int health, int maxHealth) {
+    private void drawBossHealth(int health, int maxHealth, String bossName) {
         batch.begin();
         batch.enableBlending();
 
         //display boss health by percentage. 700px bar.
-        float y = 700;
+        float y = 698; //not 700 b/c crate face bottoms show
         Texture edge = Assets.bossHealthEdge;
         Texture full = Assets.bossHealthFull;
         Texture empty = Assets.bossHealthEmpty;
 
-        layout.setText(font, "BIG OL' BAD OL' BOSS");
+        layout.setText(font, bossName);
         font.draw(batch, layout, Settings.RESOLUTION.x / 2 - layout.width/2, 770);
 
         double h = (double) health;
@@ -135,6 +135,38 @@ class Renderer {
         for(int i = barsToDraw; i < 694; i++) {
             int offset = -347 + i;
             batch.draw(empty, Settings.RESOLUTION.x/2 + offset, y, empty.getWidth(), empty.getHeight());
+        }
+
+        batch.end();
+    }
+
+    private void drawSlimeHealth(int health, int maxHealth, float xLocation, float yLocation) {
+        batch.begin();
+        batch.enableBlending();
+
+        //display slime health by percentage. 40px bar.
+        float y = yLocation + 42;
+        float x = xLocation + 24;
+        Texture edge = Assets.slimeHealthEdge;
+        Texture full = Assets.slimeHealthFull;
+        Texture empty = Assets.slimeHealthEmpty;
+
+        double h = (double) health;
+        double hMax = (double) maxHealth;
+        double barsFull = (h / hMax) * 36;
+        int barsToDraw = (int) barsFull;
+
+        batch.draw(edge, x - 20, y, edge.getWidth(), edge.getHeight());
+        batch.draw(edge, x + 18, y, edge.getWidth(), edge.getHeight());
+
+        for(int i = 0; i < barsToDraw; i++) {
+            int offset = -18 + i;
+            batch.draw(full, x + offset, y, full.getWidth(), full.getHeight());
+        }
+
+        for(int i = barsToDraw; i < 36; i++) {
+            int offset = -18 + i;
+            batch.draw(empty, x + offset, y, empty.getWidth(), empty.getHeight());
         }
 
         batch.end();
@@ -247,7 +279,10 @@ class Renderer {
         for (Enemy e : World.enemies) {
             drawEnemy(e);
             if(e.getID() == 2) {
-                drawBossHealth(e.getHealth(), e.getStartHealth());
+                drawBossHealth(e.getHealth(), e.getStartHealth(), "boss1");
+            }
+            else {
+                drawSlimeHealth(e.getHealth(), e.getStartHealth(), e.getPosition().x, e.getPosition().y);
             }
         }
 

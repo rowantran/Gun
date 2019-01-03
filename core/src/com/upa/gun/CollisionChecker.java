@@ -18,7 +18,7 @@ public class CollisionChecker implements Updatable {
             for (Enemy e: World.enemies) {
                 if (b.hitbox.colliding(e.getHitbox())) {
                     Gdx.app.debug("CollisionChecker", "Enemy hit by bullet");
-                    e.damage(1);
+                    e.damage(Settings.playerDamage);
                     System.out.println("Enemy has " + e.getHealth() + " health left");
                     b.markedForDeletion = true;
                 }

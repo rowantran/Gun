@@ -2,7 +2,7 @@
   "enemies": [
     {
       "id": 0,
-      "health": 1,
+      "health": 4,
       "hitboxType": "rectangular",
       "hitboxWidth": 20,
       "hitboxHeight": 20,
@@ -20,7 +20,7 @@
     },
     {
       "id": 1,
-      "health": 2,
+      "health": 10,
       "hitboxType": "rectangular",
       "hitboxWidth": 20,
       "hitboxHeight": 20,
@@ -38,7 +38,7 @@
     },
     {
       "id": 2,
-      "health": 20,
+      "health": 80,
       "hitboxType": "rectangular",
       "hitboxWidth": 50,
       "hitboxHeight": 50,

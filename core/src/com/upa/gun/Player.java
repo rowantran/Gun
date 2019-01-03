@@ -18,7 +18,7 @@ public class Player extends Entity {
 
     Vector2 spawnPoint;
 
-    double bulletCooldown;
+    float bulletCooldown;
 
     public boolean topStop = false;
     public boolean botStop = false;
