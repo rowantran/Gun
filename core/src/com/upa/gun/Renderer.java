@@ -168,7 +168,7 @@ class Renderer {
 
         //Gdx.app.debug("Renderer", "Enemy has time elapsed of " + e.timeElapsed);
 
-        drawShadow(e.getPosition().x, e.getPosition().y, 20);
+        drawShadow(e.getPosition().x, e.getPosition().y, e.getSize().x);
         batch.draw(frame, e.getPosition().x, e.getPosition().y, e.getSize().x, e.getSize().y);
 
         batch.setShader(null);
