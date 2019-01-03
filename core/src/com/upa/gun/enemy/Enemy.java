@@ -13,7 +13,8 @@ public class Enemy extends Entity {
     private int startHealth;
     private int health;
 
-    private int direction; //two digits, first is 0-2 horizontal direction, second is 0-2 vertical direction
+    private int horizontalDirection; //0 = none, 1 = left, 2 = right
+    private int verticalDirection;
 
     float timeSinceAttack;
 
@@ -148,19 +149,19 @@ public class Enemy extends Entity {
         float playerY = playerPos.y;
         float slimeX = getPosition().x;
         float slimeY = getPosition().y;
-        if(slimeX > playerX) { direction = 0; } // move left
-        if(slimeX == playerX) { direction = 10; }
-        if(slimeX < playerX) { direction = 20; } //move right
-        if(slimeY > playerY) { direction += 0; } //move down
-        if(slimeY == playerY) { direction += 1; }
-        if(slimeY < playerY) { direction += 2; } //move up
+        if(slimeX == playerX) { horizontalDirection = 0; }
+        if(slimeX > playerX) { horizontalDirection = 1; } // move left
+        if(slimeX < playerX) { horizontalDirection = 2; } //move right
+        if(slimeY == playerY) { verticalDirection = 0; }
+        if(slimeY > playerY) { verticalDirection = 1; } //move down
+        if(slimeY < playerY) { verticalDirection = 2; } //move up
     }
 
     private void move() {
         boolean diag = true;
         float pythag = 0.7071f;
 
-        switch(direction / 10) {
+        switch(horizontalDirection) {
             case 0:
                 setVelocity(-Settings.SLIME_SPEED, getVelocity().y);
                 break;
@@ -172,7 +173,7 @@ public class Enemy extends Entity {
                 setVelocity(Settings.SLIME_SPEED, getVelocity().y);
                 break;
         }
-        switch(direction % 10) {
+        switch(verticalDirection) {
             case 0:
                 setVelocity(getVelocity().x, -Settings.SLIME_SPEED);
                 break;
