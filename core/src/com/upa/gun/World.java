@@ -26,9 +26,6 @@ public class World implements Updatable {
 
     public static List<Bullet> enemyBullets;
     static List<Bullet> playerBullets;
-
-    static List<Crate> crates;
-
     public static List<SpawnIndicator> indicators;
 
     public static List<ScriptedEventSequence> sequences;
@@ -52,7 +49,6 @@ public class World implements Updatable {
         enemyBullets = new ArrayList<Bullet>();
         playerBullets = new ArrayList<Bullet>();
 
-        crates = new ArrayList<Crate>();
 
         indicators = new ArrayList<SpawnIndicator>();
 
