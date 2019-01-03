@@ -110,8 +110,7 @@ class Renderer {
         batch.begin();
         batch.enableBlending();
 
-        //display boss health by percentage. 506px bar.
-
+        //display boss health by percentage. 700px bar.
         float y = 700;
         Texture edge = Assets.bossHealthEdge;
         Texture full = Assets.bossHealthFull;
@@ -122,22 +121,22 @@ class Renderer {
 
         double h = (double) health;
         double hMax = (double) maxHealth;
-        double barsFull = (h / hMax) * 500;
+        double barsFull = (h / hMax) * 694;
         int barsToDraw = (int) barsFull;
 
-        batch.draw(edge, Settings.RESOLUTION.x/2 - 253, y, edge.getWidth(), edge.getHeight()); //left edge
-        batch.draw(edge, Settings.RESOLUTION.x/2 + 250, y, edge.getWidth(), edge.getHeight()); //right edge
+        batch.draw(edge, Settings.RESOLUTION.x/2 - 350, y, edge.getWidth(), edge.getHeight()); //left edge
+        batch.draw(edge, Settings.RESOLUTION.x/2 + 347, y, edge.getWidth(), edge.getHeight()); //right edge
 
         for(int i = 0; i < barsToDraw; i++) {
-            int offset = -250 + i;
+            int offset = -347 + i;
             batch.draw(full, Settings.RESOLUTION.x/2 + offset, y, full.getWidth(), full.getHeight());
         }
 
-        for(int i = barsToDraw; i < 500; i++) {
-            int offset = -250 + i;
+        for(int i = barsToDraw; i < 694; i++) {
+            int offset = -347 + i;
             batch.draw(empty, Settings.RESOLUTION.x/2 + offset, y, empty.getWidth(), empty.getHeight());
         }
-        
+
         batch.end();
     }
 
