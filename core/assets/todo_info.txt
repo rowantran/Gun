@@ -1,0 +1,5 @@
+Powerups color key:
+- fire rate - light blue
+- damage - orange
+- health - pink
+- speed - light purple

@@ -13,6 +13,8 @@ public class Enemy extends Entity {
     private int startHealth;
     private int health;
 
+    private int direction; //two digits, first is 0-2 horizontal direction, second is 0-2 vertical direction
+
     float timeSinceAttack;
 
     private EnemyState state;
@@ -111,6 +113,7 @@ public class Enemy extends Entity {
         }
     }
 
+
     public void update(float delta) {
         super.update(delta);
         timeElapsed += delta;
@@ -126,8 +129,12 @@ public class Enemy extends Entity {
             }
         }
 
-        if (rotation.currentAttack().isMobile()) {
+        if (state.mobileType() == 1) { //kinda wonky)
+            updateDirection();
             move();
+        } else if(state.mobileType() == 2) {
+            move();
+            setVelocity(getVelocity().x/2, getVelocity().y/2);
         } else {
             setVelocity(0, 0);
         }
@@ -135,48 +142,51 @@ public class Enemy extends Entity {
         state.update(delta);
     }
 
-    private void move() {
+    private void updateDirection() {
         Vector2 playerPos = World.player.getPosition();
         float playerX = playerPos.x;
         float playerY = playerPos.y;
-
         float slimeX = getPosition().x;
         float slimeY = getPosition().y;
+        if(slimeX > playerX) { direction = 0; } // move left
+        if(slimeX == playerX) { direction = 10; }
+        if(slimeX < playerX) { direction = 20; } //move right
+        if(slimeY > playerY) { direction += 0; } //move down
+        if(slimeY == playerY) { direction += 1; }
+        if(slimeY < playerY) { direction += 2; } //move up
+    }
 
-        float pythagMultiplier = 0.7071f;
+    private void move() {
+        boolean diag = true;
+        float pythag = 0.7071f;
 
-        if(slimeX < playerX) {
-            setVelocity(Settings.SLIME_SPEED, 0);
-        } else if(slimeX > playerX) {
-            setVelocity(-Settings.SLIME_SPEED, 0);
-        } else {
-            setVelocity(0, 0);
+        switch(direction / 10) {
+            case 0:
+                setVelocity(-Settings.SLIME_SPEED, getVelocity().y);
+                break;
+            case 1:
+                setVelocity(0, getVelocity().y);
+                diag = false;
+                break;
+            case 2:
+                setVelocity(Settings.SLIME_SPEED, getVelocity().y);
+                break;
         }
-        if(slimeY < playerY) {
-            setVelocity(getVelocity().x * pythagMultiplier,
-                    Settings.SLIME_SPEED * pythagMultiplier);
-        } else if(slimeY > playerY) {
-            setVelocity(getVelocity().x * pythagMultiplier,
-                    -Settings.SLIME_SPEED * pythagMultiplier);
-        } else {
-            setVelocity(getVelocity().x, 0);
-        }
-        if(getVelocity().x == 0 && getVelocity().y != 0) {
-            setVelocity(0, getVelocity().y / pythagMultiplier);
+        switch(direction % 10) {
+            case 0:
+                setVelocity(getVelocity().x, -Settings.SLIME_SPEED);
+                break;
+            case 1:
+                setVelocity(getVelocity().x, 0);
+                diag = false;
+                break;
+            case 2:
+                setVelocity(getVelocity().x, Settings.SLIME_SPEED);
+                break;
         }
 
-
-        if(slimeX <= 113f && getVelocity().x < 0) {
-            setVelocity(0, getVelocity().y);
-        }
-        if(slimeX >= 1160f && getVelocity().x > 0) {
-            setVelocity(0, getVelocity().y);
-        }
-        if(slimeY <= 136f && getVelocity().y < 0) {
-            setVelocity(getVelocity().x, 0);
-        }
-        if(slimeY >= 674f && getVelocity().y > 0) {
-            setVelocity(getVelocity().x, 0);
+        if(diag) {
+            setVelocity(getVelocity().x * pythag, getVelocity().y * pythag);
         }
     }
 

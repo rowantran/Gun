@@ -10,11 +10,11 @@
 	  "speedMultiplier": 1,
 	  "bulletCooldownMultiplier": 0.75,
 	  "healthBonus": 0,
-	  "width": 48,
-	  "height": 48,
+	  "width": 40,
+	  "height": 40,
 	  "hitboxType": "rectangular",
-	  "hitboxWidth": 48,
-	  "hitboxHeight": 48 
+	  "hitboxWidth": 40,
+	  "hitboxHeight": 40 
 	},
 	{
 	  "id": 1,
@@ -26,11 +26,11 @@
 	  "speedMultiplier": 1,
 	  "bulletCooldownMultiplier": 0.75,
 	  "healthBonus": 0,
-	  "width": 48,
-	  "height": 48,
+	  "width": 40,
+	  "height": 40,
 	  "hitboxType": "rectangular",
-	  "hitboxWidth": 48,
-	  "hitboxHeight": 48
+	  "hitboxWidth": 40,
+	  "hitboxHeight": 40
 	}
 	{
 	  "id": 2,
@@ -42,11 +42,11 @@
 	  "speedMultiplier": 1,
 	  "bulletCooldownMultiplier": 1,
 	  "healthBonus": 2,
-	  "width": 48,
-	  "height": 48,
+	  "width": 40,
+	  "height": 40,
 	  "hitboxType": "rectangular",
-	  "hitboxWidth": 48,
-	  "hitboxHeight": 48
+	  "hitboxWidth": 40,
+	  "hitboxHeight": 40
 	}
 	{
 	  "id": 3,
@@ -58,11 +58,11 @@
 	  "speedMultiplier": 1.2,
 	  "bulletCooldownMultiplier": 1,
 	  "healthBonus": 0,
-	  "width": 48,
-	  "height": 48,
+	  "width": 40,
+	  "height": 40,
 	  "hitboxType": "rectangular",
-	  "hitboxWidth": 48,
-	  "hitboxHeight": 48
+	  "hitboxWidth": 40,
+	  "hitboxHeight": 40
 	}
   ]	  
 }

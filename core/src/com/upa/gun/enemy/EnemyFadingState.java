@@ -23,6 +23,8 @@ public class EnemyFadingState extends EnemyState {
         }
     }
 
+    public int mobileType() { return 2; }
+
     @Override
     public void iterationUpdate(ListIterator<Enemy> iterator) {}
 }

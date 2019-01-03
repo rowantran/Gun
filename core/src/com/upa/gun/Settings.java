@@ -25,7 +25,7 @@ public class Settings {
     public static final float ROLL_LENGTH = 0.25f;
 
     public static final float DEATH_ROTATE_SPEED = 80.0f;
-    public static final float DEATH_FADE_SPEED = (DEATH_ROTATE_SPEED / 90.0f) * 1.0f;
+    public static final float DEATH_FADE_SPEED = (DEATH_ROTATE_SPEED / 40.0f) * 1.0f;
 
     public static final float SLOW_FADE_SPEED = 0.4f;
 
