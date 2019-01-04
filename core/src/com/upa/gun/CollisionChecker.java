@@ -35,9 +35,19 @@ public class CollisionChecker implements Updatable {
     }
 
     private void checkCrateTouch() {
+        World.player.resetStops();
         for(CrateTop c : World.currentMap.getCrateTops()) {
-            if(c.getHitbox().colliding(World.player.hitbox)) {
-                System.out.println("touch");
+            if (c.getHitbox().colliding(World.player.footHixbox)) {
+                float playerX = World.player.footHixbox.getX();
+                float playerY = World.player.footHixbox.getY();
+                float crateX = c.getHitbox().getX();
+                float crateY = c.getHitbox().getY();
+
+                if(playerX < crateX) { World.player.rightStop = true; } //player on left
+                if(crateX < playerX) { World.player.leftStop = true; } //player on right
+                if(playerY < crateY) { World.player.topStop = true; } //player on bottom
+                if(crateY < playerY) { World.player.botStop = true; } //player on top
+
             }
         }
     }

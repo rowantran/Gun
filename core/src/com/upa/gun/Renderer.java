@@ -72,6 +72,10 @@ class Renderer {
 
         if (Settings.DEV_MODE) {
             drawHitbox(player);
+            sr.setProjectionMatrix(camera.combined);
+            sr.begin(ShapeRenderer.ShapeType.Line);
+            sr.rect(player.footHixbox.getX(), player.footHixbox.getY(), player.footHixbox.getWidth(), player.footHixbox.getHeight());
+            sr.end();
         }
 }
 
@@ -245,7 +249,7 @@ class Renderer {
             top.crateTopSprite.setY(top.y);
             top.crateTopSprite.draw(batch);
             if (Settings.DEV_MODE) {
-                //drawHitbox(top); erases the crate?
+                drawHitbox(top); //erases the crate?
             }
         }
         ArrayList<CrateSide> crateSides = map.getCrateSides();

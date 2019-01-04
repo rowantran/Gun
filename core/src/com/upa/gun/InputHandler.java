@@ -11,35 +11,34 @@ public class InputHandler implements Updatable {
         Vector2 velocity = new Vector2(0f, 0f);
 
         if (Gdx.input.isKeyPressed(Settings.KEY_LEFT)) {
-            if(!((World.player.getPosition().x - Settings.playerSpeed * delta) < 113)) {
+            if(!World.player.leftStop) {
                 velocity.x -= Settings.playerSpeed;
                 World.player.state = PlayerState.moving;
             }
         }
 
         if (Gdx.input.isKeyPressed(Settings.KEY_RIGHT)) {
-            if(!((World.player.getPosition().x + Settings.playerSpeed * delta) > 1164)) {
+            if(!World.player.rightStop) {
                 velocity.x += Settings.playerSpeed;
                 World.player.state = PlayerState.moving;
             }
         }
 
         if (Gdx.input.isKeyPressed(Settings.KEY_DOWN)) {
-            if(!World.player.botStop){
+            if(!World.player.botStop) {
                 velocity.y -= Settings.playerSpeed;
                 World.player.state = PlayerState.moving;
             }
         }
 
         if (Gdx.input.isKeyPressed(Settings.KEY_UP)) {
-            if (!((World.player.getPosition().y + Settings.playerSpeed * delta) > 702)) {
+            if(!World.player.topStop) {
                 velocity.y += Settings.playerSpeed;
                 World.player.state = PlayerState.moving;
             }
         }
 
         if (Gdx.input.isKeyJustPressed(Settings.KEY_ROLL)) {
-            //System.out.println(World.player.state.timeElapsed);
             if(World.player.timeSinceRoll >= Settings.ROLL_DELAY) {
                 World.player.timeSinceRoll = 0f;
                 World.player.state = new PlayerRollingState(World.player.direction);
