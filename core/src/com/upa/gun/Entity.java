@@ -24,12 +24,11 @@ public abstract class Entity implements Updatable {
     }
 
     /**
-     * @return The hitbox of this entity.
+     * @return The hitbox collection of this entity.
      */
-    public abstract Hitbox getHitbox();
+    public abstract Hitboxes getHitbox();
 
-    protected void centerHitbox() {
-        Hitbox hitbox = getHitbox();
+    protected void centerHitbox(Hitbox hitbox) {
         setHitboxOffset((getSize().x - hitbox.getWidth()) / 2, (getSize().y - hitbox.getHeight()) / 2);
     }
 
