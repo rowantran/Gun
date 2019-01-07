@@ -7,10 +7,6 @@ public abstract class Hitbox implements Collidable {
     private Vector2 position;
     private Vector2 offset;
 
-    public Hitbox() {
-        this(true, new Vector2(0, 0), new Vector2(0, 0));
-    }
-
     public Hitbox(boolean active, Vector2 position, Vector2 offset) {
         this.active = active;
         this.position = position.cpy();
