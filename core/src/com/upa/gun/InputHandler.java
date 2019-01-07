@@ -78,8 +78,7 @@ public class InputHandler implements Updatable {
                         0));
                 Vector2 mousePos = new Vector2(mousePos3.x, mousePos3.y);
                 Vector2 bulletAngle = mousePos.sub(World.player.getPosition());
-                World.playerBullets.add(new FriendlyBullet(World.player.getPosition().x,
-                        World.player.getPosition().y,
+                World.playerBullets.add(new FriendlyBullet(World.player.getPosition(),
                         bulletAngle.angleRad()));
                 World.player.shot.stop();
                 World.player.shot.play(.5f);

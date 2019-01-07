@@ -1,5 +1,7 @@
 package com.upa.gun;
 
+import com.badlogic.gdx.math.Vector2;
+
 import java.util.ArrayList;
 
 public class MapLayout {
@@ -28,7 +30,7 @@ public class MapLayout {
         for(int i = 0; i < tops.length; i++) {
             for(int j = 0; j < tops[i].length; j++) {
                 if(tops[i][j] == 1) {
-                    crateTops.add(new CrateTop(j * 64 + 32, (tops.length-i) * 64 - 8));
+                    crateTops.add(new CrateTop(new Vector2(j * 64 + 32, (tops.length-i) * 64 - 8)));
                 }
             }
         }

@@ -1,5 +1,6 @@
 package com.upa.gun.enemy;
 
+import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.*;
 import com.upa.gun.enemy.attacks.NoAttack;
 import com.upa.gun.enemy.attacks.TrackingBurstAttack;
@@ -26,10 +27,10 @@ public class Slime extends Enemy {
     }
 
 
-    Slime(float x, float y) {
+    Slime(Vector2 position) {
         super(new EnemyInfo(1, 1, "a", 1, 1, 1, 1,
                 new HashMap<String, String>(),
-                new AttackRotation()), x, y);
+                new AttackRotation()), position);
         timeSinceAttack = 0.0f;
 
         timeSinceRandomMove = 0.0f;

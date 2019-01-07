@@ -6,14 +6,13 @@ public abstract class Bullet extends Entity {
     double angle;
 
     private float HITBOX_SIZE;
-    Hitbox hitbox;
 
     boolean markedForDeletion;
 
     float speedMult;
 
-    public Bullet(float x, float y, double angle, float width, float height, float speedMult) {
-        super(x, y, width, height, 0, 0);
+    public Bullet(Vector2 position, Vector2 size, double angle, float speedMult) {
+        super(position, size);
         this.angle = angle;
 
         HITBOX_SIZE = 20f;
@@ -26,13 +25,10 @@ public abstract class Bullet extends Entity {
 
     private void createHitbox() {
         Vector2 position = getPosition();
-        hitbox = new RectangularHitbox(position.x, position.y, HITBOX_SIZE, HITBOX_SIZE);
-        centerHitbox();
-    }
+        RectangularHitbox hitbox = new RectangularHitbox(position, new Vector2(HITBOX_SIZE, HITBOX_SIZE));
+        centerRectangularHitbox(hitbox);
 
-    @Override
-    public Hitbox getHitbox() {
-        return hitbox;
+        hitboxes.addHitbox("hitbox", hitbox);
     }
 
     public void update(float delta) {

@@ -1,6 +1,7 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.cutscene.ScriptedEventSequence;
 import com.upa.gun.enemy.Enemy;
 import com.upa.gun.enemy.EnemyFactory;
@@ -87,7 +88,7 @@ public class World implements Updatable {
     }
 
     void setGunGame(GunGame game) {
-        player = new Player(200, 200, game);
+        player = new Player(new Vector2(200, 200), game);
     }
 
     @Override

@@ -74,7 +74,9 @@ class Renderer {
             drawHitbox(player);
             sr.setProjectionMatrix(camera.combined);
             sr.begin(ShapeRenderer.ShapeType.Line);
-            sr.rect(player.footHixbox.getX(), player.footHixbox.getY(), player.footHixbox.getWidth(), player.footHixbox.getHeight());
+
+            RectangularHitbox footHitbox = (RectangularHitbox) player.hitboxes.getChild("foot");
+            sr.rect(footHitbox.getPosition().x, footHitbox.getPosition().y, footHitbox.getSize().x, footHitbox.getSize().y);
             sr.end();
         }
 }
@@ -245,8 +247,8 @@ class Renderer {
 
         ArrayList<CrateTop> crateTops = map.getCrateTops();
         for(CrateTop top : crateTops) {
-            top.crateTopSprite.setX(top.x);
-            top.crateTopSprite.setY(top.y);
+            top.crateTopSprite.setX(top.getPosition().x);
+            top.crateTopSprite.setY(top.getPosition().y);
             top.crateTopSprite.draw(batch);
             if (Settings.DEV_MODE) {
                 drawHitbox(top); //erases the crate?
@@ -288,11 +290,14 @@ class Renderer {
     }
 
     private void drawHitbox(Entity e) {
-        if (e.getHitbox().isActive()) {
-            sr.setProjectionMatrix(camera.combined);
-            sr.begin(ShapeRenderer.ShapeType.Line);
-            sr.rect(e.getHitbox().getX(), e.getHitbox().getY(), e.getHitbox().getWidth(), e.getHitbox().getHeight());
-            sr.end();
+        for (Hitbox hitbox : e.hitboxes) {
+            if (hitbox.isActive()) {
+                sr.setProjectionMatrix(camera.combined);
+                sr.begin(ShapeRenderer.ShapeType.Line);
+                sr.rect(hitbox.getPosition().x, hitbox.getPosition().y, ((RectangularHitbox) hitbox).getSize().x,
+                        ((RectangularHitbox) hitbox).getSize().y);
+                sr.end();
+            }
         }
     }
 

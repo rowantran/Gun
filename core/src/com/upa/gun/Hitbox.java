@@ -2,7 +2,7 @@ package com.upa.gun;
 
 import com.badlogic.gdx.math.Vector2;
 
-public abstract class Hitbox {
+public abstract class Hitbox implements Collidable {
     private boolean active;
     private Vector2 position;
     private Vector2 offset;
@@ -17,11 +17,7 @@ public abstract class Hitbox {
         this.offset = offset.cpy();
     }
 
-    public boolean colliding(Hitbox other) {
-        return active && other.colliding(this);
-    }
-
-    public boolean isActive() {
+    boolean isActive() {
         return active;
     }
 
@@ -34,10 +30,11 @@ public abstract class Hitbox {
     }
 
     public void setPosition(Vector2 position) {
-        this.position = position;
+        this.position.set(position);
+        this.position.add(offset);
     }
 
     public void setOffset(Vector2 offset) {
-        this.offset = offset;
+        this.offset.set(offset);
     }
 }

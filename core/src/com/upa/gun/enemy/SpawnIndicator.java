@@ -1,5 +1,6 @@
 package com.upa.gun.enemy;
 
+import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.Updatable;
 
 public class SpawnIndicator implements Updatable {
@@ -32,6 +33,6 @@ public class SpawnIndicator implements Updatable {
     }
 
     public Enemy createSpawn() {
-        return factory.createEnemy(id, (int) x, (int) y);
+        return factory.createEnemy(id, new Vector2(x, y));
     }
 }

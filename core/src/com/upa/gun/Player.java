@@ -4,18 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.IntArray;
 import com.upa.gun.enemy.Powerup;
-
-import java.util.List;
 
 public class Player extends Entity {
     private static final float HITBOX_SIZE = 15f;
 
     static final float IFRAME_AFTER_HIT_LENGTH = 0.2f;
-
-    Hitbox hitbox;
-    Hitbox footHixbox;
 
     Vector2 spawnPoint;
 
@@ -41,10 +35,9 @@ public class Player extends Entity {
 
     PlayerState state;
 
-    Player(float x, float y, GunGame game) {
-        super(x, y, Assets.getTextureSize(Assets.playerAnimations).x, Assets.getTextureSize(Assets.playerAnimations).y,
-                0, 0);
-        spawnPoint = new Vector2(x, y);
+    Player(Vector2 position, GunGame game) {
+        super(position, Assets.getTextureSize(Assets.playerAnimations));
+        spawnPoint = position.cpy();
 
         state = PlayerState.idle;
 
@@ -64,9 +57,12 @@ public class Player extends Entity {
 
         inputHandler = new InputHandler();
 
-        hitbox = new RectangularHitbox(x, y, HITBOX_SIZE, HITBOX_SIZE);
-        centerHitbox();
-        footHixbox = new RectangularHitbox(x, y, Assets.getTextureSize(Assets.playerAnimations).x, 2);
+        RectangularHitbox center = new RectangularHitbox(position, new Vector2(HITBOX_SIZE, HITBOX_SIZE));
+        centerRectangularHitbox(center);
+        hitboxes.addHitbox("center", center);
+
+        RectangularHitbox foot = new RectangularHitbox(position, new Vector2(Assets.getTextureSize(Assets.playerAnimations).x, 2));
+        hitboxes.addHitbox("foot", foot);
     }
 
     public void reset() {
@@ -79,13 +75,6 @@ public class Player extends Entity {
         direction = Direction.DOWN;
 
         timeSinceRoll = Settings.ROLL_DELAY;
-
-        centerHitbox();
-    }
-
-    @Override
-    public Hitbox getHitbox() {
-        return hitbox;
     }
 
     /**
@@ -142,9 +131,6 @@ public class Player extends Entity {
     public void update(float delta) {
         super.update(delta);
         state.update(delta);
-
-        footHixbox.setX(getPosition().x); //move somewhere else
-        footHixbox.setY(getPosition().y);
 
         timeSinceRoll += delta;
 

@@ -7,7 +7,7 @@ import com.upa.gun.enemy.Powerup;
 public class CollisionChecker implements Updatable {
     private void checkPlayerHit() {
         for (Bullet b : World.enemyBullets) {
-            if (b.hitbox.colliding(World.player.hitbox)) {
+            if (b.hitboxes.colliding(World.player.hitboxes.getChild("center"))) {
                 World.player.hurt(1); //will leave dying state when other condition occurs - needs fix
             }
         }
@@ -16,7 +16,7 @@ public class CollisionChecker implements Updatable {
     private void checkEnemiesHit() {
         for (Bullet b : World.playerBullets) {
             for (Enemy e: World.enemies) {
-                if (b.hitbox.colliding(e.getHitbox())) {
+                if (b.hitboxes.colliding(e.hitboxes)) {
                     Gdx.app.debug("CollisionChecker", "Enemy hit by bullet");
                     e.damage(Settings.playerDamage);
                     System.out.println("Enemy has " + e.getHealth() + " health left");
@@ -28,7 +28,7 @@ public class CollisionChecker implements Updatable {
 
     private void checkPowerupCollect() {
         for(Powerup p : World.powerups) {
-            if (p.getHitbox().colliding(World.player.hitbox)) {
+            if (World.player.hitboxes.colliding(p.hitboxes)) {
                 p.markForDeletion(World.player);
             }
         }
@@ -36,12 +36,13 @@ public class CollisionChecker implements Updatable {
 
     private void checkCrateTouch() {
         World.player.resetStops();
+        Hitbox footHitbox = World.player.hitboxes.getChild("foot");
         for(CrateTop c : World.currentMap.getCrateTops()) {
-            if (c.getHitbox().colliding(World.player.footHixbox)) {
-                float playerX = World.player.footHixbox.getX();
-                float playerY = World.player.footHixbox.getY();
-                float crateX = c.getHitbox().getX();
-                float crateY = c.getHitbox().getY();
+            if (c.hitboxes.colliding(footHitbox)) {
+                float playerX = footHitbox.getPosition().x;
+                float playerY = footHitbox.getPosition().y;
+                float crateX = c.hitboxes.getChild("hitbox").getPosition().x;
+                float crateY = c.hitboxes.getChild("hitbox").getPosition().y;
 
                 if(playerX < crateX) { World.player.rightStop = true; } //player on left
                 if(crateX < playerX) { World.player.leftStop = true; } //player on right

@@ -1,9 +1,10 @@
 package com.upa.gun.enemy;
 
+import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.Assets;
 
 public class BossBullet extends EnemyBullet {
-    public BossBullet(float x, float y, double angle) {
-        super(x, y, angle, Assets.bulletBoss);
+    public BossBullet(Vector2 position, double angle) {
+        super(position, angle, Assets.bulletBoss);
     }
 }

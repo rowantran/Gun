@@ -8,13 +8,12 @@ public class Powerup extends Entity {
 
     public Map<String, String> sprites;
     public String sprite;
-    private Hitbox hitbox;
     private int id;
     public PowerupInfo info;
     public boolean markedForDeletion;
 
-    Powerup(PowerupInfo info, float x, float y) {
-        super(x, y, info.width, info.height, 0 ,0);
+    Powerup(PowerupInfo info, Vector2 position) {
+        super(position, new Vector2(info.width, info.height));
 
         try {
             createHitbox(info.hitboxType, info.hitboxWidth, info.hitboxHeight);
@@ -29,11 +28,6 @@ public class Powerup extends Entity {
 
     public int getId() {
         return id;
-    }
-
-    @Override
-    public Hitbox getHitbox() {
-        return hitbox;
     }
 
     /**
@@ -53,7 +47,9 @@ public class Powerup extends Entity {
 
             setPosition(startX, 72);
 
-            getHitbox().setActive(false);
+            for (Hitbox hitbox : hitboxes) {
+                hitbox.setActive(false);
+            }
 
             player.powerupsActive.add(this);
         }
@@ -61,12 +57,12 @@ public class Powerup extends Entity {
 
     private void createHitbox(String hitboxType, int width, int height) throws UnrecognizedHitboxTypeException {
         if (hitboxType.equals("rectangular")) {
-            hitbox = new RectangularHitbox(getPosition().x, getPosition().y, width, height);
+            RectangularHitbox hitbox = new RectangularHitbox(getPosition(), new Vector2(width, height));
+            centerRectangularHitbox(hitbox);
+            hitboxes.addHitbox("hitbox", hitbox);
         } else {
             throw new UnrecognizedHitboxTypeException(hitboxType);
         }
-
-        centerHitbox();
     }
 
 
