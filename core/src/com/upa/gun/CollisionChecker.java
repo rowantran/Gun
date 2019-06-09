@@ -34,6 +34,11 @@ public class CollisionChecker implements Updatable {
         }
     }
 
+    /**
+     * @param delta
+     * Checks if the player is touching a crate. May be adjusted after new hitboxes are implemented
+     */
+    /*
     private void checkCrateTouch() {
         World.player.resetStops();
         for(CrateTop c : World.currentMap.getCrateTops()) {
@@ -51,12 +56,13 @@ public class CollisionChecker implements Updatable {
             }
         }
     }
+    */
 
     @Override
     public void update(float delta) {
         checkPlayerHit();
         checkEnemiesHit();
         checkPowerupCollect();
-        checkCrateTouch();
+        //checkCrateTouch(); currently disabled for hitbox change
     }
 }

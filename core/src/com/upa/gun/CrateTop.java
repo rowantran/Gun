@@ -5,7 +5,7 @@ import com.upa.gun.enemy.UnrecognizedHitboxTypeException;
 
 public class CrateTop extends Entity {
 
-    private Hitbox hitbox;
+    private Hitboxes hitbox;
 
     public float x;
     public float y;
@@ -29,13 +29,15 @@ public class CrateTop extends Entity {
         }
     }
 
-    public Hitbox getHitbox() { return hitbox; }
+    public Hitboxes getHitbox() { return hitbox; }
 
+    //will need update
     private void createHitbox(String hitboxType, int width, int height) throws UnrecognizedHitboxTypeException {
         if (hitboxType.equals("rectangular")) {
-            hitbox = new RectangularHitbox(getPosition().x, getPosition().y-27, width, height);
+            hitbox = new Hitboxes();
         } else {
             throw new UnrecognizedHitboxTypeException(hitboxType);
         }
     }
+
 }

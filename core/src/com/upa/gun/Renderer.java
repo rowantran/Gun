@@ -74,7 +74,7 @@ class Renderer {
             drawHitbox(player);
             sr.setProjectionMatrix(camera.combined);
             sr.begin(ShapeRenderer.ShapeType.Line);
-            sr.rect(player.footHixbox.getX(), player.footHixbox.getY(), player.footHixbox.getWidth(), player.footHixbox.getHeight());
+            //sr.rect(player.footHixbox.getX(), player.footHixbox.getY(), player.footHixbox.getWidth(), player.footHixbox.getHeight());
             sr.end();
         }
 }
@@ -288,12 +288,12 @@ class Renderer {
     }
 
     private void drawHitbox(Entity e) {
-        if (e.getHitbox().isActive()) {
+        /*if (e.getHitbox().isActive()) {
             sr.setProjectionMatrix(camera.combined);
             sr.begin(ShapeRenderer.ShapeType.Line);
             sr.rect(e.getHitbox().getX(), e.getHitbox().getY(), e.getHitbox().getWidth(), e.getHitbox().getHeight());
             sr.end();
-        }
+        }*/
     }
 
     void draw(World world) {

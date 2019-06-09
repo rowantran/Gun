@@ -2,6 +2,9 @@ package com.upa.gun;
 
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * Individual hitboxes that make up the group of hitboxes for one object
+ */
 public abstract class Hitbox {
     private boolean active;
     private Vector2 position;

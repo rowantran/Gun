@@ -8,7 +8,7 @@ public class Powerup extends Entity {
 
     public Map<String, String> sprites;
     public String sprite;
-    private Hitbox hitbox;
+    private Hitboxes hitbox;
     private int id;
     public PowerupInfo info;
     public boolean markedForDeletion;
@@ -32,7 +32,7 @@ public class Powerup extends Entity {
     }
 
     @Override
-    public Hitbox getHitbox() {
+    public Hitboxes getHitbox() {
         return hitbox;
     }
 
@@ -53,7 +53,7 @@ public class Powerup extends Entity {
 
             setPosition(startX, 72);
 
-            getHitbox().setActive(false);
+            //getHitbox().setActive(false);
 
             player.powerupsActive.add(this);
         }
@@ -61,12 +61,12 @@ public class Powerup extends Entity {
 
     private void createHitbox(String hitboxType, int width, int height) throws UnrecognizedHitboxTypeException {
         if (hitboxType.equals("rectangular")) {
-            hitbox = new RectangularHitbox(getPosition().x, getPosition().y, width, height);
+            hitbox = new Hitboxes();
         } else {
             throw new UnrecognizedHitboxTypeException(hitboxType);
         }
 
-        centerHitbox();
+        //centerHitbox();
     }
 
 

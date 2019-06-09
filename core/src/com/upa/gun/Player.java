@@ -14,8 +14,8 @@ public class Player extends Entity {
 
     static final float IFRAME_AFTER_HIT_LENGTH = 0.2f;
 
-    Hitbox hitbox;
-    Hitbox footHixbox;
+    Hitboxes hitbox;
+    //Hitbox footHixbox;
 
     Vector2 spawnPoint;
 
@@ -64,9 +64,9 @@ public class Player extends Entity {
 
         inputHandler = new InputHandler();
 
-        hitbox = new RectangularHitbox(x, y, HITBOX_SIZE, HITBOX_SIZE);
-        centerHitbox();
-        footHixbox = new RectangularHitbox(x, y, Assets.getTextureSize(Assets.playerAnimations).x, 2);
+        hitbox = new Hitboxes();
+        //centerHitbox();
+        //footHixbox = new RectangularHitbox(x, y, Assets.getTextureSize(Assets.playerAnimations).x, 2);
     }
 
     public void reset() {
@@ -80,11 +80,11 @@ public class Player extends Entity {
 
         timeSinceRoll = Settings.ROLL_DELAY;
 
-        centerHitbox();
+        //centerHitbox();
     }
 
     @Override
-    public Hitbox getHitbox() {
+    public Hitboxes getHitbox() {
         return hitbox;
     }
 
@@ -143,8 +143,8 @@ public class Player extends Entity {
         super.update(delta);
         state.update(delta);
 
-        footHixbox.setX(getPosition().x); //move somewhere else
-        footHixbox.setY(getPosition().y);
+        //footHixbox.setX(getPosition().x); //move somewhere else
+        //footHixbox.setY(getPosition().y);
 
         timeSinceRoll += delta;
 

@@ -28,19 +28,22 @@ public abstract class Entity implements Updatable {
      */
     public abstract Hitboxes getHitbox();
 
+    /*
     protected void centerHitbox(Hitbox hitbox) {
         setHitboxOffset((getSize().x - hitbox.getWidth()) / 2, (getSize().y - hitbox.getHeight()) / 2);
     }
+    */
 
     @Override
     public void update(float delta) {
-        position.x += velocity.x * delta;
-        position.y += velocity.y * delta;
+        //position.x += velocity.x * delta;
+        //position.y += velocity.y * delta;
 
         // Update hitbox to match new position
-        Hitbox hitbox = getHitbox();
-        hitbox.setX(position.x + hitboxOffset.x);
-        hitbox.setY(position.y + hitboxOffset.y);
+        Hitboxes hitbox = getHitbox();
+        hitbox.updateHitboxes(velocity.x * delta, velocity.y * delta);
+        //hitbox.setX(position.x + hitboxOffset.x);
+        //hitbox.setY(position.y + hitboxOffset.y);
     }
 
     public Vector2 getPosition() {

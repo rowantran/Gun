@@ -1,5 +1,7 @@
 package com.upa.gun;
 
+import com.badlogic.gdx.math.Vector2;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -42,6 +44,13 @@ public class Hitboxes implements Iterable<Hitbox> {
         }
 
         return false;
+    }
+
+    public void updateHitboxes(float adjustX, float adjustY) {
+        for (Hitbox child : hitboxes.values()) {
+            Vector2 location = child.getPosition();
+            child.setPosition(new Vector2(location.x + adjustX, location.y + adjustY));
+        }
     }
 
     /**

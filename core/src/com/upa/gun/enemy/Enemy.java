@@ -30,7 +30,7 @@ public class Enemy extends Entity {
     public Map<String, String> sprites;
     public String sprite;
 
-    private Hitbox hitbox;
+    private Hitboxes hitbox;
 
     private int id;
 
@@ -69,18 +69,18 @@ public class Enemy extends Entity {
 
 
     @Override
-    public Hitbox getHitbox() {
+    public Hitboxes getHitbox() {
         return hitbox;
     }
 
     private void createHitbox(String hitboxType, int width, int height) throws UnrecognizedHitboxTypeException {
         if (hitboxType.equals("rectangular")) {
-            hitbox = new RectangularHitbox(getPosition().x, getPosition().y, width, height);
+            hitbox = new Hitboxes();
         } else {
             throw new UnrecognizedHitboxTypeException(hitboxType);
         }
 
-        centerHitbox();
+        //centerHitbox();
     }
 
     public void damage(int damage) {
