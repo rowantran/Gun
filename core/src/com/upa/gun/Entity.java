@@ -6,21 +6,19 @@ public abstract class Entity implements Updatable {
     private Vector2 position;
     private Vector2 size;
     private Vector2 velocity;
-    private float rotation;
 
-    private Vector2 hitboxOffset; // Represents where the hitbox should be placed relative to the entity's position
+    public Hitboxes hitboxes;
 
-    Entity(Vector2 position, Vector2 size, Vector2 hitboxOffset) {
+    public Entity(Vector2 position, Vector2 size) {
         this.position = position.cpy();
         this.size = size.cpy();
         velocity = new Vector2(0f, 0f);
-        rotation = 0f;
 
-        this.hitboxOffset = hitboxOffset.cpy();
+        hitboxes = new Hitboxes();
     }
 
     public Entity(float x, float y, float width, float height, float hitboxOffsetX, float hitboxOffsetY) {
-        this(new Vector2(x, y), new Vector2(width, height), new Vector2(hitboxOffsetX, hitboxOffsetY));
+        this(new Vector2(x, y), new Vector2(width, height));
     }
 
     /**
@@ -31,6 +29,8 @@ public abstract class Entity implements Updatable {
     /*
     protected void centerHitbox(Hitbox hitbox) {
         setHitboxOffset((getSize().x - hitbox.getWidth()) / 2, (getSize().y - hitbox.getHeight()) / 2);
+    protected void centerRectangularHitbox(RectangularHitbox hitbox) {
+        hitbox.setOffset(new Vector2((getSize().x - hitbox.getSize().x) / 2, (getSize().y - hitbox.getSize().y) / 2));
     }
     */
 
@@ -44,6 +44,8 @@ public abstract class Entity implements Updatable {
         hitbox.updateHitboxes(velocity.x * delta, velocity.y * delta);
         //hitbox.setX(position.x + hitboxOffset.x);
         //hitbox.setY(position.y + hitboxOffset.y);
+
+        //hitboxes.setPosition(position);
     }
 
     public Vector2 getPosition() {
@@ -74,22 +76,5 @@ public abstract class Entity implements Updatable {
 
     void setVelocity(Vector2 velocity) {
         setVelocity(velocity.x, velocity.y);
-    }
-
-    float getRotation() {
-        return rotation;
-    }
-
-    void setRotation(float rotation) {
-        this.rotation = rotation;
-    }
-
-    Vector2 getHitboxOffset() {
-        return hitboxOffset.cpy();
-    }
-
-    void setHitboxOffset(float x, float y) {
-        hitboxOffset.x = x;
-        hitboxOffset.y = y;
     }
 }

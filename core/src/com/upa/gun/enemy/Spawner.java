@@ -1,6 +1,7 @@
 package com.upa.gun.enemy;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.*;
 import com.upa.gun.cutscene.BossSlimeEntrance;
 
@@ -77,7 +78,7 @@ public class Spawner implements Updatable {
         float spawnX = ((Settings.RESOLUTION.x - (float)bossSlimeHurt.getRegionWidth()) / 2f);
         float spawnY = Settings.RESOLUTION.y;
 
-        Enemy boss = world.getEnemyFactory().createEnemy(2, spawnX, spawnY);
+        Enemy boss = world.getEnemyFactory().createEnemy(2, new Vector2(spawnX, spawnY));
         World.enemies.add(boss);
 
         BossSlimeEntrance entrance = new BossSlimeEntrance(boss);

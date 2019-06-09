@@ -12,8 +12,8 @@ public abstract class Bullet extends Entity {
 
     float speedMult;
 
-    public Bullet(float x, float y, double angle, float width, float height, float speedMult) {
-        super(x, y, width, height, 0, 0);
+    public Bullet(Vector2 position, Vector2 size, double angle, float speedMult) {
+        super(position, size);
         this.angle = angle;
 
         HITBOX_SIZE = 20f;

@@ -245,8 +245,8 @@ class Renderer {
 
         ArrayList<CrateTop> crateTops = map.getCrateTops();
         for(CrateTop top : crateTops) {
-            top.crateTopSprite.setX(top.x);
-            top.crateTopSprite.setY(top.y);
+            top.crateTopSprite.setX(top.getPosition().x);
+            top.crateTopSprite.setY(top.getPosition().y);
             top.crateTopSprite.draw(batch);
             if (Settings.DEV_MODE) {
                 drawHitbox(top); //erases the crate?
@@ -294,6 +294,18 @@ class Renderer {
             sr.rect(e.getHitbox().getX(), e.getHitbox().getY(), e.getHitbox().getWidth(), e.getHitbox().getHeight());
             sr.end();
         }*/
+
+        /*
+        for (Hitbox hitbox : e.hitboxes) {
+            if (hitbox.isActive()) {
+                sr.setProjectionMatrix(camera.combined);
+                sr.begin(ShapeRenderer.ShapeType.Line);
+                sr.rect(hitbox.getPosition().x, hitbox.getPosition().y, ((RectangularHitbox) hitbox).getSize().x,
+                        ((RectangularHitbox) hitbox).getSize().y);
+                sr.end();
+            }
+        }
+        */
     }
 
     void draw(World world) {

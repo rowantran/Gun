@@ -34,8 +34,8 @@ public class Enemy extends Entity {
 
     private int id;
 
-    Enemy(EnemyInfo info, float x, float y) {
-        super(x, y, info.width, info.height, 0, 0);
+    Enemy(EnemyInfo info, Vector2 position) {
+        super(position, new Vector2(info.width, info.height));
 
         try {
             createHitbox(info.hitboxType, info.hitboxWidth, info.hitboxHeight);
@@ -81,6 +81,17 @@ public class Enemy extends Entity {
         }
 
         //centerHitbox();
+
+        /*
+    private void createHitbox(String hitboxType, int width, int height) throws UnrecognizedHitboxTypeException {
+        if (hitboxType.equals("rectangular")) {
+            RectangularHitbox hitbox = new RectangularHitbox(getPosition(), new Vector2(width, height));
+            centerRectangularHitbox(hitbox);
+            hitboxes.addHitbox("hitbox", hitbox);
+        } else {
+            throw new UnrecognizedHitboxTypeException(hitboxType);
+        }
+        */
     }
 
     public void damage(int damage) {
@@ -91,7 +102,7 @@ public class Enemy extends Entity {
             int rand = (int)(Math.random() * 1); //random powerup checker
             if(rand == 0) {
                 int type = (int)(Math.random() * PowerupFactory.getInstance().powerups.size());
-                World.powerups.add(World.getInstance().getPowerupFactory().createPowerup(type, this.getPosition().x, this.getPosition().y));
+                World.powerups.add(World.getInstance().getPowerupFactory().createPowerup(type, this.getPosition()));
                 Powerup added = World.powerups.get(World.powerups.size()-1);
                 System.out.println(added.info.effectDescription);
             }

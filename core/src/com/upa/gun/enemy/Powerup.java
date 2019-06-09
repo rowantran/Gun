@@ -13,8 +13,8 @@ public class Powerup extends Entity {
     public PowerupInfo info;
     public boolean markedForDeletion;
 
-    Powerup(PowerupInfo info, float x, float y) {
-        super(x, y, info.width, info.height, 0 ,0);
+    Powerup(PowerupInfo info, Vector2 position) {
+        super(position, new Vector2(info.width, info.height));
 
         try {
             createHitbox(info.hitboxType, info.hitboxWidth, info.hitboxHeight);
@@ -54,6 +54,11 @@ public class Powerup extends Entity {
             setPosition(startX, 72);
 
             //getHitbox().setActive(false);
+            /*
+            for (Hitbox hitbox : hitboxes) {
+                hitbox.setActive(false);
+            }
+            */
 
             player.powerupsActive.add(this);
         }
@@ -67,6 +72,14 @@ public class Powerup extends Entity {
         }
 
         //centerHitbox();
+        /*
+            RectangularHitbox hitbox = new RectangularHitbox(getPosition(), new Vector2(width, height));
+            centerRectangularHitbox(hitbox);
+            hitboxes.addHitbox("hitbox", hitbox);
+        } else {
+            throw new UnrecognizedHitboxTypeException(hitboxType);
+        }
+        */
     }
 
 

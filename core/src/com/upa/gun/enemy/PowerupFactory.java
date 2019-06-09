@@ -1,6 +1,7 @@
 package com.upa.gun.enemy;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import java.util.HashMap;
@@ -47,8 +48,8 @@ public class PowerupFactory {
         return powerupFactory;
     }
 
-    Powerup createPowerup(int id, float x, float y) {
-        return new Powerup(powerups.get(id), x, y);
+    Powerup createPowerup(int id, Vector2 position) {
+        return new Powerup(powerups.get(id), position);
     }
 
 }

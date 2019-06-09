@@ -3,6 +3,7 @@ package com.upa.gun.enemy;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.upa.gun.Direction;
@@ -73,7 +74,7 @@ public class EnemyFactory {
         Gdx.app.log("EnemyFactory", "Completed loading enemies");
     }
 
-    Enemy createEnemy(int id, float x, float y) {
-        return new Enemy(enemies.get(id), x, y);
+    Enemy createEnemy(int id, Vector2 position) {
+        return new Enemy(enemies.get(id), position);
     }
 }

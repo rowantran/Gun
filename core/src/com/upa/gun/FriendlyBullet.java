@@ -1,7 +1,9 @@
 package com.upa.gun;
 
+import com.badlogic.gdx.math.Vector2;
+
 class FriendlyBullet extends Bullet {
-    FriendlyBullet(float x, float y, double angle) {
-        super(x, y, angle, Assets.bulletEnemy.getRegionWidth(), Assets.bulletEnemy.getRegionHeight(), 1.0f);
+    FriendlyBullet(Vector2 position, double angle) {
+        super(position, new Vector2(Assets.bulletEnemy.getRegionWidth(), Assets.bulletEnemy.getRegionHeight()), angle, 1.0f);
     }
 }

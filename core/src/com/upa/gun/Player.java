@@ -4,10 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.IntArray;
 import com.upa.gun.enemy.Powerup;
-
-import java.util.List;
 
 public class Player extends Entity {
     private static final float HITBOX_SIZE = 15f;
@@ -41,10 +38,9 @@ public class Player extends Entity {
 
     PlayerState state;
 
-    Player(float x, float y, GunGame game) {
-        super(x, y, Assets.getTextureSize(Assets.playerAnimations).x, Assets.getTextureSize(Assets.playerAnimations).y,
-                0, 0);
-        spawnPoint = new Vector2(x, y);
+    Player(Vector2 position, GunGame game) {
+        super(position, Assets.getTextureSize(Assets.playerAnimations));
+        spawnPoint = position.cpy();
 
         state = PlayerState.idle;
 
@@ -67,6 +63,15 @@ public class Player extends Entity {
         hitbox = new Hitboxes();
         //centerHitbox();
         //footHixbox = new RectangularHitbox(x, y, Assets.getTextureSize(Assets.playerAnimations).x, 2);
+
+        /*
+        RectangularHitbox center = new RectangularHitbox(position, new Vector2(HITBOX_SIZE, HITBOX_SIZE));
+        centerRectangularHitbox(center);
+        hitboxes.addHitbox("center", center);
+
+        RectangularHitbox foot = new RectangularHitbox(position, new Vector2(Assets.getTextureSize(Assets.playerAnimations).x, 2));
+        hitboxes.addHitbox("foot", foot);
+        */
     }
 
     public void reset() {
@@ -86,6 +91,7 @@ public class Player extends Entity {
     @Override
     public Hitboxes getHitbox() {
         return hitbox;
+
     }
 
     /**

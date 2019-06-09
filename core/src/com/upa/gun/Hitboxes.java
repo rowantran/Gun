@@ -32,6 +32,15 @@ public class Hitboxes implements Iterable<Hitbox> {
     }
 
     /**
+     * Adds a hitbox to this group of hitboxes.
+     * @param name The name to identify the new hitbox.
+     * @param hitbox The hitbox to add.
+     */
+    public void addHitbox(String name, Hitbox hitbox) {
+        hitboxes.put(name, hitbox);
+    }
+
+    /**
      * Checks each child of this Hitboxes against each child of the given Hitboxes.
      * @param other The other Hitboxes to check against.
      * @return Whether any child of this Hitboxes is colliding with any child of the other Hitboxes.
@@ -66,6 +75,12 @@ public class Hitboxes implements Iterable<Hitbox> {
         }
 
         return false;
+    }
+
+    public void setPosition(Vector2 position) {
+        for (Hitbox hitbox : hitboxes.values()) {
+            hitbox.setPosition(position);
+        }
     }
 
     public Iterator<Hitbox> iterator() {
