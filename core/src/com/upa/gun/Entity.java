@@ -36,8 +36,8 @@ public abstract class Entity implements Updatable {
 
     @Override
     public void update(float delta) {
-        //position.x += velocity.x * delta;
-        //position.y += velocity.y * delta;
+        position.x += velocity.x * delta;
+        position.y += velocity.y * delta;
 
         // Update hitbox to match new position
         Hitboxes hitbox = getHitbox();
