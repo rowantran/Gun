@@ -289,13 +289,13 @@ class Renderer {
 
     private void drawHitbox(Entity e) {
         if (e.getHitbox().isActive()) {
-            System.out.println("ACTIVE");
             sr.setProjectionMatrix(camera.combined);
             sr.begin(ShapeRenderer.ShapeType.Line);
             for(Hitbox h : e.getHitbox()) {
                 sr.rect(h.getX(), h.getY(), h.getWidth(), h.getHeight());
             }
             sr.end();
+
         }
 
         /*

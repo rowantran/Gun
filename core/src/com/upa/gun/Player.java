@@ -63,7 +63,8 @@ public class Player extends Entity {
         hitbox = new Hitboxes();
 
         RectangularHitbox center = new RectangularHitbox(position, new Vector2(HITBOX_SIZE, HITBOX_SIZE));
-        centerRectangularHitbox(center); //check where this method is and where center is defined
+        center.setPosition(spawnPoint);
+        centerRectangularHitbox(center);
         hitbox.addHitbox("center", center);
         hitbox.setActive(true);
 
