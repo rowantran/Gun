@@ -33,7 +33,7 @@ public abstract class Entity implements Updatable {
     */
 
     protected void centerRectangularHitbox(RectangularHitbox hitbox) {
-        hitbox.setOffset(new Vector2((getSize().x - hitbox.getSize().x) / 2, (getSize().y - hitbox.getSize().y) / 2));
+        hitbox.setOffset(new Vector2(((getSize().x) - (hitbox.getSize().x))/2, ((getSize().y) - (hitbox.getSize().y))/2));
     }
 
     @Override
