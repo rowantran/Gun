@@ -74,24 +74,19 @@ public class Enemy extends Entity {
     }
 
     private void createHitbox(String hitboxType, int width, int height) throws UnrecognizedHitboxTypeException {
+        hitbox = new Hitboxes();
         if (hitboxType.equals("rectangular")) {
-            hitbox = new Hitboxes();
+            RectangularHitbox center = new RectangularHitbox(getPosition(), new Vector2(width, height));
+            centerRectangularHitbox(center);
+            hitbox.addHitbox("center", center);
+
         } else {
             throw new UnrecognizedHitboxTypeException(hitboxType);
         }
 
-        //centerHitbox();
+        hitbox.setActive(true);
 
-        /*
-    private void createHitbox(String hitboxType, int width, int height) throws UnrecognizedHitboxTypeException {
-        if (hitboxType.equals("rectangular")) {
-            RectangularHitbox hitbox = new RectangularHitbox(getPosition(), new Vector2(width, height));
-            centerRectangularHitbox(hitbox);
-            hitboxes.addHitbox("hitbox", hitbox);
-        } else {
-            throw new UnrecognizedHitboxTypeException(hitboxType);
-        }
-        */
+
     }
 
     public void damage(int damage) {
