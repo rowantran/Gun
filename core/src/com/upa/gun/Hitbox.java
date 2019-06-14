@@ -53,12 +53,12 @@ public abstract class Hitbox implements Collidable {
         return position.y;
     }
 
-    public float getWidth() {
-        return 10; //temp
-    }
+    public abstract float getWidth();
 
-    public float getHeight() {
-        return 10; //temp
-    }
+    public abstract float getHeight();
+
+    public abstract boolean colliding(Collidable other);
+
+    public abstract boolean colliding(RectangularHitbox other);
 
 }

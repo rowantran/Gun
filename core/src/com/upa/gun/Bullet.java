@@ -6,7 +6,7 @@ public abstract class Bullet extends Entity {
     double angle;
 
     private float HITBOX_SIZE;
-    Hitboxes hitbox;
+    private Hitboxes hitbox;
 
     boolean markedForDeletion;
 

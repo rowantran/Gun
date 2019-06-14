@@ -7,7 +7,7 @@ import com.upa.gun.enemy.Powerup;
 public class CollisionChecker implements Updatable {
     private void checkPlayerHit() {
         for (Bullet b : World.enemyBullets) {
-            if (b.hitboxes.colliding(World.player.hitboxes.getChild("center"))) {
+            if (b.getHitbox().colliding(World.player.hitbox.getChild("center"))) {
                 World.player.hurt(1); //will leave dying state when other condition occurs - needs fix
             }
         }
@@ -16,7 +16,8 @@ public class CollisionChecker implements Updatable {
     private void checkEnemiesHit() {
         for (Bullet b : World.playerBullets) {
             for (Enemy e: World.enemies) {
-                if (b.hitboxes.colliding(e.hitboxes)) {
+                if (b.getHitbox().colliding(e.getHitbox())) {
+                    System.out.println("HIT");
                     Gdx.app.debug("CollisionChecker", "Enemy hit by bullet");
                     e.damage(Settings.playerDamage);
                     System.out.println("Enemy has " + e.getHealth() + " health left");
@@ -63,7 +64,7 @@ public class CollisionChecker implements Updatable {
     public void update(float delta) {
         checkPlayerHit();
         checkEnemiesHit();
-        checkPowerupCollect();
+        //checkPowerupCollect();
         //checkCrateTouch(); currently disabled for hitbox change
     }
 }
