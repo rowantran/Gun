@@ -29,4 +29,14 @@ public class RectangularHitbox extends Hitbox {
     public Vector2 getSize() {
         return size;
     }
+
+    @Override
+    public float getWidth() {
+        return getSize().x;
+    }
+
+    @Override
+    public float getHeight() {
+        return getSize().y;
+    }
 }

@@ -249,7 +249,7 @@ class Renderer {
             top.crateTopSprite.setY(top.getPosition().y);
             top.crateTopSprite.draw(batch);
             if (Settings.DEV_MODE) {
-                drawHitbox(top); //erases the crate?
+                //drawHitbox(top); //erases the crate? will fix later
             }
         }
         ArrayList<CrateSide> crateSides = map.getCrateSides();
@@ -288,12 +288,15 @@ class Renderer {
     }
 
     private void drawHitbox(Entity e) {
-        /*if (e.getHitbox().isActive()) {
+        if (e.getHitbox().isActive()) {
+            System.out.println("ACTIVE");
             sr.setProjectionMatrix(camera.combined);
             sr.begin(ShapeRenderer.ShapeType.Line);
-            sr.rect(e.getHitbox().getX(), e.getHitbox().getY(), e.getHitbox().getWidth(), e.getHitbox().getHeight());
+            for(Hitbox h : e.getHitbox()) {
+                sr.rect(h.getX(), h.getY(), h.getWidth(), h.getHeight());
+            }
             sr.end();
-        }*/
+        }
 
         /*
         for (Hitbox hitbox : e.hitboxes) {

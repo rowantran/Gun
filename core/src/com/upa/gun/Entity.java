@@ -29,10 +29,12 @@ public abstract class Entity implements Updatable {
     /*
     protected void centerHitbox(Hitbox hitbox) {
         setHitboxOffset((getSize().x - hitbox.getWidth()) / 2, (getSize().y - hitbox.getHeight()) / 2);
+    }
+    */
+
     protected void centerRectangularHitbox(RectangularHitbox hitbox) {
         hitbox.setOffset(new Vector2((getSize().x - hitbox.getSize().x) / 2, (getSize().y - hitbox.getSize().y) / 2));
     }
-    */
 
     @Override
     public void update(float delta) {

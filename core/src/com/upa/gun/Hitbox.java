@@ -36,4 +36,21 @@ public abstract class Hitbox implements Collidable {
     public void setOffset(Vector2 offset) {
         this.offset.set(offset);
     }
+
+    public float getX() {
+        return position.x;
+    }
+
+    public float getY() {
+        return position.y;
+    }
+
+    public float getWidth() {
+        return 10; //temp
+    }
+
+    public float getHeight() {
+        return 10; //temp
+    }
+
 }

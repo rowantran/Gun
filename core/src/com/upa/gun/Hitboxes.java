@@ -10,7 +10,9 @@ import java.util.Map;
  * Represents the group of hitboxes attached to an object.
  */
 public class Hitboxes implements Iterable<Hitbox> {
+
     private Map<String, Hitbox> hitboxes;
+    private boolean active;
 
     public Hitboxes() {
         this(new HashMap<String, Hitbox>());
@@ -20,6 +22,17 @@ public class Hitboxes implements Iterable<Hitbox> {
         this.hitboxes = new HashMap<String, Hitbox>();
         for (Map.Entry<String, Hitbox> entry : hitboxes.entrySet()) {
             this.hitboxes.put(entry.getKey(), entry.getValue());
+        }
+    }
+
+    boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+        for(Hitbox child : hitboxes.values()) {
+            child.setActive(active);
         }
     }
 
