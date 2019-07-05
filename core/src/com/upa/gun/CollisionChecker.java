@@ -17,10 +17,8 @@ public class CollisionChecker implements Updatable {
         for (Bullet b : World.playerBullets) {
             for (Enemy e: World.enemies) {
                 if (b.getHitbox().colliding(e.getHitbox())) {
-                    System.out.println("HIT");
-                    Gdx.app.debug("CollisionChecker", "Enemy hit by bullet");
+                    //Gdx.app.debug("CollisionChecker", "Enemy hit by bullet");
                     e.damage(Settings.playerDamage);
-                    System.out.println("Enemy has " + e.getHealth() + " health left");
                     b.markedForDeletion = true;
                 }
             }
@@ -35,7 +33,7 @@ public class CollisionChecker implements Updatable {
         }
     }
 
-    /**
+    /**e
      * @param delta
      * Checks if the player is touching a crate. May be adjusted after new hitboxes are implemented
      */

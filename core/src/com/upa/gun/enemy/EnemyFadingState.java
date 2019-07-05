@@ -18,7 +18,7 @@ public class EnemyFadingState extends EnemyState {
 
         if (parent.opacity <= 0f) {
             parent.opacity = 0f;
-            Gdx.app.debug("EnemyFadingState", "Switching to dying state");
+            //Gdx.app.debug("EnemyFadingState", "Switching to dying state");
             parent.setState(new EnemyDyingState());
         }
     }

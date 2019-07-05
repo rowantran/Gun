@@ -9,7 +9,7 @@ public class Settings {
     public static final int LOG_LEVEL = Application.LOG_DEBUG;
 
     public static final boolean DEV_MODE = true;
-    public static final boolean INVINCIBLE = false;
+    public static final boolean INVINCIBLE = true;
 
     public static final float STEP_TIME = 1/300f;
 

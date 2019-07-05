@@ -2,6 +2,7 @@ package com.upa.gun.enemy;
 
 import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.*;
+import com.badlogic.gdx.Gdx;
 
 import java.util.Map;
 
@@ -81,6 +82,7 @@ public class Enemy extends Entity {
             hitbox.addHitbox("center", center);
 
         } else {
+            Gdx.app.log("Enemy creation:","Failed to load hitbox type.");
             throw new UnrecognizedHitboxTypeException(hitboxType);
         }
 
@@ -99,7 +101,7 @@ public class Enemy extends Entity {
                 int type = (int)(Math.random() * PowerupFactory.getInstance().powerups.size());
                 World.powerups.add(World.getInstance().getPowerupFactory().createPowerup(type, this.getPosition()));
                 Powerup added = World.powerups.get(World.powerups.size()-1);
-                System.out.println(added.info.effectDescription);
+                //System.out.println(added.info.effectDescription);
             }
 
 
@@ -127,6 +129,10 @@ public class Enemy extends Entity {
         rotation.cycle(delta, getPosition());
 
         changeSprite(rotation.currentAttack().getSprite());
+
+        if(id == 2) {
+            centerRectangularHitbox((RectangularHitbox)getHitbox().getChild("center"));
+        }
 
         if (damagedFrame) {
             damagedFrameTime += delta;
