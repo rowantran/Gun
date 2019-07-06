@@ -14,8 +14,8 @@ public class Enemy extends Entity {
     private int startHealth;
     private int health;
 
-    private int horizontalDirection; //0 = none, 1 = left, 2 = right
-    private int verticalDirection;
+    private float horizontalDifference;
+    private float verticalDifference;
 
     float timeSinceAttack;
 
@@ -161,46 +161,21 @@ public class Enemy extends Entity {
         float playerY = playerPos.y;
         float slimeX = getPosition().x;
         float slimeY = getPosition().y;
-        if(slimeX == playerX) { horizontalDirection = 0; }
-        if(slimeX > playerX) { horizontalDirection = 1; } // move left
-        if(slimeX < playerX) { horizontalDirection = 2; } //move right
-        if(slimeY == playerY) { verticalDirection = 0; }
-        if(slimeY > playerY) { verticalDirection = 1; } //move down
-        if(slimeY < playerY) { verticalDirection = 2; } //move up
+        horizontalDifference = playerX - slimeX;
+        verticalDifference = playerY - slimeY;
     }
 
     private void move() {
         boolean diag = true;
         float pythag = 0.7071f;
 
-        switch(horizontalDirection) {
-            case 0:
-                setVelocity(0, getVelocity().y);
-                diag = false;
-                break;
-            case 1:
-                setVelocity(-Settings.SLIME_SPEED, getVelocity().y);
-                break;
-            case 2:
-                setVelocity(Settings.SLIME_SPEED, getVelocity().y);
-                break;
-        }
-        switch(verticalDirection) {
-            case 0:
-                setVelocity(getVelocity().x, 0);
-                diag = false;
-                break;
-            case 1:
-                setVelocity(getVelocity().x, -Settings.SLIME_SPEED);
-                break;
-            case 2:
-                setVelocity(getVelocity().x, Settings.SLIME_SPEED);
-                break;
-        }
+        float xSquare = horizontalDifference * horizontalDifference;
+        float ySquare = verticalDifference * verticalDifference;
+        double currentSquare = xSquare + ySquare;
+        float currentSpeed = (float)Math.sqrt(currentSquare);
+        float speedRatio = Settings.SLIME_SPEED / currentSpeed;
+        setVelocity(horizontalDifference * speedRatio, verticalDifference * speedRatio);
 
-        if(diag) {
-            setVelocity(getVelocity().x * pythag, getVelocity().y * pythag);
-        }
     }
 
     public EnemyState getState() {
