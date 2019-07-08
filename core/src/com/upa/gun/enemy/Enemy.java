@@ -17,6 +17,8 @@ public class Enemy extends Entity {
     private float horizontalDifference;
     private float verticalDifference;
 
+    private float directionalUpdateTimer;
+
     float timeSinceAttack;
 
     private EnemyState state;
@@ -60,6 +62,8 @@ public class Enemy extends Entity {
 
         rotation = info.rotation.copy();
         rotation.setEnemy(this);
+
+        directionalUpdateTimer = 0.0f;
 
         id = info.id;
     }
@@ -126,12 +130,18 @@ public class Enemy extends Entity {
     public void update(float delta) {
         super.update(delta);
         timeElapsed += delta;
+        directionalUpdateTimer += delta;
         rotation.cycle(delta, getPosition());
 
         changeSprite(rotation.currentAttack().getSprite());
 
-        if(id == 2) {
+        if (id == 2) { //bandaid boss hitbox fix
             centerRectangularHitbox((RectangularHitbox)getHitbox().getChild("center"));
+        }
+
+        if (directionalUpdateTimer >= 1) {
+            directionalUpdateTimer = 0.0f;
+            updateDirection();
         }
 
         if (damagedFrame) {
@@ -142,12 +152,13 @@ public class Enemy extends Entity {
             }
         }
 
-        if (state.mobileType() == 1) { //kinda wonky)
+
+        if (state.mobileType() == 1) { //active state
             updateDirection();
             move();
-        } else if(state.mobileType() == 2) {
+        } else if(state.mobileType() == 2) { //dying/fading state
             move();
-            setVelocity(getVelocity().x/2, getVelocity().y/2);
+            setVelocity(getVelocity().x/3, getVelocity().y/3);
         } else {
             setVelocity(0, 0);
         }
@@ -161,14 +172,27 @@ public class Enemy extends Entity {
         float playerY = playerPos.y;
         float slimeX = getPosition().x;
         float slimeY = getPosition().y;
-        horizontalDifference = playerX - slimeX;
-        verticalDifference = playerY - slimeY;
+        horizontalDifference = introduceOffset(playerX - slimeX);
+        verticalDifference = introduceOffset(playerY - slimeY);
+    }
+
+    private float introduceOffset(float value) {
+        //System.out.println(value);
+        if(value > 50 || value < -50) {
+            int maxRand = (int)(value / 3);
+            int offset = (int)(Math.random() * maxRand);
+            int direction = (int)(Math.random() * 2);
+            if(direction == 0) {
+                value += offset;
+            }
+            else {
+                value -= offset;
+            }
+        }
+        return value;
     }
 
     private void move() {
-        boolean diag = true;
-        float pythag = 0.7071f;
-
         float xSquare = horizontalDifference * horizontalDifference;
         float ySquare = verticalDifference * verticalDifference;
         double currentSquare = xSquare + ySquare;

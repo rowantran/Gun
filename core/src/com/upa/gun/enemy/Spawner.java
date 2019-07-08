@@ -5,6 +5,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.*;
 import com.upa.gun.cutscene.BossSlimeEntrance;
 
+import static com.upa.gun.Settings.SPAWN_CAP;
+import static com.upa.gun.Settings.SPAWN_CAP_LIMIT;
+
 public class Spawner implements Updatable {
     World world;
     public int slimesKilled;
@@ -17,12 +20,15 @@ public class Spawner implements Updatable {
 
     boolean bossAlive;
 
-    int bossThreshold;
+    public int slimesSpawned;
 
+    int bossThreshold;
     int bossHealth;
 
     public Spawner(World world) {
         this.world = world;
+
+
 
         slimesKilled = 0;
         slimesKilledSinceLastBoss = 0;
@@ -63,13 +69,16 @@ public class Spawner implements Updatable {
     }
 
     private void spawnSlime() {
-        float spawnX = (((float)Math.random() * 1051) + 113);
-        float spawnY = (((float)Math.random() * 600) + 100);
-        int slimeType = (int) (Math.random() * 4);
-        if (slimeType == 0) {
-            World.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, world.getEnemyFactory(), 1));
-        } else {
-            World.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, world.getEnemyFactory(), 0));
+        if(!SPAWN_CAP || slimesSpawned < SPAWN_CAP_LIMIT) {
+            float spawnX = (((float)Math.random() * 1051) + 113);
+            float spawnY = (((float)Math.random() * 600) + 100);
+            int slimeType = (int) (Math.random() * 4);
+            if (slimeType == 0) {
+                World.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, world.getEnemyFactory(), 1));
+            } else {
+                World.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, world.getEnemyFactory(), 0));
+            }
+            slimesSpawned++;
         }
     }
 
