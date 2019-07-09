@@ -29,6 +29,9 @@ public class Settings {
     public static final float DEATH_ROTATE_SPEED = 80.0f;
     public static final float DEATH_FADE_SPEED = (DEATH_ROTATE_SPEED / 40.0f) * 1.0f;
 
+    public static final int MAX_SLIME_UPDATE_TIMER = 80; //divide by 100
+    public static final int MIN_SLIME_UPDATE_TIMER = 30;
+
     public static final float SLOW_FADE_SPEED = 0.4f;
 
     public static final int KEY_LEFT = Input.Keys.A;

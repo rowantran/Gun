@@ -5,6 +5,7 @@ import com.upa.gun.*;
 import com.badlogic.gdx.Gdx;
 
 import java.util.Map;
+import static com.upa.gun.Settings.*;
 
 public class Enemy extends Entity {
     private static final float DAMAGE_FLASH_LENGTH = 1/20f;
@@ -17,6 +18,7 @@ public class Enemy extends Entity {
     private float horizontalDifference;
     private float verticalDifference;
 
+    private float directionalUpdateCounter;
     private float directionalUpdateTimer;
 
     float timeSinceAttack;
@@ -63,7 +65,9 @@ public class Enemy extends Entity {
         rotation = info.rotation.copy();
         rotation.setEnemy(this);
 
-        directionalUpdateTimer = 0.0f;
+        directionalUpdateCounter = 1.0f;
+        directionalUpdateTimer = 1.0f;
+
 
         id = info.id;
     }
@@ -130,18 +134,13 @@ public class Enemy extends Entity {
     public void update(float delta) {
         super.update(delta);
         timeElapsed += delta;
-        directionalUpdateTimer += delta;
+        directionalUpdateCounter += delta;
         rotation.cycle(delta, getPosition());
 
         changeSprite(rotation.currentAttack().getSprite());
 
         if (id == 2) { //bandaid boss hitbox fix
             centerRectangularHitbox((RectangularHitbox)getHitbox().getChild("center"));
-        }
-
-        if (directionalUpdateTimer >= 1) {
-            directionalUpdateTimer = 0.0f;
-            updateDirection();
         }
 
         if (damagedFrame) {
@@ -152,10 +151,15 @@ public class Enemy extends Entity {
             }
         }
 
-
         if (state.mobileType() == 1) { //active state
-            updateDirection();
-            move();
+            setVelocity(getVelocity().x, getVelocity().y);
+            if (directionalUpdateCounter >= directionalUpdateTimer) {
+                directionalUpdateCounter = 0.0f;
+                directionalUpdateTimer = generateNewDirectionUpdateTimer();
+                System.out.println(directionalUpdateTimer);
+                updateDirection(); //somehow updateDirection is needed to render?
+                move();
+            }
         } else if(state.mobileType() == 2) { //dying/fading state
             move();
             setVelocity(getVelocity().x/3, getVelocity().y/3);
@@ -164,6 +168,12 @@ public class Enemy extends Entity {
         }
 
         state.update(delta);
+    }
+
+    private float generateNewDirectionUpdateTimer() {
+        int range = MAX_SLIME_UPDATE_TIMER - MIN_SLIME_UPDATE_TIMER;
+        int timer = (int)(Math.random() * (double)(range));
+        return (float)timer / 100 + (float)MIN_SLIME_UPDATE_TIMER / 100;
     }
 
     private void updateDirection() {
@@ -177,7 +187,6 @@ public class Enemy extends Entity {
     }
 
     private float introduceOffset(float value) {
-        //System.out.println(value);
         if(value > 50 || value < -50) {
             int maxRand = (int)(value / 3);
             int offset = (int)(Math.random() * maxRand);
@@ -199,7 +208,6 @@ public class Enemy extends Entity {
         float currentSpeed = (float)Math.sqrt(currentSquare);
         float speedRatio = Settings.SLIME_SPEED / currentSpeed;
         setVelocity(horizontalDifference * speedRatio, verticalDifference * speedRatio);
-
     }
 
     public EnemyState getState() {
