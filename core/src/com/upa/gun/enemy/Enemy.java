@@ -156,8 +156,7 @@ public class Enemy extends Entity {
             if (directionalUpdateCounter >= directionalUpdateTimer) {
                 directionalUpdateCounter = 0.0f;
                 directionalUpdateTimer = generateNewDirectionUpdateTimer();
-                System.out.println(directionalUpdateTimer);
-                updateDirection(); //somehow updateDirection is needed to render?
+                updateDirection();
                 move();
             }
         } else if(state.mobileType() == 2) { //dying/fading state
@@ -188,8 +187,12 @@ public class Enemy extends Entity {
 
     private float introduceOffset(float value) {
         if(value > 50 || value < -50) {
-            int maxRand = (int)(value / 3);
-            int offset = (int)(Math.random() * maxRand);
+
+            float minOffset = value/5;
+
+
+            int addOffset = (int)(Math.random() * (value/2));
+            float offset = (float)addOffset + minOffset;
             int direction = (int)(Math.random() * 2);
             if(direction == 0) {
                 value += offset;
