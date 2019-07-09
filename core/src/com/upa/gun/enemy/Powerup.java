@@ -51,8 +51,7 @@ public class Powerup extends Entity {
             float startX = 80 + (Assets.healthFullLeft.getRegionWidth() * Settings.playerHealth);
             startX += (getSize().x * player.powerupsActive.size);
 
-            setPosition(startX, 72);
-
+            setPosition(startX, 72f);
             //getHitbox().setActive(false);
             /*
             for (Hitbox hitbox : hitboxes) {

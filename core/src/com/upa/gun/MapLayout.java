@@ -16,8 +16,6 @@ public class MapLayout {
         id = info.id;
 
         createCrates();
-
-
     }
 
 

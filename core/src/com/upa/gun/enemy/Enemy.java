@@ -163,7 +163,7 @@ public class Enemy extends Entity {
             move();
             setVelocity(getVelocity().x/3, getVelocity().y/3);
         } else {
-            setVelocity(0, 0);
+            setVelocity(0f, 0f);
         }
 
         state.update(delta);
@@ -186,10 +186,9 @@ public class Enemy extends Entity {
     }
 
     private float introduceOffset(float value) {
-        if(value > 50 || value < -50) {
+        if(value > 50f || value < -50f) {
 
             float minOffset = value/5;
-
 
             int addOffset = (int)(Math.random() * (value/2));
             float offset = (float)addOffset + minOffset;

@@ -10,8 +10,9 @@ public class Settings {
 
     public static final boolean DEV_MODE = true;
     public static final boolean INVINCIBLE = true;
-    public static final boolean SPAWN_CAP = true;
+    public static final boolean SPAWN_CAP = false;
     public static final int SPAWN_CAP_LIMIT = 1;
+    public static final boolean MUTE = true;
 
     public static final float STEP_TIME = 1/300f;
 

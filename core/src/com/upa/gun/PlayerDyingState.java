@@ -16,7 +16,6 @@ class PlayerDyingState extends PlayerState {
     public void update(float delta) {
         timeElapsed += delta;
         controllable = false;
-        //System.out.println("dying state");
 
         if(rotation < 90.0f) { //rotates to 90 degrees
             rotation += Settings.DEATH_ROTATE_SPEED * delta;

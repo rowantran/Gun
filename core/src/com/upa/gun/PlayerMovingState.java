@@ -22,7 +22,6 @@ class PlayerMovingState extends PlayerState {
             }
         }
         controllable = true;
-        //System.out.println("moving state");
     }
 
     @Override

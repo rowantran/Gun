@@ -20,10 +20,9 @@ public class PlayerIdleState extends PlayerState {
             iframeTime += delta;
             if (iframeTime > Player.IFRAME_AFTER_HIT_LENGTH) {
                 vulnerable = true;
-                iframeTime = 0;
+                iframeTime = 0f;
             }
         }
-        //System.out.println("idle state");
     }
 
     @Override

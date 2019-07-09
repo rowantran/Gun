@@ -44,7 +44,7 @@ class Renderer {
         batch.disableBlending();
         batch.setColor(1.0f, 1.0f, 1.0f, 1.0f);
         batch.draw(Assets.backgroundRoom1, (Settings.RESOLUTION.x - Assets.backgroundRoom1.getWidth()) /2f,
-                0, (float)Assets.backgroundRoom1.getWidth(), (float)Assets.backgroundRoom1.getHeight());
+                0f, (float)Assets.backgroundRoom1.getWidth(), (float)Assets.backgroundRoom1.getHeight());
         batch.end();
     }
 
@@ -120,14 +120,14 @@ class Renderer {
 
         int barWidth = 700;
 
-        float y = 698; //arbitrary value. not 700 b/c crate face bottoms show
+        float y = 698f; //arbitrary value. not 700 b/c crate face bottoms show
         float x = Settings.RESOLUTION.x / 2; //center of screen
         Texture edge = Assets.bossHealthEdge;
         Texture full = Assets.bossHealthFull;
         Texture empty = Assets.bossHealthEmpty;
 
         layout.setText(font, bossName);
-        font.draw(batch, layout, Settings.RESOLUTION.x / 2 - layout.width/2, 770); //sets boss title over health bar
+        font.draw(batch, layout, Settings.RESOLUTION.x / 2 - layout.width/2, 770f); //sets boss title over health bar
 
         double h = (double) health;
         double hMax = (double) maxHealth;
@@ -267,7 +267,7 @@ class Renderer {
         batch.enableBlending();
 
         layout.setText(font, Integer.toString(world.spawner.slimesKilled));
-        float x = 30;
+        float x = 30f;
         float y = (Settings.RESOLUTION.y - layout.height);
         font.draw(batch, layout, x, y);
     }
@@ -282,7 +282,7 @@ class Renderer {
 
         layout.setText(font, Integer.toString(Gdx.graphics.getFramesPerSecond()));
 
-        float x = 0;
+        float x = 0f;
         float y = layout.height;
         font.draw(batch, layout, x, y);
     }

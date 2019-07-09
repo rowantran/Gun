@@ -26,13 +26,11 @@ class PlayerRollingState extends PlayerState {
         controllable = false;
 
         timeElapsed += delta;
-        //System.out.println(timeElapsed);
 
         if (timeElapsed > Settings.ROLL_LENGTH) {
             resetState();
             World.player.state = PlayerState.idle;
             System.out.println("iframe over");
-            //System.out.println(timeElapsed);
         }
     }
 

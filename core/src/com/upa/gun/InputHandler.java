@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
+import static com.upa.gun.Settings.MUTE;
+
 public class InputHandler implements Updatable {
     private Vector2 checkKeys(float delta) {
         Vector2 velocity = new Vector2(0f, 0f);
@@ -73,15 +75,16 @@ public class InputHandler implements Updatable {
             camera.setToOrtho(false, Settings.RESOLUTION.x, Settings.RESOLUTION.y);
 
             if(World.player.bulletCooldown <= 0) {
-
                 Vector3 mousePos3 = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(),
-                        0));
+                        0f));
                 Vector2 mousePos = new Vector2(mousePos3.x, mousePos3.y);
                 Vector2 bulletAngle = mousePos.sub(World.player.getPosition());
                 World.playerBullets.add(new FriendlyBullet(World.player.getPosition(),
                         bulletAngle.angleRad()));
                 World.player.shot.stop();
-                World.player.shot.play(.5f);
+                if(!MUTE) {
+                    World.player.shot.play(.5f);
+                }
                 World.player.bulletCooldown = Settings.playerBulletCooldown;
             }
         }

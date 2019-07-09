@@ -43,7 +43,7 @@ public class IntroAnimationScreen extends ScreenAdapter {
 
         TextureRegion bossMoveFrame = Assets.bossSlimeAnimations.get(SpriteState.MOVING).get(Direction.LEFT)
                 .getKeyFrame(0);
-        bossX = -200;
+        bossX = -200f;
         bossY = (Settings.RESOLUTION.y - bossMoveFrame.getRegionHeight()) / 2 - 100;
 
         slimesStrong = new boolean[5];
