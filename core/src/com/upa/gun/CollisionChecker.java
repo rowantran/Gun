@@ -34,6 +34,12 @@ public class CollisionChecker implements Updatable {
     }
 
     private void checkCrateTouch() {
+
+        boolean oldLeftStop = World.player.leftStop;
+        boolean oldRightStop = World.player.rightStop;
+        boolean oldBotStop = World.player.botStop;
+        boolean oldTopStop = World.player.topStop;
+
         World.player.resetStops();
         boolean collision = false;
 
@@ -67,8 +73,14 @@ public class CollisionChecker implements Updatable {
                     World.player.topStop = true;
                 }
             }
-
-
+        }
+        if(World.player.leftStop && World.player.rightStop) {
+            World.player.leftStop = oldLeftStop;
+            World.player.rightStop = oldRightStop;
+        }
+        if(World.player.botStop && World.player.topStop) {
+            World.player.botStop = oldBotStop;
+            World.player.topStop = oldTopStop;
         }
     }
 
