@@ -91,6 +91,12 @@ public class Player extends Entity {
         //centerHitbox();
     }
 
+    public void fixHitboxPosition() {
+        centerRectangularHitbox((RectangularHitbox)hitbox.getChild("center"));
+        hitbox.getChild("leftFoot").setPosition(new Vector2(getPosition().x + 6, getPosition().y));
+        hitbox.getChild(("rightFoot")).setPosition(new Vector2(getPosition().x + getSize().x - 9, getPosition().y));
+    }
+
     @Override
     public Hitboxes getHitbox() {
         return hitbox;
