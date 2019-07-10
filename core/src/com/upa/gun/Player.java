@@ -11,9 +11,10 @@ public class Player extends Entity {
 
     static final float IFRAME_AFTER_HIT_LENGTH = 0.2f;
 
-    Hitboxes hitbox;
+    public Hitboxes hitbox;
+    public Hitboxes crateCheckHitbox;
 
-    Vector2 spawnPoint;
+    public Vector2 spawnPoint;
 
     float bulletCooldown;
 
@@ -60,6 +61,7 @@ public class Player extends Entity {
         inputHandler = new InputHandler();
 
         hitbox = new Hitboxes();
+        crateCheckHitbox = new Hitboxes();
 
         RectangularHitbox center = new RectangularHitbox(position, new Vector2(20f, 20f));
         centerRectangularHitbox(center);
@@ -67,17 +69,18 @@ public class Player extends Entity {
 
         RectangularHitbox leftFoot = new RectangularHitbox(position, new Vector2(12f, 8f));
         leftFoot.setPosition(new Vector2(position.x - 4, position.y));
-        hitbox.addHitbox("leftFoot", leftFoot);
+        crateCheckHitbox.addHitbox("leftFoot", leftFoot);
 
-        RectangularHitbox vertFoot = new RectangularHitbox(position, new Vector2(20f, 28f));
-        vertFoot.setPosition(new Vector2(position.x + getSize().x/2 - 10f, position.y - 10));
-        hitbox.addHitbox("vertFoot", vertFoot);
+        RectangularHitbox vertFoot = new RectangularHitbox(position, new Vector2(22f, 28f));
+        vertFoot.setPosition(new Vector2(position.x + getSize().x/2 - 11f, position.y - 10));
+        crateCheckHitbox.addHitbox("vertFoot", vertFoot);
 
         RectangularHitbox rightFoot = new RectangularHitbox(position, new Vector2(12f, 8f));
         rightFoot.setPosition(new Vector2(position.x + getSize().x - 8, position.y));
-        hitbox.addHitbox("rightFoot", rightFoot);
+        crateCheckHitbox.addHitbox("rightFoot", rightFoot);
 
         hitbox.setActive(true);
+        crateCheckHitbox.setActive(true);
 
     }
 
@@ -95,16 +98,9 @@ public class Player extends Entity {
         //centerHitbox();
     }
 
-    public void fixHitboxPosition() {
-        centerRectangularHitbox((RectangularHitbox)hitbox.getChild("center"));
-        hitbox.getChild("leftFoot").setPosition(new Vector2(getPosition().x + 6, getPosition().y));
-        hitbox.getChild(("rightFoot")).setPosition(new Vector2(getPosition().x + getSize().x - 9, getPosition().y));
-    }
-
     @Override
     public Hitboxes getHitbox() {
         return hitbox;
-
     }
 
     /**
@@ -161,10 +157,7 @@ public class Player extends Entity {
     public void update(float delta) {
         super.update(delta);
         state.update(delta);
-
-        //footHixbox.setX(getPosition().x); //move somewhere else
-        //footHixbox.setY(getPosition().y);
-
+        crateCheckHitbox.updateHitboxes(getVelocity().x * delta, getVelocity().y * delta);
         timeSinceRoll += delta;
 
         bulletCooldown -= delta;

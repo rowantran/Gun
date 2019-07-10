@@ -39,9 +39,9 @@ public class CollisionChecker implements Updatable {
 
         World.player.resetStops();
 
-        Hitbox leftFoot = World.player.hitbox.getChild("leftFoot");
-        Hitbox rightFoot = World.player.hitbox.getChild("rightFoot");
-        Hitbox vertFoot = World.player.hitbox.getChild("vertFoot");
+        Hitbox leftFoot = World.player.crateCheckHitbox.getChild("leftFoot");
+        Hitbox rightFoot = World.player.crateCheckHitbox.getChild("rightFoot");
+        Hitbox vertFoot = World.player.crateCheckHitbox.getChild("vertFoot");
 
         for(CrateTop c : World.currentMap.getCrateTops()) {
 

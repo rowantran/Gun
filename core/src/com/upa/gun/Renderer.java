@@ -72,6 +72,7 @@ class Renderer {
 
         if (Settings.DEV_MODE) {
             drawHitbox(player);
+            drawSpecialHitbox(player.crateCheckHitbox);
             sr.setProjectionMatrix(camera.combined);
             sr.begin(ShapeRenderer.ShapeType.Line);
             //sr.rect(player.footHixbox.getX(), player.footHixbox.getY(), player.footHixbox.getWidth(), player.footHixbox.getHeight());
@@ -243,23 +244,25 @@ class Renderer {
         batch.begin();
         batch.enableBlending();
 
-        ArrayList<CrateTop> crateTops = map.getCrateTops();
-        for(CrateTop top : crateTops) {
-            top.crateTopSprite.setX(top.getPosition().x);
-            top.crateTopSprite.setY(top.getPosition().y);
-            top.crateTopSprite.draw(batch);
-            if (Settings.DEV_MODE) {
-                drawHitbox(top); //erases the crate? will fix later
-            }
-        }
+
         ArrayList<CrateSide> crateSides = map.getCrateSides();
         for(CrateSide side : crateSides) {
             side.crateSideSprite.setX(side.x);
             side.crateSideSprite.setY(side.y);
             side.crateSideSprite.draw(batch);
         }
-
+        ArrayList<CrateTop> crateTops = map.getCrateTops();
+        for(CrateTop top : crateTops) {
+            top.crateTopSprite.setX(top.getPosition().x);
+            top.crateTopSprite.setY(top.getPosition().y);
+            top.crateTopSprite.draw(batch);
+        }
         batch.end();
+        if(Settings.DEV_MODE) {
+            for(CrateTop top : crateTops) {
+                drawHitbox(top);
+            }
+        }
 
     }
 
@@ -309,6 +312,17 @@ class Renderer {
             }
         }
         */
+    }
+
+    private void drawSpecialHitbox(Hitboxes hitbox) {
+        if(hitbox.isActive()) {
+            sr.setProjectionMatrix(camera.combined);
+            sr.begin(ShapeRenderer.ShapeType.Line);
+            for(Hitbox h : hitbox) {
+                sr.rect(h.getX(), h.getY(), h.getWidth(), h.getHeight());
+            }
+            sr.end();
+        }
     }
 
     void draw(World world) {
