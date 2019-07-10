@@ -14,38 +14,19 @@ public class CrateTop extends Entity {
     Sprite crateTopSprite;
 
     CrateTop(Vector2 position) {
-        super(position, new Vector2(64, 64)); //width and height are dimensions of Assets.crateTop, offset is height of Assets.crateSide
+        super(position, new Vector2(64f, 64f)); //width and height are dimensions of Assets.crateTop, offset is height of Assets.crateSide
+
+        hitbox = new Hitboxes();
 
         crateTopSprite = new Sprite(Assets.crateTop);
         crateTopSprite.setScale(1);
 
-        try {
-            //createHitbox("rectangular", new Vector2(64, 64));
-        } catch(UnrecognizedHitboxTypeException e) {
-            //do nothing I guess
-        }
+        RectangularHitbox box = new RectangularHitbox(new Vector2(position.x, position.y - 28), new Vector2(64f, 64f));
+        hitbox.addHitbox("box", box);
+        hitbox.setActive(true);
+
     }
 
     public Hitboxes getHitbox() { return hitbox; }
-
-    //will need update
-    private void createHitbox(String hitboxType, int width, int height) throws UnrecognizedHitboxTypeException {
-        if (hitboxType.equals("rectangular")) {
-            hitbox = new Hitboxes();
-
-
-/*
-    private void createHitbox(String hitboxType, Vector2 size) throws UnrecognizedHitboxTypeException {
-        if (hitboxType.equals("rectangular")) {
-            Hitbox hitbox = new RectangularHitbox(getPosition(), size);
-            hitbox.setOffset(new Vector2(0, -27)); // offset is height of Assets.crateSide
-            hitbox.setPosition(getPosition()); // immediately take offset into account
-
-            hitboxes.addHitbox("hitbox", hitbox);
-            */
-        } else {
-            throw new UnrecognizedHitboxTypeException(hitboxType);
-        }
-    }
 
 }

@@ -74,7 +74,7 @@ public class Player extends Entity {
         hitbox.addHitbox("rightFoot", rightFoot);
 
         hitbox.setActive(true);
-        
+
     }
 
     public void reset() {
