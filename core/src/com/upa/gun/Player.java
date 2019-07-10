@@ -65,12 +65,12 @@ public class Player extends Entity {
         centerRectangularHitbox(center);
         hitbox.addHitbox("center", center);
 
-        RectangularHitbox leftFoot = new RectangularHitbox(position, new Vector2(9f, 3f));
-        leftFoot.setPosition(new Vector2(position.x, position.y));
+        RectangularHitbox leftFoot = new RectangularHitbox(position, new Vector2(11f, 9f));
+        leftFoot.setPosition(new Vector2(position.x - 4, position.y));
         hitbox.addHitbox("leftFoot", leftFoot);
 
-        RectangularHitbox rightFoot = new RectangularHitbox(position, new Vector2(9f, 3f));
-        rightFoot.setPosition(new Vector2(position.x + getSize().x - 9, position.y));
+        RectangularHitbox rightFoot = new RectangularHitbox(position, new Vector2(11f, 9f));
+        rightFoot.setPosition(new Vector2(position.x + getSize().x - 7, position.y));
         hitbox.addHitbox("rightFoot", rightFoot);
 
         hitbox.setActive(true);

@@ -55,32 +55,30 @@ public class CollisionChecker implements Updatable {
         for(CrateTop c : World.currentMap.getCrateTops()) {
             if(c.getHitbox().colliding(leftFoot)) { //check for left collision
                 collision = true;
-                float playerX = leftFoot.getPosition().x + 8;
+                float playerX = leftFoot.getPosition().x + 9;
                 float crateX = c.getHitbox().getChild("box").getPosition().x + c.getSize().x;
                 if(playerX < crateX) {
                     World.player.leftStop = true;
-                    xUpdateLeft = crateX;
                 }
             }
             if(c.getHitbox().colliding(rightFoot)) { //check for right collision
                 collision = true;
-                float playerX = rightFoot.getPosition().x + rightFoot.getWidth() - 8;
+                float playerX = rightFoot.getPosition().x + rightFoot.getWidth() - 9;
                 float crateX = c.getHitbox().getChild("box").getPosition().x;
                 if(playerX > crateX) {
                     World.player.rightStop = true;
-                    xUpdateRight = crateX - World.player.getSize().x;
                 }
             }
             if(collision) {
                 float playerY = leftFoot.getPosition().y; //both foot hitboxes should have equal height
-                float crateY = c.getHitbox().getChild("box").getY();
+                float crateY = c.getHitbox().getChild("box").getPosition().y;
                 if(playerY < crateY + c.getHitbox().getChild("box").getHeight()) { //check for bottom collision
                     World.player.botStop = true;
-                    yUpdateBot = crateY + c.getHitbox().getChild("box").getHeight();
+                    //System.out.println("BOTSTOP");
                 }
                 if(playerY + leftFoot.getHeight() > crateY) { //check for top collision
                     World.player.topStop = true;
-                    yUpdateTop = crateY - leftFoot.getHeight();
+                    //System.out.println("TOPSTOP");
                 }
             }
         }
@@ -91,30 +89,13 @@ public class CollisionChecker implements Updatable {
             }
         }
         if(World.player.botStop && World.player.topStop) {
+            System.out.println("OVERRIDE");
             World.player.botStop = oldBotStop;
             World.player.topStop = oldTopStop;
             if(!oldBotStop && !oldTopStop) {
 
             }
         }
-        /*
-        if(World.player.leftStop) {
-            World.player.setPosition(xUpdateLeft, World.player.getPosition().y);
-            World.player.fixHitboxPosition();
-        }
-        if(World.player.rightStop) {
-            World.player.setPosition(xUpdateRight, World.player.getPosition().y);
-            World.player.fixHitboxPosition();
-        }
-        if(World.player.botStop) {
-            World.player.setPosition(World.player.getPosition().x, yUpdateBot);
-            World.player.fixHitboxPosition();
-        }
-        if(World.player.topStop) {
-            World.player.setPosition(World.player.getPosition().y, yUpdateTop);
-            World.player.fixHitboxPosition();
-        }
-        */
     }
 
     @Override
