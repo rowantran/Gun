@@ -55,7 +55,7 @@ public class CollisionChecker implements Updatable {
         for(CrateTop c : World.currentMap.getCrateTops()) {
             if(c.getHitbox().colliding(leftFoot)) { //check for left collision
                 collision = true;
-                float playerX = leftFoot.getPosition().x;
+                float playerX = leftFoot.getPosition().x + 8;
                 float crateX = c.getHitbox().getChild("box").getPosition().x + c.getSize().x;
                 if(playerX < crateX) {
                     World.player.leftStop = true;
@@ -64,7 +64,7 @@ public class CollisionChecker implements Updatable {
             }
             if(c.getHitbox().colliding(rightFoot)) { //check for right collision
                 collision = true;
-                float playerX = rightFoot.getPosition().x + rightFoot.getWidth();
+                float playerX = rightFoot.getPosition().x + rightFoot.getWidth() - 8;
                 float crateX = c.getHitbox().getChild("box").getPosition().x;
                 if(playerX > crateX) {
                     World.player.rightStop = true;
@@ -97,6 +97,7 @@ public class CollisionChecker implements Updatable {
 
             }
         }
+        /*
         if(World.player.leftStop) {
             World.player.setPosition(xUpdateLeft, World.player.getPosition().y);
             World.player.fixHitboxPosition();
@@ -113,6 +114,7 @@ public class CollisionChecker implements Updatable {
             World.player.setPosition(World.player.getPosition().y, yUpdateTop);
             World.player.fixHitboxPosition();
         }
+        */
     }
 
     @Override
