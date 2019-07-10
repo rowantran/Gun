@@ -24,7 +24,6 @@ public class CrateTop extends Entity {
         RectangularHitbox box = new RectangularHitbox(new Vector2(position.x, position.y - 28), new Vector2(64f, 64f));
         hitbox.addHitbox("box", box);
         hitbox.setActive(true);
-
     }
 
     public Hitboxes getHitbox() { return hitbox; }

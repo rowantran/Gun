@@ -33,36 +33,50 @@ public class CollisionChecker implements Updatable {
         }
     }
 
-    /**e
-     * @param delta
-     * Checks if the player is touching a crate. May be adjusted after new hitboxes are implemented
-     */
-    /*
     private void checkCrateTouch() {
         World.player.resetStops();
-        Hitbox footHitbox = World.player.hitboxes.getChild("foot");
+        boolean collision = false;
+
+        Hitbox leftFoot = World.player.hitbox.getChild("leftFoot");
+        Hitbox rightFoot = World.player.hitbox.getChild("rightFoot");
+
         for(CrateTop c : World.currentMap.getCrateTops()) {
-            if (c.hitboxes.colliding(footHitbox)) {
-                float playerX = footHitbox.getPosition().x;
-                float playerY = footHitbox.getPosition().y;
-                float crateX = c.hitboxes.getChild("hitbox").getPosition().x;
-                float crateY = c.hitboxes.getChild("hitbox").getPosition().y;
-
-                if(playerX < crateX) { World.player.rightStop = true; } //player on left
-                if(crateX < playerX) { World.player.leftStop = true; } //player on right
-                if(playerY < crateY) { World.player.topStop = true; } //player on bottom
-                if(crateY < playerY) { World.player.botStop = true; } //player on top
-
+            if(c.getHitbox().colliding(leftFoot)) { //check for left collision
+                collision = true;
+                float playerX = leftFoot.getPosition().x;
+                float crateX = c.getHitbox().getChild("box").getPosition().x + c.getSize().x;
+                if(playerX < crateX) {
+                    World.player.leftStop = true;
+                }
             }
+            if(c.getHitbox().colliding(rightFoot)) { //check for right collision
+                collision = true;
+                float playerX = rightFoot.getPosition().x + rightFoot.getWidth();
+                float crateX = c.getHitbox().getChild("box").getPosition().x;
+                if(playerX > crateX) {
+                    World.player.rightStop = true;
+                }
+            }
+            if(collision) {
+                float playerY = leftFoot.getPosition().y; //both foot hitboxes should have equal height
+                float crateY = c.getHitbox().getChild("box").getY();
+                if(playerY < crateY + c.getHitbox().getChild("box").getHeight()) { //check for bottom collision
+                    World.player.botStop = true;
+                }
+                if(playerY + leftFoot.getHeight() > crateY) { //check for top collision
+                    World.player.topStop = true;
+                }
+            }
+
+
         }
     }
-    */
 
     @Override
     public void update(float delta) {
         checkPlayerHit();
         checkEnemiesHit();
+        checkCrateTouch();
         //checkPowerupCollect();
-        //checkCrateTouch(); currently disabled for hitbox change
     }
 }
