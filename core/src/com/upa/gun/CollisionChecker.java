@@ -60,11 +60,27 @@ public class CollisionChecker implements Updatable {
         }
     }
 
+    private void checkBulletCrash() {
+        for(CrateTop c : World.currentMap.getCrateTops()) {
+            for (Bullet b : World.playerBullets) {
+                if(c.getHitbox().colliding(b.getHitbox())) {
+                    b.markedForDeletion = true;
+                }
+            }
+            for(Bullet b : World.enemyBullets) {
+                if(c.getHitbox().colliding(b.getHitbox())) {
+                    b.markedForDeletion = true;
+                }
+            }
+        }
+    }
+
     @Override
     public void update(float delta) {
         checkPlayerHit();
         checkEnemiesHit();
         checkCrateTouch();
+        checkBulletCrash();
         //checkPowerupCollect();
     }
 }
