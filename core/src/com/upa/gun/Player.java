@@ -12,7 +12,6 @@ public class Player extends Entity {
     static final float IFRAME_AFTER_HIT_LENGTH = 0.2f;
 
     Hitboxes hitbox;
-    //Hitbox footHixbox;
 
     Vector2 spawnPoint;
 
@@ -62,23 +61,20 @@ public class Player extends Entity {
 
         hitbox = new Hitboxes();
 
-        RectangularHitbox center = new RectangularHitbox(position, new Vector2(HITBOX_SIZE, HITBOX_SIZE));
-        center.setPosition(spawnPoint);
+        RectangularHitbox center = new RectangularHitbox(position, new Vector2(20f, 20f));
         centerRectangularHitbox(center);
         hitbox.addHitbox("center", center);
+
+        RectangularHitbox leftFoot = new RectangularHitbox(position, new Vector2(3f, 3f));
+        leftFoot.setPosition(new Vector2(position.x + 3, position.y));
+        hitbox.addHitbox("leftFoot", leftFoot);
+
+        RectangularHitbox rightFoot = new RectangularHitbox(position, new Vector2(3f, 3f));
+        rightFoot.setPosition(new Vector2(position.x + getSize().x - 6, position.y));
+        hitbox.addHitbox("rightFoot", rightFoot);
+
         hitbox.setActive(true);
-
-        //centerHitbox();
-        //footHixbox = new RectangularHitbox(x, y, Assets.getTextureSize(Assets.playerAnimations).x, 2);
-
-        /*
-        RectangularHitbox center = new RectangularHitbox(position, new Vector2(HITBOX_SIZE, HITBOX_SIZE));
-        centerRectangularHitbox(center);
-        hitboxes.addHitbox("center", center);
-
-        RectangularHitbox foot = new RectangularHitbox(position, new Vector2(Assets.getTextureSize(Assets.playerAnimations).x, 2));
-        hitboxes.addHitbox("foot", foot);
-        */
+        
     }
 
     public void reset() {
