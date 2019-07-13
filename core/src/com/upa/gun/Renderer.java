@@ -244,25 +244,28 @@ class Renderer {
         batch.begin();
         batch.enableBlending();
 
-
-        ArrayList<CrateSide> crateSides = map.getCrateSides();
-        for(CrateSide side : crateSides) {
-            side.crateSideSprite.setX(side.x);
-            side.crateSideSprite.setY(side.y);
-            side.crateSideSprite.draw(batch);
-        }
-        ArrayList<CrateTop> crateTops = map.getCrateTops();
-        for(CrateTop top : crateTops) {
-            top.crateTopSprite.setX(top.getPosition().x);
-            top.crateTopSprite.setY(top.getPosition().y);
-            top.crateTopSprite.draw(batch);
-        }
-        batch.end();
-        if(Settings.DEV_MODE) {
-            for(CrateTop top : crateTops) {
-                drawHitbox(top);
+        ArrayList<Crate> crates = map.getCrates();
+        for(Crate c : crates) {
+            c.crateTopSprite.setX(c.getPosition().x);
+            c.crateTopSprite.setY(c.getPosition().y + 27);
+            c.crateSideSprite.setX(c.getPosition().x);
+            c.crateSideSprite.setY(c.getPosition().y);
+            c.crateTopSprite.draw(batch);
+            if(c.getDisplaySide()) {
+                c.crateSideSprite.draw(batch);
             }
         }
+
+        batch.end();
+        if(Settings.DEV_MODE) {
+            for(Crate c : crates) {
+                drawHitbox(c);
+            }
+        }
+
+    }
+
+    private void drawCrate(Crate c) {
 
     }
 

@@ -43,7 +43,7 @@ public class CollisionChecker implements Updatable {
         Hitbox rightFoot = World.player.crateCheckHitbox.getChild("rightFoot");
         Hitbox vertFoot = World.player.crateCheckHitbox.getChild("vertFoot");
 
-        for(CrateTop c : World.currentMap.getCrateTops()) {
+        for(Crate c : World.currentMap.getCrates()) {
 
             if(c.getHitbox().getChild("rightEdge").colliding(leftFoot)) {
                 World.player.leftStop = true;
@@ -61,7 +61,7 @@ public class CollisionChecker implements Updatable {
     }
 
     private void checkBulletCrash() {
-        for(CrateTop c : World.currentMap.getCrateTops()) {
+        for(Crate c : World.currentMap.getCrates()) {
             for (Bullet b : World.playerBullets) {
                 if(c.getHitbox().colliding(b.getHitbox())) {
                     b.markedForDeletion = true;
