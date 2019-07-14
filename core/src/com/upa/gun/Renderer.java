@@ -329,53 +329,42 @@ class Renderer {
         }
     }
 
-    void sortEntitiesMerger(ArrayList<Entity> entities, int l, int m, int r) {
-        int n1 = m - l + 1;
-        int n2 = r - m;
-
-        ArrayList<Entity> L = new ArrayList<Entity>();
-        ArrayList<Entity> R = new ArrayList<Entity>();
-
-        for(int i = 0; i < n1; i++) {
-            L.add(entities.get(l+i));
+    void mergeSortEntities(ArrayList<Entity> entities, int n) {
+        if(n < 2) {
+            return;
         }
-        for(int j = 0; j < n2; j++) {
-            R.add(entities.get(m+1+j));
+        int mid = n/2;
+        ArrayList<Entity> l = new ArrayList<Entity>();
+        ArrayList<Entity> r = new ArrayList<Entity>();
+
+        for(int i = 0; i < mid; i++) {
+            l.add(entities.get(i));
         }
-
-        int i = 0, j = 0;
-        int k = 1;
-
-        while(i < n1 && j < n2) {
-            if(L.get(i).getPosition().y <= R.get(j).getPosition().y) {
-                entities.set(k, L.get(i));
-                i++;
-            }
-            else {
-                entities.set(k, R.get(j));
-                j++;
-            }
-            k++;
+        for(int i = mid; i < n; i++) {
+            r.add(entities.get(i));
         }
 
-        while(i < n1) {
-            entities.set(k, L.get(i));
-            i++;
-            k++;
-        }
-        while(j < n2) {
-            entities.set(k, R.get(j));
-            j++;
-            k++;
-        }
+        mergeSortEntities(l, mid);
+        mergeSortEntities(r, n-mid);
+
+        mergeEntities(entities, l, r, mid, n-mid);
     }
 
-    void sortEntities(ArrayList<Entity> entities, int l, int r) {
-        if(l < r) {
-            int m = (l+r)/2;
-            sortEntities(entities, l, m);
-            sortEntities(entities, m+1, r);
-            sortEntitiesMerger(entities, l, m, r);
+    void mergeEntities(ArrayList<Entity> entities, ArrayList<Entity> l, ArrayList<Entity> r, int left, int right) {
+        int i = 0, j = 0, k = 0;
+        while(i < left && j < right) {
+            if(l.get(i).getPosition().y < r.get(j).getPosition().y) {
+                entities.set(k++, l.get(i++));
+            }
+            else {
+                entities.set(k++, r.get(j++));
+            }
+        }
+        while(i < left) {
+            entities.set(k++, l.get(i++));
+        }
+        while(j < right) {
+            entities.set(k++, r.get(j++));
         }
     }
 
@@ -401,17 +390,17 @@ class Renderer {
         for(Bullet b : World.enemyBullets) {
             entityList.add(b);
         }
-        sortEntities(entityList, 0, entityList.size()-1);
+
+        mergeSortEntities(entityList, entityList.size());
 
 
         if(printSort) {
             for(Entity e : entityList) {
-                System.out.println(e.getPosition().x);
+                System.out.println(e.getPosition().y);
             }
         }
 
         printSort = false;
-        //left off here
 
         for (Enemy e : World.enemies) {
             drawEnemy(e);
