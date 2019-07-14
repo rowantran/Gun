@@ -25,6 +25,8 @@ class Renderer {
 
     private ShapeRenderer sr;
 
+    private boolean printSort; //temp
+
     Renderer(SpriteBatch batch, World world) {
         this.batch = batch;
         this.world = world;
@@ -37,6 +39,8 @@ class Renderer {
         font.getData().setScale(4);
 
         sr = new ShapeRenderer();
+
+        printSort = true;
     }
 
     private void drawBackground() {
@@ -241,32 +245,29 @@ class Renderer {
 
     private void drawCrates(MapLayout map) {
 
-        batch.begin();
-        batch.enableBlending();
-
         ArrayList<Crate> crates = map.getCrates();
         for(Crate c : crates) {
-            c.crateTopSprite.setX(c.getPosition().x);
-            c.crateTopSprite.setY(c.getPosition().y + 27);
-            c.crateSideSprite.setX(c.getPosition().x);
-            c.crateSideSprite.setY(c.getPosition().y);
-            c.crateTopSprite.draw(batch);
-            if(c.getDisplaySide()) {
-                c.crateSideSprite.draw(batch);
-            }
+            drawCrate(c);
         }
 
-        batch.end();
-        if(Settings.DEV_MODE) {
-            for(Crate c : crates) {
-                drawHitbox(c);
-            }
-        }
 
     }
 
     private void drawCrate(Crate c) {
-
+        batch.begin();
+        batch.enableBlending();
+        c.crateTopSprite.setX(c.getPosition().x);
+        c.crateTopSprite.setY(c.getPosition().y + 27);
+        c.crateSideSprite.setX(c.getPosition().x);
+        c.crateSideSprite.setY(c.getPosition().y);
+        c.crateTopSprite.draw(batch);
+        if(c.getDisplaySide()) {
+            c.crateSideSprite.draw(batch);
+        }
+        batch.end();
+        if(Settings.DEV_MODE) {
+            drawHitbox(c);
+        }
     }
 
     private void drawScore() {
@@ -328,6 +329,56 @@ class Renderer {
         }
     }
 
+    void sortEntitiesMerger(ArrayList<Entity> entities, int l, int m, int r) {
+        int n1 = m - l + 1;
+        int n2 = r - m;
+
+        ArrayList<Entity> L = new ArrayList<Entity>();
+        ArrayList<Entity> R = new ArrayList<Entity>();
+
+        for(int i = 0; i < n1; i++) {
+            L.add(entities.get(l+i));
+        }
+        for(int j = 0; j < n2; j++) {
+            R.add(entities.get(m+1+j));
+        }
+
+        int i = 0, j = 0;
+        int k = 1;
+
+        while(i < n1 && j < n2) {
+            if(L.get(i).getPosition().y <= R.get(j).getPosition().y) {
+                entities.set(k, L.get(i));
+                i++;
+            }
+            else {
+                entities.set(k, R.get(j));
+                j++;
+            }
+            k++;
+        }
+
+        while(i < n1) {
+            entities.set(k, L.get(i));
+            i++;
+            k++;
+        }
+        while(j < n2) {
+            entities.set(k, R.get(j));
+            j++;
+            k++;
+        }
+    }
+
+    void sortEntities(ArrayList<Entity> entities, int l, int r) {
+        if(l < r) {
+            int m = (l+r)/2;
+            sortEntities(entities, l, m);
+            sortEntities(entities, m+1, r);
+            sortEntitiesMerger(entities, l, m, r);
+        }
+    }
+
     void draw(World world) {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
@@ -335,6 +386,32 @@ class Renderer {
         drawBackground();
         drawCrates(World.currentMap);
         drawPlayer(World.player);
+
+        ArrayList<Entity> entityList = new ArrayList<Entity>();
+        entityList.add(World.player);
+        for(Crate c : World.currentMap.getCrates()) {
+            entityList.add(c);
+        }
+        for(Enemy e : World.enemies) {
+            entityList.add(e);
+        }
+        for(Bullet b : World.playerBullets) {
+            entityList.add(b);
+        }
+        for(Bullet b : World.enemyBullets) {
+            entityList.add(b);
+        }
+        sortEntities(entityList, 0, entityList.size()-1);
+
+
+        if(printSort) {
+            for(Entity e : entityList) {
+                System.out.println(e.getPosition().x);
+            }
+        }
+
+        printSort = false;
+        //left off here
 
         for (Enemy e : World.enemies) {
             drawEnemy(e);
