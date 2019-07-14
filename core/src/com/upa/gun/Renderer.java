@@ -25,8 +25,6 @@ class Renderer {
 
     private ShapeRenderer sr;
 
-    private boolean printSort; //temp
-
     Renderer(SpriteBatch batch, World world) {
         this.batch = batch;
         this.world = world;
@@ -39,8 +37,6 @@ class Renderer {
         font.getData().setScale(4);
 
         sr = new ShapeRenderer();
-
-        printSort = true;
     }
 
     private void drawBackground() {
@@ -353,7 +349,7 @@ class Renderer {
     void mergeEntities(ArrayList<Entity> entities, ArrayList<Entity> l, ArrayList<Entity> r, int left, int right) {
         int i = 0, j = 0, k = 0;
         while(i < left && j < right) {
-            if(l.get(i).getPosition().y < r.get(j).getPosition().y) {
+            if(l.get(i).getPosition().y > r.get(j).getPosition().y) {
                 entities.set(k++, l.get(i++));
             }
             else {
@@ -373,8 +369,6 @@ class Renderer {
         batch.setProjectionMatrix(camera.combined);
 
         drawBackground();
-        drawCrates(World.currentMap);
-        drawPlayer(World.player);
 
         ArrayList<Entity> entityList = new ArrayList<Entity>();
         entityList.add(World.player);
@@ -392,38 +386,34 @@ class Renderer {
         }
 
         mergeSortEntities(entityList, entityList.size());
-
-
-        if(printSort) {
-            for(Entity e : entityList) {
-                System.out.println(e.getPosition().y);
+        for(Entity e : entityList) {
+            if(e instanceof Player) {
+                drawPlayer((Player)e);
             }
-        }
-
-        printSort = false;
-
-        for (Enemy e : World.enemies) {
-            drawEnemy(e);
-            if(e.getID() == 2) {
-                drawBossHealth(e.getHealth(), e.getStartHealth(), "boss1");
+            else if(e instanceof Crate) {
+                drawCrate((Crate)e);
+            }
+            else if(e instanceof Enemy) {
+                drawEnemy((Enemy)e);
+                if(((Enemy)e).getID() == 2) {
+                    drawBossHealth(((Enemy)e).getHealth(), ((Enemy)e).getStartHealth(), "boss1");
+                }
+                else {
+                    drawSlimeHealth(((Enemy)e).getHealth(), ((Enemy)e).getStartHealth(), e.getPosition().x, e.getPosition().y);
+                }
+            }
+            else if(e instanceof Bullet) {
+                drawBullet((Bullet)e);
             }
             else {
-                drawSlimeHealth(e.getHealth(), e.getStartHealth(), e.getPosition().x, e.getPosition().y);
+                Gdx.app.log("Renderer", "Invalid entity found in entity list");
             }
         }
 
         for (Powerup p : World.powerups) {
             drawPowerup(p);
         }
-
-        for (Bullet b : World.playerBullets) {
-            drawBullet(b);
-        }
-
-        for (Bullet b : World.enemyBullets) {
-            drawBullet(b);
-        }
-
+        
         batch.begin();
         for (SpawnIndicator s : World.indicators) {
             drawIndicator(s);
