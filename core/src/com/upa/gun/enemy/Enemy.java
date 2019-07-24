@@ -3,6 +3,7 @@ package com.upa.gun.enemy;
 import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.*;
 import com.badlogic.gdx.Gdx;
+import org.w3c.dom.css.Rect;
 
 import java.util.Map;
 import static com.upa.gun.Settings.*;
@@ -32,10 +33,16 @@ public class Enemy extends Entity {
 
     public float opacity;
 
+    public boolean topStop = false;
+    public boolean botStop = false;
+    public boolean leftStop = false;
+    public boolean rightStop = false;
+
     public Map<String, String> sprites;
     public String sprite;
 
     private Hitboxes hitbox;
+    public Hitboxes crateCheckHitbox;
 
     private int id;
 
@@ -47,6 +54,20 @@ public class Enemy extends Entity {
         } catch (UnrecognizedHitboxTypeException e) {
             e.printStackTrace();
         }
+
+        crateCheckHitbox = new Hitboxes();
+
+        RectangularHitbox left = new RectangularHitbox(new Vector2(position.x, position.y + getSize().y/2 - 6), new Vector2(12f, 12f));
+        RectangularHitbox right = new RectangularHitbox(new Vector2(position.x + getSize().x - 12, position.y + getSize().y/2 - 6), new Vector2(12f, 12f));
+        RectangularHitbox top = new RectangularHitbox(new Vector2(position.x + getSize().x/2 - 6, position.y + getSize().y - 12), new Vector2(12f, 12f));
+        RectangularHitbox bot = new RectangularHitbox(new Vector2(position.x + getSize().x/2 - 6, position.y), new Vector2(12f, 12f));
+
+        crateCheckHitbox.addHitbox("left", left);
+        crateCheckHitbox.addHitbox("right", right);
+        crateCheckHitbox.addHitbox("top", top);
+        crateCheckHitbox.addHitbox("bot", bot);
+
+        crateCheckHitbox.setActive(true);
 
         timeElapsed = 20.0f;
 
@@ -132,7 +153,7 @@ public class Enemy extends Entity {
 
 
     public void update(float delta) {
-        super.update(delta);
+
         timeElapsed += delta;
         directionalUpdateCounter += delta;
         rotation.cycle(delta, getPosition());
@@ -161,11 +182,15 @@ public class Enemy extends Entity {
             }
         } else if(state.mobileType() == 2) { //dying/fading state
             move();
+
             setVelocity(getVelocity().x/3, getVelocity().y/3);
         } else {
             setVelocity(0f, 0f);
         }
-
+        handleFutureCollision(delta);
+        handleStops();
+        super.update(delta);
+        crateCheckHitbox.updateHitboxes(getVelocity().x * delta, getVelocity().y * delta); //should not be in this class
         state.update(delta);
     }
 
@@ -210,6 +235,50 @@ public class Enemy extends Entity {
         float currentSpeed = (float)Math.sqrt(currentSquare);
         float speedRatio = Settings.SLIME_SPEED / currentSpeed;
         setVelocity(horizontalDifference * speedRatio, verticalDifference * speedRatio);
+    }
+
+    private void handleStops() {
+        if(botStop && getVelocity().y < 0) {
+            setVelocity(getVelocity().x, 0);
+        }
+        if(topStop && getVelocity().y > 0) {
+            setVelocity(getVelocity().x, 0);
+        }
+        if(leftStop && getVelocity().x < 0) {
+            setVelocity(0, getVelocity().y);
+        }
+        if(rightStop && getVelocity().x > 0) {
+            setVelocity(0, getVelocity().y);
+        }
+    }
+
+    public void handleFutureCollision(float delta) {
+        Vector2 current = new Vector2(getPosition().x, getPosition().y);
+        setPosition(getPosition().x + getVelocity().x * delta, getPosition().y + getVelocity().y * delta);
+
+        for(Crate c : World.currentMap.getCrates()) {
+
+            if(crateCheckHitbox.getChild("left").colliding(c.getHitbox().getChild("rightEdge")) && getVelocity().x < 0) {
+                setVelocity((c.getHitbox().getChild("rightEdge").getX() + 15 - getPosition().x) / delta, getVelocity().y);
+            }
+            if(crateCheckHitbox.getChild("right").colliding(c.getHitbox().getChild("leftEdge")) && getVelocity().x > 0) {
+                setVelocity((c.getHitbox().getChild("leftEdge").getX() + 1 - getPosition().x - getSize().x) / delta, getVelocity().y);
+            }
+            if(crateCheckHitbox.getChild("bot").colliding(c.getHitbox().getChild("topEdge")) && getVelocity().y < 0) {
+                setVelocity(getVelocity().x, (c.getHitbox().getChild("topEdge").getY() + 12 - getPosition().y) / delta);
+            }
+            if(crateCheckHitbox.getChild("top").colliding(c.getHitbox().getChild("botEdge")) && getVelocity().y > 0) {
+                setVelocity(getVelocity().x, (c.getHitbox().getChild("botEdge").getY() + 1 - getPosition().y - 16) / delta); //questionable extra 16
+            }
+        }
+        setPosition(current);
+    }
+
+    public void resetStops() {
+        botStop = false;
+        topStop = false;
+        leftStop = false;
+        rightStop = false;
     }
 
     public EnemyState getState() {

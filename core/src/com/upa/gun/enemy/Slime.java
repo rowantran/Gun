@@ -47,60 +47,6 @@ public class Slime extends Enemy {
         getState().update(delta);
     }
 
-    /*
-    //default move toward player; horizontal or diagonal depending on position
-    private void defaultMove(float delta) {
-        Vector2 playerPos = World.player.getPosition();
-        float playerX = playerPos.x;
-        float playerY = playerPos.y;
-
-        float slimeX = getPosition().x;
-        float slimeY = getPosition().y;
-
-        float pythagMultiplier = 0.7071f;
-
-        if(slimeX < playerX) {
-            setVelocity(Settings.SLIME_SPEED, 0);
-        } else if(slimeX > playerX) {
-            setVelocity(-Settings.SLIME_SPEED, 0);
-        } else {
-            setVelocity(0, 0);
-        }
-        if(slimeY < playerY) {
-            setVelocity(getVelocity().x * pythagMultiplier,
-                    Settings.SLIME_SPEED * pythagMultiplier);
-        } else if(slimeY > playerY) {
-            setVelocity(getVelocity().x * pythagMultiplier,
-                    -Settings.SLIME_SPEED * pythagMultiplier);
-        } else {
-            setVelocity(getVelocity().x, 0);
-        }
-        if(getVelocity().x == 0 && getVelocity().y != 0) {
-            setVelocity(0, getVelocity().y / pythagMultiplier);
-        }
-
-
-        if(slimeX <= 113f && getVelocity().x < 0) {
-            setVelocity(0, getVelocity().y);
-        }
-        if(slimeX >= 1160f && getVelocity().x > 0) {
-            setVelocity(0, getVelocity().y);
-        }
-        if(slimeY <= 136f && getVelocity().y < 0) {
-            setVelocity(getVelocity().x, 0);
-        }
-        if(slimeY >= 674f && getVelocity().y > 0) {
-            setVelocity(getVelocity().x, 0);
-        }
-    } */
-
-
-    //check if the slime is on the edge of boundaries
-    public boolean checkBounds() {
-        float x = getPosition().x;
-        float y = getPosition().y;
-        return(x <= 113f || x >= 1160f || y <= 136f || y >= 674);
-    }
 
 
     //move in a random direction, occurs on a random interval
@@ -134,27 +80,6 @@ public class Slime extends Enemy {
         movingRandom = false;
     }
 
-    /*
-    public void move(float delta) {
-        if(timeSinceRandomMove < timeUntilRandomMove) { //normal moving time
-            defaultMove(delta);
-            timeSinceRandomMove += delta;
-        } else if(timeSinceRandomMove >= timeUntilRandomMove) { //random moving time
-            if(!movingRandom) { //just reached time
-                randomMove();
-                movingRandom = true;
-            } else { //random move already set
-                if(checkBounds()) { //slime is on a path to go out of bounds
-                    resetRandomMove();
-                }
-                if(timeOfRandomMove >= randomMoveLength) { //time limit reached
-                    resetRandomMove();
-                } else {
-                    timeOfRandomMove += delta; //time limit not reached
-                }
-            }
-        }
-    } */
 
     public void fireSound() {
         Assets.bulletSound.stop();

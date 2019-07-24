@@ -34,10 +34,13 @@ public class CollisionChecker implements Updatable {
         }
     }
 
-    private void checkCrateTouch() { //may not be necessary if i can fix future collision handler in player
+    private void checkCrateTouch() { //may not be necessary if i can fix future collision handler in player and enemy
 
 
         World.player.resetStops();
+        for(Enemy e : World.enemies) {
+            e.resetStops();
+        }
 
         Hitbox leftFoot = World.player.crateCheckHitbox.getChild("leftFoot");
         Hitbox rightFoot = World.player.crateCheckHitbox.getChild("rightFoot");
@@ -57,6 +60,21 @@ public class CollisionChecker implements Updatable {
             }
             if(c.getHitbox().getChild("botEdge").colliding(topFoot)) {
                 World.player.topStop = true;
+            }
+
+            for(Enemy e : World.enemies) {
+                if(e.crateCheckHitbox.getChild("left").colliding(c.getHitbox().getChild("rightEdge"))) {
+                    e.leftStop = true;
+                }
+                if(e.crateCheckHitbox.getChild("right").colliding(c.getHitbox().getChild("leftEdge"))) {
+                    e.rightStop = true;
+                }
+                if(e.crateCheckHitbox.getChild("bot").colliding(c.getHitbox().getChild("topEdge"))) {
+                    e.botStop = true;
+                }
+                if(e.crateCheckHitbox.getChild("top").colliding(c.getHitbox().getChild("botEdge"))) {
+                    e.topStop = true;
+                }
             }
         }
     }

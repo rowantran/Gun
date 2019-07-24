@@ -222,6 +222,7 @@ class Renderer {
 
         if (Settings.DEV_MODE) {
             drawHitbox(e);
+            drawSpecialHitbox(e.crateCheckHitbox);
         }
     }
 
@@ -239,16 +240,6 @@ class Renderer {
         }
     }
 
-    private void drawCrates(MapLayout map) {
-
-        ArrayList<Crate> crates = map.getCrates();
-        for(Crate c : crates) {
-            drawCrate(c);
-        }
-
-
-    }
-
     private void drawCrate(Crate c) {
         batch.begin();
         batch.enableBlending();
@@ -256,9 +247,9 @@ class Renderer {
         c.crateTopSprite.setY(c.getPosition().y + 27);
         c.crateSideSprite.setX(c.getPosition().x);
         c.crateSideSprite.setY(c.getPosition().y);
-        c.crateTopSprite.draw(batch);
+        //c.crateTopSprite.draw(batch);
         if(c.getDisplaySide()) {
-            c.crateSideSprite.draw(batch);
+            //c.crateSideSprite.draw(batch);
         }
         batch.end();
         if(Settings.DEV_MODE) {
@@ -399,7 +390,7 @@ class Renderer {
                     drawBossHealth(((Enemy)e).getHealth(), ((Enemy)e).getStartHealth(), "boss1");
                 }
                 else {
-                    drawSlimeHealth(((Enemy)e).getHealth(), ((Enemy)e).getStartHealth(), e.getPosition().x, e.getPosition().y);
+                    //drawSlimeHealth(((Enemy)e).getHealth(), ((Enemy)e).getStartHealth(), e.getPosition().x, e.getPosition().y);
                 }
             }
             else if(e instanceof Bullet) {
@@ -442,32 +433,4 @@ class Renderer {
             sr.end();
         }
     }
-
-    /*
-    Unused code
-
-    private void drawBossSlime(BossSlime bossSlime, float x, float y) {
-        batch.enableBlending();
-        batch.setColor(1.0f, 1.0f, 1.0f, bossSlime.opacity);
-
-        SpriteState state = bossSlime.getState();
-        Animation<TextureRegion> currentAnimation = Assets.bossSlimeAnimations.get(state).get(LEFT);
-        TextureRegion currentFrame;
-
-        if (state == SpriteState.ATTACKING) {
-            currentFrame = currentAnimation.getKeyFrame(bossSlime.attackTimeElapsed);
-        } else {
-            currentFrame = currentAnimation.getKeyFrame(bossSlime.timeElapsed);
-        }
-
-        float slimeX = x-(float)currentFrame.getRegionWidth()*4f;
-        float slimeY = y-(float)currentFrame.getRegionHeight()*4f;
-        float slimeWidth = (float)currentFrame.getRegionWidth()*8f;
-        float slimeHeight = (float)currentFrame.getRegionHeight()*8f;
-
-        drawShadow(slimeX, slimeY, slimeWidth);
-        currentFrame.getTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        batch.draw(currentFrame, slimeX, slimeY, slimeWidth, slimeHeight);
-    }
-    */
 }

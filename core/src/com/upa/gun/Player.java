@@ -164,7 +164,7 @@ public class Player extends Entity {
      * @param delta
      * @return
      */
-    public void handleFutureCollision(float delta) {
+    private void handleFutureCollision(float delta) {
         Vector2 current = new Vector2(getPosition().x, getPosition().y);
         setPosition(getPosition().x + getVelocity().x * delta, getPosition().y + getVelocity().y * delta);
 
