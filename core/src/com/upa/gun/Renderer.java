@@ -413,7 +413,7 @@ class Renderer {
         for (Powerup p : World.powerups) {
             drawPowerup(p);
         }
-        
+
         batch.begin();
         for (SpawnIndicator s : World.indicators) {
             drawIndicator(s);

@@ -102,9 +102,11 @@ public class World implements Updatable {
         }
 
         if (!cinematicHappening) {
-            player.update(delta);
+
 
             collisionChecker.update(delta);
+
+            player.update(delta);
 
             for (Bullet bullet : playerBullets) {
                 bullet.update(delta);
