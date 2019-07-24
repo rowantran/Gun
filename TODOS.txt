@@ -5,3 +5,4 @@
 - add movement between rooms
 - art update
 - make crate determination of side drawing to be more intuitive
+- increase accuracy for bullet-crate collisions

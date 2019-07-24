@@ -57,10 +57,10 @@ public class Enemy extends Entity {
 
         crateCheckHitbox = new Hitboxes();
 
-        RectangularHitbox left = new RectangularHitbox(new Vector2(position.x, position.y + getSize().y/2 - 6), new Vector2(12f, 12f));
-        RectangularHitbox right = new RectangularHitbox(new Vector2(position.x + getSize().x - 12, position.y + getSize().y/2 - 6), new Vector2(12f, 12f));
-        RectangularHitbox top = new RectangularHitbox(new Vector2(position.x + getSize().x/2 - 6, position.y + getSize().y - 12), new Vector2(12f, 12f));
-        RectangularHitbox bot = new RectangularHitbox(new Vector2(position.x + getSize().x/2 - 6, position.y), new Vector2(12f, 12f));
+        RectangularHitbox left = new RectangularHitbox(new Vector2(position.x, position.y), new Vector2(12f, 24f));
+        RectangularHitbox right = new RectangularHitbox(new Vector2(position.x + getSize().x - 12, position.y), new Vector2(12f, 24f));
+        RectangularHitbox top = new RectangularHitbox(new Vector2(position.x, position.y + getSize().y/2 - 12), new Vector2(48f, 12f));
+        RectangularHitbox bot = new RectangularHitbox(new Vector2(position.x, position.y), new Vector2(48f, 12f));
 
         crateCheckHitbox.addHitbox("left", left);
         crateCheckHitbox.addHitbox("right", right);
@@ -259,16 +259,16 @@ public class Enemy extends Entity {
         for(Crate c : World.currentMap.getCrates()) {
 
             if(crateCheckHitbox.getChild("left").colliding(c.getHitbox().getChild("rightEdge")) && getVelocity().x < 0) {
-                setVelocity((c.getHitbox().getChild("rightEdge").getX() + 15 - getPosition().x) / delta, getVelocity().y);
+                setVelocity(((c.getHitbox().getChild("rightEdge").getX() + 15) - (crateCheckHitbox.getChild("left").getPosition().x)) / delta, getVelocity().y);
             }
             if(crateCheckHitbox.getChild("right").colliding(c.getHitbox().getChild("leftEdge")) && getVelocity().x > 0) {
-                setVelocity((c.getHitbox().getChild("leftEdge").getX() + 1 - getPosition().x - getSize().x) / delta, getVelocity().y);
+                setVelocity(((c.getHitbox().getChild("leftEdge").getX() + 1) - (crateCheckHitbox.getChild("right").getPosition().x + crateCheckHitbox.getChild("right").getWidth())) / delta, getVelocity().y);
             }
             if(crateCheckHitbox.getChild("bot").colliding(c.getHitbox().getChild("topEdge")) && getVelocity().y < 0) {
-                setVelocity(getVelocity().x, (c.getHitbox().getChild("topEdge").getY() + 12 - getPosition().y) / delta);
+                setVelocity(getVelocity().x, ((c.getHitbox().getChild("topEdge").getY() + 15) - (crateCheckHitbox.getChild("bot").getPosition().y)) / delta);
             }
             if(crateCheckHitbox.getChild("top").colliding(c.getHitbox().getChild("botEdge")) && getVelocity().y > 0) {
-                setVelocity(getVelocity().x, (c.getHitbox().getChild("botEdge").getY() + 1 - getPosition().y - 16) / delta); //questionable extra 16
+                setVelocity(getVelocity().x, ((c.getHitbox().getChild("botEdge").getY() + 1) - (crateCheckHitbox.getChild("top").getPosition().y +crateCheckHitbox.getChild("top").getHeight())) / delta);
             }
         }
         setPosition(current);

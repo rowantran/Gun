@@ -48,7 +48,7 @@ public class Settings {
 
     //player variables
     public static float playerBulletCooldown = 0.6f;
-    public static float playerSpeed = 250.0f;
+    public static float playerSpeed = 400.0f;
     public static int playerDamage = 2;
     public static int playerHealth = 10;
 }
