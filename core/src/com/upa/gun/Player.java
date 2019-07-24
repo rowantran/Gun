@@ -175,19 +175,22 @@ public class Player extends Entity {
 
         for(Crate c : World.currentMap.getCrates()) {
 
-            if(c.getHitbox().getChild("rightEdge").colliding(leftFoot) && getVelocity().x < 0) {
-                setVelocity((c.getHitbox().getChild("rightEdge").getX() + 15 - getPosition().x) / delta, getVelocity().y);
-            }
-            if(c.getHitbox().getChild("leftEdge").colliding(rightFoot) && getVelocity().x > 0) {
-                setVelocity((c.getHitbox().getChild("leftEdge").getX() + 1 - getPosition().x - getSize().x) / delta, getVelocity().y);
-            }
+            Hitbox rightEdge = c.getHitbox().getChild("rightEdge");
+            Hitbox leftEdge = c.getHitbox().getChild("leftEdge");
+            Hitbox topEdge = c.getHitbox().getChild("topEdge");
+            Hitbox botEdge = c.getHitbox().getChild("botEdge");
 
-            if(c.getHitbox().getChild("topEdge").colliding(botFoot) && getVelocity().y < 0) {
-                setVelocity(getVelocity().x, (c.getHitbox().getChild("topEdge").getY() + 12 - getPosition().y) / delta);
+            if(rightEdge.colliding(leftFoot) && getVelocity().x < 0) {
+                setVelocity(((rightEdge.getX() + rightEdge.getWidth() - 1) - (leftFoot.getX())) / delta, getVelocity().y);
             }
-
-            if(c.getHitbox().getChild("botEdge").colliding(topFoot) && getVelocity().y > 0) {
-                setVelocity(getVelocity().x, (c.getHitbox().getChild("botEdge").getY() + 1 - getPosition().y - 16) / delta); //questionable extra 16
+            if(leftEdge.colliding(rightFoot) && getVelocity().x > 0) {
+                setVelocity(((leftEdge.getX() + 1) - (rightFoot.getX() + rightFoot.getWidth())) / delta, getVelocity().y);
+            }
+            if(topEdge.colliding(botFoot) && getVelocity().y < 0) {
+                setVelocity(getVelocity().x, ((topEdge.getY() + topEdge.getHeight() - 1) - (botFoot.getY())) / delta);
+            }
+            if(botEdge.colliding(topFoot) && getVelocity().y > 0) {
+                setVelocity(getVelocity().x, ((botEdge.getY() + 1) - (topFoot.getY() + topFoot.getHeight())) / delta);
             }
 
         }

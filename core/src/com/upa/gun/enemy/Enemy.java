@@ -256,19 +256,29 @@ public class Enemy extends Entity {
         Vector2 current = new Vector2(getPosition().x, getPosition().y);
         setPosition(getPosition().x + getVelocity().x * delta, getPosition().y + getVelocity().y * delta);
 
+        Hitbox left = crateCheckHitbox.getChild("left");
+        Hitbox right = crateCheckHitbox.getChild("right");
+        Hitbox top = crateCheckHitbox.getChild("top");
+        Hitbox bot = crateCheckHitbox.getChild("bot");
+
         for(Crate c : World.currentMap.getCrates()) {
 
-            if(crateCheckHitbox.getChild("left").colliding(c.getHitbox().getChild("rightEdge")) && getVelocity().x < 0) {
-                setVelocity(((c.getHitbox().getChild("rightEdge").getX() + 15) - (crateCheckHitbox.getChild("left").getPosition().x)) / delta, getVelocity().y);
+            Hitbox rightEdge = c.getHitbox().getChild("rightEdge");
+            Hitbox leftEdge = c.getHitbox().getChild("leftEdge");
+            Hitbox topEdge = c.getHitbox().getChild("topEdge");
+            Hitbox botEdge = c.getHitbox().getChild("botEdge");
+
+            if(left.colliding(rightEdge) && getVelocity().x < 0) {
+                setVelocity(((rightEdge.getX() + rightEdge.getWidth() - 1) - (left.getX())) / delta, getVelocity().y);
             }
-            if(crateCheckHitbox.getChild("right").colliding(c.getHitbox().getChild("leftEdge")) && getVelocity().x > 0) {
-                setVelocity(((c.getHitbox().getChild("leftEdge").getX() + 1) - (crateCheckHitbox.getChild("right").getPosition().x + crateCheckHitbox.getChild("right").getWidth())) / delta, getVelocity().y);
+            if(right.colliding(leftEdge) && getVelocity().x > 0) {
+                setVelocity(((leftEdge.getX() + 1) - (right.getX() + right.getWidth())) / delta, getVelocity().y);
             }
-            if(crateCheckHitbox.getChild("bot").colliding(c.getHitbox().getChild("topEdge")) && getVelocity().y < 0) {
-                setVelocity(getVelocity().x, ((c.getHitbox().getChild("topEdge").getY() + 15) - (crateCheckHitbox.getChild("bot").getPosition().y)) / delta);
+            if(top.colliding(botEdge) && getVelocity().y > 0) {
+                setVelocity(getVelocity().x, ((botEdge.getY() + 1) - (top.getY() + top.getHeight())) / delta);
             }
-            if(crateCheckHitbox.getChild("top").colliding(c.getHitbox().getChild("botEdge")) && getVelocity().y > 0) {
-                setVelocity(getVelocity().x, ((c.getHitbox().getChild("botEdge").getY() + 1) - (crateCheckHitbox.getChild("top").getPosition().y +crateCheckHitbox.getChild("top").getHeight())) / delta);
+            if(bot.colliding(topEdge) && getVelocity().y < 0) {
+                setVelocity(getVelocity().x, ((topEdge.getY() + topEdge.getHeight() - 1) - (bot.getY())) / delta);
             }
         }
         setPosition(current);
