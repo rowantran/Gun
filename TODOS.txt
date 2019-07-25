@@ -1,8 +1,7 @@
 - fix parent function control in entity
 - implement slime subclass for enemy movement and other unique characteristics
-- improve collision checker for crates
 - add pathfinding for slimes around crates
 - add movement between rooms
 - art update
-- make crate determination of side drawing to be more intuitive
 - increase accuracy for bullet-crate collisions
+- fix corner movement bugs when hitting crates

@@ -21,18 +21,33 @@ public class MapFactory {
 
             int id = map.getInt("id");
 
-            JsonValue topsVals = map.get("tops");
-            int[][] tops = new int[topsVals.size][];
-            for(int i = 0; i < topsVals.size; i++) {
-                int[] vals = topsVals.get(i).asIntArray();
+            JsonValue crateVals = map.get("crates");
+            int[][] tops = new int[crateVals.size][];
+
+            for(int i = 0; i < crateVals.size; i++) {
+                int[] vals = crateVals.get(i).asIntArray();
                 tops[i] = vals;
             }
 
-            JsonValue sidesVals = map.get("sides");
-            int[][] sides = new int[sidesVals.size][];
-            for(int i = 0; i < sidesVals.size; i++) {
-                int[] vals = sidesVals.get(i).asIntArray();
-                sides[i] = vals;
+            int[][] sides = new int[tops.length][tops[0].length];
+
+            for(int i = 0; i < tops.length - 1; i++) {
+                for(int j = 0; j < tops[i].length; j++) {
+                    if(tops[i][j] == 1 && tops[i+1][j] == 0) {
+                        sides[i][j] = 1;
+                    }
+                    else {
+                        sides[i][j] = 0;
+                    }
+                }
+            }
+            for(int i = 0; i < tops[tops.length-1].length; i++) {
+                if(tops[tops.length-1][i] == 1) {
+                    sides[tops.length-1][i] = 1;
+                }
+                else {
+                    sides[tops.length-1][i] = 0;
+                }
             }
 
             MapInfo info = new MapInfo(id, tops, sides);
