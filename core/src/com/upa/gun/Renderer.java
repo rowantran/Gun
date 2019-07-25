@@ -247,9 +247,9 @@ class Renderer {
         c.crateTopSprite.setY(c.getPosition().y + 27);
         c.crateSideSprite.setX(c.getPosition().x);
         c.crateSideSprite.setY(c.getPosition().y);
-        //c.crateTopSprite.draw(batch);
+        c.crateTopSprite.draw(batch);
         if(c.getDisplaySide()) {
-            //c.crateSideSprite.draw(batch);
+            c.crateSideSprite.draw(batch);
         }
         batch.end();
         if(Settings.DEV_MODE) {
@@ -390,7 +390,7 @@ class Renderer {
                     drawBossHealth(((Enemy)e).getHealth(), ((Enemy)e).getStartHealth(), "boss1");
                 }
                 else {
-                    //drawSlimeHealth(((Enemy)e).getHealth(), ((Enemy)e).getStartHealth(), e.getPosition().x, e.getPosition().y);
+                    drawSlimeHealth(((Enemy)e).getHealth(), ((Enemy)e).getStartHealth(), e.getPosition().x, e.getPosition().y);
                 }
             }
             else if(e instanceof Bullet) {

@@ -34,51 +34,6 @@ public class CollisionChecker implements Updatable {
         }
     }
 
-    private void checkCrateTouch() { //may not be necessary if i can fix future collision handler in player and enemy
-
-
-        World.player.resetStops();
-        for(Enemy e : World.enemies) {
-            e.resetStops();
-        }
-
-        Hitbox leftFoot = World.player.crateCheckHitbox.getChild("leftFoot");
-        Hitbox rightFoot = World.player.crateCheckHitbox.getChild("rightFoot");
-        Hitbox topFoot = World.player.crateCheckHitbox.getChild("topFoot");
-        Hitbox botFoot = World.player.crateCheckHitbox.getChild("botFoot");
-
-        for(Crate c : World.currentMap.getCrates()) {
-
-            if(c.getHitbox().getChild("rightEdge").colliding(leftFoot)) {
-                World.player.leftStop = true;
-            }
-            if(c.getHitbox().getChild("leftEdge").colliding(rightFoot)) {
-                World.player.rightStop = true;
-            }
-            if(c.getHitbox().getChild("topEdge").colliding(botFoot)) {
-                World.player.botStop = true;
-            }
-            if(c.getHitbox().getChild("botEdge").colliding(topFoot)) {
-                World.player.topStop = true;
-            }
-
-            for(Enemy e : World.enemies) {
-                if(e.crateCheckHitbox.getChild("left").colliding(c.getHitbox().getChild("rightEdge"))) {
-                    e.leftStop = true;
-                }
-                if(e.crateCheckHitbox.getChild("right").colliding(c.getHitbox().getChild("leftEdge"))) {
-                    e.rightStop = true;
-                }
-                if(e.crateCheckHitbox.getChild("bot").colliding(c.getHitbox().getChild("topEdge"))) {
-                    e.botStop = true;
-                }
-                if(e.crateCheckHitbox.getChild("top").colliding(c.getHitbox().getChild("botEdge"))) {
-                    e.topStop = true;
-                }
-            }
-        }
-    }
-
     private void checkBulletCrash() {
         for(Crate c : World.currentMap.getCrates()) {
             for (Bullet b : World.playerBullets) {
@@ -98,7 +53,6 @@ public class CollisionChecker implements Updatable {
     public void update(float delta) {
         checkPlayerHit();
         checkEnemiesHit();
-        checkCrateTouch();
         checkBulletCrash();
         //checkPowerupCollect();
     }
