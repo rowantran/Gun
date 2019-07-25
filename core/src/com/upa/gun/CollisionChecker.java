@@ -6,6 +6,15 @@ import com.upa.gun.enemy.Enemy;
 import com.upa.gun.enemy.Powerup;
 
 public class CollisionChecker implements Updatable {
+
+    private void checkDoorEnter() {
+        for(Door d : World.currentMap.getDoors()) {
+            if(World.player.crateCheckHitbox.colliding(d.getHitbox())) {
+                System.out.println("ENTER THE DOOR");
+            }
+        }
+    }
+
     private void checkPlayerHit() {
         for (Bullet b : World.enemyBullets) {
             if (b.getHitbox().colliding(World.player.hitbox.getChild("center"))) {
@@ -51,6 +60,7 @@ public class CollisionChecker implements Updatable {
 
     @Override
     public void update(float delta) {
+        checkDoorEnter();
         checkPlayerHit();
         checkEnemiesHit();
         checkBulletCrash();
