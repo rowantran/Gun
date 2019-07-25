@@ -42,6 +42,7 @@ public class World implements Updatable {
     private MapFactory mapFactory;
 
     public static MapLayout currentMap; //may move
+    public static MapLayout[][] fullMap;
 
     private World() {
         enemies = new ArrayList<Enemy>();
@@ -63,7 +64,17 @@ public class World implements Updatable {
         powerupFactory = new PowerupFactory("powerups.json");
         mapFactory = new MapFactory("maps.json");
 
-        currentMap = mapFactory.createMap(0);
+        fullMap = new MapLayout[2][1];
+
+        int m = 0;
+        for(int i = 0; i < fullMap.length; i++) {
+            for(int j = 0; j < fullMap[i].length; j++) {
+                fullMap[i][j] = mapFactory.createMap(m);
+                m++;
+            }
+        }
+
+        currentMap = fullMap[0][0];
 
     }
 

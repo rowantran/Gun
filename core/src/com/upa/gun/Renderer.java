@@ -257,6 +257,12 @@ class Renderer {
         }
     }
 
+    private void drawDoor(Door d) {
+        if(Settings.DEV_MODE) {
+            drawHitbox(d);
+        }
+    }
+
     private void drawScore() {
         batch.enableBlending();
 
@@ -399,6 +405,10 @@ class Renderer {
             else {
                 Gdx.app.log("Renderer", "Invalid entity found in entity list");
             }
+        }
+
+        for(Door d : World.currentMap.getDoors()) {
+            drawDoor(d);
         }
 
         for (Powerup p : World.powerups) {
