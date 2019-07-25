@@ -47,6 +47,13 @@ public abstract class Entity implements Updatable {
         hitbox.updateHitboxes(velocity.x * delta, velocity.y * delta);
     }
 
+    public void specialMove(float delta) {
+        position.x += velocity.x * delta;
+        position.y += velocity.y * delta;
+        Hitboxes hitbox = getHitbox();
+        hitbox.updateHitboxes(velocity.x * delta, velocity.y * delta);
+    }
+
     public Vector2 getPosition() {
         return position.cpy();
     }

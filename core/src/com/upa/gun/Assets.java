@@ -48,6 +48,7 @@ public class Assets {
 
     public Pixmap pm;
     public static Texture crosshair;
+    public static Texture border;
 
     public static Sound bulletSound;
     public static Sound bossDieSound;
@@ -103,6 +104,7 @@ public class Assets {
         loadHealthBar();
 
         backgroundRoom1 = loadTexture("sprites/stages/background1.png");
+        border = loadTexture("sprites/stages/border.png");
         crate = loadTexture("sprites/terrain/crate.png");
         crateTop = loadTexture("sprites/terrain/crate_top.png");
         crateSide = loadTexture("sprites/terrain/crate_side.png");

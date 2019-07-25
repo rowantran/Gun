@@ -4,4 +4,4 @@
 - add movement between rooms
 - art update
 - increase accuracy for bullet-crate collisions
-- fix corner movement bugs when hitting crates
+- fix corner movement bugs when hitting crates - can bandaid fix with speed check

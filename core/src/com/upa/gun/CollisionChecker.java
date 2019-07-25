@@ -8,9 +8,36 @@ import com.upa.gun.enemy.Powerup;
 public class CollisionChecker implements Updatable {
 
     private void checkDoorEnter() {
-        for(Door d : World.currentMap.getDoors()) {
-            if(World.player.crateCheckHitbox.colliding(d.getHitbox())) {
-                System.out.println("ENTER THE DOOR");
+        World.roomChange = 0;
+        World.resetTimer();
+        if(World.doorsOn) {
+            for (Door d : World.currentMap.getDoors()) {
+                if (World.player.crateCheckHitbox.colliding(d.getHitbox())) {
+                    World.roomChange = d.getDirection();
+
+                    World.moveAllEntities();
+
+                    switch (d.getDirection()) {
+                        case 1:
+                            World.currentMap = World.fullMap[--World.mapY][World.mapX];
+                            break;
+                        case 2:
+                            World.currentMap = World.fullMap[++World.mapY][World.mapX];
+                            World.adjustNewMap();
+                            break;
+                        case 3:
+                            World.currentMap = World.fullMap[World.mapY][--World.mapX];
+                            break;
+                        case 4:
+                            World.currentMap = World.fullMap[World.mapY][++World.mapX];
+                            break;
+                        default:
+                            Gdx.app.log("CollisionChecker", "Found invalid door direction");
+                            break;
+                    }
+                    break;
+
+                }
             }
         }
     }

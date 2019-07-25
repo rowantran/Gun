@@ -48,6 +48,15 @@ class Renderer {
         batch.end();
     }
 
+    private void drawBorder() {
+        batch.begin();
+        batch.enableBlending();
+        batch.setColor(1.0f,1.0f,1.0f,1.0f);
+        batch.draw(Assets.border, (Settings.RESOLUTION.x - Assets.border.getWidth()) / 2f,
+                0f, (float)Assets.border.getWidth(), (float)Assets.backgroundRoom1.getHeight());
+        batch.end();
+    }
+
     private void drawShadow(float x, float y, float objectWidth) {
         float shadowHeight = objectWidth / 3f;
 
@@ -322,7 +331,7 @@ class Renderer {
         }
     }
 
-    void mergeSortEntities(ArrayList<Entity> entities, int n) {
+    private void mergeSortEntities(ArrayList<Entity> entities, int n) {
         if(n < 2) {
             return;
         }
@@ -343,7 +352,7 @@ class Renderer {
         mergeEntities(entities, l, r, mid, n-mid);
     }
 
-    void mergeEntities(ArrayList<Entity> entities, ArrayList<Entity> l, ArrayList<Entity> r, int left, int right) {
+    private void mergeEntities(ArrayList<Entity> entities, ArrayList<Entity> l, ArrayList<Entity> r, int left, int right) {
         int i = 0, j = 0, k = 0;
         while(i < left && j < right) {
             if(l.get(i).getPosition().y > r.get(j).getPosition().y) {
@@ -358,6 +367,39 @@ class Renderer {
         }
         while(j < right) {
             entities.set(k++, r.get(j++));
+        }
+    }
+
+    private void drawLayered(ArrayList<Entity> entityList) {
+        mergeSortEntities(entityList, entityList.size());
+        for(Entity e : entityList) {
+            if(e instanceof Player) {
+                drawPlayer((Player)e);
+            }
+            else if(e instanceof Crate) {
+                drawCrate((Crate)e);
+            }
+            else if(e instanceof Door) {
+                drawDoor((Door)e);
+            }
+            else if(e instanceof Enemy) {
+                drawEnemy((Enemy)e);
+                if(((Enemy)e).getID() == 2) {
+                    drawBossHealth(((Enemy)e).getHealth(), ((Enemy)e).getStartHealth(), "boss1");
+                }
+                else {
+                    drawSlimeHealth(((Enemy)e).getHealth(), ((Enemy)e).getStartHealth(), e.getPosition().x, e.getPosition().y);
+                }
+            }
+            else if(e instanceof Bullet) {
+                drawBullet((Bullet)e);
+            }
+            else if(e instanceof Powerup) {
+
+            }
+            else {
+                Gdx.app.log("Renderer", "Invalid entity found in entity list");
+            }
         }
     }
 
@@ -381,45 +423,29 @@ class Renderer {
         for(Bullet b : World.enemyBullets) {
             entityList.add(b);
         }
-
-        mergeSortEntities(entityList, entityList.size());
-        for(Entity e : entityList) {
-            if(e instanceof Player) {
-                drawPlayer((Player)e);
-            }
-            else if(e instanceof Crate) {
-                drawCrate((Crate)e);
-            }
-            else if(e instanceof Enemy) {
-                drawEnemy((Enemy)e);
-                if(((Enemy)e).getID() == 2) {
-                    drawBossHealth(((Enemy)e).getHealth(), ((Enemy)e).getStartHealth(), "boss1");
-                }
-                else {
-                    drawSlimeHealth(((Enemy)e).getHealth(), ((Enemy)e).getStartHealth(), e.getPosition().x, e.getPosition().y);
-                }
-            }
-            else if(e instanceof Bullet) {
-                drawBullet((Bullet)e);
-            }
-            else {
-                Gdx.app.log("Renderer", "Invalid entity found in entity list");
-            }
-        }
-
         for(Door d : World.currentMap.getDoors()) {
-            drawDoor(d);
+            entityList.add(d);
         }
 
+        drawLayered(entityList);
+
+        /*
         for (Powerup p : World.powerups) {
             drawPowerup(p);
+        }
+        */
+
+        if(World.roomChange != 0) {
+            drawLayered(World.oldEntities);
         }
 
         batch.begin();
         for (SpawnIndicator s : World.indicators) {
             drawIndicator(s);
         }
-
+        batch.end(); //???
+        drawBorder();
+        batch.begin();
         drawHealth(World.player.getHealth());
         drawScore();
 
@@ -433,6 +459,7 @@ class Renderer {
         for (Powerup p : new Array.ArrayIterator<Powerup>(World.player.powerupsActive)) {
             drawPowerup(p);
         }
+
 
         if (world.cinematicHappening) {
             sr.setProjectionMatrix(camera.combined);

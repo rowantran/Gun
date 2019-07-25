@@ -211,4 +211,10 @@ public class Player extends Entity {
             inputHandler.update(delta);
         }
     }
+
+    public void specialMove(float delta) {
+        setPosition(getPosition().x + getVelocity().x * delta, getPosition().y + getVelocity().y * delta);
+        hitbox.updateHitboxes(getVelocity().x * delta, getVelocity().y * delta);
+        crateCheckHitbox.updateHitboxes(getVelocity().x * delta, getVelocity().y * delta);
+    }
 }
