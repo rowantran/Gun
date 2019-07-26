@@ -233,9 +233,11 @@ public class World implements Updatable {
             case 2:
                 for(Crate c : currentMap.getCrates()) {
                     c.setPosition(c.getPosition().x, c.getPosition().y - Settings.RESOLUTION.y + 69); //based on black border
+                    c.getHitbox().setPosition(c.getPosition());
                 }
                 for(Door d : currentMap.getDoors()) {
                     d.setPosition(d.getPosition().x, d.getPosition().y - Settings.RESOLUTION.y + 69);
+                    d.getHitbox().setPosition(d.getPosition());
                 }
                 break;
             case 3:

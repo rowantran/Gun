@@ -16,7 +16,7 @@ public class Crate extends Entity {
 
         super(position, new Vector2(64f, 64f)); //width and height are dimensions of Assets.crateTop, offset is height of Assets.crateSide
 
-        hitbox = new Hitboxes();
+        hitbox = new Hitboxes(position);
         displaySide = true;
 
         crateSideSprite = new Sprite(Assets.crateSide);
@@ -33,6 +33,9 @@ public class Crate extends Entity {
         hitbox.addHitbox("rightEdge", rightEdge);
         hitbox.addHitbox("topEdge", topEdge);
         hitbox.addHitbox("botEdge", botEdge);
+
+        hitbox.generateCorrectOffsets();
+
         hitbox.setActive(true);
 
     }

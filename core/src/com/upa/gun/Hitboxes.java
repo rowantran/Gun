@@ -13,9 +13,15 @@ public class Hitboxes implements Iterable<Hitbox> {
 
     private Map<String, Hitbox> hitboxes;
     private boolean active;
+    private Vector2 position;
 
     public Hitboxes() {
         this(new HashMap<String, Hitbox>());
+    }
+
+    public Hitboxes(Vector2 origin) {
+        this(new HashMap<String, Hitbox>());
+        position = origin;
     }
 
     public Hitboxes(Map<String, Hitbox> hitboxes) {
@@ -68,6 +74,13 @@ public class Hitboxes implements Iterable<Hitbox> {
         return false;
     }
 
+    public void generateCorrectOffsets() {
+        for(Hitbox hitbox : hitboxes.values()) {
+            hitbox.setOffset(hitbox.getX() - position.x, hitbox.getY() - position.y);
+        }
+    }
+
+
     public void updateHitboxes(float adjustX, float adjustY) {
         for (Hitbox child : hitboxes.values()) {
             child.adjustPosition(adjustX, adjustY);
@@ -90,8 +103,9 @@ public class Hitboxes implements Iterable<Hitbox> {
     }
 
     public void setPosition(Vector2 position) {
-        for (Hitbox hitbox : hitboxes.values()) {
-            hitbox.setPosition(position);
+        this.position = position;
+        for(Hitbox hitbox : hitboxes.values()) {
+            hitbox.setPosition(new Vector2(position.x + hitbox.getOffset().x, position.y + hitbox.getOffset().y));
         }
     }
 

@@ -12,10 +12,12 @@ public class Door extends Entity {
 
         this.direction = direction;
 
-        hitbox = new Hitboxes();
+        hitbox = new Hitboxes(position);
 
         RectangularHitbox box = new RectangularHitbox(position, size);
         hitbox.addHitbox("main", box);
+
+        hitbox.generateCorrectOffsets();
         hitbox.setActive(true);
     }
 

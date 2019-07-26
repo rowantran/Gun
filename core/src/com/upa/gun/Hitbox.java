@@ -30,7 +30,6 @@ public abstract class Hitbox implements Collidable {
 
     public void setPosition(Vector2 position) {
         this.position.set(position);
-        //this.position.add(offset);
     }
 
     public void adjustPosition(float adjustX, float adjustY) {
@@ -39,6 +38,15 @@ public abstract class Hitbox implements Collidable {
 
     public void fixPosition(Vector2 realPosition) {
         //position.set(new Vector2(realPosition.x + offset.x, realPosition.y + offset.y));
+    }
+
+    public void setOffset(float x, float y) {
+        offset.x = x;
+        offset.y = y;
+    }
+
+    public Vector2 getOffset() {
+        return offset;
     }
 
     public void setOffset(Vector2 offset) {

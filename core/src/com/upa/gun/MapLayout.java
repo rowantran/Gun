@@ -43,7 +43,7 @@ public class MapLayout {
                         break;
                     case 2:
                         if(i == 0) {
-                            doors.add(new Door(new Vector2(j * 64 + 32, (all.length - i) * 64 - 35), new Vector2(64f, 2f), 1)); //1 = up, 2 = down, 3 = left, 4 = right
+                            doors.add(new Door(new Vector2(j * 64 + 32, (all.length - i) * 64 - 35 + 62), new Vector2(64f, 2f), 1)); //1 = up, 2 = down, 3 = left, 4 = right
                         }
                         else if(i == all.length-1) {
                             doors.add(new Door(new Vector2(j * 64 + 32, (all.length - i) * 64 - 35), new Vector2(64f, 2f), 2));
@@ -52,7 +52,7 @@ public class MapLayout {
                             doors.add(new Door(new Vector2(j * 64 + 32, (all.length - i) * 64 - 35), new Vector2(2f, 64f), 3));
                         }
                         else if(j == all[i].length-1) {
-                            doors.add(new Door(new Vector2(j * 64 + 32, (all.length - i) * 64 - 35), new Vector2(2f, 64f), 4));
+                            doors.add(new Door(new Vector2(j * 64 + 32 + 62, (all.length - i) * 64 - 35), new Vector2(2f, 64f), 4));
                         }
                         else {
                             Gdx.app.log("MapLayout", "Found non-edge door");
