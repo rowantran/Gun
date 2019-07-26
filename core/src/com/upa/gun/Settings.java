@@ -14,7 +14,7 @@ public class Settings {
     public static final int SPAWN_CAP_LIMIT = 1;
     public static final boolean MUTE = true;
 
-    public static final float ROOM_CHANGE_TIME = 1.6f;
+    public static final float ROOM_CHANGE_TIME = 1.0f;
     public static final float ROOM_CHANGE_TIME_BUFFER = 0.3f;
 
     public static final float STEP_TIME = 1/300f;

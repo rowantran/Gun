@@ -5,3 +5,9 @@
 - art update
 - increase accuracy for bullet-crate collisions
 - fix corner movement bugs when hitting crates - can bandaid fix with speed check
+- make positions of all individual hitboxes relative to overall hitbox
+- major cleanup involving hitbox offsets
+- cleanup cases for room moving in world
+- cleanup object storage for maps
+- add parent class for crate/door/future objects
+- fix inconsistent delta causing offsets when changing rooms

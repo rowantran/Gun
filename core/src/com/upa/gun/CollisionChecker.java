@@ -20,6 +20,7 @@ public class CollisionChecker implements Updatable {
                     switch (d.getDirection()) {
                         case 1:
                             World.currentMap = World.fullMap[--World.mapY][World.mapX];
+                            World.adjustNewMap();
                             break;
                         case 2:
                             World.currentMap = World.fullMap[++World.mapY][World.mapX];
@@ -27,16 +28,17 @@ public class CollisionChecker implements Updatable {
                             break;
                         case 3:
                             World.currentMap = World.fullMap[World.mapY][--World.mapX];
+                            World.adjustNewMap();
                             break;
                         case 4:
                             World.currentMap = World.fullMap[World.mapY][++World.mapX];
+                            World.adjustNewMap();
                             break;
                         default:
                             Gdx.app.log("CollisionChecker", "Found invalid door direction");
                             break;
                     }
                     break;
-
                 }
             }
         }

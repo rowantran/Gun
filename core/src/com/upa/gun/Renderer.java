@@ -43,8 +43,9 @@ class Renderer {
         batch.begin();
         batch.disableBlending();
         batch.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-        batch.draw(Assets.backgroundRoom1, (Settings.RESOLUTION.x - Assets.backgroundRoom1.getWidth()) /2f,
-                0f, (float)Assets.backgroundRoom1.getWidth(), (float)Assets.backgroundRoom1.getHeight());
+        batch.draw(Assets.floor, Settings.RESOLUTION.x/2 - Assets.floor.getWidth()/2,
+                Settings.RESOLUTION.y/2 - Assets.floor.getHeight()/2, (float)Assets.floor.getWidth(),
+                (float)Assets.floor.getHeight());
         batch.end();
     }
 
@@ -52,8 +53,7 @@ class Renderer {
         batch.begin();
         batch.enableBlending();
         batch.setColor(1.0f,1.0f,1.0f,1.0f);
-        batch.draw(Assets.border, (Settings.RESOLUTION.x - Assets.border.getWidth()) / 2f,
-                0f, (float)Assets.border.getWidth(), (float)Assets.backgroundRoom1.getHeight());
+        batch.draw(Assets.border, 0f, 0f, (float)Assets.border.getWidth(), (float)Assets.border.getHeight());
         batch.end();
     }
 

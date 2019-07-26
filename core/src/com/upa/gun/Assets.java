@@ -21,7 +21,7 @@ public class Assets {
     public static Texture powerup1; //temp, will make atlas later
 
 
-    public static Texture backgroundRoom1;
+    public static Texture floor;
 
     public static Texture crate;
     public static Texture crateTop;
@@ -103,7 +103,7 @@ public class Assets {
 
         loadHealthBar();
 
-        backgroundRoom1 = loadTexture("sprites/stages/background1.png");
+        floor = loadTexture("sprites/stages/floor.png");
         border = loadTexture("sprites/stages/border.png");
         crate = loadTexture("sprites/terrain/crate.png");
         crateTop = loadTexture("sprites/terrain/crate_top.png");

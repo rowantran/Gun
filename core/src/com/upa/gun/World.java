@@ -73,7 +73,7 @@ public class World implements Updatable {
         powerupFactory = new PowerupFactory("powerups.json");
         mapFactory = new MapFactory("maps.json");
 
-        fullMap = new MapLayout[2][1];
+        fullMap = new MapLayout[3][3];
 
         int m = 0;
         for(int i = 0; i < fullMap.length; i++) {
@@ -129,54 +129,71 @@ public class World implements Updatable {
 
             switch(roomChange) {
                 case 1:
+                    timer += delta;
+                    if(timer < Settings.ROOM_CHANGE_TIME) {
+                        player.setVelocity(0f, Assets.floor.getHeight() / -Settings.ROOM_CHANGE_TIME);
+                        player.specialMove(delta);
+                        matchObjects(delta);
+                    }
+                    else {
+                        freezeObjects(delta);
+                        player.setVelocity(0f, Assets.floor.getHeight() / Settings.ROOM_CHANGE_TIME);
+                        player.update(delta);
+                    }
+                    if(timer >= Settings.ROOM_CHANGE_TIME + Settings.ROOM_CHANGE_TIME_BUFFER) {
+                        cleanRoom();
+                    }
                     break;
                 case 2:
                     timer += delta;
                     if(timer < Settings.ROOM_CHANGE_TIME) {
-                        player.setVelocity(0f, (Settings.RESOLUTION.y-62) / Settings.ROOM_CHANGE_TIME);
+                        player.setVelocity(0f, Assets.floor.getHeight() / Settings.ROOM_CHANGE_TIME);
                         player.specialMove(delta);
-                        for(Entity e : oldEntities) {
-                            e.setVelocity(player.getVelocity());
-                            e.update(delta);
-                        }
-                        for(Entity e : currentMap.getCrates()) {
-                            e.setVelocity(player.getVelocity());
-                            e.update(delta);
-                        }
-                        for(Entity e : currentMap.getDoors()) {
-                            e.setVelocity(player.getVelocity());
-                            e.update(delta);
-                        }
-
+                        matchObjects(delta);
                     }
                     else {
-                        for(Entity e : oldEntities) {
-                            e.setVelocity(0f, 0f);
-                            e.update(delta);
-                        }
-                        for(Entity e : currentMap.getCrates()) {
-                            e.setVelocity(0f, 0f);
-                            e.update(delta);
-                        }
-                        for(Entity e : currentMap.getDoors()) {
-                            e.setVelocity(0f, 0f);
-                            e.update(delta);
-                        }
-                        player.setVelocity(0f, (Settings.RESOLUTION.y) / -Settings.ROOM_CHANGE_TIME);
+                        freezeObjects(delta);
+                        player.setVelocity(0f, Assets.floor.getHeight() / -Settings.ROOM_CHANGE_TIME);
                         player.update(delta);
                     }
-                    if(timer > Settings.ROOM_CHANGE_TIME + Settings.ROOM_CHANGE_TIME_BUFFER) {
-                        roomChange = 0;
-                        oldEntities.clear();
-                        doorsOn = true;
+                    if(timer >= Settings.ROOM_CHANGE_TIME + Settings.ROOM_CHANGE_TIME_BUFFER) {
+                        cleanRoom();
                     }
                     break;
                 case 3:
+                    timer += delta;
+                    if(timer < Settings.ROOM_CHANGE_TIME) {
+                        player.setVelocity(Assets.floor.getWidth() / Settings.ROOM_CHANGE_TIME, 0f);
+                        player.specialMove(delta);
+                        matchObjects(delta);
+                    }
+                    else {
+                        freezeObjects(delta);
+                        player.setVelocity(Assets.floor.getWidth() / -Settings.ROOM_CHANGE_TIME, 0f);
+                        player.update(delta);
+                    }
+                    if(timer >= Settings.ROOM_CHANGE_TIME + Settings.ROOM_CHANGE_TIME_BUFFER) {
+                        cleanRoom();
+                    }
                     break;
                 case 4:
+                    timer += delta;
+                    if(timer < Settings.ROOM_CHANGE_TIME) {
+                        player.setVelocity(Assets.floor.getWidth() / -Settings.ROOM_CHANGE_TIME, 0f);
+                        player.specialMove(delta);
+                        matchObjects(delta);
+
+                    }
+                    else {
+                        freezeObjects(delta);
+                        player.setVelocity(Assets.floor.getWidth() / Settings.ROOM_CHANGE_TIME, 0f);
+                        player.update(delta);
+                    }
+                    if(timer >= Settings.ROOM_CHANGE_TIME + Settings.ROOM_CHANGE_TIME_BUFFER) {
+                        cleanRoom();
+                    }
                     break;
                 default:
-
                     collisionChecker.update(delta);
                     player.update(delta);
 
@@ -204,6 +221,36 @@ public class World implements Updatable {
         }
     }
 
+    private void freezeObjects(float delta) {
+        for(Entity e : oldEntities) {
+            e.setVelocity(0f, 0f);
+            e.update(delta);
+        }
+        for(Entity e : currentMap.getCrates()) {
+            e.setVelocity(0f, 0f);
+            e.update(delta);
+        }
+        for(Entity e : currentMap.getDoors()) {
+            e.setVelocity(0f, 0f);
+            e.update(delta);
+        }
+    }
+
+    private void matchObjects(float delta) {
+        for(Entity e : oldEntities) {
+            e.setVelocity(player.getVelocity());
+            e.update(delta);
+        }
+        for(Entity e : currentMap.getCrates()) {
+            e.setVelocity(player.getVelocity());
+            e.update(delta);
+        }
+        for(Entity e : currentMap.getDoors()) {
+            e.setVelocity(player.getVelocity());
+            e.update(delta);
+        }
+    }
+
     public static void resetTimer() {
         timer = 0f;
     }
@@ -222,31 +269,55 @@ public class World implements Updatable {
         playerBullets.clear();
         enemies.clear();
         powerups.clear();
-        currentMap.getCrates().clear();
-        currentMap.getDoors().clear();
+    }
+
+    private static void cleanRoom() {
+        roomChange = 0;
+        oldEntities.clear();
+        doorsOn = true;
+        for(Crate c : currentMap.getCrates()) {
+            c.resetPosition();
+        }
+        for(Door d : currentMap.getDoors()) {
+            d.resetPosition();
+        }
     }
 
     public static void adjustNewMap() {
+
+        float adjustX = 0f;
+        float adjustY = 0f;
+
         switch(roomChange) {
             case 1:
+                adjustX = 0f;
+                adjustY = (float)Assets.floor.getHeight();
                 break;
             case 2:
-                for(Crate c : currentMap.getCrates()) {
-                    c.setPosition(c.getPosition().x, c.getPosition().y - Settings.RESOLUTION.y + 69); //based on black border
-                    c.getHitbox().setPosition(c.getPosition());
-                }
-                for(Door d : currentMap.getDoors()) {
-                    d.setPosition(d.getPosition().x, d.getPosition().y - Settings.RESOLUTION.y + 69);
-                    d.getHitbox().setPosition(d.getPosition());
-                }
+                adjustX = 0f;
+                adjustY = -(float)Assets.floor.getHeight();
                 break;
             case 3:
+                adjustX = -(float)Assets.floor.getWidth();
+                adjustY = 0f;
                 break;
             case 4:
+                adjustX = (float)Assets.floor.getWidth();
+                adjustY = 0f;
                 break;
             default:
                 Gdx.app.log("World", "Error attempting to adjust new map location");
                 break;
+        }
+        for(Crate c : currentMap.getCrates()) {
+            c.resetPosition();
+            c.setPosition(c.getPosition().x + adjustX, c.getPosition().y + adjustY);
+            c.getHitbox().setPosition(c.getPosition());
+        }
+        for(Door d : currentMap.getDoors()) {
+            d.resetPosition();
+            d.setPosition(d.getPosition().x + adjustX, d.getPosition().y + adjustY);
+            d.getHitbox().setPosition(d.getPosition());
         }
     }
 

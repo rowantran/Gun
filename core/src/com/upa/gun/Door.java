@@ -6,9 +6,11 @@ public class Door extends Entity {
 
     private Hitboxes hitbox;
     private int direction;
+    private Vector2 originalPosition;
 
     public Door(Vector2 position, Vector2 size, int direction) {
         super(position, size);
+        originalPosition = position.cpy();
 
         this.direction = direction;
 
@@ -27,6 +29,11 @@ public class Door extends Entity {
 
     public Hitboxes getHitbox() {
         return hitbox;
+    }
+
+    public void resetPosition() {
+        setPosition(originalPosition);
+        hitbox.setPosition(originalPosition);
     }
 
 }

@@ -11,10 +11,12 @@ public class Crate extends Entity {
     Sprite crateTopSprite;
 
     private Hitboxes hitbox;
+    private Vector2 originalPosition;
 
     public Crate(Vector2 position) {
 
         super(position, new Vector2(64f, 64f)); //width and height are dimensions of Assets.crateTop, offset is height of Assets.crateSide
+        originalPosition = position.cpy();
 
         hitbox = new Hitboxes(position);
         displaySide = true;
@@ -54,6 +56,11 @@ public class Crate extends Entity {
 
     public Hitboxes getHitbox() {
         return hitbox;
+    }
+
+    public void resetPosition() {
+        setPosition(originalPosition);
+        hitbox.setPosition(originalPosition);
     }
 
 }
