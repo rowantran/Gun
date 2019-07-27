@@ -10,4 +10,4 @@
 - cleanup cases for room moving in world
 - cleanup object storage for maps
 - add parent class for crate/door/future objects
-- fix inconsistent delta causing offsets when changing rooms
+- fix inconsistent delta causing offsets when changing rooms - currently has bandaid fix

@@ -42,6 +42,8 @@ public class World implements Updatable {
     public static boolean doorsOn;
     public static int roomChange;
     private static float timer;
+    private static float distanceMoved;
+    private static float distanceMoved2;
 
     private EnemyFactory enemyFactory;
     private PowerupFactory powerupFactory;
@@ -129,66 +131,121 @@ public class World implements Updatable {
 
             switch(roomChange) {
                 case 1:
-                    timer += delta;
-                    if(timer < Settings.ROOM_CHANGE_TIME) {
+                    if(distanceMoved < (float)Assets.floor.getHeight()) {
                         player.setVelocity(0f, Assets.floor.getHeight() / -Settings.ROOM_CHANGE_TIME);
+                        if(distanceMoved - player.getVelocity().y * delta > (float)Assets.floor.getHeight()) {
+                            player.setVelocity(0f, (Assets.floor.getHeight() - distanceMoved) / -delta);
+                        }
                         player.specialMove(delta);
                         matchObjects(delta);
+                        distanceMoved -= player.getVelocity().y * delta;
+                    }
+                    else if(distanceMoved2 < Settings.ROOM_CHANGE_STEP) {
+                        player.setVelocity(0f, Settings.ROOM_CHANGE_STEP_SPEED);
+                        if(distanceMoved2 + player.getVelocity().y * delta > Settings.ROOM_CHANGE_STEP) {
+                            player.setVelocity(0f, (Settings.ROOM_CHANGE_STEP - distanceMoved2) / delta);
+                        }
+                        player.specialMove(delta);
+                        freezeObjects(delta);
+                        distanceMoved2 += player.getVelocity().y * delta;
                     }
                     else {
+                        player.setVelocity(0f, 0f);
+                        player.specialMove(delta);
                         freezeObjects(delta);
-                        player.setVelocity(0f, Assets.floor.getHeight() / Settings.ROOM_CHANGE_TIME);
-                        player.update(delta);
                     }
+
+                    timer += delta;
                     if(timer >= Settings.ROOM_CHANGE_TIME + Settings.ROOM_CHANGE_TIME_BUFFER) {
                         cleanRoom();
                     }
                     break;
                 case 2:
-                    timer += delta;
-                    if(timer < Settings.ROOM_CHANGE_TIME) {
+                    if(distanceMoved < (float)Assets.floor.getHeight()) {
                         player.setVelocity(0f, Assets.floor.getHeight() / Settings.ROOM_CHANGE_TIME);
+                        if(distanceMoved + player.getVelocity().y * delta > (float)Assets.floor.getHeight()) {
+                            player.setVelocity(0f, (Assets.floor.getHeight() - distanceMoved) / delta);
+                        }
                         player.specialMove(delta);
                         matchObjects(delta);
+                        distanceMoved += player.getVelocity().y * delta;
+                    }
+                    else if(distanceMoved2 < Settings.ROOM_CHANGE_STEP) {
+                        player.setVelocity(0f, -Settings.ROOM_CHANGE_STEP_SPEED);
+                        if(distanceMoved2 - player.getVelocity().y * delta > Settings.ROOM_CHANGE_STEP) {
+                            player.setVelocity(0f, (Settings.ROOM_CHANGE_STEP - distanceMoved2) / -delta);
+                        }
+                        player.specialMove(delta);
+                        freezeObjects(delta);
+                        distanceMoved2 -= player.getVelocity().y * delta;
                     }
                     else {
+                        player.setVelocity(0f, 0f);
+                        player.specialMove(delta);
                         freezeObjects(delta);
-                        player.setVelocity(0f, Assets.floor.getHeight() / -Settings.ROOM_CHANGE_TIME);
-                        player.update(delta);
                     }
+
+                    timer += delta;
                     if(timer >= Settings.ROOM_CHANGE_TIME + Settings.ROOM_CHANGE_TIME_BUFFER) {
                         cleanRoom();
                     }
                     break;
                 case 3:
-                    timer += delta;
-                    if(timer < Settings.ROOM_CHANGE_TIME) {
+                    if(distanceMoved < (float)Assets.floor.getWidth()) {
                         player.setVelocity(Assets.floor.getWidth() / Settings.ROOM_CHANGE_TIME, 0f);
+                        if(distanceMoved + player.getVelocity().x * delta > (float)Assets.floor.getWidth()) {
+                            player.setVelocity((Assets.floor.getWidth() - distanceMoved) / delta, 0f);
+                        }
                         player.specialMove(delta);
                         matchObjects(delta);
+                        distanceMoved += player.getVelocity().x * delta;
+                    }
+                    else if(distanceMoved2 < Settings.ROOM_CHANGE_STEP) {
+                        player.setVelocity(-Settings.ROOM_CHANGE_STEP_SPEED, 0f);
+                        if(distanceMoved2 - player.getVelocity().x * delta > Settings.ROOM_CHANGE_STEP) {
+                            player.setVelocity((Settings.ROOM_CHANGE_STEP - distanceMoved2) / -delta, 0f);
+                        }
+                        player.specialMove(delta);
+                        freezeObjects(delta);
+                        distanceMoved2 -= player.getVelocity().y * delta;
                     }
                     else {
+                        player.setVelocity(0f, 0f);
+                        player.specialMove(delta);
                         freezeObjects(delta);
-                        player.setVelocity(Assets.floor.getWidth() / -Settings.ROOM_CHANGE_TIME, 0f);
-                        player.update(delta);
                     }
+
+                    timer += delta;
                     if(timer >= Settings.ROOM_CHANGE_TIME + Settings.ROOM_CHANGE_TIME_BUFFER) {
                         cleanRoom();
                     }
                     break;
                 case 4:
-                    timer += delta;
-                    if(timer < Settings.ROOM_CHANGE_TIME) {
+                    if(distanceMoved < (float)Assets.floor.getWidth()) {
                         player.setVelocity(Assets.floor.getWidth() / -Settings.ROOM_CHANGE_TIME, 0f);
+                        if(distanceMoved - player.getVelocity().x * delta > (float)Assets.floor.getWidth()) {
+                            player.setVelocity((Assets.floor.getWidth() - distanceMoved) / -delta, 0f);
+                        }
                         player.specialMove(delta);
                         matchObjects(delta);
-
+                        distanceMoved -= player.getVelocity().x * delta;
+                    }
+                    else if(distanceMoved2 < Settings.ROOM_CHANGE_STEP) {
+                        player.setVelocity(Settings.ROOM_CHANGE_STEP_SPEED, 0f);
+                        if(distanceMoved2 + player.getVelocity().x * delta > Settings.ROOM_CHANGE_STEP) {
+                            player.setVelocity((Settings.ROOM_CHANGE_STEP - distanceMoved2) / delta, 0f);
+                        }
+                        player.specialMove(delta);
+                        freezeObjects(delta);
+                        distanceMoved2 += player.getVelocity().y * delta;
                     }
                     else {
+                        player.setVelocity(0f, 0f);
+                        player.specialMove(delta);
                         freezeObjects(delta);
-                        player.setVelocity(Assets.floor.getWidth() / Settings.ROOM_CHANGE_TIME, 0f);
-                        player.update(delta);
                     }
+
+                    timer += delta;
                     if(timer >= Settings.ROOM_CHANGE_TIME + Settings.ROOM_CHANGE_TIME_BUFFER) {
                         cleanRoom();
                     }
@@ -285,25 +342,24 @@ public class World implements Updatable {
 
     public static void adjustNewMap() {
 
+        distanceMoved = 0f;
+        distanceMoved2 = 0f;
+
         float adjustX = 0f;
         float adjustY = 0f;
 
         switch(roomChange) {
             case 1:
-                adjustX = 0f;
                 adjustY = (float)Assets.floor.getHeight();
                 break;
             case 2:
-                adjustX = 0f;
                 adjustY = -(float)Assets.floor.getHeight();
                 break;
             case 3:
                 adjustX = -(float)Assets.floor.getWidth();
-                adjustY = 0f;
                 break;
             case 4:
                 adjustX = (float)Assets.floor.getWidth();
-                adjustY = 0f;
                 break;
             default:
                 Gdx.app.log("World", "Error attempting to adjust new map location");
