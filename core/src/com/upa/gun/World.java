@@ -48,6 +48,7 @@ public class World implements Updatable {
     private EnemyFactory enemyFactory;
     private PowerupFactory powerupFactory;
     private MapFactory mapFactory;
+    private WaveFactory waveFactory;
 
     public static MapLayout currentMap;
     public static MapLayout[][] fullMap;
@@ -74,6 +75,7 @@ public class World implements Updatable {
         enemyFactory = new EnemyFactory("enemies.json");
         powerupFactory = new PowerupFactory("powerups.json");
         mapFactory = new MapFactory("maps.json");
+        waveFactory = new WaveFactory("waves.json");
 
         fullMap = new MapLayout[3][3];
 

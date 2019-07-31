@@ -37,6 +37,8 @@ public class MapFactory {
         Gdx.app.log("MapFactory", "Completed loading maps");
     }
 
-    MapLayout createMap(int id) { return new MapLayout(maps.get(id)); }
+    MapLayout createMap(int id) {
+        return new MapLayout(maps.get(id));
+    }
 
 }

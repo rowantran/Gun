@@ -1,10 +1,8 @@
-package com.upa.gun.enemy;
+package com.upa.gun;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
-import com.sun.org.apache.xalan.internal.xsltc.util.IntegerArray;
-import com.upa.gun.WaveInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,11 +10,11 @@ import java.util.Map;
 
 public class WaveFactory {
 
-    public Map<Integer, WaveInfo> waves;
+    public Map<Integer, HashMap<Integer, WaveInfo>> waves;
 
     public WaveFactory(String path) {
 
-        waves = new HashMap<Integer, WaveInfo>();
+        waves = new HashMap<Integer, HashMap<Integer, WaveInfo>>();
 
         JsonReader reader = new JsonReader();
         JsonValue root = reader.parse(Gdx.files.internal(path)).get("waves");
@@ -28,8 +26,10 @@ public class WaveFactory {
             JsonValue enemyVals = difficulty.get("enemies");
             JsonValue delayVals = difficulty.get("delays");
 
+            HashMap type = new HashMap<Integer, WaveInfo>();
 
             for(int i = 0; i < enemyVals.size; i++) {
+
                 ArrayList<int[]> wave = new ArrayList<int[]>();
 
                 for(int j = 0; j < enemyVals.get(i).size; j++) {
@@ -42,16 +42,19 @@ public class WaveFactory {
                 int[] delays = delayVals.get(i).asIntArray();
 
                 WaveInfo info = new WaveInfo(id, wave, delays);
-                waves.put(id, info); //WRONG -- DO NOT HAVE UNIQUE IDS
+                type.put(i, info);
 
             }
-
-
-
-
+            waves.put(id, type);
         }
 
+        Gdx.app.log("WaveFactory", "Completed loading waves");
+        
     }
 
+    WaveLayout createWave(int id) {
 
+        int randomKey = (int)(Math.random() * waves.get(id).size());
+        return new WaveLayout(waves.get(id).get(randomKey));
+    }
 }

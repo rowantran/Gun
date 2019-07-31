@@ -1,9 +1,10 @@
 - fix parent function control in entity
 - implement slime subclass for enemy movement and other unique characteristics
 - add pathfinding for slimes around crates
-- art update
+- art update - to 64x64 px?
 - increase accuracy for bullet-crate collisions
 - fix corner movement bugs when hitting crates - can bandaid fix with speed check
 - make positions of all individual hitboxes relative to overall hitbox
 - major cleanup involving hitbox offsets
 - add parent class for crate/door/future objects
+- finish loading waves correctly from json
