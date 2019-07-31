@@ -8,14 +8,14 @@
 - make positions of all individual hitboxes relative to overall hitbox
 - major cleanup involving hitbox offsets
 - add parent class for crate/door/future objects
-- make doors have open/closed settings
-- create door textures
-- have hitbox detection for closed doors
-
+- create new sprite sheet
+- make door opening/closing animation
 
 
 ================================================================
 FINISHED
 - finish loading waves correctly from json
 - adjust position of door object for opening/closing hitboxes
-
+- have hitbox detection for closed doors
+- make doors have open/closed settings
+- create door textures

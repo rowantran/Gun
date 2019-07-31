@@ -104,7 +104,6 @@ public class CollisionChecker implements Updatable {
 
     @Override
     public void update(float delta) {
-        World.doorsOpen = false; //temp
         if(World.doorsOpen) {
             checkDoorEnter();
         }

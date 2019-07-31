@@ -22,8 +22,8 @@ public class Crate extends Entity {
         displaySide = true;
 
         crateSideSprite = new Sprite(Assets.crateSide);
-        crateSideSprite.setScale(1);
         crateTopSprite = new Sprite(Assets.crateTop);
+        crateSideSprite.setScale(1);
         crateTopSprite.setScale(1);
 
         RectangularHitbox leftEdge = new RectangularHitbox(new Vector2(position.x, position.y+1), new Vector2(16f, 62f));

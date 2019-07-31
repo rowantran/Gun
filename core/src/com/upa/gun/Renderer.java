@@ -267,19 +267,33 @@ class Renderer {
 
     private void drawDoor(Door d) {
 
+        batch.begin();
+        batch.enableBlending();
         if(!World.doorsOpen) {
-            batch.begin();
-            batch.enableBlending();
-
-            Sprite tempSprite = new Sprite(Assets.crateTop); //temporary until door texture is made and implemented into door class
-            Sprite tempSprite2 = new Sprite(Assets.crateSide);
-
-            tempSprite.setPosition(d.getPosition().x, d.getPosition().y + 27);
-            tempSprite2.setPosition(d.getPosition().x, d.getPosition().y);
-            tempSprite.draw(batch); //may check if drawing is necessary when true textures are added
-            tempSprite2.draw(batch);
-            batch.end();
+            switch (d.getDirection()) {
+                case 1:
+                    d.doorTopSprite.setPosition(d.getPosition().x, d.getPosition().y + 27 + 48);
+                    d.doorSideSprite.setPosition(d.getPosition().x, d.getPosition().y + 48);
+                    break;
+                case 2:
+                    d.doorTopSprite.setPosition(d.getPosition().x, d.getPosition().y + 27);
+                    d.doorSideSprite.setPosition(d.getPosition().x, d.getPosition().y);
+                    break;
+                case 3:
+                    d.doorTopSprite.setPosition(d.getPosition().x - 24, d.getPosition().y + 27 + 24);
+                    break;
+                case 4:
+                    d.doorTopSprite.setPosition(d.getPosition().x + 24, d.getPosition().y + 27 + 24);
+                    break;
+                default:
+                    break;
+            }
         }
+        d.doorTopSprite.draw(batch);
+        if(d.getDisplaySide()) {
+            d.doorSideSprite.draw(batch);
+        }
+        batch.end();
 
         if(Settings.DEV_MODE) {
             drawHitbox(d);

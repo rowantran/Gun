@@ -91,7 +91,7 @@ public class World implements Updatable {
         mapX = 0;
         mapY = 0;
 
-        doorsOpen = true;
+        doorsOpen = false; //temp
 
     }
 

@@ -26,6 +26,9 @@ public class Assets {
     public static Texture crate;
     public static Texture crateTop;
     public static Texture crateSide;
+    public static Texture doorTop;
+    public static Texture doorSide;
+
 
     public static Texture shadow;
 
@@ -108,6 +111,10 @@ public class Assets {
         crate = loadTexture("sprites/terrain/crate.png");
         crateTop = loadTexture("sprites/terrain/crate_top.png");
         crateSide = loadTexture("sprites/terrain/crate_side.png");
+        doorTop = loadTexture("sprites/terrain/door_top.png");
+        doorSide = loadTexture("sprites/terrain/door_side.png");
+
+
         shadow = loadTexture("sprites/miscellaneous/shadow.png");
         shadow.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
