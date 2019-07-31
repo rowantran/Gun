@@ -39,7 +39,7 @@ public class World implements Updatable {
 
     boolean cinematicHappening;
 
-    public static boolean doorsOn;
+    public static boolean doorsOpen;
     public static int roomChange;
     private static float timer;
     private static float distanceMoved;
@@ -91,7 +91,7 @@ public class World implements Updatable {
         mapX = 0;
         mapY = 0;
 
-        doorsOn = true;
+        doorsOpen = true;
 
     }
 
@@ -333,7 +333,7 @@ public class World implements Updatable {
     private static void cleanRoom() {
         roomChange = 0;
         oldEntities.clear();
-        doorsOn = true;
+        doorsOpen = true;
         for(Crate c : currentMap.getCrates()) {
             c.resetPosition();
         }

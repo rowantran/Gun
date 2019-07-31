@@ -269,16 +269,16 @@ public class Enemy extends Entity {
             Hitbox botEdge = c.getHitbox().getChild("botEdge");
 
             if(left.colliding(rightEdge) && getVelocity().x < 0) {
-                setVelocity(((rightEdge.getX() + rightEdge.getWidth() - 1) - (left.getX())) / delta, getVelocity().y);
+                setVelocity(((rightEdge.getX() + rightEdge.getWidth()-1) - (left.getX())) / delta, getVelocity().y);
             }
             if(right.colliding(leftEdge) && getVelocity().x > 0) {
-                setVelocity(((leftEdge.getX() + 1) - (right.getX() + right.getWidth())) / delta, getVelocity().y);
+                setVelocity(((leftEdge.getX()+1) - (right.getX() + right.getWidth())) / delta, getVelocity().y);
             }
             if(top.colliding(botEdge) && getVelocity().y > 0) {
-                setVelocity(getVelocity().x, ((botEdge.getY() + 1) - (top.getY() + top.getHeight())) / delta);
+                setVelocity(getVelocity().x, ((botEdge.getY()+1) - (top.getY() + top.getHeight())) / delta);
             }
             if(bot.colliding(topEdge) && getVelocity().y < 0) {
-                setVelocity(getVelocity().x, ((topEdge.getY() + topEdge.getHeight() - 1) - (bot.getY())) / delta);
+                setVelocity(getVelocity().x, ((topEdge.getY() + topEdge.getHeight()-1) - (bot.getY())) / delta);
             }
         }
         setPosition(current);

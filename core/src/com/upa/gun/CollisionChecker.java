@@ -1,7 +1,6 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.enemy.Enemy;
 import com.upa.gun.enemy.Powerup;
 
@@ -10,38 +9,40 @@ public class CollisionChecker implements Updatable {
     private void checkDoorEnter() {
         World.roomChange = 0;
         World.resetTimer();
-        if(World.doorsOn) {
-            for (Door d : World.currentMap.getDoors()) {
-                if (World.player.crateCheckHitbox.colliding(d.getHitbox())) {
-                    World.roomChange = d.getDirection();
+        for (Door d : World.currentMap.getDoors()) {
+            if (World.player.crateCheckHitbox.colliding(d.getHitbox().getChild("main"))) {
+                World.roomChange = d.getDirection();
 
-                    World.moveAllEntities();
+                World.moveAllEntities();
 
-                    switch (d.getDirection()) {
-                        case 1:
-                            World.currentMap = World.fullMap[--World.mapY][World.mapX];
-                            World.adjustNewMap();
-                            break;
-                        case 2:
-                            World.currentMap = World.fullMap[++World.mapY][World.mapX];
-                            World.adjustNewMap();
-                            break;
-                        case 3:
-                            World.currentMap = World.fullMap[World.mapY][--World.mapX];
-                            World.adjustNewMap();
-                            break;
-                        case 4:
-                            World.currentMap = World.fullMap[World.mapY][++World.mapX];
-                            World.adjustNewMap();
-                            break;
-                        default:
-                            Gdx.app.log("CollisionChecker", "Found invalid door direction");
-                            break;
-                    }
-                    break;
+                switch (d.getDirection()) {
+                    case 1:
+                        World.currentMap = World.fullMap[--World.mapY][World.mapX];
+                        World.adjustNewMap();
+                        break;
+                    case 2:
+                        World.currentMap = World.fullMap[++World.mapY][World.mapX];
+                        World.adjustNewMap();
+                        break;
+                    case 3:
+                        World.currentMap = World.fullMap[World.mapY][--World.mapX];
+                        World.adjustNewMap();
+                        break;
+                    case 4:
+                        World.currentMap = World.fullMap[World.mapY][++World.mapX];
+                        World.adjustNewMap();
+                        break;
+                    default:
+                        Gdx.app.log("CollisionChecker", "Found invalid door direction");
+                        break;
                 }
+                break;
             }
         }
+    }
+
+    private void checkDoorCollide() {
+
     }
 
     private void checkPlayerHit() {
@@ -85,11 +86,32 @@ public class CollisionChecker implements Updatable {
                 }
             }
         }
+        if(!World.doorsOpen) {
+            for(Door d : World.currentMap.getDoors()) {
+                for(Bullet b : World.playerBullets) {
+                    if(b.getHitbox().colliding(d.getHitbox().getChild("off"))) {
+                        b.markedForDeletion = true;
+                    }
+                }
+                for(Bullet b : World.enemyBullets) {
+                    if(b.getHitbox().colliding(d.getHitbox().getChild("off"))) {
+                        b.markedForDeletion = true;
+                    }
+                }
+            }
+        }
     }
 
     @Override
     public void update(float delta) {
-        checkDoorEnter();
+        World.doorsOpen = false; //temp
+        if(World.doorsOpen) {
+            checkDoorEnter();
+        }
+        else {
+            checkDoorCollide();
+        }
+
         checkPlayerHit();
         checkEnemiesHit();
         checkBulletCrash();

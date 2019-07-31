@@ -252,10 +252,9 @@ class Renderer {
     private void drawCrate(Crate c) {
         batch.begin();
         batch.enableBlending();
-        c.crateTopSprite.setX(c.getPosition().x);
-        c.crateTopSprite.setY(c.getPosition().y + 27);
-        c.crateSideSprite.setX(c.getPosition().x);
-        c.crateSideSprite.setY(c.getPosition().y);
+
+        c.crateTopSprite.setPosition(c.getPosition().x, c.getPosition().y + 27);
+        c.crateSideSprite.setPosition(c.getPosition().x, c.getPosition().y);
         c.crateTopSprite.draw(batch);
         if(c.getDisplaySide()) {
             c.crateSideSprite.draw(batch);
@@ -267,6 +266,21 @@ class Renderer {
     }
 
     private void drawDoor(Door d) {
+
+        if(!World.doorsOpen) {
+            batch.begin();
+            batch.enableBlending();
+
+            Sprite tempSprite = new Sprite(Assets.crateTop); //temporary until door texture is made and implemented into door class
+            Sprite tempSprite2 = new Sprite(Assets.crateSide);
+
+            tempSprite.setPosition(d.getPosition().x, d.getPosition().y + 27);
+            tempSprite2.setPosition(d.getPosition().x, d.getPosition().y);
+            tempSprite.draw(batch); //may check if drawing is necessary when true textures are added
+            tempSprite2.draw(batch);
+            batch.end();
+        }
+
         if(Settings.DEV_MODE) {
             drawHitbox(d);
         }

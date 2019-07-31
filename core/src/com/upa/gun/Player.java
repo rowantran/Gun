@@ -5,7 +5,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.upa.gun.enemy.Powerup;
-import org.w3c.dom.css.Rect;
 
 public class Player extends Entity {
     private static final float HITBOX_SIZE = 15f;
@@ -181,19 +180,53 @@ public class Player extends Entity {
             Hitbox botEdge = c.getHitbox().getChild("botEdge");
 
             if(rightEdge.colliding(leftFoot) && getVelocity().x < 0) {
-                setVelocity(((rightEdge.getX() + rightEdge.getWidth() - 1) - (leftFoot.getX())) / delta, getVelocity().y);
+                setVelocity(((rightEdge.getX() + rightEdge.getWidth()-1) - (leftFoot.getX())) / delta, getVelocity().y);
             }
             if(leftEdge.colliding(rightFoot) && getVelocity().x > 0) {
-                setVelocity(((leftEdge.getX() + 1) - (rightFoot.getX() + rightFoot.getWidth())) / delta, getVelocity().y);
+                setVelocity(((leftEdge.getX()+1) - (rightFoot.getX() + rightFoot.getWidth())) / delta, getVelocity().y);
             }
             if(topEdge.colliding(botFoot) && getVelocity().y < 0) {
-                setVelocity(getVelocity().x, ((topEdge.getY() + topEdge.getHeight() - 1) - (botFoot.getY())) / delta);
+                setVelocity(getVelocity().x, ((topEdge.getY() + topEdge.getHeight()-1) - (botFoot.getY())) / delta);
             }
             if(botEdge.colliding(topFoot) && getVelocity().y > 0) {
-                setVelocity(getVelocity().x, ((botEdge.getY() + 1) - (topFoot.getY() + topFoot.getHeight())) / delta);
+                setVelocity(getVelocity().x, ((botEdge.getY()+1) - (topFoot.getY() + topFoot.getHeight())) / delta);
+            }
+        }
+
+        if(!World.doorsOpen) {
+
+            for(Door d : World.currentMap.getDoors()) {
+
+                Hitbox edge = d.getHitbox().getChild("off");
+
+                switch(d.getDirection()) {
+                    case 1:
+                        if(edge.colliding(topFoot) && getVelocity().y > 0) {
+                            setVelocity(getVelocity().x, ((edge.getY()+1) - (topFoot.getY() + topFoot.getHeight())) / delta);
+                        }
+                        break;
+                    case 2:
+                        if(edge.colliding(botFoot) && getVelocity().y < 0) {
+                            setVelocity(getVelocity().x, ((edge.getY() + edge.getHeight()-1) - (botFoot.getY())) / delta);
+                        }
+                        break;
+                    case 3:
+                        if(edge.colliding(leftFoot) && getVelocity().x < 0) {
+                            setVelocity(((edge.getX() + edge.getWidth()-1) - (leftFoot.getX())) / delta, getVelocity().y);
+                        }
+                        break;
+                    case 4:
+                        if(edge.colliding(rightFoot) && getVelocity().x > 0) {
+                            setVelocity(((edge.getX()+1) - (rightFoot.getX() + rightFoot.getWidth())) / delta, getVelocity().y);
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
 
         }
+
         setPosition(current);
     }
 

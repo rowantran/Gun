@@ -4,7 +4,18 @@
 - art update - to 64x64 px?
 - increase accuracy for bullet-crate collisions
 - fix corner movement bugs when hitting crates - can bandaid fix with speed check
+- full fix for corner movement bugs
 - make positions of all individual hitboxes relative to overall hitbox
 - major cleanup involving hitbox offsets
 - add parent class for crate/door/future objects
+- make doors have open/closed settings
+- create door textures
+- have hitbox detection for closed doors
+
+
+
+================================================================
+FINISHED
 - finish loading waves correctly from json
+- adjust position of door object for opening/closing hitboxes
+

@@ -49,7 +49,7 @@ public class WaveFactory {
         }
 
         Gdx.app.log("WaveFactory", "Completed loading waves");
-        
+
     }
 
     WaveLayout createWave(int id) {
