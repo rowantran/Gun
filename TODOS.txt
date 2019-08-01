@@ -10,6 +10,8 @@
 - add parent class for crate/door/future objects
 - create new sprite sheet
 - make door opening/closing animation
+- make enemies spawn in waves
+- fix enemy spawn locations
 
 
 ================================================================

@@ -68,16 +68,11 @@ public class Spawner implements Updatable {
         return (float) Math.random() * maxSpawnTimeMax / Settings.PERCENT_SPAWN_CHANCE;
     }
 
-    private void spawnSlime() {
+    public void spawnSlime(int id) {
         if(!SPAWN_CAP || slimesSpawned < SPAWN_CAP_LIMIT) {
             float spawnX = (((float)Math.random() * 1051) + 113);
             float spawnY = (((float)Math.random() * 600) + 100);
-            int slimeType = (int) (Math.random() * 4);
-            if (slimeType == 0) {
-                World.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, world.getEnemyFactory(), 1));
-            } else {
-                World.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, world.getEnemyFactory(), 0));
-            }
+            World.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, world.getEnemyFactory(), id));
             slimesSpawned++;
         }
     }
@@ -107,7 +102,6 @@ public class Spawner implements Updatable {
         }
 
         if (timeAccumulated >= maxSpawnTime && !bossAlive) {
-            spawnSlime();
             maxSpawnTime = generateRandomSpawnTime();
             timeAccumulated = 0;
         }

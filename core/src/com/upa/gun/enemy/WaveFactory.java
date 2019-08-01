@@ -1,4 +1,4 @@
-package com.upa.gun;
+package com.upa.gun.enemy;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.JsonReader;
@@ -52,9 +52,9 @@ public class WaveFactory {
 
     }
 
-    WaveLayout createWave(int id) {
+    public Wave createWave(int id) {
 
         int randomKey = (int)(Math.random() * waves.get(id).size());
-        return new WaveLayout(waves.get(id).get(randomKey));
+        return new Wave(waves.get(id).get(randomKey));
     }
 }

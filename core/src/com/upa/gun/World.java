@@ -3,14 +3,7 @@ package com.upa.gun;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.cutscene.ScriptedEventSequence;
-import com.upa.gun.enemy.Enemy;
-import com.upa.gun.enemy.EnemyFactory;
-
-import com.upa.gun.enemy.PowerupFactory; //these should not be in enemy... need to fix later.
-import com.upa.gun.enemy.Powerup;
-
-import com.upa.gun.enemy.SpawnIndicator;
-import com.upa.gun.enemy.Spawner;
+import com.upa.gun.enemy.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -39,6 +32,8 @@ public class World implements Updatable {
 
     boolean cinematicHappening;
 
+    public static boolean waveActive;
+
     public static boolean doorsOpen;
     public static int roomChange;
     private static float timer;
@@ -52,6 +47,7 @@ public class World implements Updatable {
 
     public static MapLayout currentMap;
     public static MapLayout[][] fullMap;
+    public static Wave currentWave;
 
     public static int mapX;
     public static int mapY;
@@ -90,6 +86,8 @@ public class World implements Updatable {
         currentMap = fullMap[0][0];
         mapX = 0;
         mapY = 0;
+
+        currentWave = waveFactory.createWave(0);
 
         doorsOpen = false; //temp
 
@@ -266,7 +264,9 @@ public class World implements Updatable {
                         enemy.update(delta);
                     }
 
-                    spawner.update(delta);
+                    if(waveActive) {
+                        currentWave.update(delta);
+                    }
 
                     for (SpawnIndicator spawn : indicators) {
                         spawn.update(delta);
