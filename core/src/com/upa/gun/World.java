@@ -267,10 +267,8 @@ public class World implements Updatable {
                     if(waveActive) {
                         currentWave.update(delta);
                     }
-                    else {
-                        if(enemies.size() == 0) {
-                            doorsOpen = true;
-                        }
+                    else if(enemies.size() == 0 && indicators.size() == 0) {
+                        doorsOpen = true;
                     }
 
                     for (SpawnIndicator spawn : indicators) {
@@ -339,6 +337,8 @@ public class World implements Updatable {
         roomChange = 0;
         oldEntities.clear();
         doorsOpen = false;
+        currentWave = waveFactory.createWave(0);
+        waveActive = true;
         for(Crate c : currentMap.getCrates()) {
             c.resetPosition();
         }
@@ -382,10 +382,6 @@ public class World implements Updatable {
             d.setPosition(d.getPosition().x + adjustX, d.getPosition().y + adjustY);
             d.getHitbox().setPosition(d.getPosition());
         }
-
-        currentWave = waveFactory.createWave(0);
-        waveActive = true;
-
     }
 
     void deleteMarkedForDeletion() {
