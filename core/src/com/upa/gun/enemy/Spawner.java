@@ -8,15 +8,10 @@ import com.upa.gun.cutscene.BossSlimeEntrance;
 import static com.upa.gun.Settings.SPAWN_CAP;
 import static com.upa.gun.Settings.SPAWN_CAP_LIMIT;
 
-public class Spawner implements Updatable {
+public class Spawner {
     World world;
     public int slimesKilled;
     public int slimesKilledSinceLastBoss;
-
-    float timeAccumulated;
-
-    float maxSpawnTime;
-    float maxSpawnTimeMax;
 
     boolean bossAlive;
 
@@ -28,15 +23,8 @@ public class Spawner implements Updatable {
     public Spawner(World world) {
         this.world = world;
 
-
-
         slimesKilled = 0;
         slimesKilledSinceLastBoss = 0;
-
-        timeAccumulated = 0f;
-
-        maxSpawnTime = generateRandomSpawnTime();
-        maxSpawnTimeMax = 5.0f;
 
         bossAlive = false;
 
@@ -55,17 +43,9 @@ public class Spawner implements Updatable {
         slimesKilled = 0;
         slimesKilledSinceLastBoss = 0;
 
-        timeAccumulated = 0f;
-
-        maxSpawnTime = generateRandomSpawnTime();
-
         bossAlive = false;
         bossThreshold = 5;
         bossHealth = 30;
-    }
-
-    private float generateRandomSpawnTime() {
-        return (float) Math.random() * maxSpawnTimeMax / Settings.PERCENT_SPAWN_CHANCE;
     }
 
     public void spawnSlime(int id) {
@@ -77,7 +57,7 @@ public class Spawner implements Updatable {
         }
     }
 
-    private void spawnBossSlime() {
+    public void spawnBossSlime() {
         TextureRegion bossSlimeHurt = Assets.bossSlimeAnimations.get(SpriteState.HURT).get(Direction.LEFT).getKeyFrame(0);
         float spawnX = ((Settings.RESOLUTION.x - (float)bossSlimeHurt.getRegionWidth()) / 2f);
         float spawnY = Settings.RESOLUTION.y;
@@ -88,22 +68,5 @@ public class Spawner implements Updatable {
         BossSlimeEntrance entrance = new BossSlimeEntrance(boss);
         entrance.start();
         World.sequences.add(entrance);
-    }
-
-    @Override
-    public void update(float delta) {
-        timeAccumulated += delta;
-        if (slimesKilledSinceLastBoss == bossThreshold && !bossAlive) {
-            spawnBossSlime();
-            bossAlive = true;
-            slimesKilledSinceLastBoss = 0;
-            bossHealth += 10;
-            maxSpawnTimeMax *= 0.75f;
-        }
-
-        if (timeAccumulated >= maxSpawnTime && !bossAlive) {
-            maxSpawnTime = generateRandomSpawnTime();
-            timeAccumulated = 0;
-        }
     }
 }

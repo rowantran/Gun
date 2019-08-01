@@ -51,9 +51,12 @@ public class Wave implements Updatable {
         if(timer >= info.delays[info.getDelayIndex()]) {
 
             for(int e : info.wave.get(info.getWaveIndex())) {
-                float spawnX = (((float)Math.random() * 1051) + 113); //need to change values to fit
-                float spawnY = (((float)Math.random() * 600) + 100);
-                World.spawner.spawnSlime(e);
+                if(e == 2) {
+                    World.spawner.spawnBossSlime();
+                }
+                else {
+                    World.spawner.spawnSlime(e);
+                }
             }
             info.incrementDelayIndex();
             info.incrementWaveIndex();
