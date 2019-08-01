@@ -19,11 +19,14 @@ public class Wave implements Updatable {
     }
 
 
+
     public void update(float delta) {
 
         timer += delta;
         if(info.delays[info.getDelayIndex()] == -1) {
             World.waveActive = false;
+            info.resetDelayIndex();
+            info.resetWaveIndex();
             return;
         }
 

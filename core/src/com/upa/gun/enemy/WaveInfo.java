@@ -37,5 +37,9 @@ public class WaveInfo {
         currentWaveIndex++;
     }
 
+    public void resetDelayIndex() { currentDelayIndex = 0; }
+
+    public void resetWaveIndex() { currentWaveIndex = 0; }
+
 
 }
