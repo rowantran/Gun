@@ -74,19 +74,6 @@ public class Hitboxes implements Iterable<Hitbox> {
         return false;
     }
 
-    public void generateCorrectOffsets() {
-        for(Hitbox hitbox : hitboxes.values()) {
-            hitbox.setOffset(hitbox.getX() - position.x, hitbox.getY() - position.y);
-        }
-    }
-
-
-    public void updateHitboxes(float adjustX, float adjustY) {
-        for (Hitbox child : hitboxes.values()) {
-            child.adjustPosition(adjustX, adjustY);
-        }
-    }
-
     /**
      * Checks each child of this Hitboxes against the given hitbox.
      * @param other The hitbox to check against each child.
@@ -101,6 +88,22 @@ public class Hitboxes implements Iterable<Hitbox> {
 
         return false;
     }
+
+
+    public void generateCorrectOffsets() {
+        for(Hitbox hitbox : hitboxes.values()) {
+            hitbox.setOffset(hitbox.getX() - position.x, hitbox.getY() - position.y);
+        }
+    }
+
+
+    public void updateHitboxes(float adjustX, float adjustY) {
+        for (Hitbox child : hitboxes.values()) {
+            child.adjustPosition(adjustX, adjustY);
+        }
+    }
+
+
 
     public void setPosition(Vector2 position) {
         this.position = position;

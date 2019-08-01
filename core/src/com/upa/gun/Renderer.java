@@ -288,10 +288,11 @@ class Renderer {
                 default:
                     break;
             }
-        }
-        d.doorTopSprite.draw(batch);
-        if(d.getDisplaySide()) {
-            d.doorSideSprite.draw(batch);
+
+            d.doorTopSprite.draw(batch);
+            if (d.getDisplaySide()) {
+                d.doorSideSprite.draw(batch);
+            }
         }
         batch.end();
 

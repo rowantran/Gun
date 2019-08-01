@@ -26,6 +26,16 @@ public class RectangularHitbox extends Hitbox {
                 position.y+size.y > otherPosition.y;
     }
 
+    public boolean colliding(Vector2 other) {
+
+        Vector2 position = getPosition();
+        Vector2 size = getSize();
+
+        return position.x < other.x && position.x + size.x > other.x && position.y < other.y && position.y + size.y > other.y;
+
+    }
+
+
     public Vector2 getSize() {
         return size;
     }

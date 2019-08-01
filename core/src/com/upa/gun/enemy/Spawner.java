@@ -50,8 +50,8 @@ public class Spawner {
 
     public void spawnSlime(int id) {
         if(!SPAWN_CAP || slimesSpawned < SPAWN_CAP_LIMIT) {
-            float spawnX = (((float)Math.random() * 1051) + 113);
-            float spawnY = (((float)Math.random() * 600) + 100);
+            float spawnX = (((float)Math.random() * (Assets.floor.getWidth() - 128)) + (Settings.RESOLUTION.x/2 - Assets.floor.getWidth()/2) + 64);
+            float spawnY = (((float)Math.random() * (Assets.floor.getHeight() - 128)) + (Settings.RESOLUTION.y/2 - Assets.floor.getHeight()/2) + 64);
             World.indicators.add(new SpawnIndicator(spawnX, spawnY, 0f, 1f, world.getEnemyFactory(), id));
             slimesSpawned++;
         }

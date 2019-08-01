@@ -40,10 +40,10 @@ public class World implements Updatable {
     private static float distanceMoved;
     private static float distanceMoved2;
 
-    private EnemyFactory enemyFactory;
-    private PowerupFactory powerupFactory;
-    private MapFactory mapFactory;
-    private WaveFactory waveFactory;
+    private static EnemyFactory enemyFactory;
+    private static PowerupFactory powerupFactory;
+    private static MapFactory mapFactory;
+    private static WaveFactory waveFactory;
 
     public static MapLayout currentMap;
     public static MapLayout[][] fullMap;
@@ -267,6 +267,11 @@ public class World implements Updatable {
                     if(waveActive) {
                         currentWave.update(delta);
                     }
+                    else {
+                        if(enemies.size() == 0) {
+                            doorsOpen = true;
+                        }
+                    }
 
                     for (SpawnIndicator spawn : indicators) {
                         spawn.update(delta);
@@ -333,7 +338,7 @@ public class World implements Updatable {
     private static void cleanRoom() {
         roomChange = 0;
         oldEntities.clear();
-        doorsOpen = true;
+        doorsOpen = false;
         for(Crate c : currentMap.getCrates()) {
             c.resetPosition();
         }
@@ -377,6 +382,10 @@ public class World implements Updatable {
             d.setPosition(d.getPosition().x + adjustX, d.getPosition().y + adjustY);
             d.getHitbox().setPosition(d.getPosition());
         }
+
+        currentWave = waveFactory.createWave(0);
+        waveActive = true;
+
     }
 
     void deleteMarkedForDeletion() {

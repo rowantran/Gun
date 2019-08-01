@@ -69,4 +69,6 @@ public abstract class Hitbox implements Collidable {
 
     public abstract boolean colliding(RectangularHitbox other);
 
+    public abstract boolean colliding(Vector2 other);
+
 }
