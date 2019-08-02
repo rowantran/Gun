@@ -29,9 +29,6 @@ public abstract class Entity implements Updatable {
     public void update(float delta) {
         position.x += velocity.x * delta;
         position.y += velocity.y * delta;
-        Hitboxes hitbox = getHitbox();
-        hitbox.updateHitboxes(velocity.x * delta, velocity.y * delta);
-
         hitbox.setPosition(position);
 
     }

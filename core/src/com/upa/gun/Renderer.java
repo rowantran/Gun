@@ -179,8 +179,9 @@ class Renderer {
         double barsFull = (h / hMax) * (double)barWidth - (2 * (double)edge.getWidth());
         int barsToDraw = (int) barsFull;
 
-        batch.draw(edge, x - barWidth/2, y, edge.getWidth(), edge.getHeight());
-        batch.draw(edge, x + (barWidth/2 - edge.getWidth()), y, edge.getWidth(), edge.getHeight());
+        if(barsToDraw < 0) {
+            barsToDraw = 0;
+        }
 
         for(int i = 0; i < barsToDraw; i++) {
             int offset = barWidth/2 - edge.getWidth() - i; //increments placement of next bar
@@ -191,6 +192,9 @@ class Renderer {
             int offset = barWidth/2 - edge.getWidth() - i; //increments placement of next bar
             batch.draw(empty, x - offset, y, empty.getWidth(), empty.getHeight());
         }
+
+        batch.draw(edge, x - barWidth/2, y, edge.getWidth(), edge.getHeight());
+        batch.draw(edge, x + (barWidth/2 - edge.getWidth()), y, edge.getWidth(), edge.getHeight());
 
         batch.end();
     }

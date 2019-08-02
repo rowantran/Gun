@@ -51,6 +51,7 @@ public abstract class Enemy extends Entity {
     public void damage(int damage) {
         health -= damage;
         if (health <= 0) {
+            health = 0;
             state = new EnemyFadingState(this);
             hitbox.setActive(false);
 

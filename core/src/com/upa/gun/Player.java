@@ -10,7 +10,6 @@ public class Player extends Entity {
 
     static final float IFRAME_AFTER_HIT_LENGTH = 0.2f;
 
-    public Hitboxes hitbox;
     public Hitboxes crateCheckHitbox;
 
     public Vector2 spawnPoint;
@@ -41,7 +40,6 @@ public class Player extends Entity {
         super(position, Assets.getTextureSize(Assets.playerAnimations));
         spawnPoint = position.cpy();
 
-
         bulletCooldown = Settings.playerBulletCooldown;
         health = Settings.playerHealth;
 
@@ -57,8 +55,7 @@ public class Player extends Entity {
 
         inputHandler = new InputHandler();
 
-        hitbox = new Hitboxes();
-        crateCheckHitbox = new Hitboxes();
+        crateCheckHitbox = new Hitboxes(position);
 
         RectangularHitbox center = new RectangularHitbox(position, new Vector2(2f, 2f));
         center.setPosition(new Vector2(getPosition().x + getSize().x/2 - center.getWidth()/2, getPosition().y + getSize().y/2 - center.getHeight()/2));
@@ -80,6 +77,8 @@ public class Player extends Entity {
         botFoot.setPosition(new Vector2(position.x-4, position.y));
         crateCheckHitbox.addHitbox("botFoot", botFoot);
 
+        hitbox.generateCorrectOffsets();
+        crateCheckHitbox.generateCorrectOffsets();
         hitbox.setActive(true);
         crateCheckHitbox.setActive(true);
 
@@ -221,7 +220,7 @@ public class Player extends Entity {
         handleFutureCollision(delta);
         super.update(delta);
         state.update(delta);
-        crateCheckHitbox.updateHitboxes(getVelocity().x * delta, getVelocity().y * delta);
+        crateCheckHitbox.setPosition(position);
         timeSinceRoll += delta;
 
         bulletCooldown -= delta;
