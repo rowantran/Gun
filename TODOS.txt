@@ -7,11 +7,11 @@
 - full fix for corner movement bugs
 - make positions of all individual hitboxes relative to overall hitbox
 - major cleanup involving hitbox offsets
-- add parent class for crate/door/future objects
 - create new sprite sheet
 - make door opening/closing animation
 - fix enemy spawn locations
-- fix visual bug with dead enemy health bars
+- folder cleanup
+- make hitboxes percentage-size based rather than hard numbers
 
 
 ================================================================
@@ -23,3 +23,7 @@ FINISHED
 - create door textures
 - make enemies spawn in waves
 - fix bug with waves being "used up"
+- fix visual bug with dead enemy health bars
+- add parent class for crate/door/future objects
+
+

@@ -75,6 +75,6 @@ public class EnemyFactory {
     }
 
     Enemy createEnemy(int id, Vector2 position) {
-        return new Enemy(enemies.get(id), position);
+        return new Slime(enemies.get(id), position);
     }
 }

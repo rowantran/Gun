@@ -8,7 +8,7 @@ import org.w3c.dom.css.Rect;
 import java.util.Map;
 import static com.upa.gun.Settings.*;
 
-public class Enemy extends Entity {
+public abstract class Enemy extends Entity {
     private static final float DAMAGE_FLASH_LENGTH = 1/20f;
 
     public float timeElapsed;
@@ -16,15 +16,9 @@ public class Enemy extends Entity {
     private int startHealth;
     private int health;
 
-    private float horizontalDifference;
-    private float verticalDifference;
-
-    private float directionalUpdateCounter;
-    private float directionalUpdateTimer;
-
     float timeSinceAttack;
 
-    private EnemyState state;
+    protected EnemyState state;
 
     public boolean damagedFrame;
     private float damagedFrameTime;
@@ -41,7 +35,7 @@ public class Enemy extends Entity {
     public Map<String, String> sprites;
     public String sprite;
 
-    private Hitboxes hitbox;
+    protected Hitboxes hitbox;
     public Hitboxes crateCheckHitbox;
 
     private int id;
@@ -49,25 +43,8 @@ public class Enemy extends Entity {
     Enemy(EnemyInfo info, Vector2 position) {
         super(position, new Vector2(info.width, info.height));
 
-        try {
-            createHitbox(info.hitboxType, info.hitboxWidth, info.hitboxHeight);
-        } catch (UnrecognizedHitboxTypeException e) {
-            e.printStackTrace();
-        }
-
+        hitbox = new Hitboxes();
         crateCheckHitbox = new Hitboxes();
-
-        RectangularHitbox left = new RectangularHitbox(new Vector2(position.x, position.y), new Vector2(12f, 24f));
-        RectangularHitbox right = new RectangularHitbox(new Vector2(position.x + getSize().x - 12, position.y), new Vector2(12f, 24f));
-        RectangularHitbox top = new RectangularHitbox(new Vector2(position.x, position.y + getSize().y/2 - 12), new Vector2(48f, 12f));
-        RectangularHitbox bot = new RectangularHitbox(new Vector2(position.x, position.y), new Vector2(48f, 12f));
-
-        crateCheckHitbox.addHitbox("left", left);
-        crateCheckHitbox.addHitbox("right", right);
-        crateCheckHitbox.addHitbox("top", top);
-        crateCheckHitbox.addHitbox("bot", bot);
-
-        crateCheckHitbox.setActive(true);
 
         timeElapsed = 20.0f;
 
@@ -86,9 +63,6 @@ public class Enemy extends Entity {
         rotation = info.rotation.copy();
         rotation.setEnemy(this);
 
-        directionalUpdateCounter = 1.0f;
-        directionalUpdateTimer = 1.0f;
-
 
         id = info.id;
     }
@@ -96,27 +70,10 @@ public class Enemy extends Entity {
     public int getID() { return id; }
     public int getStartHealth() { return startHealth; }
     public int getHealth() { return health; }
-
-
     @Override
-    public Hitboxes getHitbox() {
-        return hitbox;
-    }
+    public Hitboxes getHitbox() { return hitbox; }
 
-    private void createHitbox(String hitboxType, int width, int height) throws UnrecognizedHitboxTypeException {
-        hitbox = new Hitboxes();
-        if (hitboxType.equals("rectangular")) {
-            RectangularHitbox center = new RectangularHitbox(getPosition(), new Vector2(width, height));
-            center.setPosition(new Vector2(getPosition().x + getSize().x/2 - center.getWidth()/2, getPosition().y + getSize().y/2 - center.getHeight()/2));
-            hitbox.addHitbox("center", center);
 
-        } else {
-            Gdx.app.log("Enemy creation:","Failed to load hitbox type.");
-            throw new UnrecognizedHitboxTypeException(hitboxType);
-        }
-
-        hitbox.setActive(true);
-    }
 
     public void damage(int damage) {
         health -= damage;
@@ -125,6 +82,7 @@ public class Enemy extends Entity {
 
             hitbox.setActive(false);
 
+            /*
             int rand = (int)(Math.random() * 1); //random powerup checker
             if(rand == 0) {
                 int type = (int)(Math.random() * PowerupFactory.getInstance().powerups.size());
@@ -132,11 +90,14 @@ public class Enemy extends Entity {
                 Powerup added = World.powerups.get(World.powerups.size()-1);
                 //System.out.println(added.info.effectDescription);
             }
+            */
 
-
+            //
             World.spawner.slimesKilled++;
             World.spawner.slimesKilledSinceLastBoss++;
-        } else {
+            //
+        }
+        else {
             damagedFrame = true;
         }
     }
@@ -151,11 +112,9 @@ public class Enemy extends Entity {
         }
     }
 
-
     public void update(float delta) {
 
         timeElapsed += delta;
-        directionalUpdateCounter += delta;
         rotation.cycle(delta, getPosition());
 
         changeSprite(rotation.currentAttack().getSprite());
@@ -173,21 +132,6 @@ public class Enemy extends Entity {
             }
         }
 
-        if (state.mobileType() == 1) { //active state
-            setVelocity(getVelocity().x, getVelocity().y);
-            if (directionalUpdateCounter >= directionalUpdateTimer) {
-                directionalUpdateCounter = 0.0f;
-                directionalUpdateTimer = generateNewDirectionUpdateTimer();
-                updateDirection();
-                move();
-            }
-        } else if(state.mobileType() == 2) { //dying/fading state
-            move();
-
-            setVelocity(getVelocity().x/3, getVelocity().y/3);
-        } else {
-            setVelocity(0f, 0f);
-        }
         handleFutureCollision(delta);
         handleStops();
         super.update(delta);
@@ -195,48 +139,7 @@ public class Enemy extends Entity {
         state.update(delta);
     }
 
-    private float generateNewDirectionUpdateTimer() {
-        int range = MAX_SLIME_UPDATE_TIMER - MIN_SLIME_UPDATE_TIMER;
-        int timer = (int)(Math.random() * (double)(range));
-        return (float)timer / 100 + (float)MIN_SLIME_UPDATE_TIMER / 100;
-    }
-
-    private void updateDirection() {
-        Vector2 playerPos = World.player.getPosition();
-        float playerX = playerPos.x;
-        float playerY = playerPos.y;
-        float slimeX = getPosition().x;
-        float slimeY = getPosition().y;
-        horizontalDifference = introduceOffset(playerX - slimeX);
-        verticalDifference = introduceOffset(playerY - slimeY);
-    }
-
-    private float introduceOffset(float value) {
-        if(value > 50f || value < -50f) {
-
-            float minOffset = value/5;
-
-            int addOffset = (int)(Math.random() * (value/2));
-            float offset = (float)addOffset + minOffset;
-            int direction = (int)(Math.random() * 2);
-            if(direction == 0) {
-                value += offset;
-            }
-            else {
-                value -= offset;
-            }
-        }
-        return value;
-    }
-
-    private void move() {
-        float xSquare = horizontalDifference * horizontalDifference;
-        float ySquare = verticalDifference * verticalDifference;
-        double currentSquare = xSquare + ySquare;
-        float currentSpeed = (float)Math.sqrt(currentSquare);
-        float speedRatio = Settings.SLIME_SPEED / currentSpeed;
-        setVelocity(horizontalDifference * speedRatio, verticalDifference * speedRatio);
-    }
+    protected abstract void move();
 
     private void handleStops() {
         if(botStop && getVelocity().y < 0) {
@@ -285,16 +188,7 @@ public class Enemy extends Entity {
         setPosition(current);
     }
 
-    public void resetStops() {
-        botStop = false;
-        topStop = false;
-        leftStop = false;
-        rightStop = false;
-    }
-
-    public EnemyState getState() {
-        return state;
-    }
+    public EnemyState getState() { return state; }
 
     public void setState(EnemyState state) {
         this.state = state;

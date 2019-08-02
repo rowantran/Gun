@@ -7,17 +7,14 @@ import com.upa.gun.enemy.attacks.TrackingBurstAttack;
 
 import java.util.HashMap;
 
+import static com.upa.gun.Settings.*;
+
 public class Slime extends Enemy {
-    private float timeSinceRandomMove; //time since last random move has been done
-    private float timeUntilRandomMove; //time between random moves, randomly generated
-    private float randomMoveLength; //length of time slime will travel in a random direction
-    private float timeOfRandomMove; //length of time slime has been travelling in a random direction
 
-    private boolean movingRandom = false;
-
-    float speedMultiplier = 1/2f;
-
-    private static float HITBOX_SIZE = 10f;
+    private float directionalUpdateCounter;
+    private float directionalUpdateTimer;
+    private float horizontalDifference;
+    private float verticalDifference;
 
     class SlimeAttackRotation extends AttackRotation {
         SlimeAttackRotation() {
@@ -26,63 +23,96 @@ public class Slime extends Enemy {
         }
     }
 
+    public Slime(EnemyInfo info, Vector2 position) {
+        super(info, position);
 
-    Slime(Vector2 position) {
-        super(new EnemyInfo(1, 1, "a", 1, 1, 1, 1,
-                new HashMap<String, String>(),
-                new AttackRotation()), position);
-        timeSinceAttack = 0.0f;
+        RectangularHitbox center = new RectangularHitbox(getPosition(), new Vector2(info.hitboxWidth, info.hitboxHeight));
+        center.setPosition(new Vector2(getPosition().x + getSize().x/2 - center.getWidth()/2, getPosition().y + getSize().y/2 - center.getHeight()/2));
 
-        timeSinceRandomMove = 0.0f;
-        timeUntilRandomMove = 0.0f;
-        randomMoveLength = 0.0f;
-        timeOfRandomMove = 0.0f;
+        RectangularHitbox left = new RectangularHitbox(new Vector2(position.x, position.y), new Vector2(12f, 24f));
+        RectangularHitbox right = new RectangularHitbox(new Vector2(position.x + getSize().x - 12, position.y), new Vector2(12f, 24f));
+        RectangularHitbox top = new RectangularHitbox(new Vector2(position.x, position.y + getSize().y/2 - 12), new Vector2(48f, 12f));
+        RectangularHitbox bot = new RectangularHitbox(new Vector2(position.x, position.y), new Vector2(48f, 12f));
 
-        rotation = new SlimeAttackRotation();
+        hitbox.addHitbox("center", center);
+        crateCheckHitbox.addHitbox("left", left);
+        crateCheckHitbox.addHitbox("right", right);
+        crateCheckHitbox.addHitbox("top", top);
+        crateCheckHitbox.addHitbox("bot", bot);
+
+        hitbox.setActive(true);
+        crateCheckHitbox.setActive(true);
+
+        directionalUpdateCounter = 1.0f;
+        directionalUpdateTimer = 1.0f;
     }
+
 
     public void update(float delta) {
         super.update(delta);
 
-        getState().update(delta);
-    }
+        directionalUpdateCounter += delta;
 
-
-
-    //move in a random direction, occurs on a random interval
-    public void randomMove() {
-        float x = (float)(Math.random() * Settings.SLIME_SPEED);
-        float y = getPythagY(x);
-        int switchX = (int)(Math.random() * 2); //indicates whether x and y direction should be positive or negative
-        int switchY = (int)(Math.random() * 2);
-
-        if(switchX == 1) {
-            x = -x;
+        switch(state.mobileType()) {
+            case 1:
+                if (directionalUpdateCounter >= directionalUpdateTimer) {
+                    directionalUpdateCounter = 0.0f;
+                    directionalUpdateTimer = generateNewDirectionUpdateTimer();
+                    updateDirection();
+                    move();
+                }
+                break;
+            case 2:
+                setVelocity(getVelocity().x/3, getVelocity().y/3);
+                break;
+            default:
+                setVelocity(0f, 0f);
         }
-        if(switchY == 1) {
-            y = -y;
+    }
+
+    private void updateDirection() {
+        Vector2 playerPos = World.player.getPosition();
+        float playerX = playerPos.x;
+        float playerY = playerPos.y;
+        float slimeX = getPosition().x;
+        float slimeY = getPosition().y;
+        horizontalDifference = introduceOffset(playerX - slimeX);
+        verticalDifference = introduceOffset(playerY - slimeY);
+    }
+
+    private float introduceOffset(float value) {
+        if(value > 50f || value < -50f) {
+
+            float minOffset = value/5;
+
+            int addOffset = (int)(Math.random() * (value/2));
+            float offset = (float)addOffset + minOffset;
+            int direction = (int)(Math.random() * 2);
+            if(direction == 0) {
+                value += offset;
+            }
+            else {
+                value -= offset;
+            }
         }
-        setVelocity(x, y);
+        return value;
     }
 
-    //uses pythagorean theorem to find corresponding y value for an x value to maintain speed
-    public float getPythagY(float x) {
-        return (float)(Math.sqrt(Math.pow(Settings.SLIME_SPEED,2) - Math.pow(x,2)));
+    private float generateNewDirectionUpdateTimer() {
+        int range = MAX_SLIME_UPDATE_TIMER - MIN_SLIME_UPDATE_TIMER;
+        int timer = (int)(Math.random() * (double)(range));
+        return (float)timer / 100 + (float)MIN_SLIME_UPDATE_TIMER / 100;
     }
 
-    //resets timers for random move and generates a new time until random move
-    public void resetRandomMove() {
-        int newRand1 = (int)(Math.random() * 2) + 1;
-        timeUntilRandomMove = (float)(newRand1);
-        timeSinceRandomMove = 0.0f;
-        randomMoveLength = (float)((Math.random() * 2) + 1);
-        timeOfRandomMove = 0.0f;
-        movingRandom = false;
+    public void move() {
+
+        float xSquare = horizontalDifference * horizontalDifference;
+        float ySquare = verticalDifference * verticalDifference;
+        double currentSquare = xSquare + ySquare;
+        float currentSpeed = (float)Math.sqrt(currentSquare);
+        float speedRatio = Settings.SLIME_SPEED / currentSpeed;
+        setVelocity(horizontalDifference * speedRatio, verticalDifference * speedRatio);
+
     }
 
-
-    public void fireSound() {
-        Assets.bulletSound.stop();
-        Assets.bulletSound.play(.4f);
-    }
 }
