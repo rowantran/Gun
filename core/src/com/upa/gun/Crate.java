@@ -3,6 +3,10 @@ package com.upa.gun;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * Class for all crates
+ * Crates are impassable terrain elements that block projectiles
+ */
 public class Crate extends Terrain {
 
     Sprite crateSideSprite;

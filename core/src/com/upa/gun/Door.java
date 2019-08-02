@@ -4,6 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * Class for all doors
+ * Doors are terrain elements that are impassable and block bullets when closed and are passable and allow movement
+ * between rooms when open
+ */
 public class Door extends Terrain {
 
     private int direction;
@@ -57,7 +62,5 @@ public class Door extends Terrain {
         hitbox.setActive(true);
     }
 
-    public int getDirection() {
-        return direction;
-    }
+    public int getDirection() { return direction; }
 }

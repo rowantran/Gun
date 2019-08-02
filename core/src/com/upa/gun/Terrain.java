@@ -2,6 +2,10 @@ package com.upa.gun;
 
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * Parent class for all static map elements
+ * Stores original position for use in room transitions and determines if sides need to be drawn based on position
+ */
 public class Terrain extends Entity {
 
     protected Vector2 originalPosition;
@@ -17,13 +21,14 @@ public class Terrain extends Entity {
         displaySide = true;
     }
 
-    public void setDisplaySide(boolean displaySide) { this.displaySide = displaySide; }
-
-    public boolean getDisplaySide() { return displaySide; }
-
+    /**
+     * Returns object position to intended location in current room
+     */
     public void resetPosition() {
         setPosition(originalPosition.cpy());
         hitbox.setPosition(originalPosition.cpy());
     }
 
+    public boolean getDisplaySide() { return displaySide; }
+    public void setDisplaySide(boolean displaySide) { this.displaySide = displaySide; }
 }
