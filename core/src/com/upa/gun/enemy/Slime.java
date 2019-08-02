@@ -5,6 +5,9 @@ import com.upa.gun.*;
 
 import static com.upa.gun.Settings.*;
 
+/**
+ * Class for all slime-type enemies
+ */
 public class Slime extends Enemy {
 
     private float directionalUpdateCounter;
@@ -16,7 +19,7 @@ public class Slime extends Enemy {
         super(info, position);
 
         RectangularHitbox center = new RectangularHitbox(getPosition(), new Vector2(info.hitboxWidth, info.hitboxHeight));
-        center.setPosition(new Vector2(getPosition().x + getSize().x/2 - center.getWidth()/2, getPosition().y + getSize().y/2 - center.getHeight()/2));
+        center.setPosition(new Vector2(position.x + size.x/2 - center.getWidth()/2, position.y + size.y/2 - center.getHeight()/2));
 
         hitbox.addHitbox("center", center);
         hitbox.generateCorrectOffsets();

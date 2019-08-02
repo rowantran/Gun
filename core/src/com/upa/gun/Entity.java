@@ -10,8 +10,8 @@ import com.badlogic.gdx.math.Vector2;
 public abstract class Entity implements Updatable {
 
     protected Vector2 position;
-    private Vector2 size;
-    private Vector2 velocity;
+    protected Vector2 size;
+    protected Vector2 velocity;
     public Hitboxes hitbox;
 
     public Entity(Vector2 position, Vector2 size) {

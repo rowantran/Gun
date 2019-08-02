@@ -4,26 +4,27 @@ import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.*;
 import java.util.Map;
 
+/**
+ * Holds basic information and methods common for all enemy types
+ */
 public abstract class Enemy extends Entity {
 
+    private int id;
     public float timeElapsed;
     private int startHealth;
     private int health;
-    protected EnemyState state;
     public boolean damagedFrame;
     private float damagedFrameTime;
-    private AttackRotation rotation;
     public float opacity;
+    protected EnemyState state;
+    private AttackRotation rotation;
     public Map<String, String> sprites;
     public String sprite;
-    protected Hitboxes hitbox;
     public Hitboxes crateCheckHitbox;
-    private int id;
 
     Enemy(EnemyInfo info, Vector2 position) {
         super(position, new Vector2(info.width, info.height));
 
-        hitbox = new Hitboxes(position);
         crateCheckHitbox = new Hitboxes(position);
         state = new EnemyActiveState();
 
@@ -88,8 +89,8 @@ public abstract class Enemy extends Entity {
      * @param delta - Clock
      */
     public void handleFutureCollision(float delta) { //need to fix for all terrain elements
-        Vector2 current = new Vector2(getPosition().x, getPosition().y);
-        setPosition(getPosition().x + getVelocity().x * delta, getPosition().y + getVelocity().y * delta);
+        Vector2 current = new Vector2(position.x, position.y);
+        setPosition(position.x + velocity.x * delta, position.y + velocity.y * delta);
 
         Hitbox left = crateCheckHitbox.getChild("left");
         Hitbox right = crateCheckHitbox.getChild("right");
@@ -104,16 +105,16 @@ public abstract class Enemy extends Entity {
             Hitbox botEdge = c.getHitbox().getChild("botEdge");
 
             if(left.colliding(rightEdge) && getVelocity().x <= 0) {
-                setVelocity(((rightEdge.getX() + rightEdge.getWidth()-1) - (left.getX())) / delta, getVelocity().y);
+                setVelocity(((rightEdge.getX() + rightEdge.getWidth()-1) - (left.getX())) / delta, velocity.y);
             }
             if(right.colliding(leftEdge) && getVelocity().x >= 0) {
-                setVelocity(((leftEdge.getX()+1) - (right.getX() + right.getWidth())) / delta, getVelocity().y);
+                setVelocity(((leftEdge.getX()+1) - (right.getX() + right.getWidth())) / delta, velocity.y);
             }
             if(top.colliding(botEdge) && getVelocity().y >= 0) {
-                setVelocity(getVelocity().x, ((botEdge.getY()+1) - (top.getY() + top.getHeight())) / delta);
+                setVelocity(velocity.x, ((botEdge.getY()+1) - (top.getY() + top.getHeight())) / delta);
             }
             if(bot.colliding(topEdge) && getVelocity().y <= 0) {
-                setVelocity(getVelocity().x, ((topEdge.getY() + topEdge.getHeight()-1) - (bot.getY())) / delta);
+                setVelocity(velocity.x, ((topEdge.getY() + topEdge.getHeight()-1) - (bot.getY())) / delta);
             }
         }
         setPosition(current);
@@ -146,8 +147,6 @@ public abstract class Enemy extends Entity {
     public int getStartHealth() { return startHealth; }
     public int getHealth() { return health; }
     public EnemyState getState() { return state; }
-    @Override
-    public Hitboxes getHitbox() { return hitbox; }
 
     public void setState(EnemyState state) {
         this.state = state;
