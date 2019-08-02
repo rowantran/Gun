@@ -61,7 +61,7 @@ public class Player extends Entity {
         crateCheckHitbox = new Hitboxes();
 
         RectangularHitbox center = new RectangularHitbox(position, new Vector2(2f, 2f));
-        centerRectangularHitbox(center);
+        center.setPosition(new Vector2(getPosition().x + getSize().x/2 - center.getWidth()/2, getPosition().y + getSize().y/2 - center.getHeight()/2));
         hitbox.addHitbox("center", center);
 
         RectangularHitbox leftFoot = new RectangularHitbox(position, new Vector2(12f, 20f));

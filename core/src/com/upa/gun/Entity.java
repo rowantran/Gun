@@ -21,10 +21,6 @@ public abstract class Entity implements Updatable {
         hitbox = new Hitboxes(position);
     }
 
-    protected void centerRectangularHitbox(RectangularHitbox hitbox) { //may delete in future cleanup
-        hitbox.setPosition(new Vector2(position.x + size.x/2 - hitbox.getWidth()/2, position.y + size.y/2 - hitbox.getHeight()/2));
-    }
-
     /**
      * Update function; handles basic movement and matches hitbox location
      * @param delta - clock
@@ -33,12 +29,11 @@ public abstract class Entity implements Updatable {
     public void update(float delta) {
         position.x += velocity.x * delta;
         position.y += velocity.y * delta;
-
         Hitboxes hitbox = getHitbox();
         hitbox.updateHitboxes(velocity.x * delta, velocity.y * delta);
     }
 
-    public void specialMove(float delta) { //questionable
+    public void specialMove(float delta) { //should be removed once cleanup is finished
         position.x += velocity.x * delta;
         position.y += velocity.y * delta;
         Hitboxes hitbox = getHitbox();

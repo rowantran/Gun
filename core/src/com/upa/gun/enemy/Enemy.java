@@ -107,7 +107,7 @@ public class Enemy extends Entity {
         hitbox = new Hitboxes();
         if (hitboxType.equals("rectangular")) {
             RectangularHitbox center = new RectangularHitbox(getPosition(), new Vector2(width, height));
-            centerRectangularHitbox(center);
+            center.setPosition(new Vector2(getPosition().x + getSize().x/2 - center.getWidth()/2, getPosition().y + getSize().y/2 - center.getHeight()/2));
             hitbox.addHitbox("center", center);
 
         } else {
@@ -161,7 +161,8 @@ public class Enemy extends Entity {
         changeSprite(rotation.currentAttack().getSprite());
 
         if (id == 2) { //bandaid boss hitbox fix
-            centerRectangularHitbox((RectangularHitbox)getHitbox().getChild("center"));
+            Hitbox center = getHitbox().getChild("center");
+            center.setPosition(new Vector2(getPosition().x + getSize().x/2 - center.getWidth()/2, getPosition().y + getSize().y/2 - center.getHeight()/2));
         }
 
         if (damagedFrame) {

@@ -28,8 +28,8 @@ public abstract class Bullet extends Entity {
         Vector2 position = getPosition();
         hitbox = new Hitboxes();
         RectangularHitbox center = new RectangularHitbox(position, new Vector2(HITBOX_SIZE, HITBOX_SIZE));
+        center.setPosition(new Vector2(getPosition().x + getSize().x/2 - center.getWidth()/2, getPosition().y + getSize().y/2 - center.getHeight()/2));
         hitbox.addHitbox("center", center);
-        centerRectangularHitbox(center);
         hitbox.setActive(true);
     }
 
