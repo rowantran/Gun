@@ -10,8 +10,8 @@
 - add parent class for crate/door/future objects
 - create new sprite sheet
 - make door opening/closing animation
-- make enemies spawn in waves
 - fix enemy spawn locations
+- fix visual bug with dead enemy health bars
 
 
 ================================================================
@@ -21,3 +21,5 @@ FINISHED
 - have hitbox detection for closed doors
 - make doors have open/closed settings
 - create door textures
+- make enemies spawn in waves
+- fix bug with waves being "used up"

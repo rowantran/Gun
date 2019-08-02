@@ -335,18 +335,6 @@ class Renderer {
             sr.end();
 
         }
-
-        /*
-        for (Hitbox hitbox : e.hitboxes) {
-            if (hitbox.isActive()) {
-                sr.setProjectionMatrix(camera.combined);
-                sr.begin(ShapeRenderer.ShapeType.Line);
-                sr.rect(hitbox.getPosition().x, hitbox.getPosition().y, ((RectangularHitbox) hitbox).getSize().x,
-                        ((RectangularHitbox) hitbox).getSize().y);
-                sr.end();
-            }
-        }
-        */
     }
 
     private void drawSpecialHitbox(Hitboxes hitbox) {

@@ -125,6 +125,8 @@ public class Enemy extends Entity {
         if (health <= 0) {
             state = new EnemyFadingState(this);
 
+            hitbox.setActive(false);
+
             int rand = (int)(Math.random() * 1); //random powerup checker
             if(rand == 0) {
                 int type = (int)(Math.random() * PowerupFactory.getInstance().powerups.size());
