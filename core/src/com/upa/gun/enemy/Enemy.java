@@ -2,57 +2,34 @@ package com.upa.gun.enemy;
 
 import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.*;
-import com.badlogic.gdx.Gdx;
-import org.w3c.dom.css.Rect;
-
 import java.util.Map;
-import static com.upa.gun.Settings.*;
 
 public abstract class Enemy extends Entity {
-    private static final float DAMAGE_FLASH_LENGTH = 1/20f;
 
     public float timeElapsed;
-
     private int startHealth;
     private int health;
-
-    float timeSinceAttack;
-
     protected EnemyState state;
-
     public boolean damagedFrame;
     private float damagedFrameTime;
-
-    AttackRotation rotation;
-
+    private AttackRotation rotation;
     public float opacity;
-
-    public boolean topStop = false;
-    public boolean botStop = false;
-    public boolean leftStop = false;
-    public boolean rightStop = false;
-
     public Map<String, String> sprites;
     public String sprite;
-
     protected Hitboxes hitbox;
     public Hitboxes crateCheckHitbox;
-
     private int id;
 
     Enemy(EnemyInfo info, Vector2 position) {
         super(position, new Vector2(info.width, info.height));
 
-        hitbox = new Hitboxes();
-        crateCheckHitbox = new Hitboxes();
-
-        timeElapsed = 20.0f;
-
-        health = info.health;
-        startHealth = health;
-
+        hitbox = new Hitboxes(position);
+        crateCheckHitbox = new Hitboxes(position);
         state = new EnemyActiveState();
 
+        timeElapsed = 20.0f;
+        health = info.health;
+        startHealth = health;
         damagedFrame = false;
         damagedFrameTime = 0f;
 
@@ -63,23 +40,17 @@ public abstract class Enemy extends Entity {
         rotation = info.rotation.copy();
         rotation.setEnemy(this);
 
-
         id = info.id;
     }
 
-    public int getID() { return id; }
-    public int getStartHealth() { return startHealth; }
-    public int getHealth() { return health; }
-    @Override
-    public Hitboxes getHitbox() { return hitbox; }
-
-
-
+    /**
+     * Damages the entity
+     * @param damage - The amount of damage dealt
+     */
     public void damage(int damage) {
         health -= damage;
         if (health <= 0) {
             state = new EnemyFadingState(this);
-
             hitbox.setActive(false);
 
             /*
@@ -103,8 +74,8 @@ public abstract class Enemy extends Entity {
     }
 
     /**
-     * Change this enemy's currently showing sprite.
-     * @param spriteKey Key of the sprite to change to
+     * Change this enemy's currently showing sprite
+     * @param spriteKey - Key of the sprite to change to
      */
     private void changeSprite(String spriteKey) {
         if (sprites.containsKey((spriteKey))) {
@@ -112,51 +83,11 @@ public abstract class Enemy extends Entity {
         }
     }
 
-    public void update(float delta) {
-
-        timeElapsed += delta;
-        rotation.cycle(delta, getPosition());
-
-        changeSprite(rotation.currentAttack().getSprite());
-
-        if (id == 2) { //bandaid boss hitbox fix
-            Hitbox center = getHitbox().getChild("center");
-            center.setPosition(new Vector2(getPosition().x + getSize().x/2 - center.getWidth()/2, getPosition().y + getSize().y/2 - center.getHeight()/2));
-        }
-
-        if (damagedFrame) {
-            damagedFrameTime += delta;
-            if (damagedFrameTime >= DAMAGE_FLASH_LENGTH) {
-                damagedFrame = false;
-                damagedFrameTime = 0f;
-            }
-        }
-
-        handleFutureCollision(delta);
-        handleStops();
-        super.update(delta);
-        crateCheckHitbox.updateHitboxes(getVelocity().x * delta, getVelocity().y * delta); //should not be in this class
-        state.update(delta);
-    }
-
-    protected abstract void move();
-
-    private void handleStops() {
-        if(botStop && getVelocity().y < 0) {
-            setVelocity(getVelocity().x, 0);
-        }
-        if(topStop && getVelocity().y > 0) {
-            setVelocity(getVelocity().x, 0);
-        }
-        if(leftStop && getVelocity().x < 0) {
-            setVelocity(0, getVelocity().y);
-        }
-        if(rightStop && getVelocity().x > 0) {
-            setVelocity(0, getVelocity().y);
-        }
-    }
-
-    public void handleFutureCollision(float delta) {
+    /**
+     * Detects if the slime will be inside a terrain object in the next frame and if so, prevents it
+     * @param delta - Clock
+     */
+    public void handleFutureCollision(float delta) { //need to fix for all terrain elements
         Vector2 current = new Vector2(getPosition().x, getPosition().y);
         setPosition(getPosition().x + getVelocity().x * delta, getPosition().y + getVelocity().y * delta);
 
@@ -172,23 +103,51 @@ public abstract class Enemy extends Entity {
             Hitbox topEdge = c.getHitbox().getChild("topEdge");
             Hitbox botEdge = c.getHitbox().getChild("botEdge");
 
-            if(left.colliding(rightEdge) && getVelocity().x < 0) {
+            if(left.colliding(rightEdge) && getVelocity().x <= 0) {
                 setVelocity(((rightEdge.getX() + rightEdge.getWidth()-1) - (left.getX())) / delta, getVelocity().y);
             }
-            if(right.colliding(leftEdge) && getVelocity().x > 0) {
+            if(right.colliding(leftEdge) && getVelocity().x >= 0) {
                 setVelocity(((leftEdge.getX()+1) - (right.getX() + right.getWidth())) / delta, getVelocity().y);
             }
-            if(top.colliding(botEdge) && getVelocity().y > 0) {
+            if(top.colliding(botEdge) && getVelocity().y >= 0) {
                 setVelocity(getVelocity().x, ((botEdge.getY()+1) - (top.getY() + top.getHeight())) / delta);
             }
-            if(bot.colliding(topEdge) && getVelocity().y < 0) {
+            if(bot.colliding(topEdge) && getVelocity().y <= 0) {
                 setVelocity(getVelocity().x, ((topEdge.getY() + topEdge.getHeight()-1) - (bot.getY())) / delta);
             }
         }
         setPosition(current);
     }
 
+    /**
+     * Update function; handles animation changes, state updates, crate collision, and attack timer
+     * @param delta - clock
+     */
+    public void update(float delta) {
+        timeElapsed += delta;
+        rotation.cycle(delta, getPosition());
+        changeSprite(rotation.currentAttack().getSprite());
+
+        if (damagedFrame) {
+            damagedFrameTime += delta;
+            if (damagedFrameTime >= Settings.DAMAGE_FLASH_LENGTH) {
+                damagedFrame = false;
+                damagedFrameTime = 0f;
+            }
+        }
+
+        handleFutureCollision(delta);
+        super.update(delta);
+        crateCheckHitbox.setPosition(position);
+        state.update(delta);
+    }
+
+    public int getID() { return id; }
+    public int getStartHealth() { return startHealth; }
+    public int getHealth() { return health; }
     public EnemyState getState() { return state; }
+    @Override
+    public Hitboxes getHitbox() { return hitbox; }
 
     public void setState(EnemyState state) {
         this.state = state;

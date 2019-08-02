@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 public abstract class Entity implements Updatable {
 
-    private Vector2 position;
+    protected Vector2 position;
     private Vector2 size;
     private Vector2 velocity;
     public Hitboxes hitbox;
@@ -31,6 +31,9 @@ public abstract class Entity implements Updatable {
         position.y += velocity.y * delta;
         Hitboxes hitbox = getHitbox();
         hitbox.updateHitboxes(velocity.x * delta, velocity.y * delta);
+
+        hitbox.setPosition(position);
+
     }
 
     public void specialMove(float delta) { //should be removed once cleanup is finished

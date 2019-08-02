@@ -38,6 +38,7 @@ public class Settings {
     public static final int MAX_SLIME_UPDATE_TIMER = 80; //divide by 100
     public static final int MIN_SLIME_UPDATE_TIMER = 30;
 
+    public static final float DAMAGE_FLASH_LENGTH = 1/20f;
     public static final float SLOW_FADE_SPEED = 0.4f;
 
     public static final int KEY_LEFT = Input.Keys.A;

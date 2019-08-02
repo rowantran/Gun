@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
  * Parent class for all static map elements
  * Stores original position for use in room transitions and determines if sides need to be drawn based on position
  */
-public class Terrain extends Entity {
+public abstract class Terrain extends Entity {
 
     protected Vector2 originalPosition;
     protected boolean displaySide;

@@ -29,6 +29,7 @@ public class EnemyFactory {
         for (JsonValue enemy : root) {
             int id = enemy.getInt("id");
             int health = enemy.getInt("health");
+            String enemyClass = enemy.getString("enemyClass");
 
             String hitboxType = enemy.getString("hitboxType");
             int hitboxWidth = enemy.getInt("hitboxWidth");
@@ -66,7 +67,7 @@ public class EnemyFactory {
                 }
             }
 
-            EnemyInfo info = new EnemyInfo(id, health, hitboxType, hitboxWidth, hitboxHeight, width, height, sprites,
+            EnemyInfo info = new EnemyInfo(id, health, hitboxType, hitboxWidth, hitboxHeight, width, height, enemyClass, sprites,
                     rotation);
             enemies.put(id, info);
         }
@@ -75,6 +76,10 @@ public class EnemyFactory {
     }
 
     Enemy createEnemy(int id, Vector2 position) {
+
+        if(enemies.get(id).enemyClass.equals("slime")) {
+            return new Slime(enemies.get(id), position);
+        }
         return new Slime(enemies.get(id), position);
     }
 }

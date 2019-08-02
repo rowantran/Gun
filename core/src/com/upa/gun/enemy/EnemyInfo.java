@@ -5,6 +5,7 @@ import java.util.Map;
 public class EnemyInfo {
     public int id;
     public int health;
+    public String enemyClass;
 
     public String hitboxType;
     public int hitboxWidth;
@@ -17,10 +18,11 @@ public class EnemyInfo {
 
     public AttackRotation rotation;
 
-    EnemyInfo(int id, int health, String hitboxType, int hitboxWidth, int hitboxHeight, int width, int height,
+    EnemyInfo(int id, int health, String hitboxType, int hitboxWidth, int hitboxHeight, int width, int height, String enemyClass,
               Map<String, String> sprites, AttackRotation rotation) {
         this.id = id;
         this.health = health;
+        this.enemyClass = enemyClass;
         this.hitboxType = hitboxType;
         this.hitboxWidth = hitboxWidth;
         this.hitboxHeight = hitboxHeight;

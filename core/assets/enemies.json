@@ -2,6 +2,7 @@
   "enemies": [
     {
       "id": 0,
+	  "enemyClass": "slime",
       "health": 4,
       "hitboxType": "rectangular",
       "hitboxWidth": 20,
@@ -20,6 +21,7 @@
     },
     {
       "id": 1,
+	  "enemyClass": "slime",
       "health": 10,
       "hitboxType": "rectangular",
       "hitboxWidth": 20,
@@ -38,6 +40,7 @@
     },
     {
       "id": 2,
+	  "enemyClass": "slime",
       "health": 80,
       "hitboxType": "rectangular",
       "hitboxWidth": 50,

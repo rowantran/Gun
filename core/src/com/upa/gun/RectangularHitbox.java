@@ -10,7 +10,6 @@ public class RectangularHitbox extends Hitbox {
     private Vector2 size;
 
     public RectangularHitbox(Vector2 position, Vector2 size) {
-
         super(true, position, new Vector2(0, 0));
         this.size = size.cpy();
     }
