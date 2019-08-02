@@ -3,38 +3,26 @@ package com.upa.gun;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Entity implements Updatable {
+
     private Vector2 position;
     private Vector2 size;
     private Vector2 velocity;
 
-    public Hitboxes hitboxes;
+    public Hitboxes hitbox;
 
     public Entity(Vector2 position, Vector2 size) {
         this.position = position.cpy();
         this.size = size.cpy();
         velocity = new Vector2(0f, 0f);
-
-        hitboxes = new Hitboxes();
+        hitbox = new Hitboxes(position);
     }
 
-    public Entity(float x, float y, float width, float height, float hitboxOffsetX, float hitboxOffsetY) {
-        this(new Vector2(x, y), new Vector2(width, height));
+    public Hitboxes getHitbox() {
+        return hitbox;
     }
 
-    /**
-     * @return The hitbox collection of this entity.
-     */
-    public abstract Hitboxes getHitbox();
-
-    /*
-    protected void centerHitbox(Hitbox hitbox) {
-        setHitboxOffset((getSize().x - hitbox.getWidth()) / 2, (getSize().y - hitbox.getHeight()) / 2);
-    }
-    */
-
-    protected void centerRectangularHitbox(RectangularHitbox hitbox) {
-        hitbox.setOffset(new Vector2((getSize().x/2) - (hitbox.getWidth()/2), (getSize().y/2) - (hitbox.getHeight())));
-        hitbox.fixPosition(position); //definitely kind of wonky
+    protected void centerRectangularHitbox(RectangularHitbox hitbox) { //may delete in future cleanup
+        hitbox.setPosition(new Vector2(position.x + size.x/2 - hitbox.getWidth()/2, position.y + size.y/2 - hitbox.getHeight()/2));
     }
 
     @Override
@@ -42,12 +30,11 @@ public abstract class Entity implements Updatable {
         position.x += velocity.x * delta;
         position.y += velocity.y * delta;
 
-        // Update hitbox to match new position
         Hitboxes hitbox = getHitbox();
         hitbox.updateHitboxes(velocity.x * delta, velocity.y * delta);
     }
 
-    public void specialMove(float delta) {
+    public void specialMove(float delta) { //questionable
         position.x += velocity.x * delta;
         position.y += velocity.y * delta;
         Hitboxes hitbox = getHitbox();
@@ -71,9 +58,7 @@ public abstract class Entity implements Updatable {
         return size.cpy();
     }
 
-    public Vector2 getVelocity() {
-        return velocity.cpy();
-    }
+    public Vector2 getVelocity() { return velocity.cpy(); }
 
     public void setVelocity(float x, float y) {
         velocity.x = x;

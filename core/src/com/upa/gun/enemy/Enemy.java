@@ -116,8 +116,6 @@ public class Enemy extends Entity {
         }
 
         hitbox.setActive(true);
-
-
     }
 
     public void damage(int damage) {

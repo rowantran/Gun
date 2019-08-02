@@ -7,7 +7,6 @@ import com.badlogic.gdx.utils.Array;
 import com.upa.gun.enemy.Powerup;
 
 public class Player extends Entity {
-    private static final float HITBOX_SIZE = 15f;
 
     static final float IFRAME_AFTER_HIT_LENGTH = 0.2f;
 
@@ -42,14 +41,12 @@ public class Player extends Entity {
         super(position, Assets.getTextureSize(Assets.playerAnimations));
         spawnPoint = position.cpy();
 
-        state = PlayerState.idle;
 
         bulletCooldown = Settings.playerBulletCooldown;
-
         health = Settings.playerHealth;
 
+        state = PlayerState.idle;
         direction = Direction.DOWN;
-
         timeSinceRoll = Settings.ROLL_DELAY;
 
         powerupsActive = new Array<Powerup>();
@@ -83,7 +80,6 @@ public class Player extends Entity {
         botFoot.setPosition(new Vector2(position.x-4, position.y));
         crateCheckHitbox.addHitbox("botFoot", botFoot);
 
-
         hitbox.setActive(true);
         crateCheckHitbox.setActive(true);
 
@@ -93,12 +89,10 @@ public class Player extends Entity {
         setPosition(spawnPoint);
 
         state = PlayerState.idle;
+        direction = Direction.DOWN;
+        timeSinceRoll = Settings.ROLL_DELAY;
 
         health = Settings.playerHealth;
-
-        direction = Direction.DOWN;
-
-        timeSinceRoll = Settings.ROLL_DELAY;
 
         //centerHitbox();
     }
@@ -113,13 +107,6 @@ public class Player extends Entity {
      */
     int getHealth() {
         return health;
-    }
-
-    public void resetStops() {
-        leftStop = false;
-        rightStop = false;
-        topStop = false;
-        botStop = false;
     }
 
     /**
@@ -146,7 +133,6 @@ public class Player extends Entity {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -164,7 +150,7 @@ public class Player extends Entity {
      * @return
      */
     private void handleFutureCollision(float delta) {
-        Vector2 current = new Vector2(getPosition().x, getPosition().y);
+        Vector2 current = getPosition().cpy();
         setPosition(getPosition().x + getVelocity().x * delta, getPosition().y + getVelocity().y * delta);
 
         Hitbox leftFoot = World.player.crateCheckHitbox.getChild("leftFoot");
@@ -197,7 +183,7 @@ public class Player extends Entity {
 
             for(Door d : World.currentMap.getDoors()) {
 
-                Hitbox edge = d.getHitbox().getChild("off");
+                Hitbox edge = d.getHitbox().getChild("closed");
 
                 switch(d.getDirection()) {
                     case 1:

@@ -8,7 +8,6 @@ public class Powerup extends Entity {
 
     public Map<String, String> sprites;
     public String sprite;
-    private Hitboxes hitbox;
     private int id;
     public PowerupInfo info;
     public boolean markedForDeletion;

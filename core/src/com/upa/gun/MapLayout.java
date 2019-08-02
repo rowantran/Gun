@@ -36,9 +36,9 @@ public class MapLayout {
                         break;
                     case 1:
                         crates.add(new Crate(new Vector2(j * 64 + 32, (all.length - i) * 64 - 28)));
-                        crates.get(crates.size()-1).displaySide();
+                        crates.get(crates.size()-1).setDisplaySide(true);
                         if(i < all.length-1 && all[i+1][j] == 1) {
-                            crates.get(crates.size()-1).hideSide();
+                            crates.get(crates.size()-1).setDisplaySide(false);
                         }
                         break;
                     case 2:

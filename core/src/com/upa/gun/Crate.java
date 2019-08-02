@@ -3,23 +3,14 @@ package com.upa.gun;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
-public class Crate extends Entity {
-
-    private boolean displaySide;
+public class Crate extends Terrain {
 
     Sprite crateSideSprite;
     Sprite crateTopSprite;
 
-    private Hitboxes hitbox;
-    private Vector2 originalPosition;
-
     public Crate(Vector2 position) {
 
-        super(position, new Vector2(64f, 64f)); //width and height are dimensions of Assets.crateTop, offset is height of Assets.crateSide
-        originalPosition = position.cpy();
-
-        hitbox = new Hitboxes(position);
-        displaySide = true;
+        super(position);
 
         crateSideSprite = new Sprite(Assets.crateSide);
         crateTopSprite = new Sprite(Assets.crateTop);
@@ -37,30 +28,6 @@ public class Crate extends Entity {
         hitbox.addHitbox("botEdge", botEdge);
 
         hitbox.generateCorrectOffsets();
-
         hitbox.setActive(true);
-
     }
-
-    public void displaySide() {
-        displaySide = true;
-    }
-
-    public void hideSide() {
-        displaySide = false;
-    }
-
-    public boolean getDisplaySide() {
-        return displaySide;
-    }
-
-    public Hitboxes getHitbox() {
-        return hitbox;
-    }
-
-    public void resetPosition() {
-        setPosition(originalPosition);
-        hitbox.setPosition(originalPosition);
-    }
-
 }

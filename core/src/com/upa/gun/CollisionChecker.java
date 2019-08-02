@@ -10,7 +10,7 @@ public class CollisionChecker implements Updatable {
         World.roomChange = 0;
         World.resetTimer();
         for (Door d : World.currentMap.getDoors()) {
-            if (World.player.crateCheckHitbox.colliding(d.getHitbox().getChild("main"))) {
+            if (World.player.crateCheckHitbox.colliding(d.getHitbox().getChild("open"))) {
                 World.roomChange = d.getDirection();
 
                 World.moveAllEntities();
@@ -67,7 +67,7 @@ public class CollisionChecker implements Updatable {
 
     private void checkPowerupCollect() {
         for(Powerup p : World.powerups) {
-            if (World.player.hitboxes.colliding(p.hitboxes)) {
+            if (World.player.hitbox.colliding(p.hitbox)) {
                 p.markForDeletion(World.player);
             }
         }
@@ -89,12 +89,12 @@ public class CollisionChecker implements Updatable {
         if(!World.doorsOpen) {
             for(Door d : World.currentMap.getDoors()) {
                 for(Bullet b : World.playerBullets) {
-                    if(b.getHitbox().colliding(d.getHitbox().getChild("off"))) {
+                    if(b.getHitbox().colliding(d.getHitbox().getChild("closed"))) {
                         b.markedForDeletion = true;
                     }
                 }
                 for(Bullet b : World.enemyBullets) {
-                    if(b.getHitbox().colliding(d.getHitbox().getChild("off"))) {
+                    if(b.getHitbox().colliding(d.getHitbox().getChild("closed"))) {
                         b.markedForDeletion = true;
                     }
                 }
