@@ -1,5 +1,6 @@
 package com.upa.gun.enemy;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.*;
 import java.util.Map;
@@ -115,9 +116,42 @@ public abstract class Enemy extends Entity {
                 setVelocity(velocity.x, ((topEdge.getY() + topEdge.getHeight()) - (position.y)) / delta);
             }
             else if(botEdge.isActive() && top.colliding(botEdge) && getVelocity().y > 0 && top.getY() + top.getHeight() > botEdge.getY()) {
-                setVelocity(velocity.x, ((botEdge.getY()) - (position.y + 12)) / delta);
+                setVelocity(velocity.x, ((botEdge.getY()) - (position.y + 24)) / delta);
             }
 
+        }
+        if(!World.doorsOpen) {
+
+            for (Door d : World.currentMap.getDoors()) {
+
+                Hitbox edge = d.getHitbox().getChild("closed");
+
+                switch (d.getDirection()) {
+                    case 1:
+                        if (edge.colliding(top) && velocity.y > 0 && top.getY() + top.getHeight() > edge.getY()) {
+                            setVelocity(velocity.x, ((edge.getY()) - (position.y + 24)) / delta);
+                        }
+                        break;
+                    case 2:
+                        if (edge.colliding(bot) && velocity.y < 0 && bot.getY() < edge.getY() + edge.getHeight()) {
+                            setVelocity(velocity.x, ((edge.getY() + edge.getHeight()) - (position.y)) / delta);
+                        }
+                        break;
+                    case 3:
+                        if (edge.colliding(left) && velocity.x < 0 && left.getX() < edge.getX() + edge.getWidth()) {
+                            setVelocity(((edge.getX() + edge.getWidth()) - (position.x)) / delta, velocity.y);
+                        }
+                        break;
+                    case 4:
+                        if (edge.colliding(right) && velocity.x > 0 && right.getX() + right.getWidth() > edge.getX()) {
+                            setVelocity(((edge.getX()) - (position.x + size.x)) / delta, velocity.y);
+                        }
+                        break;
+                    default:
+                        Gdx.app.log("Enemy", "Found invalid door");
+                        break;
+                }
+            }
         }
         crateCheckHitbox.setPosition(position);
     }

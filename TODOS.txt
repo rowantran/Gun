@@ -2,7 +2,7 @@ HIGH PRIORITY ----
 - add pathfinding for slimes around crates
 - art update - to 64x64 px?
 - fix corner movement bugs when hitting crates - can bandaid fix with speed check
-- full fix for corner movement bugs
+- full fix for corner movement bugs... has to do with enemy direction change?
 - fix enemy spawn locations
 - implement powerups, add powerup drop chance info to enemy json
 
@@ -16,6 +16,7 @@ door opening/closing animation
 - fix door layering
 - move future collision checking to collision checker
 - create "movable" subclass for entity
+- set player speed to player speed value when diagonally colliding with crates
 
 ================================================================
 FINISHED

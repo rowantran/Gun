@@ -173,26 +173,27 @@ public class Player extends Entity {
 
                 switch(d.getDirection()) {
                     case 1:
-                        if(edge.colliding(topFoot) && getVelocity().y > 0) {
-                            setVelocity(getVelocity().x, ((edge.getY()+1) - (topFoot.getY() + topFoot.getHeight())) / delta);
+                        if(edge.colliding(topFoot) && velocity.y > 0 && topFoot.getY() + topFoot.getHeight() > edge.getY()) {
+                            setVelocity(velocity.x, ((edge.getY()) - (position.y + 20)) / delta);
                         }
                         break;
                     case 2:
-                        if(edge.colliding(botFoot) && getVelocity().y < 0) {
-                            setVelocity(getVelocity().x, ((edge.getY() + edge.getHeight()-1) - (botFoot.getY())) / delta);
+                        if(edge.colliding(botFoot) && velocity.y < 0 && botFoot.getY() < edge.getY() + edge.getHeight()) {
+                            setVelocity(velocity.x, ((edge.getY() + edge.getHeight()) - (position.y)) / delta);
                         }
                         break;
                     case 3:
-                        if(edge.colliding(leftFoot) && getVelocity().x < 0) {
-                            setVelocity(((edge.getX() + edge.getWidth()-1) - (leftFoot.getX())) / delta, getVelocity().y);
+                        if(edge.colliding(leftFoot) && velocity.x < 0 && leftFoot.getX() < edge.getX() + edge.getWidth()) {
+                            setVelocity(((edge.getX() + edge.getWidth()) - (position.x)) / delta, velocity.y);
                         }
                         break;
                     case 4:
-                        if(edge.colliding(rightFoot) && getVelocity().x > 0) {
-                            setVelocity(((edge.getX()+1) - (rightFoot.getX() + rightFoot.getWidth())) / delta, getVelocity().y);
+                        if(edge.colliding(rightFoot) && velocity.x > 0 && rightFoot.getX() + rightFoot.getWidth() > edge.getX()) {
+                            setVelocity(((edge.getX()) - (position.x + size.x)) / delta, velocity.y);
                         }
                         break;
                     default:
+                        Gdx.app.log("Player", "Found invalid door");
                         break;
                 }
             }
@@ -213,8 +214,6 @@ public class Player extends Entity {
         crateCheckHitbox.setPosition(position);
         timeSinceRoll += delta;
         bulletCooldown -= delta;
-
-
     }
 
     public void specialMove(float delta) {

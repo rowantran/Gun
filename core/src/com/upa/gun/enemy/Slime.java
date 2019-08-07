@@ -106,7 +106,6 @@ public class Slime extends Enemy {
      * @param delta - clock
      */
     public void update(float delta) {
-        super.update(delta);
 
         directionalUpdateCounter += delta;
         switch(state.mobileType()) {
@@ -124,5 +123,6 @@ public class Slime extends Enemy {
             default:
                 setVelocity(0f, 0f);
         }
+        super.update(delta);
     }
 }
