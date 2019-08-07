@@ -28,6 +28,7 @@ public class MapLayout {
         crates = new ArrayList<Crate>();
         doors = new ArrayList<Door>();
 
+
         for(int i = 0; i < all.length; i++) {
             for(int j = 0; j < all[i].length; j++) {
 
@@ -35,7 +36,23 @@ public class MapLayout {
                     case 0:
                         break;
                     case 1:
-                        crates.add(new Crate(new Vector2(j * 64 + 32, (all.length - i) * 64 - 28)));
+                        boolean leftCrate = false;
+                        boolean rightCrate = false;
+                        boolean botCrate = false;
+                        boolean topCrate = false;
+                        if(i > 0 && all[i-1][j] == 1) {
+                            topCrate = true;
+                        }
+                        if(i < all.length - 1 && all[i+1][j] == 1) {
+                            botCrate = true;
+                        }
+                        if(j > 0 && all[i][j-1] == 1) {
+                            leftCrate = true;
+                        }
+                        if(j < all[i].length - 1 && all[i][j+1] == 1) {
+                            rightCrate = true;
+                        }
+                        crates.add(new Crate(new Vector2(j * 64 + 32, (all.length - i) * 64 - 28), leftCrate, rightCrate, botCrate, topCrate));
                         crates.get(crates.size()-1).setDisplaySide(true);
                         if(i < all.length-1 && all[i+1][j] == 1) {
                             crates.get(crates.size()-1).setDisplaySide(false);

@@ -1,18 +1,21 @@
-- fix parent function control in entity
+HIGH PRIORITY ----
 - add pathfinding for slimes around crates
 - art update - to 64x64 px?
-- increase accuracy for bullet-crate collisions
 - fix corner movement bugs when hitting crates - can bandaid fix with speed check
 - full fix for corner movement bugs
-- make positions of all individual hitboxes relative to overall hitbox
-- major cleanup involving hitbox offsets
-- create new sprite sheet
-- make door opening/closing animation
 - fix enemy spawn locations
-- folder cleanup
-- make hitboxes percentage-size based rather than hard numbers
 - implement powerups, add powerup drop chance info to enemy json
+
+LOW PRIORITY ----
+- fix parent function control in entity
+- increase accuracy for bullet-crate collisions
+- create new sprite sheet
+- make - folder cleanup
+door opening/closing animation
+- make hitboxes percentage-size based rather than hard numbers
 - fix door layering
+- move future collision checking to collision checker
+- create "movable" subclass for entity
 
 ================================================================
 FINISHED
@@ -26,4 +29,5 @@ FINISHED
 - fix visual bug with dead enemy health bars
 - add parent class for crate/door/future objects
 - implement slime subclass for enemy movement and other unique characteristics
-
+- make positions of all individual hitboxes relative to overall hitbox
+- major cleanup involving hitbox offsets

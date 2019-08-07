@@ -151,16 +151,16 @@ public class Player extends Entity {
             Hitbox topEdge = c.getHitbox().getChild("topEdge");
             Hitbox botEdge = c.getHitbox().getChild("botEdge");
 
-            if(rightEdge.colliding(leftFoot) && velocity.x < 0 && leftFoot.getX() < rightEdge.getX() + rightEdge.getWidth()) {
+            if(rightEdge.isActive() && rightEdge.colliding(leftFoot) && velocity.x < 0 && leftFoot.getX() < rightEdge.getX() + rightEdge.getWidth()) {
                 setVelocity(((rightEdge.getX() + rightEdge.getWidth()) - (position.x)) / delta, velocity.y);
             }
-            else if(leftEdge.colliding(rightFoot) && velocity.x > 0 && rightFoot.getX() + rightFoot.getWidth() > leftEdge.getX()) {
+            else if(leftEdge.isActive() && leftEdge.colliding(rightFoot) && velocity.x > 0 && rightFoot.getX() + rightFoot.getWidth() > leftEdge.getX()) {
                 setVelocity(((leftEdge.getX()) - (position.x + size.x)) / delta, velocity.y);
             }
-            if(topEdge.colliding(botFoot) && velocity.y < 0 && botFoot.getY() < topEdge.getY() + topEdge.getHeight()) {
+            if(topEdge.isActive() && topEdge.colliding(botFoot) && velocity.y < 0 && botFoot.getY() < topEdge.getY() + topEdge.getHeight()) {
                 setVelocity(velocity.x, ((topEdge.getY() + topEdge.getHeight()) - (position.y)) / delta);
             }
-            else if(botEdge.colliding(topFoot) && velocity.y > 0 && topFoot.getY() + topFoot.getHeight() > botEdge.getY()) {
+            else if(botEdge.isActive() && botEdge.colliding(topFoot) && velocity.y > 0 && topFoot.getY() + topFoot.getHeight() > botEdge.getY()) {
                 setVelocity(velocity.x, ((botEdge.getY()) - (position.y + 20)) / delta);
             }
         }

@@ -12,7 +12,7 @@ public class Crate extends Terrain {
     Sprite crateSideSprite;
     Sprite crateTopSprite;
 
-    public Crate(Vector2 position) {
+    public Crate(Vector2 position, boolean leftCrate, boolean rightCrate, boolean botCrate, boolean topCrate) {
 
         super(position);
 
@@ -33,5 +33,11 @@ public class Crate extends Terrain {
 
         hitbox.generateCorrectOffsets();
         hitbox.setActive(true);
+
+        if(leftCrate) { leftEdge.setActive(false); }
+        if(rightCrate) { rightEdge.setActive(false); }
+        if(botCrate) { botEdge.setActive(false); }
+        if(topCrate) { topEdge.setActive(false); }
+
     }
 }
