@@ -90,8 +90,8 @@ public abstract class Enemy extends Entity {
      * @param delta - Clock
      */
     public void handleFutureCollision(float delta) { //need to fix for all terrain elements
-        Vector2 current = new Vector2(position.x, position.y);
-        setPosition(position.x + velocity.x * delta, position.y + velocity.y * delta);
+
+        crateCheckHitbox.setPosition(new Vector2(position.x + velocity.x * delta, position.y + velocity.y * delta));
 
         Hitbox left = crateCheckHitbox.getChild("left");
         Hitbox right = crateCheckHitbox.getChild("right");
@@ -105,20 +105,21 @@ public abstract class Enemy extends Entity {
             Hitbox topEdge = c.getHitbox().getChild("topEdge");
             Hitbox botEdge = c.getHitbox().getChild("botEdge");
 
-            if(left.colliding(rightEdge) && getVelocity().x < 0) {
-                setVelocity(((rightEdge.getX() + rightEdge.getWidth()-1) - (left.getX())) / delta, velocity.y);
+            if(left.colliding(rightEdge) && getVelocity().x < 0 && left.getX() < rightEdge.getX() + rightEdge.getWidth()) {
+                setVelocity(((rightEdge.getX() + rightEdge.getWidth()) - (position.x)) / delta, velocity.y);
             }
-            else if(right.colliding(leftEdge) && getVelocity().x > 0) {
-                setVelocity(((leftEdge.getX()+1) - (right.getX() + right.getWidth())) / delta, velocity.y);
+            else if(right.colliding(leftEdge) && getVelocity().x > 0 && right.getX() + right.getWidth() > leftEdge.getX()) {
+                setVelocity(((leftEdge.getX()) - (position.x + size.x)) / delta, velocity.y);
             }
-            if(top.colliding(botEdge) && getVelocity().y > 0) {
-                setVelocity(velocity.x, ((botEdge.getY()+1) - (top.getY() + top.getHeight())) / delta);
+            if(bot.colliding(topEdge) && getVelocity().y < 0 && bot.getY() < topEdge.getY() + topEdge.getHeight()) {
+                setVelocity(velocity.x, ((topEdge.getY() + topEdge.getHeight()) - (position.y)) / delta);
             }
-            else if(bot.colliding(topEdge) && getVelocity().y < 0) {
-                setVelocity(velocity.x, ((topEdge.getY() + topEdge.getHeight()-1) - (bot.getY())) / delta);
+            else if(top.colliding(botEdge) && getVelocity().y > 0 && top.getY() + top.getHeight() > botEdge.getY()) {
+                setVelocity(velocity.x, ((botEdge.getY()) - (position.y + 12)) / delta);
             }
+
         }
-        setPosition(current);
+        crateCheckHitbox.setPosition(position);
     }
 
     /**
