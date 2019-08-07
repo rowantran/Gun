@@ -11,29 +11,19 @@ public class Player extends Entity {
     static final float IFRAME_AFTER_HIT_LENGTH = 0.2f;
 
     public Hitboxes crateCheckHitbox;
-
     public Vector2 spawnPoint;
-
     float bulletCooldown;
-
     public boolean topStop = false;
     public boolean botStop = false;
     public boolean leftStop = false;
     public boolean rightStop = false;
-
     private int health;
-
     private GunGame game;
     private InputHandler inputHandler;
-
     float timeSinceRoll;
-
     public Array<Powerup> powerupsActive;
-
     Sound shot;
-
     Direction direction;
-
     PlayerState state;
 
     Player(Vector2 position, GunGame game) {
@@ -61,20 +51,18 @@ public class Player extends Entity {
         center.setPosition(new Vector2(getPosition().x + getSize().x/2 - center.getWidth()/2, getPosition().y + getSize().y/2 - center.getHeight()/2));
         hitbox.addHitbox("center", center);
 
-        RectangularHitbox leftFoot = new RectangularHitbox(position, new Vector2(12f, 20f));
-        leftFoot.setPosition(new Vector2(position.x - 4, position.y));
+        RectangularHitbox leftFoot = new RectangularHitbox(position, new Vector2(size.x/2, 20f));
         crateCheckHitbox.addHitbox("leftFoot", leftFoot);
 
-        RectangularHitbox rightFoot = new RectangularHitbox(position, new Vector2(12f, 20f));
-        rightFoot.setPosition(new Vector2(position.x + getSize().x - 8, position.y));
+        RectangularHitbox rightFoot = new RectangularHitbox(position, new Vector2(size.x/2, 20f));
+        rightFoot.setPosition(new Vector2(position.x + size.x/2, position.y));
         crateCheckHitbox.addHitbox("rightFoot", rightFoot);
 
-        RectangularHitbox topFoot = new RectangularHitbox(position, new Vector2(43f, 4f));
-        topFoot.setPosition(new Vector2(position.x-4, position.y + 16));
+        RectangularHitbox topFoot = new RectangularHitbox(position, new Vector2(size.x, 10f));
+        topFoot.setPosition(new Vector2(position.x, position.y + 10));
         crateCheckHitbox.addHitbox("topFoot", topFoot);
 
-        RectangularHitbox botFoot = new RectangularHitbox(position, new Vector2(43f, 4f));
-        botFoot.setPosition(new Vector2(position.x-4, position.y));
+        RectangularHitbox botFoot = new RectangularHitbox(position, new Vector2(size.x, 10f));
         crateCheckHitbox.addHitbox("botFoot", botFoot);
 
         hitbox.generateCorrectOffsets();
@@ -149,13 +137,12 @@ public class Player extends Entity {
      * @return
      */
     private void handleFutureCollision(float delta) {
-        Vector2 current = getPosition().cpy();
-        setPosition(getPosition().x + getVelocity().x * delta, getPosition().y + getVelocity().y * delta);
+        crateCheckHitbox.setPosition(new Vector2(position.x + velocity.x * delta, position.y + velocity.y * delta));
 
-        Hitbox leftFoot = World.player.crateCheckHitbox.getChild("leftFoot");
-        Hitbox rightFoot = World.player.crateCheckHitbox.getChild("rightFoot");
-        Hitbox topFoot = World.player.crateCheckHitbox.getChild("topFoot");
-        Hitbox botFoot = World.player.crateCheckHitbox.getChild("botFoot");
+        Hitbox leftFoot = crateCheckHitbox.getChild("leftFoot");
+        Hitbox rightFoot = crateCheckHitbox.getChild("rightFoot");
+        Hitbox topFoot = crateCheckHitbox.getChild("topFoot");
+        Hitbox botFoot = crateCheckHitbox.getChild("botFoot");
 
         for(Crate c : World.currentMap.getCrates()) {
 
@@ -164,17 +151,17 @@ public class Player extends Entity {
             Hitbox topEdge = c.getHitbox().getChild("topEdge");
             Hitbox botEdge = c.getHitbox().getChild("botEdge");
 
-            if(rightEdge.colliding(leftFoot) && getVelocity().x < 0) {
-                setVelocity(((rightEdge.getX() + rightEdge.getWidth()-1) - (leftFoot.getX())) / delta, getVelocity().y);
+            if(rightEdge.colliding(leftFoot) && velocity.x < 0 && leftFoot.getX() < rightEdge.getX() + rightEdge.getWidth()) {
+                setVelocity(((rightEdge.getX() + rightEdge.getWidth()) - (position.x)) / delta, velocity.y);
             }
-            if(leftEdge.colliding(rightFoot) && getVelocity().x > 0) {
-                setVelocity(((leftEdge.getX()+1) - (rightFoot.getX() + rightFoot.getWidth())) / delta, getVelocity().y);
+            else if(leftEdge.colliding(rightFoot) && velocity.x > 0 && rightFoot.getX() + rightFoot.getWidth() > leftEdge.getX()) {
+                setVelocity(((leftEdge.getX()) - (position.x + size.x)) / delta, velocity.y);
             }
-            if(topEdge.colliding(botFoot) && getVelocity().y < 0) {
-                setVelocity(getVelocity().x, ((topEdge.getY() + topEdge.getHeight()-1) - (botFoot.getY())) / delta);
+            if(topEdge.colliding(botFoot) && velocity.y < 0 && botFoot.getY() < topEdge.getY() + topEdge.getHeight()) {
+                setVelocity(velocity.x, ((topEdge.getY() + topEdge.getHeight()) - (position.y)) / delta);
             }
-            if(botEdge.colliding(topFoot) && getVelocity().y > 0) {
-                setVelocity(getVelocity().x, ((botEdge.getY()+1) - (topFoot.getY() + topFoot.getHeight())) / delta);
+            else if(botEdge.colliding(topFoot) && velocity.y > 0 && topFoot.getY() + topFoot.getHeight() > botEdge.getY()) {
+                setVelocity(velocity.x, ((botEdge.getY()) - (position.y + 20)) / delta);
             }
         }
 
@@ -212,22 +199,22 @@ public class Player extends Entity {
 
         }
 
-        setPosition(current);
+        crateCheckHitbox.setPosition(position);
     }
 
     @Override
     public void update(float delta) {
+        if (state.controllable) {
+            inputHandler.update(delta);
+        }
         handleFutureCollision(delta);
         super.update(delta);
         state.update(delta);
         crateCheckHitbox.setPosition(position);
         timeSinceRoll += delta;
-
         bulletCooldown -= delta;
 
-        if (state.controllable) {
-            inputHandler.update(delta);
-        }
+
     }
 
     public void specialMove(float delta) {
