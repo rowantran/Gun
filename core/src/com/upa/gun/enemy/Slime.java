@@ -52,10 +52,8 @@ public class Slime extends Enemy {
         Vector2 playerPos = World.player.getPosition();
         float playerX = playerPos.x;
         float playerY = playerPos.y;
-        float slimeX = getPosition().x;
-        float slimeY = getPosition().y;
-        horizontalDifference = introduceOffset(playerX - slimeX);
-        verticalDifference = introduceOffset(playerY - slimeY);
+        horizontalDifference = introduceOffset(playerX - position.x);
+        verticalDifference = introduceOffset(playerY - position.y);
     }
 
     /**
@@ -72,12 +70,20 @@ public class Slime extends Enemy {
      * Converts x and y distances into scaled diagonal movement
      */
     public void move() {
-        float xSquare = horizontalDifference * horizontalDifference;
-        float ySquare = verticalDifference * verticalDifference;
-        double currentSquare = xSquare + ySquare;
-        float currentSpeed = (float)Math.sqrt(currentSquare);
-        float speedRatio = Settings.SLIME_SPEED / currentSpeed;
-        setVelocity(horizontalDifference * speedRatio, verticalDifference * speedRatio);
+
+        boolean xNegative = horizontalDifference < 0;
+        boolean yNegative = verticalDifference < 0;
+
+        float xyRatio = horizontalDifference / verticalDifference;
+        float cSquare = Settings.SLIME_SPEED * Settings.SLIME_SPEED;
+        float ysquare = cSquare / (xyRatio * xyRatio + 1f);
+        float yVelocity = Math.abs((float)Math.sqrt((double)ysquare));
+        float xVelocity = Math.abs(yVelocity * xyRatio);
+
+        if(xNegative) { xVelocity *= -1f; }
+        if(yNegative) { yVelocity *= -1f; }
+
+        setVelocity(xVelocity, yVelocity);
     }
 
     /**
