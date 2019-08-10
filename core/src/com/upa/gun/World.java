@@ -28,7 +28,7 @@ public class World implements Updatable {
 
     public static Spawner spawner;
 
-    private CollisionChecker collisionChecker;
+    public static CollisionChecker collisionChecker;
 
     boolean cinematicHappening;
 

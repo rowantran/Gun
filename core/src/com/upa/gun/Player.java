@@ -131,84 +131,12 @@ public class Player extends Entity {
         return state.getTextureState();
     }
 
-    /**
-     * Handles if the player's velocity will leave them in a crate
-     * @param delta
-     * @return
-     */
-    private void handleFutureCollision(float delta) {
-        crateCheckHitbox.setPosition(new Vector2(position.x + velocity.x * delta, position.y + velocity.y * delta));
-
-        Hitbox leftFoot = crateCheckHitbox.getChild("leftFoot");
-        Hitbox rightFoot = crateCheckHitbox.getChild("rightFoot");
-        Hitbox topFoot = crateCheckHitbox.getChild("topFoot");
-        Hitbox botFoot = crateCheckHitbox.getChild("botFoot");
-
-        for(Crate c : World.currentMap.getCrates()) {
-
-            Hitbox rightEdge = c.getHitbox().getChild("rightEdge");
-            Hitbox leftEdge = c.getHitbox().getChild("leftEdge");
-            Hitbox topEdge = c.getHitbox().getChild("topEdge");
-            Hitbox botEdge = c.getHitbox().getChild("botEdge");
-
-            if(rightEdge.isActive() && rightEdge.colliding(leftFoot) && velocity.x < 0 && leftFoot.getX() < rightEdge.getX() + rightEdge.getWidth()) {
-                setVelocity(((rightEdge.getX() + rightEdge.getWidth()) - (position.x)) / delta, velocity.y);
-            }
-            else if(leftEdge.isActive() && leftEdge.colliding(rightFoot) && velocity.x > 0 && rightFoot.getX() + rightFoot.getWidth() > leftEdge.getX()) {
-                setVelocity(((leftEdge.getX()) - (position.x + size.x)) / delta, velocity.y);
-            }
-            if(topEdge.isActive() && topEdge.colliding(botFoot) && velocity.y < 0 && botFoot.getY() < topEdge.getY() + topEdge.getHeight()) {
-                setVelocity(velocity.x, ((topEdge.getY() + topEdge.getHeight()) - (position.y)) / delta);
-            }
-            else if(botEdge.isActive() && botEdge.colliding(topFoot) && velocity.y > 0 && topFoot.getY() + topFoot.getHeight() > botEdge.getY()) {
-                setVelocity(velocity.x, ((botEdge.getY()) - (position.y + 20)) / delta);
-            }
-        }
-
-        if(!World.doorsOpen) {
-
-            for(Door d : World.currentMap.getDoors()) {
-
-                Hitbox edge = d.getHitbox().getChild("closed");
-
-                switch(d.getDirection()) {
-                    case 1:
-                        if(edge.colliding(topFoot) && velocity.y > 0 && topFoot.getY() + topFoot.getHeight() > edge.getY()) {
-                            setVelocity(velocity.x, ((edge.getY()) - (position.y + 20)) / delta);
-                        }
-                        break;
-                    case 2:
-                        if(edge.colliding(botFoot) && velocity.y < 0 && botFoot.getY() < edge.getY() + edge.getHeight()) {
-                            setVelocity(velocity.x, ((edge.getY() + edge.getHeight()) - (position.y)) / delta);
-                        }
-                        break;
-                    case 3:
-                        if(edge.colliding(leftFoot) && velocity.x < 0 && leftFoot.getX() < edge.getX() + edge.getWidth()) {
-                            setVelocity(((edge.getX() + edge.getWidth()) - (position.x)) / delta, velocity.y);
-                        }
-                        break;
-                    case 4:
-                        if(edge.colliding(rightFoot) && velocity.x > 0 && rightFoot.getX() + rightFoot.getWidth() > edge.getX()) {
-                            setVelocity(((edge.getX()) - (position.x + size.x)) / delta, velocity.y);
-                        }
-                        break;
-                    default:
-                        Gdx.app.log("Player", "Found invalid door");
-                        break;
-                }
-            }
-
-        }
-
-        crateCheckHitbox.setPosition(position);
-    }
-
     @Override
     public void update(float delta) {
         if (state.controllable) {
             inputHandler.update(delta);
         }
-        handleFutureCollision(delta);
+        World.collisionChecker.checkFutureCollisions(delta, this, crateCheckHitbox);
         super.update(delta);
         state.update(delta);
         crateCheckHitbox.setPosition(position);

@@ -1,6 +1,7 @@
 package com.upa.gun;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.enemy.Enemy;
 import com.upa.gun.enemy.Powerup;
 
@@ -41,9 +42,7 @@ public class CollisionChecker implements Updatable {
         }
     }
 
-    private void checkDoorCollide() {
 
-    }
 
     private void checkPlayerHit() {
         for (Bullet b : World.enemyBullets) {
@@ -102,13 +101,77 @@ public class CollisionChecker implements Updatable {
         }
     }
 
+    public void checkFutureCollisions(float delta, Entity e, Hitboxes hitboxes) {
+
+        hitboxes.setPosition(new Vector2(e.position.x + e.velocity.x * delta, e.position.y + e.velocity.y * delta));
+
+        Hitbox leftFoot = hitboxes.getChild("leftFoot");
+        Hitbox rightFoot = hitboxes.getChild("rightFoot");
+        Hitbox topFoot = hitboxes.getChild("topFoot");
+        Hitbox botFoot = hitboxes.getChild("botFoot");
+
+        for(Crate c : World.currentMap.getCrates()) {
+
+            Hitbox rightEdge = c.getHitbox().getChild("rightEdge");
+            Hitbox leftEdge = c.getHitbox().getChild("leftEdge");
+            Hitbox topEdge = c.getHitbox().getChild("topEdge");
+            Hitbox botEdge = c.getHitbox().getChild("botEdge");
+
+            if(rightEdge.isActive() && rightEdge.colliding(leftFoot) && e.velocity.x < 0 && leftFoot.getX() < rightEdge.getX() + rightEdge.getWidth()) {
+                e.setVelocity(((rightEdge.getX() + rightEdge.getWidth()) - (e.position.x)) / delta, e.velocity.y);
+            }
+            else if(leftEdge.isActive() && leftEdge.colliding(rightFoot) && e.velocity.x > 0 && rightFoot.getX() + rightFoot.getWidth() > leftEdge.getX()) {
+                e.setVelocity(((leftEdge.getX()) - (e.position.x + e.size.x)) / delta, e.velocity.y);
+            }
+            if(topEdge.isActive() && topEdge.colliding(botFoot) && e.velocity.y < 0 && botFoot.getY() < topEdge.getY() + topEdge.getHeight()) {
+                e.setVelocity(e.velocity.x, ((topEdge.getY() + topEdge.getHeight()) - (e.position.y)) / delta);
+            }
+            else if(botEdge.isActive() && botEdge.colliding(topFoot) && e.velocity.y > 0 && topFoot.getY() + topFoot.getHeight() > botEdge.getY()) {
+                e.setVelocity(e.velocity.x, ((botEdge.getY()) - (e.position.y + botFoot.getHeight() + topFoot.getHeight())) / delta);
+            }
+        }
+
+        if(!World.doorsOpen) {
+
+            for(Door d : World.currentMap.getDoors()) {
+
+                Hitbox edge = d.getHitbox().getChild("closed");
+
+                switch(d.getDirection()) {
+                    case 1:
+                        if(edge.colliding(topFoot) && e.velocity.y > 0 && topFoot.getY() + topFoot.getHeight() > edge.getY()) {
+                            e.setVelocity(e.velocity.x, ((edge.getY()) - (e.position.y + botFoot.getHeight() + topFoot.getHeight())) / delta);
+                        }
+                        break;
+                    case 2:
+                        if(edge.colliding(botFoot) && e.velocity.y < 0 && botFoot.getY() < edge.getY() + edge.getHeight()) {
+                            e.setVelocity(e.velocity.x, ((edge.getY() + edge.getHeight()) - (e.position.y)) / delta);
+                        }
+                        break;
+                    case 3:
+                        if(edge.colliding(leftFoot) && e.velocity.x < 0 && leftFoot.getX() < edge.getX() + edge.getWidth()) {
+                            e.setVelocity(((edge.getX() + edge.getWidth()) - (e.position.x)) / delta, e.velocity.y);
+                        }
+                        break;
+                    case 4:
+                        if(edge.colliding(rightFoot) && e.velocity.x > 0 && rightFoot.getX() + rightFoot.getWidth() > edge.getX()) {
+                            e.setVelocity(((edge.getX()) - (e.position.x + e.size.x)) / delta, e.velocity.y);
+                        }
+                        break;
+                    default:
+                        Gdx.app.log("CollisionChecker", "Found invalid door");
+                        break;
+                }
+            }
+
+        }
+        hitboxes.setPosition(e.position);
+    }
+
     @Override
     public void update(float delta) {
         if(World.doorsOpen) {
             checkDoorEnter();
-        }
-        else {
-            checkDoorCollide();
         }
 
         checkPlayerHit();

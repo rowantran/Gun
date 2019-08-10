@@ -87,83 +87,10 @@ public abstract class Enemy extends Entity {
     }
 
     /**
-     * Detects if the slime will be inside a terrain object in the next frame and if so, prevents it
-     * @param delta - Clock
-     */
-    public void handleFutureCollision(float delta) { //need to fix for all terrain elements
-
-        crateCheckHitbox.setPosition(new Vector2(position.x + velocity.x * delta, position.y + velocity.y * delta));
-
-        Hitbox left = crateCheckHitbox.getChild("left");
-        Hitbox right = crateCheckHitbox.getChild("right");
-        Hitbox top = crateCheckHitbox.getChild("top");
-        Hitbox bot = crateCheckHitbox.getChild("bot");
-
-        for(Crate c : World.currentMap.getCrates()) {
-
-            Hitbox rightEdge = c.getHitbox().getChild("rightEdge");
-            Hitbox leftEdge = c.getHitbox().getChild("leftEdge");
-            Hitbox topEdge = c.getHitbox().getChild("topEdge");
-            Hitbox botEdge = c.getHitbox().getChild("botEdge");
-
-            if(rightEdge.isActive() && left.colliding(rightEdge) && getVelocity().x < 0 && left.getX() < rightEdge.getX() + rightEdge.getWidth()) {
-                setVelocity(((rightEdge.getX() + rightEdge.getWidth()) - (position.x)) / delta, velocity.y);
-            }
-            else if(leftEdge.isActive() && right.colliding(leftEdge) && getVelocity().x > 0 && right.getX() + right.getWidth() > leftEdge.getX()) {
-                setVelocity(((leftEdge.getX()) - (position.x + size.x)) / delta, velocity.y);
-            }
-            if(topEdge.isActive() && bot.colliding(topEdge) && getVelocity().y < 0 && bot.getY() < topEdge.getY() + topEdge.getHeight()) {
-                setVelocity(velocity.x, ((topEdge.getY() + topEdge.getHeight()) - (position.y)) / delta);
-            }
-            else if(botEdge.isActive() && top.colliding(botEdge) && getVelocity().y > 0 && top.getY() + top.getHeight() > botEdge.getY()) {
-                setVelocity(velocity.x, ((botEdge.getY()) - (position.y + 24)) / delta);
-            }
-
-        }
-        if(!World.doorsOpen) {
-
-            for (Door d : World.currentMap.getDoors()) {
-
-                Hitbox edge = d.getHitbox().getChild("closed");
-
-                switch (d.getDirection()) {
-                    case 1:
-                        if (edge.colliding(top) && velocity.y > 0 && top.getY() + top.getHeight() > edge.getY()) {
-                            setVelocity(velocity.x, ((edge.getY()) - (position.y + 24)) / delta);
-                        }
-                        break;
-                    case 2:
-                        if (edge.colliding(bot) && velocity.y < 0 && bot.getY() < edge.getY() + edge.getHeight()) {
-                            setVelocity(velocity.x, ((edge.getY() + edge.getHeight()) - (position.y)) / delta);
-                        }
-                        break;
-                    case 3:
-                        if (edge.colliding(left) && velocity.x < 0 && left.getX() < edge.getX() + edge.getWidth()) {
-                            setVelocity(((edge.getX() + edge.getWidth()) - (position.x)) / delta, velocity.y);
-                        }
-                        break;
-                    case 4:
-                        if (edge.colliding(right) && velocity.x > 0 && right.getX() + right.getWidth() > edge.getX()) {
-                            setVelocity(((edge.getX()) - (position.x + size.x)) / delta, velocity.y);
-                        }
-                        break;
-                    default:
-                        Gdx.app.log("Enemy", "Found invalid door");
-                        break;
-                }
-            }
-        }
-        crateCheckHitbox.setPosition(position);
-    }
-
-    /**
      * Update function; handles animation changes, state updates, crate collision, and attack timer
      * @param delta - clock
      */
     public void update(float delta) {
-        timeElapsed += delta;
-        rotation.cycle(delta, getPosition());
-        changeSprite(rotation.currentAttack().getSprite());
 
         if (damagedFrame) {
             damagedFrameTime += delta;
@@ -172,11 +99,14 @@ public abstract class Enemy extends Entity {
                 damagedFrameTime = 0f;
             }
         }
-
-        handleFutureCollision(delta);
+        World.collisionChecker.checkFutureCollisions(delta, this, crateCheckHitbox);
         super.update(delta);
-        crateCheckHitbox.setPosition(position);
         state.update(delta);
+        crateCheckHitbox.setPosition(position);
+        timeElapsed += delta;
+        rotation.cycle(delta, getPosition());
+        changeSprite(rotation.currentAttack().getSprite());
+
     }
 
     public int getID() { return id; }

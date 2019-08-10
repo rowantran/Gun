@@ -32,10 +32,10 @@ public class Slime extends Enemy {
         right.setPosition(new Vector2(position.x + size.x/2, position.y));
         top.setPosition(new Vector2(position.x, position.y + 12));
 
-        crateCheckHitbox.addHitbox("left", left);
-        crateCheckHitbox.addHitbox("right", right);
-        crateCheckHitbox.addHitbox("top", top);
-        crateCheckHitbox.addHitbox("bot", bot);
+        crateCheckHitbox.addHitbox("leftFoot", left);
+        crateCheckHitbox.addHitbox("rightFoot", right);
+        crateCheckHitbox.addHitbox("topFoot", top);
+        crateCheckHitbox.addHitbox("botFoot", bot);
         crateCheckHitbox.generateCorrectOffsets();
 
         hitbox.setActive(true);
@@ -52,6 +52,7 @@ public class Slime extends Enemy {
         Vector2 playerPos = World.player.getPosition();
         float playerX = playerPos.x;
         float playerY = playerPos.y;
+
         horizontalDifference = introduceOffset(playerX - position.x);
         verticalDifference = introduceOffset(playerY - position.y);
     }
@@ -70,7 +71,6 @@ public class Slime extends Enemy {
      * Converts x and y distances into scaled diagonal movement
      */
     public void move() {
-
         boolean xNegative = horizontalDifference < 0;
         boolean yNegative = verticalDifference < 0;
 
@@ -94,8 +94,8 @@ public class Slime extends Enemy {
     private float introduceOffset(float value) {
         if(value > 50f || value < -50f) {
             float minOffset = value/5;
-            int addOffset = (int)(Math.random() * (value/2));
-            float offset = (float)addOffset + minOffset;
+            float addOffset = (float)(Math.random() * (value/2));
+            float offset = minOffset + addOffset;
             int direction = (int)(Math.random() * 2);
             if(direction == 0) {
                 value += offset;
