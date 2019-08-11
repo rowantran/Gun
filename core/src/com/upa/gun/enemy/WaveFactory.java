@@ -10,7 +10,8 @@ import java.util.Map;
 
 public class WaveFactory {
 
-    public Map<Integer, HashMap<Integer, WaveInfo>> waves;
+    public HashMap<Integer, HashMap<Integer, WaveInfo>> waves;
+    public HashMap<Integer, WaveInfo> type;
 
     public WaveFactory(String path) {
 
@@ -26,7 +27,7 @@ public class WaveFactory {
             JsonValue enemyVals = difficulty.get("enemies");
             JsonValue delayVals = difficulty.get("delays");
 
-            HashMap type = new HashMap<Integer, WaveInfo>();
+            type = new HashMap<Integer, WaveInfo>();
 
             for(int i = 0; i < enemyVals.size; i++) {
 
