@@ -42,6 +42,7 @@ public class WaveFactory {
                 int[] delays = delayVals.get(i).asIntArray();
 
                 WaveInfo info = new WaveInfo(id, wave, delays);
+
                 type.put(i, info);
 
             }

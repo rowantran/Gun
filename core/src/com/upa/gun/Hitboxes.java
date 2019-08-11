@@ -70,7 +70,7 @@ public class Hitboxes implements Iterable<Hitbox> {
      */
     public boolean colliding(Hitbox other) {
         for (Hitbox child : hitboxes.values()) {
-            if (child.colliding(other)) {
+            if (child.colliding(other) && child.isActive()) {
                 return true;
             }
         }

@@ -53,8 +53,11 @@ public class Slime extends Enemy {
         float playerX = playerPos.x;
         float playerY = playerPos.y;
 
-        horizontalDifference = introduceOffset(playerX - position.x);
-        verticalDifference = introduceOffset(playerY - position.y);
+        horizontalDifference = playerX - position.x;
+        verticalDifference = playerY - position.y;
+
+        //horizontalDifference = introduceOffset(playerX - position.x);
+        //verticalDifference = introduceOffset(playerY - position.y);
     }
 
     /**
@@ -76,8 +79,8 @@ public class Slime extends Enemy {
 
         float xyRatio = horizontalDifference / verticalDifference;
         float cSquare = Settings.SLIME_SPEED * Settings.SLIME_SPEED;
-        float ysquare = cSquare / (xyRatio * xyRatio + 1f);
-        float yVelocity = Math.abs((float)Math.sqrt((double)ysquare));
+        float ySquare = cSquare / (xyRatio * xyRatio + 1f);
+        float yVelocity = Math.abs((float)Math.sqrt((double)ySquare));
         float xVelocity = Math.abs(yVelocity * xyRatio);
 
         if(xNegative) { xVelocity *= -1f; }
