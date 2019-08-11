@@ -17,12 +17,9 @@ import java.util.ArrayList;
 class Renderer {
     private SpriteBatch batch;
     private OrthographicCamera camera;
-
     private World world;
-
     private GlyphLayout layout;
     private BitmapFont font;
-
     private ShapeRenderer sr;
 
     Renderer(SpriteBatch batch, World world) {
@@ -78,15 +75,6 @@ class Renderer {
                 1, 1, World.player.state.rotation);
 
         batch.end();
-
-        if (Settings.DEV_MODE) {
-            drawHitbox(player);
-            drawSpecialHitbox(player.crateCheckHitbox);
-            sr.setProjectionMatrix(camera.combined);
-            sr.begin(ShapeRenderer.ShapeType.Line);
-            //sr.rect(player.footHixbox.getX(), player.footHixbox.getY(), player.footHixbox.getWidth(), player.footHixbox.getHeight());
-            sr.end();
-        }
 }
 
     private void drawHealth(int health) {
@@ -204,10 +192,6 @@ class Renderer {
         batch.enableBlending();
         batch.draw(Assets.powerup1, p.getPosition().x, p.getPosition().y, p.getSize().x, p.getSize().y);
         batch.end();
-        if(Settings.DEV_MODE) {
-            drawHitbox(p);
-        }
-
     }
 
     private void drawEnemy(Enemy e) {
@@ -232,11 +216,6 @@ class Renderer {
         batch.setShader(null);
         batch.setColor(1.0f, 1.0f, 1.0f, 1.0f);
         batch.end();
-
-        if (Settings.DEV_MODE) {
-            drawHitbox(e);
-            drawSpecialHitbox(e.crateCheckHitbox);
-        }
     }
 
 
@@ -247,10 +226,6 @@ class Renderer {
         Vector2 pos = bullet.getPosition();
         batch.draw(Assets.bulletEnemy, pos.x, pos.y, bullet.getSize().x, bullet.getSize().y);
         batch.end();
-
-        if (Settings.DEV_MODE) {
-            drawHitbox(bullet);
-        }
     }
 
     private void drawCrate(Crate c) {
@@ -264,9 +239,6 @@ class Renderer {
             c.crateSideSprite.draw(batch);
         }
         batch.end();
-        if(Settings.DEV_MODE) {
-            drawHitbox(c);
-        }
     }
 
     private void drawDoor(Door d) {
@@ -299,10 +271,6 @@ class Renderer {
             }
         }
         batch.end();
-
-        if(Settings.DEV_MODE) {
-            drawHitbox(d);
-        }
     }
 
     private void drawScore() {
@@ -453,6 +421,17 @@ class Renderer {
         }
 
         drawLayered(entityList);
+
+        if(Settings.DEV_MODE) {
+            for(Entity e : entityList) {
+                drawHitbox(e);
+            }
+            drawSpecialHitbox(World.player.crateCheckHitbox);
+            for(Enemy e : World.enemies) {
+                drawSpecialHitbox(e.crateCheckHitbox);
+            }
+        }
+
 
         /*
         for (Powerup p : World.powerups) {
