@@ -53,11 +53,8 @@ public class Slime extends Enemy {
         float playerX = playerPos.x;
         float playerY = playerPos.y;
 
-        horizontalDifference = playerX - position.x;
-        verticalDifference = playerY - position.y;
-
-        //horizontalDifference = introduceOffset(playerX - position.x);
-        //verticalDifference = introduceOffset(playerY - position.y);
+        horizontalDifference = introduceOffset(playerX - position.x);
+        verticalDifference = introduceOffset(playerY - position.y);
     }
 
     /**

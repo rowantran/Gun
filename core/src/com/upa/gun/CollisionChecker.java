@@ -164,7 +164,7 @@ public class CollisionChecker implements Updatable {
                 e.setPosition(cLeft - e.size.x, e.position.y);
                 e.setVelocity(0, e.velocity.y);
             }
-            if(topEdge.colliding(botFoot) && e.velocity.y < 0 && botFoot.getY() < topEdge.getY() + topEdge.getHeight()) {
+            else if(topEdge.colliding(botFoot) && e.velocity.y < 0 && botFoot.getY() < topEdge.getY() + topEdge.getHeight()) {
                 e.setPosition(e.position.x, cTop);
                 e.setVelocity(e.velocity.x, 0);
             }
