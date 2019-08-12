@@ -21,12 +21,14 @@ public abstract class Enemy extends Entity {
     private AttackRotation rotation;
     public Map<String, String> sprites;
     public String sprite;
-    public Hitboxes crateCheckHitbox;
+    public Hitboxes cCheckHitbox;
 
     Enemy(EnemyInfo info, Vector2 position) {
         super(position, new Vector2(info.width, info.height));
 
-        crateCheckHitbox = new Hitboxes(position);
+        cCheckHitbox = new Hitboxes(position);
+
+
         state = new EnemyActiveState();
 
         timeElapsed = 20.0f;
@@ -99,10 +101,10 @@ public abstract class Enemy extends Entity {
                 damagedFrameTime = 0f;
             }
         }
-        World.collisionChecker.checkFutureCollisions(delta, this, crateCheckHitbox);
+        World.collisionChecker.checkFutureCollisions(delta, this, cCheckHitbox);
         super.update(delta);
         state.update(delta);
-        crateCheckHitbox.setPosition(position);
+        cCheckHitbox.setPosition(position);
         timeElapsed += delta;
         rotation.cycle(delta, getPosition());
         changeSprite(rotation.currentAttack().getSprite());

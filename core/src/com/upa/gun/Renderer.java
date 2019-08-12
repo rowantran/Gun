@@ -426,9 +426,9 @@ class Renderer {
             for(Entity e : entityList) {
                 drawHitbox(e);
             }
-            drawSpecialHitbox(World.player.crateCheckHitbox);
+            drawSpecialHitbox(World.player.cCheckHitbox);
             for(Enemy e : World.enemies) {
-                drawSpecialHitbox(e.crateCheckHitbox);
+                drawSpecialHitbox(e.cCheckHitbox);
             }
         }
 

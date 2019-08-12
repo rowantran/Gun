@@ -10,7 +10,7 @@ public class Player extends Entity {
 
     static final float IFRAME_AFTER_HIT_LENGTH = 0.2f;
 
-    public Hitboxes crateCheckHitbox;
+    public Hitboxes cCheckHitbox;
     public Vector2 spawnPoint;
     float bulletCooldown;
     public boolean topStop = false;
@@ -45,30 +45,18 @@ public class Player extends Entity {
 
         inputHandler = new InputHandler();
 
-        crateCheckHitbox = new Hitboxes(position);
+        cCheckHitbox = new Hitboxes(position);
+
+        RectangularHitbox cCheck = new RectangularHitbox(position, new Vector2(size.x, 20f));
+        cCheckHitbox.addHitbox("cCheck", cCheck);
 
         RectangularHitbox center = new RectangularHitbox(position, new Vector2(2f, 2f));
         center.setPosition(new Vector2(getPosition().x + getSize().x/2 - center.getWidth()/2, getPosition().y + getSize().y/2 - center.getHeight()/2));
         hitbox.addHitbox("center", center);
 
-        RectangularHitbox leftFoot = new RectangularHitbox(position, new Vector2(size.x/2, 20f));
-        crateCheckHitbox.addHitbox("leftFoot", leftFoot);
-
-        RectangularHitbox rightFoot = new RectangularHitbox(position, new Vector2(size.x/2, 20f));
-        rightFoot.setPosition(new Vector2(position.x + size.x/2, position.y));
-        crateCheckHitbox.addHitbox("rightFoot", rightFoot);
-
-        RectangularHitbox topFoot = new RectangularHitbox(position, new Vector2(size.x, 10f));
-        topFoot.setPosition(new Vector2(position.x, position.y + 10));
-        crateCheckHitbox.addHitbox("topFoot", topFoot);
-
-        RectangularHitbox botFoot = new RectangularHitbox(position, new Vector2(size.x, 10f));
-        crateCheckHitbox.addHitbox("botFoot", botFoot);
-
         hitbox.generateCorrectOffsets();
-        crateCheckHitbox.generateCorrectOffsets();
+        cCheckHitbox.setActive(true);
         hitbox.setActive(true);
-        crateCheckHitbox.setActive(true);
 
     }
 
@@ -136,10 +124,10 @@ public class Player extends Entity {
         if (state.controllable) {
             inputHandler.update(delta);
         }
-        World.collisionChecker.checkFutureCollisions(delta, this, crateCheckHitbox);
+        World.collisionChecker.checkFutureCollisions(delta, this, cCheckHitbox);
         super.update(delta);
         state.update(delta);
-        crateCheckHitbox.setPosition(position);
+        cCheckHitbox.setPosition(position);
         timeSinceRoll += delta;
         bulletCooldown -= delta;
     }
@@ -147,6 +135,6 @@ public class Player extends Entity {
     public void specialMove(float delta) {
         setPosition(getPosition().x + getVelocity().x * delta, getPosition().y + getVelocity().y * delta);
         hitbox.updateHitboxes(getVelocity().x * delta, getVelocity().y * delta);
-        crateCheckHitbox.updateHitboxes(getVelocity().x * delta, getVelocity().y * delta);
+        cCheckHitbox.updateHitboxes(getVelocity().x * delta, getVelocity().y * delta);
     }
 }

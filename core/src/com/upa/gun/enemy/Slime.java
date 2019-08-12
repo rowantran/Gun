@@ -24,22 +24,11 @@ public class Slime extends Enemy {
         hitbox.addHitbox("center", center);
         hitbox.generateCorrectOffsets();
 
-        RectangularHitbox left = new RectangularHitbox(position, new Vector2(size.x/2, 24f));
-        RectangularHitbox right = new RectangularHitbox(position, new Vector2(size.x/2, 24f));
-        RectangularHitbox top = new RectangularHitbox(position, new Vector2(size.x, 12f));
-        RectangularHitbox bot = new RectangularHitbox(position, new Vector2(size.x, 12f));
-
-        right.setPosition(new Vector2(position.x + size.x/2, position.y));
-        top.setPosition(new Vector2(position.x, position.y + 12));
-
-        crateCheckHitbox.addHitbox("leftFoot", left);
-        crateCheckHitbox.addHitbox("rightFoot", right);
-        crateCheckHitbox.addHitbox("topFoot", top);
-        crateCheckHitbox.addHitbox("botFoot", bot);
-        crateCheckHitbox.generateCorrectOffsets();
+        RectangularHitbox cCheck = new RectangularHitbox(position, new Vector2(size.x, 24));
+        cCheckHitbox.addHitbox("cCheck", cCheck);
 
         hitbox.setActive(true);
-        crateCheckHitbox.setActive(true);
+        cCheckHitbox.setActive(true);
 
         directionalUpdateCounter = 1.0f;
         directionalUpdateTimer = 1.0f;

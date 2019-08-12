@@ -11,7 +11,7 @@ public class CollisionChecker implements Updatable {
         World.roomChange = 0;
         World.resetTimer();
         for (Door d : World.currentMap.getDoors()) {
-            if (World.player.crateCheckHitbox.colliding(d.getHitbox().getChild("open"))) {
+            if (World.player.cCheckHitbox.colliding(d.getHitbox().getChild("open"))) {
                 World.roomChange = d.getDirection();
 
                 World.moveAllEntities();
@@ -101,53 +101,39 @@ public class CollisionChecker implements Updatable {
         }
     }
 
-    public void checkFutureCollisions2(float delta, Entity e, Hitboxes hitboxes) {
 
-        hitboxes.setPosition(new Vector2(e.position.x + e.velocity.x * delta, e.position.y + e.position.y * delta));
+    //return 0 for horizontal stop, 1 for vertical stop
+    private int compareCollisions(Vector2 crateCorner, Vector2 entityCorner) {
 
-        for(Crate c : World.currentMap.getCrates()) {
+        float horizontal = Math.abs(crateCorner.x - entityCorner.x);
+        float vertical = Math.abs(crateCorner.y - entityCorner.y);
 
-            Hitbox rightEdge = c.getHitbox().getChild("rightEdge");
-            Hitbox leftEdge = c.getHitbox().getChild("leftEdge");
-            Hitbox topEdge = c.getHitbox().getChild("topEdge");
-            Hitbox botEdge = c.getHitbox().getChild("botEdge");
-
-            if(hitboxes.colliding(rightEdge) && e.velocity.x < 0 && e.position.x < c.position.x + c.size.x) {
-                e.setVelocity(((c.position.x + c.size.x) - (e.position.x)) / delta, e.velocity.y);
-            }
-            else if(hitboxes.colliding(leftEdge) && e.velocity.x > 0 && e.position.x + e.size.x > c.position.x) {
-                e.setVelocity(((c.position.x) - (e.position.x + e.size.x)) / delta, e.velocity.y);
-            }
-            if(hitboxes.colliding(topEdge) && e.velocity.y < 0 && e.position.y < c.position.y + c.size.y) {
-                e.setVelocity(e.velocity.x, ((c.position.y + c.size.y) - (e.position.y)) / delta);
-            }
-            else if(hitboxes.colliding(botEdge) && e.velocity.y > 0 && e.position.y + e.size.y > c.position.y) {
-                e.setVelocity(e.velocity.x, ((c.position.y) - (e.position.y + hitboxes.getChild("botFoot").getHeight() + hitboxes.getChild("topFoot").getHeight())) / delta);
-            }
-
+        if(horizontal < vertical) {
+            return 0;
+        }
+        else {
+            return 1;
         }
 
     }
 
-
-    public void checkFutureCollisions(float delta, Entity e, Hitboxes hitboxes) {
+    public void checkFutureCollisions(float delta, Entity e,Hitboxes hitboxes) {
 
         hitboxes.setPosition(new Vector2(e.position.x + e.velocity.x * delta, e.position.y + e.velocity.y * delta));
+        Hitbox foot = hitboxes.getChild("cCheck");
 
-        Hitbox leftFoot = hitboxes.getChild("leftFoot");
-        Hitbox rightFoot = hitboxes.getChild("rightFoot");
-        Hitbox topFoot = hitboxes.getChild("topFoot");
-        Hitbox botFoot = hitboxes.getChild("botFoot");
+        Vector2 velocityCopy = e.velocity.cpy();
+        Vector2 positionCopy = e.position.cpy();
 
-        float left = e.position.x;
-        float right = e.position.x + e.size.x;
-        float top = e.position.y + botFoot.getHeight() + topFoot.getHeight();
-        float bot = e.position.y;
+        float fLeft = foot.getX();
+        float fRight = foot.getX() + foot.getWidth();
+        float fTop = foot.getY() + foot.getHeight();
+        float fBot = foot.getY();
 
         for(Crate c : World.currentMap.getCrates()) {
 
-            Hitbox rightEdge = c.getHitbox().getChild("rightEdge");
             Hitbox leftEdge = c.getHitbox().getChild("leftEdge");
+            Hitbox rightEdge = c.getHitbox().getChild("rightEdge");
             Hitbox topEdge = c.getHitbox().getChild("topEdge");
             Hitbox botEdge = c.getHitbox().getChild("botEdge");
 
@@ -156,21 +142,53 @@ public class CollisionChecker implements Updatable {
             float cTop = c.position.y + c.size.y;
             float cBot = c.position.y;
 
-            if(rightEdge.colliding(leftFoot) && e.velocity.x < 0 && leftFoot.getX() < rightEdge.getX() + rightEdge.getWidth()) {
+            boolean leftEdgeCollide = false;
+            boolean rightEdgeCollide = false;
+
+            if(rightEdge.colliding(foot) && e.velocity.x < 0 && fLeft < cRight) {
                 e.setPosition(cRight, e.position.y);
                 e.setVelocity(0, e.velocity.y);
-            }
-            else if(leftEdge.colliding(rightFoot) && e.velocity.x > 0 && rightFoot.getX() + rightFoot.getWidth() > leftEdge.getX()) {
+                rightEdgeCollide = true;
+            } else if(leftEdge.colliding(foot) && e.velocity.x > 0 && fRight > cLeft) {
                 e.setPosition(cLeft - e.size.x, e.position.y);
                 e.setVelocity(0, e.velocity.y);
+                leftEdgeCollide = true;
             }
-            else if(topEdge.colliding(botFoot) && e.velocity.y < 0 && botFoot.getY() < topEdge.getY() + topEdge.getHeight()) {
-                e.setPosition(e.position.x, cTop);
-                e.setVelocity(e.velocity.x, 0);
-            }
-            else if(botEdge.colliding(topFoot) && e.velocity.y > 0 && topFoot.getY() + topFoot.getHeight() > botEdge.getY()) {
-                e.setPosition(e.position.x, cBot - (botFoot.getHeight() + topFoot.getHeight()));
-                e.setVelocity(e.velocity.x, 0);
+
+            if(topEdge.colliding(foot) && e.velocity.y < 0 && fBot < cTop) {
+                if(rightEdgeCollide) {
+                    int compare = compareCollisions(new Vector2(cRight, cTop), new Vector2(fLeft, fBot));
+                    if(compare == 1) {
+                        e.setPosition(positionCopy.x, cTop);
+                        e.setVelocity(velocityCopy.x, 0);
+                    }
+                } else if(leftEdgeCollide) {
+                    int compare = compareCollisions(new Vector2(cLeft, cTop), new Vector2(fRight, fBot));
+                    if(compare == 1) {
+                        e.setPosition(positionCopy.x, cTop);
+                        e.setVelocity(velocityCopy.x, 0);
+                    }
+                } else {
+                    e.setPosition(e.position.x, cTop);
+                    e.setVelocity(e.velocity.x, 0);
+                }
+            } else if(botEdge.colliding(foot) && e.velocity.y > 0 && fTop > cBot) {
+                if (rightEdgeCollide) {
+                    int compare = compareCollisions(new Vector2(cRight, cBot), new Vector2(fLeft, fTop));
+                    if(compare == 1) {
+                        e.setPosition(positionCopy.x, cBot - foot.getHeight());
+                        e.setVelocity(velocityCopy.x, 0);
+                    }
+                } else if (leftEdgeCollide) {
+                    int compare = compareCollisions(new Vector2(cLeft, cBot), new Vector2(fRight, fTop));
+                    if(compare == 1) {
+                        e.setPosition(positionCopy.x, cBot - foot.getHeight());
+                        e.setVelocity(velocityCopy.x, 0);
+                    }
+                } else {
+                    e.setPosition(e.position.x, cBot - foot.getHeight());
+                    e.setVelocity(e.velocity.x, 0);
+                }
             }
         }
 
@@ -180,135 +198,44 @@ public class CollisionChecker implements Updatable {
 
                 Hitbox edge = d.getHitbox().getChild("closed");
 
+                float dLeft = edge.getX();
+                float dRight = edge.getX() + edge.getWidth();
+                float dTop = edge.getY() + edge.getHeight();
+                float dBot = edge.getY();
+
                 switch(d.getDirection()) {
                     case 1:
-                        if(edge.colliding(topFoot) && e.velocity.y > 0 && topFoot.getY() + topFoot.getHeight() > edge.getY()) {
-                            e.setVelocity(e.velocity.x, ((edge.getY()) - (e.position.y + botFoot.getHeight() + topFoot.getHeight())) / delta);
+                        if(edge.colliding(foot) && e.velocity.y > 0 && fTop > dBot) {
+                            e.setPosition(e.position.x, dBot - foot.getHeight());
+                            e.setVelocity(e.velocity.x, 0);
                         }
                         break;
                     case 2:
-                        if(edge.colliding(botFoot) && e.velocity.y < 0 && botFoot.getY() < edge.getY() + edge.getHeight()) {
-                            e.setVelocity(e.velocity.x, ((edge.getY() + edge.getHeight()) - (e.position.y)) / delta);
+                        if (edge.colliding(foot) && e.velocity.y < 0 && fBot < dTop) {
+                            e.setPosition(e.position.x, dTop);
+                            e.setVelocity(e.velocity.x, 0);
                         }
                         break;
                     case 3:
-                        if(edge.colliding(leftFoot) && e.velocity.x < 0 && leftFoot.getX() < edge.getX() + edge.getWidth()) {
-                            e.setVelocity(((edge.getX() + edge.getWidth()) - (e.position.x)) / delta, e.velocity.y);
+                        if(edge.colliding(foot) && e.velocity.x < 0 && fLeft < dRight) {
+                            e.setPosition(dRight, e.position.y);
+                            e.setVelocity(0, e.velocity.y);
                         }
                         break;
                     case 4:
-                        if(edge.colliding(rightFoot) && e.velocity.x > 0 && rightFoot.getX() + rightFoot.getWidth() > edge.getX()) {
-                            e.setVelocity(((edge.getX()) - (e.position.x + e.size.x)) / delta, e.velocity.y);
+                        if(edge.colliding(foot) && e.velocity.x > 0 && fRight > dLeft) {
+                            e.setPosition(dLeft - foot.getWidth(), e.position.y);
+                            e.setVelocity(0, e.velocity.y);
                         }
                         break;
                     default:
                         Gdx.app.log("CollisionChecker", "Found invalid door");
-                        break;
                 }
             }
-
         }
+
         hitboxes.setPosition(e.position);
     }
-
-    /*
-    public void checkFutureCollisions(float delta, Entity e, Hitboxes hitboxes) {
-
-        hitboxes.setPosition(new Vector2(e.position.x + e.velocity.x * delta, e.position.y + e.velocity.y * delta));
-
-        Hitbox leftFoot = hitboxes.getChild("leftFoot");
-        Hitbox rightFoot = hitboxes.getChild("rightFoot");
-        Hitbox topFoot = hitboxes.getChild("topFoot");
-        Hitbox botFoot = hitboxes.getChild("botFoot");
-
-        float left = e.position.x;
-        float right = e.position.x + e.size.x;
-        float top = e.position.y + botFoot.getHeight() + topFoot.getHeight();
-        float bot = e.position.y;
-
-        for(Crate c : World.currentMap.getCrates()) {
-
-            Hitbox rightEdge = c.getHitbox().getChild("rightEdge");
-            Hitbox leftEdge = c.getHitbox().getChild("leftEdge");
-            Hitbox topEdge = c.getHitbox().getChild("topEdge");
-            Hitbox botEdge = c.getHitbox().getChild("botEdge");
-
-            float cLeft = c.position.x;
-            float cRight = c.position.x + c.size.x;
-            float cTop = c.position.y + c.size.y;
-            float cBot = c.position.y;
-
-            if(rightEdge.colliding(leftFoot) && e.velocity.x < 0 && leftFoot.getX() < rightEdge.getX() + rightEdge.getWidth()) {
-                System.out.println("RIGHT EDGE PRE-HIT " + e.velocity.x + ", " + e.velocity.y);
-                e.setVelocity((cRight - left) / delta, e.velocity.y);
-                System.out.println(cRight + " " + left + " / " + delta + " --> " + ((cRight-left)/delta));
-                System.out.println("RIGHT EDGE HIT " + e.velocity.x + ", " + e.velocity.y);
-                System.out.println();
-            }
-            else if(leftEdge.colliding(rightFoot) && e.velocity.x > 0 && rightFoot.getX() + rightFoot.getWidth() > leftEdge.getX()) {
-                System.out.println("LEFT EDGE PRE-HIT " + e.velocity.x + ", " + e.velocity.y);
-                e.setVelocity((cLeft - right) / delta, e.velocity.y);
-                System.out.println("TOP VALUE: " + top);
-                System.out.println("RIGHT VALIE: " + right);
-                System.out.println(cLeft + " " + right + " / " + delta + " --> " + ((cLeft-right)/delta));
-                System.out.println("LEFT EDGE HIT " + e.velocity.x + ", " + e.velocity.y);
-                System.out.println();
-            }
-            if(topEdge.colliding(botFoot) && e.velocity.y < 0 && botFoot.getY() < topEdge.getY() + topEdge.getHeight()) {
-                System.out.println("TOP EDGE PRE-HIT " + e.velocity.x + ", " + e.velocity.y);
-                e.setVelocity(e.velocity.x, (cTop - bot) / delta);
-                System.out.println(cTop + " - " + bot + " / " + delta + " --> " + ((cTop-bot)/delta));
-                System.out.println("TOP EDGE HIT " + e.velocity.x + ", " + e.velocity.y);
-                System.out.println();
-            }
-            else if(botEdge.colliding(topFoot) && e.velocity.y > 0 && topFoot.getY() + topFoot.getHeight() > botEdge.getY()) {
-                System.out.println("BOT EDGE PRE-HIT " + e.velocity.x + ", " + e.velocity.y);
-                e.setVelocity(e.velocity.x, (cBot - top) / delta);
-                System.out.println("TOP VALUE: " + top);
-                System.out.println("RIGHT VALIE: " + right);
-                System.out.println(cBot + " " + top + " / " + delta + " --> " + ((cBot-top)/delta));
-                System.out.println("BOT EDGE HIT " + e.velocity.x + ", " + e.velocity.y);
-                System.out.println();
-            }
-        }
-
-        if(!World.doorsOpen) {
-
-            for(Door d : World.currentMap.getDoors()) {
-
-                Hitbox edge = d.getHitbox().getChild("closed");
-
-                switch(d.getDirection()) {
-                    case 1:
-                        if(edge.colliding(topFoot) && e.velocity.y > 0 && topFoot.getY() + topFoot.getHeight() > edge.getY()) {
-                            e.setVelocity(e.velocity.x, ((edge.getY()) - (e.position.y + botFoot.getHeight() + topFoot.getHeight())) / delta);
-                        }
-                        break;
-                    case 2:
-                        if(edge.colliding(botFoot) && e.velocity.y < 0 && botFoot.getY() < edge.getY() + edge.getHeight()) {
-                            e.setVelocity(e.velocity.x, ((edge.getY() + edge.getHeight()) - (e.position.y)) / delta);
-                        }
-                        break;
-                    case 3:
-                        if(edge.colliding(leftFoot) && e.velocity.x < 0 && leftFoot.getX() < edge.getX() + edge.getWidth()) {
-                            e.setVelocity(((edge.getX() + edge.getWidth()) - (e.position.x)) / delta, e.velocity.y);
-                        }
-                        break;
-                    case 4:
-                        if(edge.colliding(rightFoot) && e.velocity.x > 0 && rightFoot.getX() + rightFoot.getWidth() > edge.getX()) {
-                            e.setVelocity(((edge.getX()) - (e.position.x + e.size.x)) / delta, e.velocity.y);
-                        }
-                        break;
-                    default:
-                        Gdx.app.log("CollisionChecker", "Found invalid door");
-                        break;
-                }
-            }
-
-        }
-        hitboxes.setPosition(e.position);
-    }
-    */
 
     @Override
     public void update(float delta) {
