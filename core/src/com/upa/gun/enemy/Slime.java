@@ -14,6 +14,8 @@ public class Slime extends Enemy {
     private float directionalUpdateTimer;
     private float horizontalDifference;
     private float verticalDifference;
+    private float xVelocity;
+    private float yVelocity;
 
     public Slime(EnemyInfo info, Vector2 position) {
         super(info, position);
@@ -35,18 +37,6 @@ public class Slime extends Enemy {
     }
 
     /**
-     * Finds the distance between the slime and the player
-     */
-    private void updateDirection() {
-        Vector2 playerPos = World.player.getPosition();
-        float playerX = playerPos.x;
-        float playerY = playerPos.y;
-
-        horizontalDifference = introduceOffset(playerX - position.x);
-        verticalDifference = introduceOffset(playerY - position.y);
-    }
-
-    /**
      * Generates random time until direction of movement is updated
      * @return - Returns new time
      */
@@ -60,14 +50,23 @@ public class Slime extends Enemy {
      * Converts x and y distances into scaled diagonal movement
      */
     public void move() {
+
+        horizontalDifference = introduceOffset(World.player.getPosition().x - position.x);
+        verticalDifference = introduceOffset(World.player.getPosition().y - position.y);
+
         boolean xNegative = horizontalDifference < 0;
         boolean yNegative = verticalDifference < 0;
 
         float xyRatio = horizontalDifference / verticalDifference;
         float cSquare = Settings.SLIME_SPEED * Settings.SLIME_SPEED;
         float ySquare = cSquare / (xyRatio * xyRatio + 1f);
-        float yVelocity = Math.abs((float)Math.sqrt((double)ySquare));
-        float xVelocity = Math.abs(yVelocity * xyRatio);
+        yVelocity = Math.abs((float)Math.sqrt(ySquare));
+        xVelocity = Math.abs(yVelocity * xyRatio);
+
+        if(verticalDifference == 0) {
+            xVelocity = Settings.SLIME_SPEED;
+            yVelocity = 0;
+        }
 
         if(xNegative) { xVelocity *= -1f; }
         if(yNegative) { yVelocity *= -1f; }
@@ -108,7 +107,6 @@ public class Slime extends Enemy {
                 if (directionalUpdateCounter >= directionalUpdateTimer) {
                     directionalUpdateCounter = 0.0f;
                     directionalUpdateTimer = generateNewDirectionUpdateTimer();
-                    updateDirection();
                     move();
                 }
                 break;

@@ -109,6 +109,9 @@ public abstract class Enemy extends Entity {
         rotation.cycle(delta, getPosition());
         changeSprite(rotation.currentAttack().getSprite());
 
+        Gdx.app.log("Enemy", "Position: (" + position.x + ", " + position.y + ")");
+
+
     }
 
     public int getID() { return id; }

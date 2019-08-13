@@ -22,9 +22,11 @@ public class GunGame extends Game {
         world = World.getInstance();
         world.setGunGame(this);
 
-        music = Gdx.audio.newMusic(Gdx.files.internal("sfx/music.mp3"));
-        music.setLooping(true);
-        music.play();
+        if(!Settings.MUTE) {
+			music = Gdx.audio.newMusic(Gdx.files.internal("sfx/music.mp3"));
+			music.setLooping(true);
+			music.play();
+		}
 
         setScreen(new MenuScreen(this));
         

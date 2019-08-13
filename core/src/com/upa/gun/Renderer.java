@@ -464,7 +464,6 @@ class Renderer {
             drawPowerup(p);
         }
 
-
         if (world.cinematicHappening) {
             sr.setProjectionMatrix(camera.combined);
             sr.begin(ShapeRenderer.ShapeType.Filled);
