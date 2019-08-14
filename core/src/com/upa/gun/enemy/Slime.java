@@ -97,7 +97,7 @@ public class Slime extends Enemy {
 
     /**
      * Update function; handles all movement
-     * @param delta - clock
+     * @param delta - Clock
      */
     public void update(float delta) {
 

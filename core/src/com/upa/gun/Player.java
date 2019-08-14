@@ -6,6 +6,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.upa.gun.enemy.Powerup;
 
+/**
+ * Class for the player
+ */
 public class Player extends Entity {
 
     static final float IFRAME_AFTER_HIT_LENGTH = 0.2f;
@@ -60,6 +63,9 @@ public class Player extends Entity {
 
     }
 
+    /**
+     * Resets all values
+     */
     public void reset() {
         setPosition(spawnPoint);
 
@@ -72,22 +78,10 @@ public class Player extends Entity {
         //centerHitbox();
     }
 
-    @Override
-    public Hitboxes getHitbox() {
-        return hitbox;
-    }
-
-    /**
-     * @return Player's current health
-     */
-    int getHealth() {
-        return health;
-    }
-
     /**
      * Damages player if player is currently vulnerable, kills them if health drops below zero (this should probably be
-     * handled in update() instead.)
-      * @param damage Amount of damage in hit points to deal to player.
+     * handled in update() instead)
+      * @param damage - Damage to player in hitpoints
      */
     void hurt(int damage) {
         if ((state.isVulnerable() && !Settings.INVINCIBLE) && !game.world.cinematicHappening) {
@@ -100,7 +94,8 @@ public class Player extends Entity {
     }
 
     /**
-     * @return Whether the powerup with the given ID is currently active.
+     * Determines if a powerup is active
+     * @return - Whether the powerup with the given ID is currently active
      */
     public boolean hasPowerup(int id) {
         for (Powerup powerup : new Array.ArrayIterator<Powerup>(powerupsActive)) {
@@ -112,13 +107,9 @@ public class Player extends Entity {
     }
 
     /**
-     * Returns the correct SpriteState mapping the player's current state to the corresponding texture.
-     * @return The SpriteState corresponding to the current state.
+     * Update function; checks for inputs and terrain collisions
+     * @param delta - Clock
      */
-    SpriteState getState() {
-        return state.getTextureState();
-    }
-
     @Override
     public void update(float delta) {
         if (state.controllable) {
@@ -136,5 +127,16 @@ public class Player extends Entity {
         setPosition(getPosition().x + getVelocity().x * delta, getPosition().y + getVelocity().y * delta);
         hitbox.updateHitboxes(getVelocity().x * delta, getVelocity().y * delta);
         cCheckHitbox.updateHitboxes(getVelocity().x * delta, getVelocity().y * delta);
+    }
+
+    @Override
+    public Hitboxes getHitbox() {
+        return hitbox;
+    }
+    int getHealth() {
+        return health;
+    }
+    SpriteState getState() {
+        return state.getTextureState();
     }
 }

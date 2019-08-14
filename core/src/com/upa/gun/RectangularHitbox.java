@@ -14,18 +14,18 @@ public class RectangularHitbox extends Hitbox {
         this.size = size.cpy();
     }
 
-    @Override
     /**
      * Sends colliding test to Collidable object to test collision with a RectangularHitbox
      */
+    @Override
     public boolean colliding(Collidable other) {
         return isActive() && other.colliding(this);
     }
 
-    @Override
     /**
      * Checks whether rectangular hitboxes are overlapping
      */
+    @Override
     public boolean colliding(RectangularHitbox other) {
         Vector2 position = getPosition();
         Vector2 size = getSize();
@@ -35,10 +35,10 @@ public class RectangularHitbox extends Hitbox {
                 position.y+size.y > otherPosition.y;
     }
 
-    @Override
     /**
      * Checks whether a  point is inside the hitbox
      */
+    @Override
     public boolean colliding(Vector2 other) {
         Vector2 position = getPosition();
         Vector2 size = getSize();

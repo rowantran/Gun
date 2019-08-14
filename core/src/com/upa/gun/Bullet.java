@@ -2,6 +2,9 @@ package com.upa.gun;
 
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * Class for all bullets
+ */
 public abstract class Bullet extends Entity {
 
     private double angle;
@@ -24,8 +27,9 @@ public abstract class Bullet extends Entity {
 
     /**
      * Update function; finds correct speed based on angle and deletes bullet if off-screen
-     * @param delta - clock
+     * @param delta - Clock
      */
+    @Override
     public void update(float delta) {
         super.update(delta);
         Vector2 position = getPosition();

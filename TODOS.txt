@@ -1,8 +1,6 @@
 HIGH PRIORITY ----
 - add pathfinding for slimes around crates
 - art update - to 64x64 px?
-- fix corner movement bugs when hitting crates - can bandaid fix with speed check
-- full fix for corner movement bugs... has to do with enemy direction change? ... occurs when moving towards inside of box on corner
 - fix enemy spawn locations
 - implement powerups, add powerup drop chance info to enemy json
 
@@ -10,8 +8,8 @@ LOW PRIORITY ----
 - fix parent function control in entity
 - increase accuracy for bullet-crate collisions
 - create new sprite sheet
-- make - folder cleanup
-door opening/closing animation
+- make door opening/closing animation
+- folder cleanup
 - make hitboxes percentage-size based rather than hard numbers
 - fix door layering
 - move future collision checking to collision checker
@@ -32,3 +30,5 @@ FINISHED
 - implement slime subclass for enemy movement and other unique characteristics
 - make positions of all individual hitboxes relative to overall hitbox
 - major cleanup involving hitbox offsets
+- fix corner movement bugs when hitting crates - can bandaid fix with speed check
+- full fix for corner movement bugs... has to do with enemy direction change? ... occurs when moving towards inside of box on corner

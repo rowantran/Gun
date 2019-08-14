@@ -90,7 +90,7 @@ public abstract class Enemy extends Entity {
 
     /**
      * Update function; handles animation changes, state updates, crate collision, and attack timer
-     * @param delta - clock
+     * @param delta - Clock
      */
     public void update(float delta) {
 

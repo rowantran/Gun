@@ -5,8 +5,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.enemy.Enemy;
 import com.upa.gun.enemy.Powerup;
 
+/**
+ * Checks and handles collisions of hitboxes
+ */
 public class CollisionChecker implements Updatable {
 
+    /**
+     * Checks if the player has entered a door
+     */
     private void checkDoorEnter() {
         World.roomChange = 0;
         World.resetTimer();
@@ -42,8 +48,9 @@ public class CollisionChecker implements Updatable {
         }
     }
 
-
-
+    /**
+     * Checks if the player has been hit by an enemy bullet
+     */
     private void checkPlayerHit() {
         for (Bullet b : World.enemyBullets) {
             if (b.getHitbox().colliding(World.player.hitbox.getChild("center"))) {
@@ -52,6 +59,9 @@ public class CollisionChecker implements Updatable {
         }
     }
 
+    /**
+     * Checks if an enemy has been hit by a player bullet
+     */
     private void checkEnemiesHit() {
         for (Bullet b : World.playerBullets) {
             for (Enemy e: World.enemies) {
@@ -64,6 +74,9 @@ public class CollisionChecker implements Updatable {
         }
     }
 
+    /**
+     * Checks if the player is touching a powerup
+     */
     private void checkPowerupCollect() {
         for(Powerup p : World.powerups) {
             if (World.player.hitbox.colliding(p.hitbox)) {
@@ -72,6 +85,9 @@ public class CollisionChecker implements Updatable {
         }
     }
 
+    /**
+     * Checks if a bullet has hit a terrain element
+     */
     private void checkBulletCrash() {
         for(Crate c : World.currentMap.getCrates()) {
             for (Bullet b : World.playerBullets) {
@@ -102,7 +118,12 @@ public class CollisionChecker implements Updatable {
     }
 
 
-    //return 0 for horizontal stop, 1 for vertical stop
+    /**
+     * Determines if, when hitting the corner of a terrain element, an entity should slide horizontally or vertically
+     * @param crateCorner - The coordinate of the corner of the object that has been collided with
+     * @param entityCorner - The corner of the entity that has collided with the object
+     * @return - Returns 0 if the entity should slide vertically, 1 if the entity should slide horizontally
+     */
     private int compareCollisions(Vector2 crateCorner, Vector2 entityCorner) {
 
         float horizontal = Math.abs(crateCorner.x - entityCorner.x);
@@ -117,7 +138,14 @@ public class CollisionChecker implements Updatable {
 
     }
 
-    public void checkFutureCollisions(float delta, Entity e,Hitboxes hitboxes) {
+    /**
+     * Checks if an entity will be inside a terrain element in the next frame. If so, the position is set to the edge
+     * of the object and the velocity in that direction is set to 0
+     * @param delta - Clock
+     * @param e - Entity being checked
+     * @param hitboxes - The entity's hitbox to be used for collision detection with terrain elements
+     */
+    public void checkFutureCollisions(float delta, Entity e, Hitboxes hitboxes) {
 
         hitboxes.setPosition(new Vector2(e.position.x + e.velocity.x * delta, e.position.y + e.velocity.y * delta));
         Hitbox foot = hitboxes.getChild("cCheck");
@@ -233,10 +261,13 @@ public class CollisionChecker implements Updatable {
                 }
             }
         }
-
         hitboxes.setPosition(e.position);
     }
 
+    /**
+     * Update function; calls the necessary collision checks
+     * @param delta - Clock
+     */
     @Override
     public void update(float delta) {
         if(World.doorsOpen) {

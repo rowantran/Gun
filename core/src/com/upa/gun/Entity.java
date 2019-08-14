@@ -23,7 +23,7 @@ public abstract class Entity implements Updatable {
 
     /**
      * Update function; handles basic movement and matches hitbox location
-     * @param delta - clock
+     * @param delta - Clock
      */
     @Override
     public void update(float delta) {

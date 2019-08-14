@@ -26,7 +26,9 @@ public abstract class Hitbox implements Collidable {
         position.set(new Vector2(position.x + adjustX, position.y + adjustY));
     }
 
+    @Override
     public abstract boolean colliding(Collidable other);
+    @Override
     public abstract boolean colliding(RectangularHitbox other);
     public abstract boolean colliding(Vector2 other);
 
