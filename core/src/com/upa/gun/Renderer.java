@@ -2,6 +2,7 @@ package com.upa.gun;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -35,7 +36,6 @@ class Renderer {
 
         layout = new GlyphLayout();
         font = new BitmapFont();
-        font.getData().setScale(4);
 
         sr = new ShapeRenderer();
     }
@@ -152,6 +152,7 @@ class Renderer {
         Texture full = Assets.bossHealthFull;
         Texture empty = Assets.bossHealthEmpty;
 
+        font.getData().setScale(3f);
         layout.setText(font, bossName);
         font.draw(batch, layout, Settings.RESOLUTION.x / 2 - layout.width/2, 770f);
 
@@ -318,6 +319,7 @@ class Renderer {
     private void drawScore() {
         batch.begin();
         batch.enableBlending();
+        font.getData().setScale(4f);
         layout.setText(font, Integer.toString(world.spawner.slimesKilled));
         float x = 30f;
         float y = (Settings.RESOLUTION.y - layout.height);
@@ -342,6 +344,7 @@ class Renderer {
     private void drawFPS() {
         batch.begin();
         batch.enableBlending();
+        font.getData().setScale(4f);
         layout.setText(font, Integer.toString(Gdx.graphics.getFramesPerSecond()));
         float x = 0f;
         float y = layout.height;
@@ -357,6 +360,7 @@ class Renderer {
         if (e.getHitbox().isActive()) {
             sr.setProjectionMatrix(camera.combined);
             sr.begin(ShapeRenderer.ShapeType.Line);
+            sr.setColor(Color.WHITE);
             for(Hitbox h : e.getHitbox()) {
                 if (h.isActive()) {
                     sr.rect(h.getX(), h.getY(), h.getWidth(), h.getHeight());
@@ -374,6 +378,7 @@ class Renderer {
         if(hitboxes.isActive()) {
             sr.setProjectionMatrix(camera.combined);
             sr.begin(ShapeRenderer.ShapeType.Line);
+            sr.setColor(Color.WHITE);
             for(Hitbox h : hitboxes) {
                 if (h.isActive()) {
                     sr.rect(h.getX(), h.getY(), h.getWidth(), h.getHeight());
@@ -471,6 +476,33 @@ class Renderer {
         }
     }
 
+    private void drawPauseScreen() {
+
+        float xCenter = Settings.RESOLUTION.x/2;
+        float yCenter = Settings.RESOLUTION.y/2;
+
+        sr.setProjectionMatrix(camera.combined);
+        sr.begin(ShapeRenderer.ShapeType.Filled);
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        sr.setColor(new Color(20/255f, 20/255f, 20/255f, 0.85f));
+        sr.rect(xCenter - Settings.PAUSE_SCREEN_RESOLUTION.x/2, yCenter -
+                Settings.PAUSE_SCREEN_RESOLUTION.y/2, Settings.PAUSE_SCREEN_RESOLUTION.x,
+                Settings.PAUSE_SCREEN_RESOLUTION.y);
+        sr.end();
+
+
+        batch.begin();
+        batch.enableBlending();
+        font.getData().setScale(3f);
+        layout.setText(font, "PAUSED");
+        float x = xCenter - layout.width/2;
+        float y = yCenter + Settings.PAUSE_SCREEN_RESOLUTION.y/2 - layout.height;
+        font.draw(batch, layout, x, y);
+        batch.end();
+
+    }
+
+
     /**
      * Draws necessary elements
      * @param world
@@ -532,5 +564,10 @@ class Renderer {
             sr.rect(0, Settings.RESOLUTION.y*0.8f, Settings.RESOLUTION.x, Settings.RESOLUTION.y*0.2f);
             sr.end();
         }
+
+        if(World.activity == 1) {
+            drawPauseScreen();
+        }
+
     }
 }

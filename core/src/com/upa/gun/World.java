@@ -31,6 +31,7 @@ public class World implements Updatable {
     public static CollisionChecker collisionChecker;
 
     boolean cinematicHappening;
+    public static int activity;
 
     public static boolean waveActive;
 
@@ -62,6 +63,7 @@ public class World implements Updatable {
         indicators = new ArrayList<SpawnIndicator>();
 
         sequences = new ArrayList<ScriptedEventSequence>();
+        activity = 0;
         roomChange = 0;
 
         spawner = new Spawner(this);
@@ -129,155 +131,158 @@ public class World implements Updatable {
 
         if (!cinematicHappening) {
 
-            switch(roomChange) {
+            switch(activity) {
+
+                case 0:
+                    switch (roomChange) {
+                        case 1:
+                            if (distanceMoved < (float) Assets.floor.getHeight()) {
+                                player.setVelocity(0f, Assets.floor.getHeight() / -Settings.ROOM_CHANGE_TIME);
+                                if (distanceMoved - player.getVelocity().y * delta > (float) Assets.floor.getHeight()) {
+                                    player.setVelocity(0f, (Assets.floor.getHeight() - distanceMoved) / -delta);
+                                }
+                                player.specialMove(delta);
+                                matchObjects(delta);
+                                distanceMoved -= player.getVelocity().y * delta;
+                            } else if (distanceMoved2 < Settings.ROOM_CHANGE_STEP) {
+                                player.setVelocity(0f, Settings.ROOM_CHANGE_STEP_SPEED);
+                                if (distanceMoved2 + player.getVelocity().y * delta > Settings.ROOM_CHANGE_STEP) {
+                                    player.setVelocity(0f, (Settings.ROOM_CHANGE_STEP - distanceMoved2) / delta);
+                                }
+                                player.specialMove(delta);
+                                freezeObjects(delta);
+                                distanceMoved2 += player.getVelocity().y * delta;
+                            } else {
+                                player.setVelocity(0f, 0f);
+                                player.specialMove(delta);
+                                freezeObjects(delta);
+                            }
+
+                            timer += delta;
+                            if (timer >= Settings.ROOM_CHANGE_TIME + Settings.ROOM_CHANGE_TIME_BUFFER) {
+                                cleanRoom();
+                            }
+                            break;
+                        case 2:
+                            if (distanceMoved < (float) Assets.floor.getHeight()) {
+                                player.setVelocity(0f, Assets.floor.getHeight() / Settings.ROOM_CHANGE_TIME);
+                                if (distanceMoved + player.getVelocity().y * delta > (float) Assets.floor.getHeight()) {
+                                    player.setVelocity(0f, (Assets.floor.getHeight() - distanceMoved) / delta);
+                                }
+                                player.specialMove(delta);
+                                matchObjects(delta);
+                                distanceMoved += player.getVelocity().y * delta;
+                            } else if (distanceMoved2 < Settings.ROOM_CHANGE_STEP) {
+                                player.setVelocity(0f, -Settings.ROOM_CHANGE_STEP_SPEED);
+                                if (distanceMoved2 - player.getVelocity().y * delta > Settings.ROOM_CHANGE_STEP) {
+                                    player.setVelocity(0f, (Settings.ROOM_CHANGE_STEP - distanceMoved2) / -delta);
+                                }
+                                player.specialMove(delta);
+                                freezeObjects(delta);
+                                distanceMoved2 -= player.getVelocity().y * delta;
+                            } else {
+                                player.setVelocity(0f, 0f);
+                                player.specialMove(delta);
+                                freezeObjects(delta);
+                            }
+
+                            timer += delta;
+                            if (timer >= Settings.ROOM_CHANGE_TIME + Settings.ROOM_CHANGE_TIME_BUFFER) {
+                                cleanRoom();
+                            }
+                            break;
+                        case 3:
+                            if (distanceMoved < (float) Assets.floor.getWidth()) {
+                                player.setVelocity(Assets.floor.getWidth() / Settings.ROOM_CHANGE_TIME, 0f);
+                                if (distanceMoved + player.getVelocity().x * delta > (float) Assets.floor.getWidth()) {
+                                    player.setVelocity((Assets.floor.getWidth() - distanceMoved) / delta, 0f);
+                                }
+                                player.specialMove(delta);
+                                matchObjects(delta);
+                                distanceMoved += player.getVelocity().x * delta;
+                            } else if (distanceMoved2 < Settings.ROOM_CHANGE_STEP) {
+                                player.setVelocity(-Settings.ROOM_CHANGE_STEP_SPEED, 0f);
+                                if (distanceMoved2 - player.getVelocity().x * delta > Settings.ROOM_CHANGE_STEP) {
+                                    player.setVelocity((Settings.ROOM_CHANGE_STEP - distanceMoved2) / -delta, 0f);
+                                }
+                                player.specialMove(delta);
+                                freezeObjects(delta);
+                                distanceMoved2 -= player.getVelocity().y * delta;
+                            } else {
+                                player.setVelocity(0f, 0f);
+                                player.specialMove(delta);
+                                freezeObjects(delta);
+                            }
+
+                            timer += delta;
+                            if (timer >= Settings.ROOM_CHANGE_TIME + Settings.ROOM_CHANGE_TIME_BUFFER) {
+                                cleanRoom();
+                            }
+                            break;
+                        case 4:
+                            if (distanceMoved < (float) Assets.floor.getWidth()) {
+                                player.setVelocity(Assets.floor.getWidth() / -Settings.ROOM_CHANGE_TIME, 0f);
+                                if (distanceMoved - player.getVelocity().x * delta > (float) Assets.floor.getWidth()) {
+                                    player.setVelocity((Assets.floor.getWidth() - distanceMoved) / -delta, 0f);
+                                }
+                                player.specialMove(delta);
+                                matchObjects(delta);
+                                distanceMoved -= player.getVelocity().x * delta;
+                            } else if (distanceMoved2 < Settings.ROOM_CHANGE_STEP) {
+                                player.setVelocity(Settings.ROOM_CHANGE_STEP_SPEED, 0f);
+                                if (distanceMoved2 + player.getVelocity().x * delta > Settings.ROOM_CHANGE_STEP) {
+                                    player.setVelocity((Settings.ROOM_CHANGE_STEP - distanceMoved2) / delta, 0f);
+                                }
+                                player.specialMove(delta);
+                                freezeObjects(delta);
+                                distanceMoved2 += player.getVelocity().y * delta;
+                            } else {
+                                player.setVelocity(0f, 0f);
+                                player.specialMove(delta);
+                                freezeObjects(delta);
+                            }
+
+                            timer += delta;
+                            if (timer >= Settings.ROOM_CHANGE_TIME + Settings.ROOM_CHANGE_TIME_BUFFER) {
+                                cleanRoom();
+                            }
+                            break;
+                        default:
+                            collisionChecker.update(delta);
+                            player.update(delta);
+
+                            for (Bullet bullet : playerBullets) {
+                                bullet.update(delta);
+                            }
+                            for (Bullet bullet : enemyBullets) {
+                                bullet.update(delta);
+                            }
+                            for (Enemy enemy : enemies) {
+                                enemy.update(delta);
+                            }
+
+                            if (waveActive) {
+                                currentWave.update(delta);
+                            } else if (enemies.size() == 0 && indicators.size() == 0) {
+                                doorsOpen = true;
+                            }
+
+                            for (SpawnIndicator spawn : indicators) {
+                                spawn.update(delta);
+                                if (spawn.shouldSpawn()) {
+                                    enemies.add(spawn.createSpawn());
+                                    spawn.markedForDeletion = true;
+                                }
+                            }
+                            player.inputHandler.pausedUpdate(delta);
+                            break;
+                    }
+                    break;
                 case 1:
-                    if(distanceMoved < (float)Assets.floor.getHeight()) {
-                        player.setVelocity(0f, Assets.floor.getHeight() / -Settings.ROOM_CHANGE_TIME);
-                        if(distanceMoved - player.getVelocity().y * delta > (float)Assets.floor.getHeight()) {
-                            player.setVelocity(0f, (Assets.floor.getHeight() - distanceMoved) / -delta);
-                        }
-                        player.specialMove(delta);
-                        matchObjects(delta);
-                        distanceMoved -= player.getVelocity().y * delta;
-                    }
-                    else if(distanceMoved2 < Settings.ROOM_CHANGE_STEP) {
-                        player.setVelocity(0f, Settings.ROOM_CHANGE_STEP_SPEED);
-                        if(distanceMoved2 + player.getVelocity().y * delta > Settings.ROOM_CHANGE_STEP) {
-                            player.setVelocity(0f, (Settings.ROOM_CHANGE_STEP - distanceMoved2) / delta);
-                        }
-                        player.specialMove(delta);
-                        freezeObjects(delta);
-                        distanceMoved2 += player.getVelocity().y * delta;
-                    }
-                    else {
-                        player.setVelocity(0f, 0f);
-                        player.specialMove(delta);
-                        freezeObjects(delta);
-                    }
-
-                    timer += delta;
-                    if(timer >= Settings.ROOM_CHANGE_TIME + Settings.ROOM_CHANGE_TIME_BUFFER) {
-                        cleanRoom();
-                    }
-                    break;
-                case 2:
-                    if(distanceMoved < (float)Assets.floor.getHeight()) {
-                        player.setVelocity(0f, Assets.floor.getHeight() / Settings.ROOM_CHANGE_TIME);
-                        if(distanceMoved + player.getVelocity().y * delta > (float)Assets.floor.getHeight()) {
-                            player.setVelocity(0f, (Assets.floor.getHeight() - distanceMoved) / delta);
-                        }
-                        player.specialMove(delta);
-                        matchObjects(delta);
-                        distanceMoved += player.getVelocity().y * delta;
-                    }
-                    else if(distanceMoved2 < Settings.ROOM_CHANGE_STEP) {
-                        player.setVelocity(0f, -Settings.ROOM_CHANGE_STEP_SPEED);
-                        if(distanceMoved2 - player.getVelocity().y * delta > Settings.ROOM_CHANGE_STEP) {
-                            player.setVelocity(0f, (Settings.ROOM_CHANGE_STEP - distanceMoved2) / -delta);
-                        }
-                        player.specialMove(delta);
-                        freezeObjects(delta);
-                        distanceMoved2 -= player.getVelocity().y * delta;
-                    }
-                    else {
-                        player.setVelocity(0f, 0f);
-                        player.specialMove(delta);
-                        freezeObjects(delta);
-                    }
-
-                    timer += delta;
-                    if(timer >= Settings.ROOM_CHANGE_TIME + Settings.ROOM_CHANGE_TIME_BUFFER) {
-                        cleanRoom();
-                    }
-                    break;
-                case 3:
-                    if(distanceMoved < (float)Assets.floor.getWidth()) {
-                        player.setVelocity(Assets.floor.getWidth() / Settings.ROOM_CHANGE_TIME, 0f);
-                        if(distanceMoved + player.getVelocity().x * delta > (float)Assets.floor.getWidth()) {
-                            player.setVelocity((Assets.floor.getWidth() - distanceMoved) / delta, 0f);
-                        }
-                        player.specialMove(delta);
-                        matchObjects(delta);
-                        distanceMoved += player.getVelocity().x * delta;
-                    }
-                    else if(distanceMoved2 < Settings.ROOM_CHANGE_STEP) {
-                        player.setVelocity(-Settings.ROOM_CHANGE_STEP_SPEED, 0f);
-                        if(distanceMoved2 - player.getVelocity().x * delta > Settings.ROOM_CHANGE_STEP) {
-                            player.setVelocity((Settings.ROOM_CHANGE_STEP - distanceMoved2) / -delta, 0f);
-                        }
-                        player.specialMove(delta);
-                        freezeObjects(delta);
-                        distanceMoved2 -= player.getVelocity().y * delta;
-                    }
-                    else {
-                        player.setVelocity(0f, 0f);
-                        player.specialMove(delta);
-                        freezeObjects(delta);
-                    }
-
-                    timer += delta;
-                    if(timer >= Settings.ROOM_CHANGE_TIME + Settings.ROOM_CHANGE_TIME_BUFFER) {
-                        cleanRoom();
-                    }
-                    break;
-                case 4:
-                    if(distanceMoved < (float)Assets.floor.getWidth()) {
-                        player.setVelocity(Assets.floor.getWidth() / -Settings.ROOM_CHANGE_TIME, 0f);
-                        if(distanceMoved - player.getVelocity().x * delta > (float)Assets.floor.getWidth()) {
-                            player.setVelocity((Assets.floor.getWidth() - distanceMoved) / -delta, 0f);
-                        }
-                        player.specialMove(delta);
-                        matchObjects(delta);
-                        distanceMoved -= player.getVelocity().x * delta;
-                    }
-                    else if(distanceMoved2 < Settings.ROOM_CHANGE_STEP) {
-                        player.setVelocity(Settings.ROOM_CHANGE_STEP_SPEED, 0f);
-                        if(distanceMoved2 + player.getVelocity().x * delta > Settings.ROOM_CHANGE_STEP) {
-                            player.setVelocity((Settings.ROOM_CHANGE_STEP - distanceMoved2) / delta, 0f);
-                        }
-                        player.specialMove(delta);
-                        freezeObjects(delta);
-                        distanceMoved2 += player.getVelocity().y * delta;
-                    }
-                    else {
-                        player.setVelocity(0f, 0f);
-                        player.specialMove(delta);
-                        freezeObjects(delta);
-                    }
-
-                    timer += delta;
-                    if(timer >= Settings.ROOM_CHANGE_TIME + Settings.ROOM_CHANGE_TIME_BUFFER) {
-                        cleanRoom();
-                    }
+                    player.inputHandler.pausedUpdate(delta);
                     break;
                 default:
-                    collisionChecker.update(delta);
-                    player.update(delta);
-
-                    for (Bullet bullet : playerBullets) {
-                        bullet.update(delta);
-                    }
-                    for (Bullet bullet : enemyBullets) {
-                        bullet.update(delta);
-                    }
-                    for (Enemy enemy : enemies) {
-                        enemy.update(delta);
-                    }
-
-                    if(waveActive) {
-                        currentWave.update(delta);
-                    }
-                    else if(enemies.size() == 0 && indicators.size() == 0) {
-                        doorsOpen = true;
-                    }
-
-                    for (SpawnIndicator spawn : indicators) {
-                        spawn.update(delta);
-                        if (spawn.shouldSpawn()) {
-                            enemies.add(spawn.createSpawn());
-                            spawn.markedForDeletion = true;
-                        }
-                    }
+                    Gdx.app.log("World", "Found invalid activity identifier");
                     break;
             }
         }

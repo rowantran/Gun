@@ -22,7 +22,7 @@ public class Player extends Entity {
     public boolean rightStop = false;
     private int health;
     private GunGame game;
-    private InputHandler inputHandler;
+    public InputHandler inputHandler;
     float timeSinceRoll;
     public Array<Powerup> powerupsActive;
     Sound shot;

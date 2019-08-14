@@ -90,4 +90,15 @@ public class InputHandler implements Updatable {
         }
     }
 
+
+    public void pausedUpdate(float delta) {
+        if(Gdx.input.isKeyJustPressed(Settings.KEY_PAUSE)) {
+            if(World.activity == 0) {
+                World.activity = 1;
+            } else if(World.activity == 1) {
+                World.activity = 0;
+            }
+        }
+    }
+
 }
