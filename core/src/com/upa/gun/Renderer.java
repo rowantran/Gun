@@ -14,7 +14,11 @@ import com.upa.gun.enemy.Powerup;
 
 import java.util.ArrayList;
 
+/**
+ * Class to draw frames
+ */
 class Renderer {
+
     private SpriteBatch batch;
     private OrthographicCamera camera;
     private World world;
@@ -36,6 +40,9 @@ class Renderer {
         sr = new ShapeRenderer();
     }
 
+    /**
+     * Draws the floor of the stage
+     */
     private void drawBackground() {
         batch.begin();
         batch.disableBlending();
@@ -46,6 +53,9 @@ class Renderer {
         batch.end();
     }
 
+    /**
+     * Draws the black border
+     */
     private void drawBorder() {
         batch.begin();
         batch.enableBlending();
@@ -54,6 +64,12 @@ class Renderer {
         batch.end();
     }
 
+    /**
+     * Draws shadows below entities
+     * @param x - X coordinate of shadow
+     * @param y - Y coordinate of shadow
+     * @param objectWidth - Width of object to which shadow is assigned
+     */
     private void drawShadow(float x, float y, float objectWidth) {
         float shadowHeight = objectWidth / 3f;
 
@@ -61,6 +77,10 @@ class Renderer {
         batch.draw(Assets.shadow, x, shadowY, objectWidth, shadowHeight);
     }
 
+    /**
+     * Draws the player
+     * @param player - Player entity
+     */
     private void drawPlayer(Player player) {
         batch.begin();
         batch.enableBlending();
@@ -73,14 +93,18 @@ class Renderer {
         drawShadow(playerPos.x, playerPos.y, (float)currentFrame.getRegionWidth());
         batch.draw(currentFrame, playerPos.x, playerPos.y, 0, 0, player.getSize().x, player.getSize().y,
                 1, 1, World.player.state.rotation);
-
         batch.end();
-}
+    }
 
-    private void drawHealth(int health) {
+    /**
+     * Draws the health of the player
+     * @param health - Current health
+     */
+    private void drawPlayerHealth(int health) {
+        batch.begin();
         int startX = 50;
-        int incrementX = Assets.healthFullLeft.getRegionWidth();
         int startY = 72;
+        int incrementX = Assets.healthFullLeft.getRegionWidth();
         if (health > 0) {
             batch.draw(Assets.healthFullLeft, startX, startY, Assets.healthFullLeft.getRegionWidth(),
                     Assets.healthFullLeft.getRegionHeight());
@@ -108,24 +132,28 @@ class Renderer {
             batch.draw(Assets.healthEmptyRight, startX, startY, Assets.healthEmptyRight.getRegionWidth(),
                     Assets.healthEmptyRight.getRegionHeight());
         }
+        batch.end();
     }
 
+    /**
+     * Draws the health of a boss
+     * @param health - Current health
+     * @param maxHealth - Maximum health
+     * @param bossName - Name of boss to display above health bar
+     */
     private void drawBossHealth(int health, int maxHealth, String bossName) {
         batch.begin();
         batch.enableBlending();
 
-        //display boss health by percentage. 700px bar.
-
         int barWidth = 700;
-
-        float y = 698f; //arbitrary value. not 700 b/c crate face bottoms show
-        float x = Settings.RESOLUTION.x / 2; //center of screen
+        float y = 698f;
+        float x = Settings.RESOLUTION.x / 2f;
         Texture edge = Assets.bossHealthEdge;
         Texture full = Assets.bossHealthFull;
         Texture empty = Assets.bossHealthEmpty;
 
         layout.setText(font, bossName);
-        font.draw(batch, layout, Settings.RESOLUTION.x / 2 - layout.width/2, 770f); //sets boss title over health bar
+        font.draw(batch, layout, Settings.RESOLUTION.x / 2 - layout.width/2, 770f);
 
         double h = (double) health;
         double hMax = (double) maxHealth;
@@ -139,7 +167,6 @@ class Renderer {
             int offset = barWidth/2 - edge.getWidth() - i;
             batch.draw(full, x - offset, y, full.getWidth(), full.getHeight());
         }
-
         for(int i = barsToDraw; i < (double)barWidth - (2 * (double)edge.getWidth()); i++) {
             int offset = barWidth/2 - edge.getWidth() - i;
             batch.draw(empty, x - offset, y, empty.getWidth(), empty.getHeight());
@@ -148,16 +175,20 @@ class Renderer {
         batch.end();
     }
 
-    private void drawSlimeHealth(int health, int maxHealth, float xLocation, float yLocation) {
+    /**
+     * Draws the health of an enemy
+     * @param health - Current health
+     * @param maxHealth - Maximum health
+     * @param xLocation - X coordinate of enemy
+     * @param yLocation - Y coordinate of enemy
+     */
+    private void drawEnemyHealth(int health, int maxHealth, float xLocation, float yLocation) {
         batch.begin();
         batch.enableBlending();
 
-        //display slime health by percentage. 40px bar.
-
         int barWidth = 40;
-
-        float y = yLocation + 42; //arbitrary value for height
-        float x = xLocation + 24; //horizontal center of slime
+        float y = yLocation + 42;
+        float x = xLocation + 24;
         Texture edge = Assets.slimeHealthEdge;
         Texture full = Assets.slimeHealthFull;
         Texture empty = Assets.slimeHealthEmpty;
@@ -175,7 +206,6 @@ class Renderer {
             int offset = barWidth/2 - edge.getWidth() - i; //increments placement of next bar
             batch.draw(full, x - offset, y, full.getWidth(), full.getHeight());
         }
-
         for(int i = barsToDraw; i < (double)barWidth - (2 * (double)edge.getWidth()); i++) {
             int offset = barWidth/2 - edge.getWidth() - i; //increments placement of next bar
             batch.draw(empty, x - offset, y, empty.getWidth(), empty.getHeight());
@@ -183,10 +213,13 @@ class Renderer {
 
         batch.draw(edge, x - barWidth/2, y, edge.getWidth(), edge.getHeight());
         batch.draw(edge, x + (barWidth/2 - edge.getWidth()), y, edge.getWidth(), edge.getHeight());
-
         batch.end();
     }
 
+    /**
+     * Draws powerup
+     * @param p - Powerup
+     */
     private void drawPowerup(Powerup p) {
         batch.begin();
         batch.enableBlending();
@@ -194,44 +227,48 @@ class Renderer {
         batch.end();
     }
 
+    /**
+     *  Draws enemy
+     * @param e - Enemy
+     */
     private void drawEnemy(Enemy e) {
         batch.begin();
         batch.enableBlending();
         batch.setColor(1.0f, 1.0f, 1.0f, e.opacity);
-
         if (e.damagedFrame) {
             batch.setShader(Assets.flashWhiteShader);
         }
-
         Animation<TextureRegion> animation = Assets.getAnimation(new AnimationKey("sprites/enemies.atlas",
                 e.sprites.get(e.sprite)));
 
         TextureRegion frame = animation.getKeyFrame(e.timeElapsed);
 
-        //Gdx.app.debug("Renderer", "Enemy has time elapsed of " + e.timeElapsed);
-
         drawShadow(e.getPosition().x, e.getPosition().y, e.getSize().x);
         batch.draw(frame, e.getPosition().x, e.getPosition().y, e.getSize().x, e.getSize().y);
-
         batch.setShader(null);
         batch.setColor(1.0f, 1.0f, 1.0f, 1.0f);
         batch.end();
     }
 
-
-
-    private void drawBullet(Bullet bullet) {
+    /**
+     * Draws bullet
+     * @param b - Bullet
+     */
+    private void drawBullet(Bullet b) {
         batch.begin();
         batch.enableBlending();
-        Vector2 pos = bullet.getPosition();
-        batch.draw(Assets.bulletEnemy, pos.x, pos.y, bullet.getSize().x, bullet.getSize().y);
+        Vector2 pos = b.getPosition();
+        batch.draw(Assets.bulletEnemy, pos.x, pos.y, b.getSize().x, b.getSize().y);
         batch.end();
     }
 
+    /**
+     * Draws crate
+     * @param c - Crate
+     */
     private void drawCrate(Crate c) {
         batch.begin();
         batch.enableBlending();
-
         c.crateTopSprite.setPosition(c.getPosition().x, c.getPosition().y + 27);
         c.crateSideSprite.setPosition(c.getPosition().x, c.getPosition().y);
         c.crateTopSprite.draw(batch);
@@ -241,8 +278,11 @@ class Renderer {
         batch.end();
     }
 
+    /**
+     * Draws door
+     * @param d - Door
+     */
     private void drawDoor(Door d) {
-
         batch.begin();
         batch.enableBlending();
         if(!World.doorsOpen) {
@@ -264,7 +304,6 @@ class Renderer {
                 default:
                     break;
             }
-
             d.doorTopSprite.draw(batch);
             if (d.getDisplaySide()) {
                 d.doorSideSprite.draw(batch);
@@ -273,30 +312,47 @@ class Renderer {
         batch.end();
     }
 
+    /**
+     * Draws score
+     */
     private void drawScore() {
+        batch.begin();
         batch.enableBlending();
-
         layout.setText(font, Integer.toString(world.spawner.slimesKilled));
         float x = 30f;
         float y = (Settings.RESOLUTION.y - layout.height);
         font.draw(batch, layout, x, y);
+        batch.end();
     }
 
+    /**
+     * Draws spawn indicator
+     * @param s - Indicator
+     */
     private void drawIndicator(SpawnIndicator s) {
+        batch.begin();
         batch.draw(Assets.crosshair, s.x, s.y,
                 Assets.crosshair.getWidth()*2, Assets.crosshair.getHeight()*2);
+        batch.end();
     }
 
+    /**
+     * Draws FPS
+     */
     private void drawFPS() {
+        batch.begin();
         batch.enableBlending();
-
         layout.setText(font, Integer.toString(Gdx.graphics.getFramesPerSecond()));
-
         float x = 0f;
         float y = layout.height;
         font.draw(batch, layout, x, y);
+        batch.end();
     }
 
+    /**
+     * Draws an entity's main hitbox
+     * @param e - Entity
+     */
     private void drawHitbox(Entity e) {
         if (e.getHitbox().isActive()) {
             sr.setProjectionMatrix(camera.combined);
@@ -307,15 +363,18 @@ class Renderer {
                 }
             }
             sr.end();
-
         }
     }
 
-    private void drawSpecialHitbox(Hitboxes hitbox) {
-        if(hitbox.isActive()) {
+    /**
+     * Draws a specific hitbox
+     * @param hitboxes - Hitboxes to be drawn
+     */
+    private void drawSpecialHitbox(Hitboxes hitboxes) {
+        if(hitboxes.isActive()) {
             sr.setProjectionMatrix(camera.combined);
             sr.begin(ShapeRenderer.ShapeType.Line);
-            for(Hitbox h : hitbox) {
+            for(Hitbox h : hitboxes) {
                 if (h.isActive()) {
                     sr.rect(h.getX(), h.getY(), h.getWidth(), h.getHeight());
                 }
@@ -324,6 +383,11 @@ class Renderer {
         }
     }
 
+    /**
+     * Sorts entities by y value
+     * @param entities - List of entities to be sorted
+     * @param n - List size
+     */
     private void mergeSortEntities(ArrayList<Entity> entities, int n) {
         if(n < 2) {
             return;
@@ -341,10 +405,17 @@ class Renderer {
 
         mergeSortEntities(l, mid);
         mergeSortEntities(r, n-mid);
-
         mergeEntities(entities, l, r, mid, n-mid);
     }
 
+    /**
+     * Merge sort method
+     * @param entities - List of entities
+     * @param l - List of left side entities
+     * @param r - List of right side entities
+     * @param left - Left index
+     * @param right - Right index
+     */
     private void mergeEntities(ArrayList<Entity> entities, ArrayList<Entity> l, ArrayList<Entity> r, int left, int right) {
         int i = 0, j = 0, k = 0;
         while(i < left && j < right) {
@@ -363,6 +434,10 @@ class Renderer {
         }
     }
 
+    /**
+     * Draws entities with those that have a lower y value in front
+     * @param entityList - List of entities
+     */
     private void drawLayered(ArrayList<Entity> entityList) {
         mergeSortEntities(entityList, entityList.size());
         for(Entity e : entityList) {
@@ -381,7 +456,7 @@ class Renderer {
                     drawBossHealth(((Enemy)e).getHealth(), ((Enemy)e).getStartHealth(), "boss1");
                 }
                 else {
-                    drawSlimeHealth(((Enemy)e).getHealth(), ((Enemy)e).getStartHealth(), e.getPosition().x, e.getPosition().y);
+                    drawEnemyHealth(((Enemy)e).getHealth(), ((Enemy)e).getStartHealth(), e.getPosition().x, e.getPosition().y);
                 }
             }
             else if(e instanceof Bullet) {
@@ -396,6 +471,10 @@ class Renderer {
         }
     }
 
+    /**
+     * Draws necessary elements
+     * @param world
+     */
     void draw(World world) {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
@@ -419,7 +498,6 @@ class Renderer {
         for(Door d : World.currentMap.getDoors()) {
             entityList.add(d);
         }
-
         drawLayered(entityList);
 
         if(Settings.DEV_MODE) {
@@ -432,36 +510,18 @@ class Renderer {
             }
         }
 
-
-        /*
-        for (Powerup p : World.powerups) {
-            drawPowerup(p);
-        }
-        */
-
         if(World.roomChange != 0) {
             drawLayered(World.oldEntities);
         }
 
-        batch.begin();
         for (SpawnIndicator s : World.indicators) {
             drawIndicator(s);
         }
-        batch.end(); //???
         drawBorder();
-        batch.begin();
-        drawHealth(World.player.getHealth());
+        drawPlayerHealth(World.player.getHealth());
         drawScore();
-
         if (Settings.DEV_MODE) {
             drawFPS();
-        }
-
-        batch.end();
-
-        // Draw powerups attached to player
-        for (Powerup p : new Array.ArrayIterator<Powerup>(World.player.powerupsActive)) {
-            drawPowerup(p);
         }
 
         if (world.cinematicHappening) {
