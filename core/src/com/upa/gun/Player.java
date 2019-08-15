@@ -123,10 +123,14 @@ public class Player extends Entity {
         bulletCooldown -= delta;
     }
 
-    public void specialMove(float delta) {
-        setPosition(getPosition().x + getVelocity().x * delta, getPosition().y + getVelocity().y * delta);
-        hitbox.updateHitboxes(getVelocity().x * delta, getVelocity().y * delta);
-        cCheckHitbox.updateHitboxes(getVelocity().x * delta, getVelocity().y * delta);
+    /**
+     * Basic update function that alo moves the crate check hitbox
+     * @param delta - Clock
+     */
+    @Override
+    public void basicUpdate(float delta) {
+        super.basicUpdate(delta);
+        cCheckHitbox.setPosition(position);
     }
 
     @Override

@@ -33,11 +33,14 @@ public abstract class Entity implements Updatable {
 
     }
 
-    public void specialMove(float delta) { //should be removed once cleanup is finished
+    /**
+     * Basic update function that does not adjust velocity, only moves the entity
+     * @param delta - Clock
+     */
+    public void basicUpdate(float delta) {
         position.x += velocity.x * delta;
         position.y += velocity.y * delta;
-        Hitboxes hitbox = getHitbox();
-        hitbox.updateHitboxes(velocity.x * delta, velocity.y * delta);
+        hitbox.setPosition(position);
     }
 
     public Hitboxes getHitbox() { return hitbox; }

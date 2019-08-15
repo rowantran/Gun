@@ -110,6 +110,16 @@ public abstract class Enemy extends Entity {
         changeSprite(rotation.currentAttack().getSprite());
     }
 
+    /**
+     * Basic update function that alo moves the crate check hitbox
+     * @param delta - Clock
+     */
+    @Override
+    public void basicUpdate(float delta) {
+        super.basicUpdate(delta);
+        cCheckHitbox.setPosition(position);
+    }
+
     public int getID() { return id; }
     public int getStartHealth() { return startHealth; }
     public int getHealth() { return health; }

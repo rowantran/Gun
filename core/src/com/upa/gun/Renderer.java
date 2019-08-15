@@ -54,10 +54,9 @@ class Renderer {
         float xCenter = Settings.RESOLUTION.x/2;
         float yCenter = Settings.RESOLUTION.y/2;
 
-        Skin skin = new Skin();
-        skin.addRegions(Assets.buttonSkins);
-
         Gdx.input.setInputProcessor(pauseStage);
+
+        Skin skin = new Skin(Assets.buttonSkins);
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
         style.font = font;
         style.up = skin.getDrawable("up-button");

@@ -141,21 +141,18 @@ public class World implements Updatable {
                                 if (distanceMoved - player.getVelocity().y * delta > (float) Assets.floor.getHeight()) {
                                     player.setVelocity(0f, (Assets.floor.getHeight() - distanceMoved) / -delta);
                                 }
-                                player.specialMove(delta);
-                                matchObjects(delta);
+                                basicMoveEntities(delta, player.velocity);
                                 distanceMoved -= player.getVelocity().y * delta;
                             } else if (distanceMoved2 < Settings.ROOM_CHANGE_STEP) {
                                 player.setVelocity(0f, Settings.ROOM_CHANGE_STEP_SPEED);
                                 if (distanceMoved2 + player.getVelocity().y * delta > Settings.ROOM_CHANGE_STEP) {
                                     player.setVelocity(0f, (Settings.ROOM_CHANGE_STEP - distanceMoved2) / delta);
                                 }
-                                player.specialMove(delta);
+                                player.basicUpdate(delta);
                                 freezeObjects(delta);
                                 distanceMoved2 += player.getVelocity().y * delta;
                             } else {
-                                player.setVelocity(0f, 0f);
-                                player.specialMove(delta);
-                                freezeObjects(delta);
+                                basicMoveEntities(delta, new Vector2(0f, 0f));
                             }
 
                             timer += delta;
@@ -169,21 +166,18 @@ public class World implements Updatable {
                                 if (distanceMoved + player.getVelocity().y * delta > (float) Assets.floor.getHeight()) {
                                     player.setVelocity(0f, (Assets.floor.getHeight() - distanceMoved) / delta);
                                 }
-                                player.specialMove(delta);
-                                matchObjects(delta);
+                                basicMoveEntities(delta, player.velocity);
                                 distanceMoved += player.getVelocity().y * delta;
                             } else if (distanceMoved2 < Settings.ROOM_CHANGE_STEP) {
                                 player.setVelocity(0f, -Settings.ROOM_CHANGE_STEP_SPEED);
                                 if (distanceMoved2 - player.getVelocity().y * delta > Settings.ROOM_CHANGE_STEP) {
                                     player.setVelocity(0f, (Settings.ROOM_CHANGE_STEP - distanceMoved2) / -delta);
                                 }
-                                player.specialMove(delta);
+                                player.basicUpdate(delta);
                                 freezeObjects(delta);
                                 distanceMoved2 -= player.getVelocity().y * delta;
                             } else {
-                                player.setVelocity(0f, 0f);
-                                player.specialMove(delta);
-                                freezeObjects(delta);
+                                basicMoveEntities(delta, new Vector2(0f, 0f));
                             }
 
                             timer += delta;
@@ -197,21 +191,18 @@ public class World implements Updatable {
                                 if (distanceMoved + player.getVelocity().x * delta > (float) Assets.floor.getWidth()) {
                                     player.setVelocity((Assets.floor.getWidth() - distanceMoved) / delta, 0f);
                                 }
-                                player.specialMove(delta);
-                                matchObjects(delta);
+                                basicMoveEntities(delta, player.velocity);
                                 distanceMoved += player.getVelocity().x * delta;
                             } else if (distanceMoved2 < Settings.ROOM_CHANGE_STEP) {
                                 player.setVelocity(-Settings.ROOM_CHANGE_STEP_SPEED, 0f);
                                 if (distanceMoved2 - player.getVelocity().x * delta > Settings.ROOM_CHANGE_STEP) {
                                     player.setVelocity((Settings.ROOM_CHANGE_STEP - distanceMoved2) / -delta, 0f);
                                 }
-                                player.specialMove(delta);
+                                player.basicUpdate(delta);
                                 freezeObjects(delta);
                                 distanceMoved2 -= player.getVelocity().y * delta;
                             } else {
-                                player.setVelocity(0f, 0f);
-                                player.specialMove(delta);
-                                freezeObjects(delta);
+                                basicMoveEntities(delta, new Vector2(0f, 0f));
                             }
 
                             timer += delta;
@@ -225,21 +216,18 @@ public class World implements Updatable {
                                 if (distanceMoved - player.getVelocity().x * delta > (float) Assets.floor.getWidth()) {
                                     player.setVelocity((Assets.floor.getWidth() - distanceMoved) / -delta, 0f);
                                 }
-                                player.specialMove(delta);
-                                matchObjects(delta);
+                                basicMoveEntities(delta, player.velocity);
                                 distanceMoved -= player.getVelocity().x * delta;
                             } else if (distanceMoved2 < Settings.ROOM_CHANGE_STEP) {
                                 player.setVelocity(Settings.ROOM_CHANGE_STEP_SPEED, 0f);
                                 if (distanceMoved2 + player.getVelocity().x * delta > Settings.ROOM_CHANGE_STEP) {
                                     player.setVelocity((Settings.ROOM_CHANGE_STEP - distanceMoved2) / delta, 0f);
                                 }
-                                player.specialMove(delta);
+                                player.basicUpdate(delta);
                                 freezeObjects(delta);
                                 distanceMoved2 += player.getVelocity().y * delta;
                             } else {
-                                player.setVelocity(0f, 0f);
-                                player.specialMove(delta);
-                                freezeObjects(delta);
+                                basicMoveEntities(delta, new Vector2(0f, 0f));
                             }
 
                             timer += delta;
@@ -303,19 +291,21 @@ public class World implements Updatable {
         }
     }
 
-    private void matchObjects(float delta) {
+    private void basicMoveEntities(float delta, Vector2 velocity) {
         for(Entity e : oldEntities) {
-            e.setVelocity(player.getVelocity());
-            e.update(delta);
-        }
-        for(Entity e : currentMap.getCrates()) {
-            e.setVelocity(player.getVelocity());
-            e.update(delta);
+            e.setVelocity(velocity);
+            e.basicUpdate(delta);
         }
         for(Entity e : currentMap.getDoors()) {
-            e.setVelocity(player.getVelocity());
-            e.update(delta);
+            e.setVelocity(velocity);
+            e.basicUpdate(delta);
         }
+        for(Entity e : currentMap.getCrates()) {
+            e.setVelocity(velocity);
+            e.basicUpdate(delta);
+        }
+        player.setVelocity(velocity);
+        player.basicUpdate(delta);
     }
 
     public static void resetTimer() {
