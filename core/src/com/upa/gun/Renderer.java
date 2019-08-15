@@ -56,20 +56,18 @@ class Renderer {
 
         Skin skin = new Skin();
         skin.addRegions(Assets.buttonSkins);
-        font.getData().setScale(1.5f);
 
         Gdx.input.setInputProcessor(pauseStage);
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
         style.font = font;
         style.up = skin.getDrawable("up-button");
         style.down = skin.getDrawable("down-button");
+        style.over = skin.getDrawable("over-button");
         style.checked = skin.getDrawable("checked-button");
 
         TextButton button = new TextButton("Return to game", style);
-        button.setWidth(Settings.PAUSE_SCREEN_RESOLUTION.x - 400f);
-        button.setHeight(50f);
-        button.setPosition(xCenter - button.getWidth()/2, yCenter + Settings.PAUSE_SCREEN_RESOLUTION.y/2 - 150 - button.getHeight());
-
+        button.getLabel().setFontScale(2f);
+        button.setPosition(xCenter - (button.getWidth() / 2), (yCenter + (Settings.PAUSE_SCREEN_RESOLUTION.y / 2)) - 150 - button.getHeight());
         button.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -545,8 +543,6 @@ class Renderer {
         pauseStage.draw();
 
     }
-
-
 
     /**
      * Draws necessary elements

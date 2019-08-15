@@ -9,6 +9,7 @@ public class GunGame extends Game {
 	SpriteBatch batch;
 
 	public World world;
+	public Renderer renderer;
 	private Music music;
 
 	@Override
@@ -21,6 +22,8 @@ public class GunGame extends Game {
 
         world = World.getInstance();
         world.setGunGame(this);
+
+        renderer = new Renderer(batch, world);
 
         if(!Settings.MUTE) {
 			music = Gdx.audio.newMusic(Gdx.files.internal("sfx/music.mp3"));
@@ -37,4 +40,5 @@ public class GunGame extends Game {
 	    super.dispose();
 		batch.dispose();
 	}
+
 }

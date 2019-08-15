@@ -183,6 +183,7 @@
         <map type="IndividualSpriteSettingsMap">
             <key type="filename">buttons/checked-button.png</key>
             <key type="filename">buttons/down-button.png</key>
+            <key type="filename">buttons/over-button.png</key>
             <key type="filename">buttons/up-button.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -190,9 +191,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>75,25,150,50</rect>
+                <rect>125,13,250,25</rect>
                 <key>scale9Paddings</key>
-                <rect>75,25,150,50</rect>
+                <rect>125,13,250,25</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>

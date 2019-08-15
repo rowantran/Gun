@@ -9,15 +9,14 @@ public class GameScreen extends ScreenAdapter {
     GameScreen(GunGame game) {
         this.game = game;
 
-        renderer = new Renderer(game.batch, game.world);
+        renderer = game.renderer;
     }
 
     @Override
     public void render(float delta) {
         game.world.update(delta);
-
         renderer.draw(game.world);
-
         game.world.deleteMarkedForDeletion();
     }
+
 }

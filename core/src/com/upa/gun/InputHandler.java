@@ -97,6 +97,7 @@ public class InputHandler implements Updatable {
                 World.activity = 1;
             } else if(World.activity == 1) {
                 World.activity = 0;
+
             }
         }
     }

@@ -1,26 +1,33 @@
 buttons.png
-size: 900, 100
+size: 2000, 50
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 checked-button
   rotate: false
   xy: 0, 0
-  size: 300, 100
-  orig: 300, 100
+  size: 500, 50
+  orig: 500, 50
   offset: 0, 0
   index: -1
 down-button
   rotate: false
-  xy: 300, 0
-  size: 300, 100
-  orig: 300, 100
+  xy: 500, 0
+  size: 500, 50
+  orig: 500, 50
+  offset: 0, 0
+  index: -1
+over-button
+  rotate: false
+  xy: 1000, 0
+  size: 500, 50
+  orig: 500, 50
   offset: 0, 0
   index: -1
 up-button
   rotate: false
-  xy: 600, 0
-  size: 300, 100
-  orig: 300, 100
+  xy: 1500, 0
+  size: 500, 50
+  orig: 500, 50
   offset: 0, 0
   index: -1
