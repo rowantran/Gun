@@ -8,6 +8,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.upa.gun.enemy.Enemy;
 import com.upa.gun.enemy.SpawnIndicator;
@@ -26,6 +31,7 @@ class Renderer {
     private GlyphLayout layout;
     private BitmapFont font;
     private ShapeRenderer sr;
+    private Stage pauseStage;
 
     Renderer(SpriteBatch batch, World world) {
         this.batch = batch;
@@ -34,10 +40,44 @@ class Renderer {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Settings.RESOLUTION.x, Settings.RESOLUTION.y);
 
+        pauseStage = new Stage();
         layout = new GlyphLayout();
         font = new BitmapFont();
 
         sr = new ShapeRenderer();
+
+        generatePauseElements();
+    }
+
+    private void generatePauseElements() {
+
+        float xCenter = Settings.RESOLUTION.x/2;
+        float yCenter = Settings.RESOLUTION.y/2;
+
+        Skin skin = new Skin();
+        skin.addRegions(Assets.buttonSkins);
+        font.getData().setScale(1.5f);
+
+        Gdx.input.setInputProcessor(pauseStage);
+        TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
+        style.font = font;
+        style.up = skin.getDrawable("up-button");
+        style.down = skin.getDrawable("down-button");
+        style.checked = skin.getDrawable("checked-button");
+
+        TextButton button = new TextButton("Return to game", style);
+        button.setWidth(Settings.PAUSE_SCREEN_RESOLUTION.x - 400f);
+        button.setHeight(50f);
+        button.setPosition(xCenter - button.getWidth()/2, yCenter + Settings.PAUSE_SCREEN_RESOLUTION.y/2 - 150 - button.getHeight());
+
+        button.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("BUTTON PRESS");
+            }
+        });
+
+        pauseStage.addActor(button);
     }
 
     /**
@@ -500,7 +540,12 @@ class Renderer {
         font.draw(batch, layout, x, y);
         batch.end();
 
+
+
+        pauseStage.draw();
+
     }
+
 
 
     /**

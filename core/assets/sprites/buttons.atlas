@@ -1,0 +1,26 @@
+buttons.png
+size: 900, 100
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+checked-button
+  rotate: false
+  xy: 0, 0
+  size: 300, 100
+  orig: 300, 100
+  offset: 0, 0
+  index: -1
+down-button
+  rotate: false
+  xy: 300, 0
+  size: 300, 100
+  orig: 300, 100
+  offset: 0, 0
+  index: -1
+up-button
+  rotate: false
+  xy: 600, 0
+  size: 300, 100
+  orig: 300, 100
+  offset: 0, 0
+  index: -1

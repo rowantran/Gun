@@ -3,6 +3,7 @@ HIGH PRIORITY ----
 - art update - to 64x64 px?
 - fix enemy spawn locations
 - implement powerups, add powerup drop chance info to enemy json
+- add pause screen
 
 LOW PRIORITY ----
 - fix parent function control in entity

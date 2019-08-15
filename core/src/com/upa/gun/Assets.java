@@ -40,6 +40,8 @@ public class Assets {
 
     public static TextureAtlas bossSlimeAtlas;
 
+    public static TextureAtlas buttonSkins;
+
     public static Texture bullets;
     public static TextureRegion bulletLaser;
     public static Texture bulletsEnemies;
@@ -103,6 +105,8 @@ public class Assets {
         assetManager.load("sprites/enemies.atlas", TextureAtlas.class);
         assetManager.finishLoading();
         spriteAtlas = new TextureAtlas(Gdx.files.internal("sprites/sprites.atlas"));
+
+        buttonSkins = new TextureAtlas(Gdx.files.internal("sprites/buttons.atlas"));
 
         loadHealthBar();
 
