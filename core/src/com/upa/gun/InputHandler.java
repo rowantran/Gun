@@ -110,6 +110,12 @@ public class InputHandler implements Updatable {
                     World.activity = 1;
                     game.renderer.enablePauseButtons();
                     break;
+                case 4:
+                    World.activity = 1;
+                    game.renderer.enablePauseButtons();
+                    break;
+                case 5:
+                    break;
                 default:
                     Gdx.app.log("InputHandler", "Found invalid activity identifier (" + World.activity + ")");
                     break;

@@ -58,16 +58,23 @@ class Renderer {
         float yCenter = Settings.RESOLUTION.y/2;
 
         Gdx.input.setInputProcessor(pauseStage);
-
         Skin skin = new Skin(Assets.buttonSkins);
-        TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
-        style.font = font;
-        style.up = skin.getDrawable("up-button");
-        style.down = skin.getDrawable("down-button");
-        style.over = skin.getDrawable("over-button");
-        style.checked = skin.getDrawable("checked-button");
 
-        TextButton back = new TextButton("Return to game", style);
+        TextButton.TextButtonStyle longStyle = new TextButton.TextButtonStyle();
+        longStyle.font = font;
+        longStyle.up = skin.getDrawable("up-button-long");
+        longStyle.down = skin.getDrawable("down-button-long");
+        longStyle.over = skin.getDrawable("over-button-long");
+        longStyle.checked = skin.getDrawable("checked-button-long");
+
+        TextButton.TextButtonStyle shortStyle = new TextButton.TextButtonStyle();
+        shortStyle.font = font;
+        shortStyle.up = skin.getDrawable("up-button-short");
+        shortStyle.down = skin.getDrawable("down-button-short");
+        shortStyle.over = skin.getDrawable("over-button-short");
+        shortStyle.checked = skin.getDrawable("checked-button-short");
+
+        TextButton back = new TextButton("Return to game", longStyle);
         back.getLabel().setFontScale(2f);
         back.setPosition(xCenter - (back.getWidth()/2), (yCenter + (Settings.PAUSE_SCREEN_RESOLUTION.y / 2)) - 150 - back.getHeight());
         back.addListener(new ChangeListener() {
@@ -78,9 +85,9 @@ class Renderer {
             }
         });
 
-        TextButton stats = new TextButton("Stats", style);
+        TextButton stats = new TextButton("Stats", shortStyle);
         stats.getLabel().setFontScale(2f);
-        stats.setPosition(xCenter - stats.getWidth()/2, back.getY() - stats.getHeight() - Settings.BUTTON_INCREMENT);
+        stats.setPosition(back.getX(), back.getY() - stats.getHeight() - Settings.BUTTON_INCREMENT - 20);
         stats.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -89,9 +96,10 @@ class Renderer {
             }
         });
 
-        TextButton progress = new TextButton("Progress", style);
+        TextButton progress = new TextButton("Progress", shortStyle);
         progress.getLabel().setFontScale(2f);
-        progress.setPosition(xCenter - progress.getWidth()/2, stats.getY() - progress.getHeight() - Settings.BUTTON_INCREMENT);
+        progress.setPosition(back.getX() + back.getWidth() - progress.getWidth(),
+                back.getY() - progress.getHeight() - Settings.BUTTON_INCREMENT - 20);
         progress.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -100,9 +108,33 @@ class Renderer {
             }
         });
 
+        TextButton settings = new TextButton("Settings", shortStyle);
+        settings.getLabel().setFontScale(2f);
+        settings.setPosition(back.getX(), stats.getY() - settings.getHeight() - Settings.BUTTON_INCREMENT);
+        settings.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                World.activity = 4;
+                disableAllButtons();
+            }
+        });
+
+        TextButton quit = new TextButton("Quit", shortStyle);
+        quit.getLabel().setFontScale(2f);
+        quit.setPosition(back.getX() + back.getWidth() - quit.getWidth(),
+                progress.getY() - quit.getHeight() - Settings.BUTTON_INCREMENT);
+        quit.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.exit(0);
+            }
+        });
+
         pauseStage.addActor(back);
         pauseStage.addActor(stats);
         pauseStage.addActor(progress);
+        pauseStage.addActor(settings);
+        pauseStage.addActor(quit);
     }
 
     public void disableAllButtons() {
@@ -648,6 +680,27 @@ class Renderer {
 
     }
 
+    private void drawSettingsScreen() {
+
+        float xCenter = Settings.RESOLUTION.x/2;
+        float yCenter = Settings.RESOLUTION.y/2;
+
+        float textYStart = yCenter + Settings.PAUSE_SCREEN_RESOLUTION.y/2 - 100;
+        float yIncrement = 30f;
+        float textXStart = xCenter - Settings.PAUSE_SCREEN_RESOLUTION.x/2 + 30;
+        float textXStart2 = xCenter;
+
+        drawPauseBox();
+
+        batch.begin();
+        batch.enableBlending();
+        font.getData().setScale(3f);
+        layout.setText(font, "Settings");
+        font.draw(batch, layout, xCenter - layout.width/2, yCenter + Settings.PAUSE_SCREEN_RESOLUTION.y/2 - layout.height);
+
+        batch.end();
+    }
+
 
     /**
      * Draws necessary elements
@@ -712,6 +765,8 @@ class Renderer {
         }
 
         switch(World.activity) {
+            case 0:
+                break;
             case 1:
                 drawPauseScreen();
                 break;
@@ -720,6 +775,11 @@ class Renderer {
                 break;
             case 3:
                 drawProgressScreen();
+                break;
+            case 4:
+                drawSettingsScreen();
+                break;
+            case 5:
                 break;
             default:
                 Gdx.app.log("Renderer", "Found invalid activity identifier (" + World.activity + ")");

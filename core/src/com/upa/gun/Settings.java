@@ -22,7 +22,7 @@ public class Settings {
     public static final float STEP_TIME = 1/300f;
 
     public static final Vector2 RESOLUTION = new Vector2(1280, 800);
-    public static final Vector2 PAUSE_SCREEN_RESOLUTION = new Vector2(900, 500);
+    public static final Vector2 PAUSE_SCREEN_RESOLUTION = new Vector2(600, 500);
     public static final float BUTTON_INCREMENT = 20f;
 
 

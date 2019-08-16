@@ -181,10 +181,10 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">buttons/checked-button.png</key>
-            <key type="filename">buttons/down-button.png</key>
-            <key type="filename">buttons/over-button.png</key>
-            <key type="filename">buttons/up-button.png</key>
+            <key type="filename">buttons/checked-button-long.png</key>
+            <key type="filename">buttons/down-button-long.png</key>
+            <key type="filename">buttons/over-button-long.png</key>
+            <key type="filename">buttons/up-button-long.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -194,6 +194,22 @@
                 <rect>125,13,250,25</rect>
                 <key>scale9Paddings</key>
                 <rect>125,13,250,25</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">buttons/checked-button-short.png</key>
+            <key type="filename">buttons/down-button-short.png</key>
+            <key type="filename">buttons/over-button-short.png</key>
+            <key type="filename">buttons/up-button-short.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>56,13,113,25</rect>
+                <key>scale9Paddings</key>
+                <rect>56,13,113,25</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
