@@ -4,6 +4,7 @@ HIGH PRIORITY ----
 - fix enemy spawn locations
 - implement powerups, add powerup drop chance info to enemy json
 - add pause screen
+- fix enable/disable buttons
 
 LOW PRIORITY ----
 - fix parent function control in entity
@@ -13,9 +14,9 @@ LOW PRIORITY ----
 - folder cleanup
 - make hitboxes percentage-size based rather than hard numbers
 - fix door layering
-- move future collision checking to collision checker
 - create "movable" subclass for entity
 - set player speed to player speed value when diagonally colliding with crates
+- Fix "over" effect for buttons
 
 ================================================================
 FINISHED
@@ -33,3 +34,4 @@ FINISHED
 - major cleanup involving hitbox offsets
 - fix corner movement bugs when hitting crates - can bandaid fix with speed check
 - full fix for corner movement bugs... has to do with enemy direction change? ... occurs when moving towards inside of box on corner
+- move future collision checking to collision checker

@@ -37,8 +37,8 @@ public abstract class Bullet extends Entity {
             markedForDeletion = true;
         }
 
-    	float vx = (float) Math.cos(angle) * Settings.BULLET_SPEED * speedMult;
-    	float vy = (float) Math.sin(angle) * Settings.BULLET_SPEED * speedMult;
+    	float vx = (float) Math.cos(angle) * Settings.playerBulletSpeed * speedMult;
+    	float vy = (float) Math.sin(angle) * Settings.playerBulletSpeed * speedMult;
         setVelocity(vx, vy);
     }
 }

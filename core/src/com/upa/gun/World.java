@@ -269,8 +269,14 @@ public class World implements Updatable {
                 case 1:
                     player.inputHandler.pausedUpdate(delta);
                     break;
+                case 2:
+                    player.inputHandler.pausedUpdate(delta);
+                    break;
+                case 3:
+                    player.inputHandler.pausedUpdate(delta);
+                    break;
                 default:
-                    Gdx.app.log("World", "Found invalid activity identifier");
+                    Gdx.app.log("World", "Found invalid activity identifier (" + activity + ")");
                     break;
             }
         }

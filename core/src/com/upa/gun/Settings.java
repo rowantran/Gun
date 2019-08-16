@@ -23,8 +23,8 @@ public class Settings {
 
     public static final Vector2 RESOLUTION = new Vector2(1280, 800);
     public static final Vector2 PAUSE_SCREEN_RESOLUTION = new Vector2(900, 500);
+    public static final float BUTTON_INCREMENT = 20f;
 
-    public static final float BULLET_SPEED = 500.0f;
 
     public static final float ENEMY_BULLET_SPEED_MULTIPLIER = 0.8f;
 
@@ -59,4 +59,5 @@ public class Settings {
     public static float playerSpeed = 250.0f;
     public static int playerDamage = 2;
     public static int playerHealth = 10;
+    public static float playerBulletSpeed = 500.0f;
 }

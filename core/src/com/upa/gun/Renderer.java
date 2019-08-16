@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -18,6 +19,7 @@ import com.upa.gun.enemy.Enemy;
 import com.upa.gun.enemy.SpawnIndicator;
 import com.upa.gun.enemy.Powerup;
 
+import javax.xml.soap.Text;
 import java.util.ArrayList;
 
 /**
@@ -64,17 +66,55 @@ class Renderer {
         style.over = skin.getDrawable("over-button");
         style.checked = skin.getDrawable("checked-button");
 
-        TextButton button = new TextButton("Return to game", style);
-        button.getLabel().setFontScale(2f);
-        button.setPosition(xCenter - (button.getWidth() / 2), (yCenter + (Settings.PAUSE_SCREEN_RESOLUTION.y / 2)) - 150 - button.getHeight());
-        button.addListener(new ChangeListener() {
+        TextButton back = new TextButton("Return to game", style);
+        back.getLabel().setFontScale(2f);
+        back.setPosition(xCenter - (back.getWidth()/2), (yCenter + (Settings.PAUSE_SCREEN_RESOLUTION.y / 2)) - 150 - back.getHeight());
+        back.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("BUTTON PRESS");
+                World.activity = 0;
             }
         });
 
-        pauseStage.addActor(button);
+        TextButton stats = new TextButton("Stats", style);
+        stats.getLabel().setFontScale(2f);
+        stats.setPosition(xCenter - stats.getWidth()/2, back.getY() - stats.getHeight() - Settings.BUTTON_INCREMENT);
+        stats.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                World.activity = 2;
+            }
+        });
+
+        TextButton progress = new TextButton("Progress", style);
+        progress.getLabel().setFontScale(2f);
+        progress.setPosition(xCenter - progress.getWidth()/2, stats.getY() - progress.getHeight() - Settings.BUTTON_INCREMENT);
+        progress.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                World.activity = 3;
+            }
+        });
+
+        pauseStage.addActor(back);
+        pauseStage.addActor(stats);
+        pauseStage.addActor(progress);
+    }
+
+    public void disablePauseButtons() {
+        for(Actor a : pauseStage.getActors()) {
+            if(a instanceof TextButton) {
+                ((TextButton)a).setDisabled(true);
+            }
+        }
+    }
+
+    public void enablePauseButton() {
+        for(Actor a : pauseStage.getActors()) {
+            if(a instanceof TextButton) {
+                ((TextButton)a).setDisabled(false);
+            }
+        }
     }
 
     /**
@@ -513,35 +553,97 @@ class Renderer {
         }
     }
 
+
+    private void drawPauseBox() {
+        sr.setProjectionMatrix(camera.combined);
+        sr.begin(ShapeRenderer.ShapeType.Filled);
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        sr.setColor(20/255f, 20/255f, 20/255f, 0.85f);
+        sr.rect(Settings.RESOLUTION.x/2 - Settings.PAUSE_SCREEN_RESOLUTION.x/2, Settings.RESOLUTION.y/2 - Settings.PAUSE_SCREEN_RESOLUTION.y/2,
+                Settings.PAUSE_SCREEN_RESOLUTION.x, Settings.PAUSE_SCREEN_RESOLUTION.y);
+        sr.end();
+    }
+
     private void drawPauseScreen() {
 
         float xCenter = Settings.RESOLUTION.x/2;
         float yCenter = Settings.RESOLUTION.y/2;
 
-        sr.setProjectionMatrix(camera.combined);
-        sr.begin(ShapeRenderer.ShapeType.Filled);
-        Gdx.gl.glEnable(GL20.GL_BLEND);
-        sr.setColor(new Color(20/255f, 20/255f, 20/255f, 0.85f));
-        sr.rect(xCenter - Settings.PAUSE_SCREEN_RESOLUTION.x/2, yCenter -
-                Settings.PAUSE_SCREEN_RESOLUTION.y/2, Settings.PAUSE_SCREEN_RESOLUTION.x,
-                Settings.PAUSE_SCREEN_RESOLUTION.y);
-        sr.end();
-
+        drawPauseBox();
 
         batch.begin();
         batch.enableBlending();
         font.getData().setScale(3f);
         layout.setText(font, "PAUSED");
-        float x = xCenter - layout.width/2;
-        float y = yCenter + Settings.PAUSE_SCREEN_RESOLUTION.y/2 - layout.height;
-        font.draw(batch, layout, x, y);
+        font.draw(batch, layout, xCenter-layout.width/2, yCenter + Settings.PAUSE_SCREEN_RESOLUTION.y/2 - layout.height);
         batch.end();
-
-
 
         pauseStage.draw();
 
     }
+
+    private void drawStatsScreen() {
+
+        float xCenter = Settings.RESOLUTION.x/2;
+        float yCenter = Settings.RESOLUTION.y/2;
+
+        float textYStart = yCenter + Settings.PAUSE_SCREEN_RESOLUTION.y/2 - 100;
+        float yIncrement = 30f;
+        float textXStart = xCenter - Settings.PAUSE_SCREEN_RESOLUTION.x/2 + 30;
+        float textXStart2 = xCenter;
+
+        drawPauseBox();
+
+        batch.begin();
+        batch.enableBlending();
+        font.getData().setScale(3f);
+        layout.setText(font, "STATS");
+        font.draw(batch, layout, xCenter - layout.width/2, yCenter + Settings.PAUSE_SCREEN_RESOLUTION.y/2 - layout.height);
+
+        font.getData().setScale(1.5f);
+        layout.setText(font, "Attack speed: " + (10/Settings.playerBulletCooldown));
+        font.draw(batch, layout, textXStart, textYStart);
+        layout.setText(font, "Bullet speed: " + Settings.playerBulletSpeed);
+        font.draw(batch, layout, textXStart2, textYStart);
+        layout.setText(font, "Damage: " + Settings.playerDamage);
+        font.draw(batch, layout, textXStart, textYStart - yIncrement);
+        layout.setText(font, "Health: " + Settings.playerHealth);
+        font.draw(batch, layout, textXStart2, textYStart - yIncrement);
+        layout.setText(font, "Speed: " + Settings.playerSpeed);
+        font.draw(batch, layout, textXStart, textYStart - 2 * yIncrement);
+
+        batch.end();
+    }
+
+    private void drawProgressScreen() {
+
+        float xCenter = Settings.RESOLUTION.x/2;
+        float yCenter = Settings.RESOLUTION.y/2;
+
+        float textYStart = yCenter + Settings.PAUSE_SCREEN_RESOLUTION.y/2 - 100;
+        float yIncrement = 30f;
+        float textXStart = xCenter - Settings.PAUSE_SCREEN_RESOLUTION.x/2 + 30;
+        float textXStart2 = xCenter;
+
+        drawPauseBox();
+
+        batch.begin();
+        batch.enableBlending();
+        font.getData().setScale(3f);
+        layout.setText(font, "PROGRESS");
+        font.draw(batch, layout, xCenter - layout.width/2, yCenter + Settings.PAUSE_SCREEN_RESOLUTION.y/2 - layout.height);
+
+        font.getData().setScale(1.5f);
+        layout.setText(font, "Purple slimes killed: ");
+        font.draw(batch, layout, textXStart, textYStart);
+        font.getData().setScale(1.5f);
+        layout.setText(font, "Green slimes killed: ");
+        font.draw(batch, layout, textXStart2, textYStart);
+
+        batch.end();
+
+    }
+
 
     /**
      * Draws necessary elements
@@ -605,9 +707,19 @@ class Renderer {
             sr.end();
         }
 
-        if(World.activity == 1) {
-            drawPauseScreen();
+        switch(World.activity) {
+            case 1:
+                drawPauseScreen();
+                break;
+            case 2:
+                drawStatsScreen();
+                break;
+            case 3:
+                drawProgressScreen();
+                break;
+            default:
+                Gdx.app.log("Renderer", "Found invalid activity identifier (" + World.activity + ")");
+                break;
         }
-
     }
 }
