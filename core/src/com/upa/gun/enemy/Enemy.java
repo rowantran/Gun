@@ -68,6 +68,17 @@ public abstract class Enemy extends Entity {
             }
             */
 
+            switch(id) {
+                case 0:
+                    World.spawner.purpleSlimesKilled++;
+                    break;
+                case 1:
+                    World.spawner.greenSlimesKilled++;
+                    break;
+                default:
+                    Gdx.app.log("Enemy", "Unregistered enemy killed");
+            }
+
             //
             World.spawner.slimesKilled++;
             World.spawner.slimesKilledSinceLastBoss++;

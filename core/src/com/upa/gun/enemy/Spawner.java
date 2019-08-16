@@ -13,6 +13,9 @@ public class Spawner {
     public int slimesKilled;
     public int slimesKilledSinceLastBoss;
 
+    public static int purpleSlimesKilled;
+    public static int greenSlimesKilled;
+
     boolean bossAlive;
 
     public int slimesSpawned;
@@ -25,6 +28,8 @@ public class Spawner {
 
         slimesKilled = 0;
         slimesKilledSinceLastBoss = 0;
+        purpleSlimesKilled = 0;
+        greenSlimesKilled = 0;
 
         bossAlive = false;
 
@@ -46,6 +51,10 @@ public class Spawner {
         bossAlive = false;
         bossThreshold = 5;
         bossHealth = 30;
+    }
+
+    public int calculateScore() {
+        return purpleSlimesKilled + 2 * greenSlimesKilled;
     }
 
     public void spawnSlime(int id) {

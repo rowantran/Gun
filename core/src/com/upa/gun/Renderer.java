@@ -34,6 +34,9 @@ class Renderer {
     private BitmapFont font;
     private ShapeRenderer sr;
     private Stage pauseStage;
+    private Stage statsStage;
+    private Stage progressStage;
+    private Stage settingsStage;
 
     Renderer(SpriteBatch batch, World world) {
         this.batch = batch;
@@ -43,6 +46,9 @@ class Renderer {
         camera.setToOrtho(false, Settings.RESOLUTION.x, Settings.RESOLUTION.y);
 
         pauseStage = new Stage();
+        statsStage = new Stage();
+        progressStage = new Stage();
+        settingsStage = new Stage();
         layout = new GlyphLayout();
         font = new BitmapFont();
 
@@ -57,7 +63,6 @@ class Renderer {
         float xCenter = Settings.RESOLUTION.x/2;
         float yCenter = Settings.RESOLUTION.y/2;
 
-        Gdx.input.setInputProcessor(pauseStage);
         Skin skin = new Skin(Assets.buttonSkins);
 
         TextButton.TextButtonStyle longStyle = new TextButton.TextButtonStyle();
@@ -93,6 +98,7 @@ class Renderer {
             public void changed(ChangeEvent event, Actor actor) {
                 World.activity = 2;
                 disableAllButtons();
+                enableStatsButtons();
             }
         });
 
@@ -105,6 +111,7 @@ class Renderer {
             public void changed(ChangeEvent event, Actor actor) {
                 World.activity = 3;
                 disableAllButtons();
+                enableProgressButtons();
             }
         });
 
@@ -116,6 +123,7 @@ class Renderer {
             public void changed(ChangeEvent event, Actor actor) {
                 World.activity = 4;
                 disableAllButtons();
+                enableSettingsButtons();
             }
         });
 
@@ -126,7 +134,7 @@ class Renderer {
         quit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.exit(0);
+                Gdx.app.exit();
             }
         });
 
@@ -135,10 +143,55 @@ class Renderer {
         pauseStage.addActor(progress);
         pauseStage.addActor(settings);
         pauseStage.addActor(quit);
+
+        TextButton back1 = new TextButton("Back", shortStyle);
+        back1.getLabel().setFontScale(1.5f);
+        back1.setPosition(xCenter - back1.getWidth()/2, yCenter - Settings.PAUSE_SCREEN_RESOLUTION.y/2 + 40f);
+        back1.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                World.activity = 1;
+                disableAllButtons();
+                enablePauseButtons();
+            }
+        });
+        TextButton back2 = new TextButton("Back", shortStyle);
+        back2.getLabel().setFontScale(1.5f);
+        back2.setPosition(xCenter - back2.getWidth()/2, yCenter - Settings.PAUSE_SCREEN_RESOLUTION.y/2 + 40f);
+        back2.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                World.activity = 1;
+                disableAllButtons();
+                enablePauseButtons();
+            }
+        });
+        TextButton back3 = new TextButton("Back", shortStyle);
+        back3.getLabel().setFontScale(1.5f);
+        back3.setPosition(xCenter - back3.getWidth()/2, yCenter - Settings.PAUSE_SCREEN_RESOLUTION.y/2 + 40f);
+        back3.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                World.activity = 1;
+                disableAllButtons();
+                enablePauseButtons();
+            }
+        });
+        statsStage.addActor(back1);
+        progressStage.addActor(back2);
+        settingsStage.addActor(back3);
+
     }
 
     public void disableAllButtons() {
-        for(Actor a : pauseStage.getActors()) {
+        disableButtons(pauseStage);
+        disableButtons(statsStage);
+        disableButtons(progressStage);
+        disableButtons(settingsStage);
+    }
+
+    private void disableButtons(Stage stage) {
+        for(Actor a : stage.getActors()) {
             if(a instanceof TextButton) {
                 ((TextButton)a).setDisabled(true);
             }
@@ -146,7 +199,35 @@ class Renderer {
     }
 
     public void enablePauseButtons() {
+        Gdx.input.setInputProcessor(pauseStage);
         for(Actor a : pauseStage.getActors()) {
+            if(a instanceof TextButton) {
+                ((TextButton)a).setDisabled(false);
+            }
+        }
+    }
+
+    public void enableStatsButtons() {
+        Gdx.input.setInputProcessor(statsStage);
+        for(Actor a : statsStage.getActors()) {
+            if(a instanceof TextButton) {
+                ((TextButton)a).setDisabled(false);
+            }
+        }
+    }
+
+    public void enableProgressButtons() {
+        Gdx.input.setInputProcessor(progressStage);
+        for(Actor a : progressStage.getActors()) {
+            if(a instanceof TextButton) {
+                ((TextButton)a).setDisabled(false);
+            }
+        }
+    }
+
+    public void enableSettingsButtons() {
+        Gdx.input.setInputProcessor(settingsStage);
+        for(Actor a : settingsStage.getActors()) {
             if(a instanceof TextButton) {
                 ((TextButton)a).setDisabled(false);
             }
@@ -427,20 +508,6 @@ class Renderer {
     }
 
     /**
-     * Draws score
-     */
-    private void drawScore() {
-        batch.begin();
-        batch.enableBlending();
-        font.getData().setScale(4f);
-        layout.setText(font, Integer.toString(world.spawner.slimesKilled));
-        float x = 30f;
-        float y = (Settings.RESOLUTION.y - layout.height);
-        font.draw(batch, layout, x, y);
-        batch.end();
-    }
-
-    /**
      * Draws spawn indicator
      * @param s - Indicator
      */
@@ -649,6 +716,8 @@ class Renderer {
         font.draw(batch, layout, textXStart, textYStart - 2 * yIncrement);
 
         batch.end();
+
+        statsStage.draw();
     }
 
     private void drawProgressScreen() {
@@ -656,7 +725,7 @@ class Renderer {
         float xCenter = Settings.RESOLUTION.x/2;
         float yCenter = Settings.RESOLUTION.y/2;
 
-        float textYStart = yCenter + Settings.PAUSE_SCREEN_RESOLUTION.y/2 - 100;
+        float textYStart = yCenter + Settings.PAUSE_SCREEN_RESOLUTION.y/2 - 130;
         float yIncrement = 30f;
         float textXStart = xCenter - Settings.PAUSE_SCREEN_RESOLUTION.x/2 + 30;
         float textXStart2 = xCenter;
@@ -670,13 +739,18 @@ class Renderer {
         font.draw(batch, layout, xCenter - layout.width/2, yCenter + Settings.PAUSE_SCREEN_RESOLUTION.y/2 - layout.height);
 
         font.getData().setScale(1.5f);
-        layout.setText(font, "Purple slimes killed: ");
-        font.draw(batch, layout, textXStart, textYStart);
+        layout.setText(font, "Score: " + World.spawner.calculateScore());
+        font.draw(batch, layout, xCenter - layout.width/2, textYStart + 30);
         font.getData().setScale(1.5f);
-        layout.setText(font, "Green slimes killed: ");
-        font.draw(batch, layout, textXStart2, textYStart);
+        layout.setText(font, "Purple slimes killed: " + World.spawner.purpleSlimesKilled);
+        font.draw(batch, layout, textXStart, textYStart - yIncrement);
+        font.getData().setScale(1.5f);
+        layout.setText(font, "Green slimes killed: " + World.spawner.greenSlimesKilled);
+        font.draw(batch, layout, textXStart2, textYStart - yIncrement);
 
         batch.end();
+
+        progressStage.draw();
 
     }
 
@@ -699,6 +773,9 @@ class Renderer {
         font.draw(batch, layout, xCenter - layout.width/2, yCenter + Settings.PAUSE_SCREEN_RESOLUTION.y/2 - layout.height);
 
         batch.end();
+
+        settingsStage.draw();
+
     }
 
 
@@ -750,7 +827,6 @@ class Renderer {
         }
         drawBorder();
         drawPlayerHealth(World.player.getHealth());
-        drawScore();
         if (Settings.DEV_MODE) {
             drawFPS();
         }
