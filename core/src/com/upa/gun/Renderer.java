@@ -692,8 +692,6 @@ class Renderer {
 
         float textYStart = yCenter + Settings.PAUSE_SCREEN_RESOLUTION.y/2 - 100;
         float yIncrement = 30f;
-        float textXStart = xCenter - Settings.PAUSE_SCREEN_RESOLUTION.x/2 + 30;
-        float textXStart2 = xCenter;
 
         drawPauseBox();
 
@@ -703,17 +701,11 @@ class Renderer {
         layout.setText(font, "STATS");
         font.draw(batch, layout, xCenter - layout.width/2, yCenter + Settings.PAUSE_SCREEN_RESOLUTION.y/2 - layout.height);
 
-        font.getData().setScale(1.5f);
-        layout.setText(font, "Attack speed: " + (10/Settings.playerBulletCooldown));
-        font.draw(batch, layout, textXStart, textYStart);
-        layout.setText(font, "Bullet speed: " + Settings.playerBulletSpeed);
-        font.draw(batch, layout, textXStart2, textYStart);
-        layout.setText(font, "Damage: " + Settings.playerDamage);
-        font.draw(batch, layout, textXStart, textYStart - yIncrement);
-        layout.setText(font, "Health: " + Settings.playerHealth);
-        font.draw(batch, layout, textXStart2, textYStart - yIncrement);
-        layout.setText(font, "Speed: " + Settings.playerSpeed);
-        font.draw(batch, layout, textXStart, textYStart - 2 * yIncrement);
+        writeCentered("Attack speed", ("" + 10/Settings.playerBulletSpeed), xCenter, textYStart);
+        writeCentered("Bullet speed", ("" + Settings.playerBulletSpeed), xCenter, textYStart - yIncrement);
+        writeCentered("Damage", ("" + Settings.playerDamage), xCenter, textYStart - 2 * yIncrement);
+        writeCentered("Health", ("" + Settings.playerHealth), xCenter, textYStart - 3 * yIncrement);
+        writeCentered("Speed", ("" + Settings.playerSpeed), xCenter, textYStart - 4 * yIncrement);
 
         batch.end();
 
@@ -741,12 +733,9 @@ class Renderer {
         font.getData().setScale(1.5f);
         layout.setText(font, "Score: " + World.spawner.calculateScore());
         font.draw(batch, layout, xCenter - layout.width/2, textYStart + 30);
-        font.getData().setScale(1.5f);
-        layout.setText(font, "Purple slimes killed: " + World.spawner.purpleSlimesKilled);
-        font.draw(batch, layout, textXStart, textYStart - yIncrement);
-        font.getData().setScale(1.5f);
-        layout.setText(font, "Green slimes killed: " + World.spawner.greenSlimesKilled);
-        font.draw(batch, layout, textXStart2, textYStart - yIncrement);
+
+        writeCentered("Purple slimes killed", ("" + World.spawner.purpleSlimesKilled), xCenter, textYStart - yIncrement);
+        writeCentered("Green slimes killed", ("" + World.spawner.greenSlimesKilled), xCenter, textYStart - 2 * yIncrement);
 
         batch.end();
 
@@ -778,6 +767,15 @@ class Renderer {
 
     }
 
+    private void writeCentered(String str1, String str2, float divider, float y) {
+        font.getData().setScale(1.5f);
+        font.setColor(160/255f, 232/255f, 240/255f, 1f);
+        layout.setText(font, str1 + "  :");
+        font.draw(batch, layout, divider - layout.width, y);
+        font.setColor(1f, 1f, 1f,1f);
+        layout.setText(font, "  " + str2 + " ");
+        font.draw(batch, layout, divider, y);
+    }
 
     /**
      * Draws necessary elements
