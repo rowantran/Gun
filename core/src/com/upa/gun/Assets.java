@@ -22,6 +22,7 @@ public class Assets {
 
 
     public static Texture floor;
+    public static Texture pauseBackground;
 
     public static Texture crate;
     public static Texture crateTop;
@@ -111,6 +112,7 @@ public class Assets {
         loadHealthBar();
 
         floor = loadTexture("sprites/stages/floor.png");
+        pauseBackground = loadTexture("sprites/stages/pause_background.png");
         border = loadTexture("sprites/stages/border.png");
         crate = loadTexture("sprites/terrain/crate.png");
         crateTop = loadTexture("sprites/terrain/crate_top.png");

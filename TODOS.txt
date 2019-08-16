@@ -3,7 +3,9 @@ HIGH PRIORITY ----
 - art update - to 64x64 px?
 - fix enemy spawn locations
 - implement powerups, add powerup drop chance info to enemy json
-- add pause screen
+- finish implementing stats screen
+- finish implementing progress screen
+- add settings screen
 
 LOW PRIORITY ----
 - fix parent function control in entity
@@ -35,3 +37,4 @@ FINISHED
 - full fix for corner movement bugs... has to do with enemy direction change? ... occurs when moving towards inside of box on corner
 - move future collision checking to collision checker
 - fix enable/disable buttons
+- add pause screen

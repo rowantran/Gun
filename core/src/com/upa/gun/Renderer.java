@@ -75,7 +75,7 @@ class Renderer {
         shortStyle.checked = skin.getDrawable("checked-button-short");
 
         TextButton back = new TextButton("Return to game", longStyle);
-        back.getLabel().setFontScale(2f);
+        back.getLabel().setFontScale(1.5f);
         back.setPosition(xCenter - (back.getWidth()/2), (yCenter + (Settings.PAUSE_SCREEN_RESOLUTION.y / 2)) - 150 - back.getHeight());
         back.addListener(new ChangeListener() {
             @Override
@@ -86,7 +86,7 @@ class Renderer {
         });
 
         TextButton stats = new TextButton("Stats", shortStyle);
-        stats.getLabel().setFontScale(2f);
+        stats.getLabel().setFontScale(1.5f);
         stats.setPosition(back.getX(), back.getY() - stats.getHeight() - Settings.BUTTON_INCREMENT - 20);
         stats.addListener(new ChangeListener() {
             @Override
@@ -97,7 +97,7 @@ class Renderer {
         });
 
         TextButton progress = new TextButton("Progress", shortStyle);
-        progress.getLabel().setFontScale(2f);
+        progress.getLabel().setFontScale(1.5f);
         progress.setPosition(back.getX() + back.getWidth() - progress.getWidth(),
                 back.getY() - progress.getHeight() - Settings.BUTTON_INCREMENT - 20);
         progress.addListener(new ChangeListener() {
@@ -109,7 +109,7 @@ class Renderer {
         });
 
         TextButton settings = new TextButton("Settings", shortStyle);
-        settings.getLabel().setFontScale(2f);
+        settings.getLabel().setFontScale(1.5f);
         settings.setPosition(back.getX(), stats.getY() - settings.getHeight() - Settings.BUTTON_INCREMENT);
         settings.addListener(new ChangeListener() {
             @Override
@@ -120,7 +120,7 @@ class Renderer {
         });
 
         TextButton quit = new TextButton("Quit", shortStyle);
-        quit.getLabel().setFontScale(2f);
+        quit.getLabel().setFontScale(1.5f);
         quit.setPosition(back.getX() + back.getWidth() - quit.getWidth(),
                 progress.getY() - quit.getHeight() - Settings.BUTTON_INCREMENT);
         quit.addListener(new ChangeListener() {
@@ -591,13 +591,13 @@ class Renderer {
 
 
     private void drawPauseBox() {
-        sr.setProjectionMatrix(camera.combined);
-        sr.begin(ShapeRenderer.ShapeType.Filled);
-        Gdx.gl.glEnable(GL20.GL_BLEND);
-        sr.setColor(20/255f, 20/255f, 20/255f, 0.85f);
-        sr.rect(Settings.RESOLUTION.x/2 - Settings.PAUSE_SCREEN_RESOLUTION.x/2, Settings.RESOLUTION.y/2 - Settings.PAUSE_SCREEN_RESOLUTION.y/2,
-                Settings.PAUSE_SCREEN_RESOLUTION.x, Settings.PAUSE_SCREEN_RESOLUTION.y);
-        sr.end();
+        batch.begin();
+        batch.enableBlending();
+        Sprite box = new Sprite(Assets.pauseBackground);
+        box.setPosition(Settings.RESOLUTION.x/2 - Settings.PAUSE_SCREEN_RESOLUTION.x/2,
+                Settings.RESOLUTION.y/2 - Settings.PAUSE_SCREEN_RESOLUTION.y/2);
+        box.draw(batch);
+        batch.end();
     }
 
     private void drawPauseScreen() {
