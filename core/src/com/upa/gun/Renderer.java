@@ -49,6 +49,7 @@ class Renderer {
         sr = new ShapeRenderer();
 
         generatePauseElements();
+        disableAllButtons();
     }
 
     private void generatePauseElements() {
@@ -73,6 +74,7 @@ class Renderer {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 World.activity = 0;
+                disableAllButtons();
             }
         });
 
@@ -83,6 +85,7 @@ class Renderer {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 World.activity = 2;
+                disableAllButtons();
             }
         });
 
@@ -93,6 +96,7 @@ class Renderer {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 World.activity = 3;
+                disableAllButtons();
             }
         });
 
@@ -101,7 +105,7 @@ class Renderer {
         pauseStage.addActor(progress);
     }
 
-    public void disablePauseButtons() {
+    public void disableAllButtons() {
         for(Actor a : pauseStage.getActors()) {
             if(a instanceof TextButton) {
                 ((TextButton)a).setDisabled(true);
@@ -109,7 +113,7 @@ class Renderer {
         }
     }
 
-    public void enablePauseButton() {
+    public void enablePauseButtons() {
         for(Actor a : pauseStage.getActors()) {
             if(a instanceof TextButton) {
                 ((TextButton)a).setDisabled(false);

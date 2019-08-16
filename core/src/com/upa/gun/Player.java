@@ -137,10 +137,11 @@ public class Player extends Entity {
     public Hitboxes getHitbox() {
         return hitbox;
     }
-    int getHealth() {
+    public int getHealth() {
         return health;
     }
-    SpriteState getState() {
+    public SpriteState getState() {
         return state.getTextureState();
     }
+    public GunGame getGunGame() { return game; }
 }

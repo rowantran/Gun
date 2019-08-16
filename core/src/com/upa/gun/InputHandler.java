@@ -90,21 +90,25 @@ public class InputHandler implements Updatable {
         }
     }
 
-
     public void pausedUpdate(float delta) {
         if(Gdx.input.isKeyJustPressed(Settings.KEY_PAUSE)) {
+            GunGame game = World.player.getGunGame();
+            game.renderer.disableAllButtons();
             switch(World.activity) {
                 case 0:
                     World.activity = 1;
+                    game.renderer.enablePauseButtons();
                     break;
                 case 1:
                     World.activity = 0;
                     break;
                 case 2:
                     World.activity = 1;
+                    game.renderer.enablePauseButtons();
                     break;
                 case 3:
                     World.activity = 1;
+                    game.renderer.enablePauseButtons();
                     break;
                 default:
                     Gdx.app.log("InputHandler", "Found invalid activity identifier (" + World.activity + ")");

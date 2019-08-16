@@ -4,7 +4,6 @@ HIGH PRIORITY ----
 - fix enemy spawn locations
 - implement powerups, add powerup drop chance info to enemy json
 - add pause screen
-- fix enable/disable buttons
 
 LOW PRIORITY ----
 - fix parent function control in entity
@@ -35,3 +34,4 @@ FINISHED
 - fix corner movement bugs when hitting crates - can bandaid fix with speed check
 - full fix for corner movement bugs... has to do with enemy direction change? ... occurs when moving towards inside of box on corner
 - move future collision checking to collision checker
+- fix enable/disable buttons

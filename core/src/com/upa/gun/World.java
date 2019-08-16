@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 public class World implements Updatable {
+
     private static World world = new World();
 
     public static Player player;
