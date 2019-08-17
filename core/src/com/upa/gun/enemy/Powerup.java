@@ -15,24 +15,22 @@ public class Powerup extends Entity {
     Powerup(PowerupInfo info, Vector2 position) {
         super(position, new Vector2(info.width, info.height));
 
-        try {
-            createHitbox(info.hitboxType, info.hitboxWidth, info.hitboxHeight);
-        } catch(UnrecognizedHitboxTypeException e) {
-            //do nothing I guess
-        }
+        RectangularHitbox main = new RectangularHitbox(position, new Vector2(size.x/1.5f, size.y/1.5f));
+        main.setPosition(new Vector2(position.x + size.x/2 - main.getWidth()/2, position.y + size.y/2 - main.getHeight()/2));
+        hitbox.addHitbox("main", main);
+        hitbox.setActive(true);
 
         markedForDeletion = false;
         this.info = info;
         id = info.id;
     }
 
-    public int getId() {
-        return id;
-    }
-
     @Override
     public Hitboxes getHitbox() {
         return hitbox;
+    }
+    public int getId() {
+        return id;
     }
 
     /**
@@ -46,39 +44,8 @@ public class Powerup extends Entity {
             Settings.playerDamage *= info.damageMultiplier;
             Settings.playerBulletCooldown *= info.bulletCooldownMultiplier;
             Settings.playerHealth += info.healthBonus;
-
-            float startX = 80 + (Assets.healthBars.findRegion("player-left-full").getRegionWidth() * Settings.playerHealth);
-            startX += (getSize().x * player.powerupsActive.size);
-
-            setPosition(startX, 72f);
-            //getHitbox().setActive(false);
-            /*
-            for (Hitbox hitbox : hitboxes) {
-                hitbox.setActive(false);
-            }
-            */
-
+            hitbox.setActive(false);
             player.powerupsActive.add(this);
         }
     }
-
-    private void createHitbox(String hitboxType, int width, int height) throws UnrecognizedHitboxTypeException {
-        if (hitboxType.equals("rectangular")) {
-            hitbox = new Hitboxes();
-        } else {
-            throw new UnrecognizedHitboxTypeException(hitboxType);
-        }
-
-        //centerHitbox();
-        /*
-            RectangularHitbox hitbox = new RectangularHitbox(getPosition(), new Vector2(width, height));
-            centerRectangularHitbox(hitbox);
-            hitboxes.addHitbox("hitbox", hitbox);
-        } else {
-            throw new UnrecognizedHitboxTypeException(hitboxType);
-        }
-        */
-    }
-
-
 }

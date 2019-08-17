@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Settings {
     public static final int LOG_LEVEL = Application.LOG_DEBUG;
 
-    public static final boolean DEV_MODE = false;
+    public static final boolean DEV_MODE = true;
     public static final boolean INVINCIBLE = true;
     public static final boolean SPAWN_CAP = false;
     public static final int SPAWN_CAP_LIMIT = 1;

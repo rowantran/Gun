@@ -80,14 +80,14 @@ player-left-full
   orig: 32, 32
   offset: 0, 0
   index: -1
-player-mid-full
+player-mid-empty
   rotate: false
   xy: 0, 176
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-player-mid-mpty
+player-mid-full
   rotate: false
   xy: 0, 128
   size: 32, 32

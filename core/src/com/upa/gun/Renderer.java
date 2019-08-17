@@ -649,7 +649,7 @@ class Renderer {
                 drawBullet((Bullet)e);
             }
             else if(e instanceof Powerup) {
-
+                drawPowerup((Powerup)e);
             }
             else {
                 Gdx.app.log("Renderer", "Invalid entity found in entity list");
@@ -801,6 +801,9 @@ class Renderer {
         }
         for(Bullet b : World.enemyBullets) {
             entityList.add(b);
+        }
+        for(Powerup p : World.powerups) {
+            entityList.add(p);
         }
         for(Door d : World.currentMap.getDoors()) {
             entityList.add(d);

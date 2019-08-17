@@ -135,7 +135,6 @@ public class CollisionChecker implements Updatable {
         else {
             return 1;
         }
-
     }
 
     /**
@@ -277,6 +276,6 @@ public class CollisionChecker implements Updatable {
         checkPlayerHit();
         checkEnemiesHit();
         checkBulletCrash();
-        //checkPowerupCollect();
+        checkPowerupCollect();
     }
 }

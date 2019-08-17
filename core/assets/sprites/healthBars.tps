@@ -228,8 +228,8 @@
             </struct>
             <key type="filename">healthBars/player-left-empty.png</key>
             <key type="filename">healthBars/player-left-full.png</key>
+            <key type="filename">healthBars/player-mid-empty.png</key>
             <key type="filename">healthBars/player-mid-full.png</key>
-            <key type="filename">healthBars/player-mid-mpty.png</key>
             <key type="filename">healthBars/player-right-empty.png</key>
             <key type="filename">healthBars/player-right-full.png</key>
             <struct type="IndividualSpriteSettings">

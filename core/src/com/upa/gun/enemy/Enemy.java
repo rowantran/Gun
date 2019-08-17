@@ -58,15 +58,15 @@ public abstract class Enemy extends Entity {
             state = new EnemyFadingState(this);
             hitbox.setActive(false);
 
-            /*
+
             int rand = (int)(Math.random() * 1); //random powerup checker
             if(rand == 0) {
                 int type = (int)(Math.random() * PowerupFactory.getInstance().powerups.size());
                 World.powerups.add(World.getInstance().getPowerupFactory().createPowerup(type, this.getPosition()));
                 Powerup added = World.powerups.get(World.powerups.size()-1);
-                //System.out.println(added.info.effectDescription);
+                System.out.println(added.info.effectDescription);
             }
-            */
+
 
             switch(id) {
                 case 0:
