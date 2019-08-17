@@ -51,7 +51,6 @@ class AttackRotation {
      * @param position The current position of the enemy casting this attack.
      */
     void attack(Vector2 position) {
-        //Gdx.app.debug("AttackRotation", "Casting attack");
         currentAttack().attack(position);
         timeElapsedSinceAttack = 0f;
     }

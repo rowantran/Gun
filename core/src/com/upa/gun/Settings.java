@@ -9,7 +9,7 @@ public class Settings {
     public static final int LOG_LEVEL = Application.LOG_DEBUG;
 
     public static final boolean DEV_MODE = true;
-    public static final boolean INVINCIBLE = false;
+    public static final boolean INVINCIBLE = true;
     public static final boolean SPAWN_CAP = false;
     public static final int SPAWN_CAP_LIMIT = 1;
     public static final boolean MUTE = true;
@@ -33,7 +33,6 @@ public class Settings {
     public static final float ROLL_SPEED = 500.0f;
     public static final float ROLL_LENGTH = 0.25f;
     public static final float IFRAME_AFTER_HIT_LENGTH = 3.0f;
-    public static final float IFRAME_SHADER_SWITCH_TIME = 0.15f;
 
     public static final float DEATH_ROTATE_SPEED = 80.0f;
     public static final float DEATH_FADE_SPEED = (DEATH_ROTATE_SPEED / 40.0f) * 1.0f;

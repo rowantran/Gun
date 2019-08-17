@@ -34,7 +34,7 @@
         "attacking": "strongSlimeAttack"
       },
       "rotation": [
-        "trackingBurst 0.75 0.075 true",
+        "trackingBurst 0.75 0.075 false",
         "none 3.0 3.0 true"
       ]
     },

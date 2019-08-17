@@ -119,7 +119,7 @@ public abstract class Enemy extends Entity {
         state.update(delta);
         cCheckHitbox.setPosition(position);
         timeElapsed += delta;
-        rotation.cycle(delta, getPosition());
+        rotation.cycle(delta, new Vector2(position.x + size.x/2, position.y + size.y/2));
         changeSprite(rotation.currentAttack().getSprite());
     }
 

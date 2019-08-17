@@ -127,6 +127,10 @@ public class Player extends Entity {
         cCheckHitbox.setPosition(position);
     }
 
+    public Vector2 getCenter() {
+        return new Vector2(position.x + size.x/2, position.y + size.y/2);
+    }
+
     @Override
     public Hitboxes getHitbox() {
         return hitbox;
