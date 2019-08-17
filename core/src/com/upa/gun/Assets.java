@@ -56,32 +56,6 @@ public class Assets {
     public static Sound bulletSound;
     public static Sound bossDieSound;
 
-    public static TextureRegion enemyHealthFullLeft;
-    public static TextureRegion enemyHealthFullRight;
-    public static TextureRegion enemyHealthFullMid;
-    public static TextureRegion enemyHealthEmptyLeft;
-    public static TextureRegion enemyHealthEmptyRight;
-    public static TextureRegion enemyHealthEmptyMid;
-
-    public static TextureRegion[] enemyHealthLeft;
-    public static TextureRegion[] enemyHealthMid;
-    public static TextureRegion[] enemyHealthRight;
-
-    //should use atlas later. but manually loading while subject to change
-    public static Texture bossHealthEdge;
-    public static Texture bossHealthFull;
-    public static Texture bossHealthEmpty;
-    public static Texture slimeHealthEdge;
-    public static Texture slimeHealthFull;
-    public static Texture slimeHealthEmpty;
-
-    public static TextureRegion healthFullLeft;
-    public static TextureRegion healthFullRight;
-    public static TextureRegion healthFullMid;
-    public static TextureRegion healthEmptyLeft;
-    public static TextureRegion healthEmptyRight;
-    public static TextureRegion healthEmptyMid;
-
     public static TextureAtlas spriteAtlas;
     public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> playerAnimations;
     public static Map<SpriteState, Map<Direction, Animation<TextureRegion>>> slimeAnimations;
@@ -105,8 +79,6 @@ public class Assets {
         spriteAtlas = new TextureAtlas(Gdx.files.internal("sprites/sprites.atlas"));
 
         buttonSkins = new TextureAtlas(Gdx.files.internal("sprites/buttons.atlas"));
-
-        loadHealthBar();
 
         floor = loadTexture("sprites/stages/floor.png");
         pauseBackground = loadTexture("sprites/stages/pause_background.png");
@@ -206,27 +178,6 @@ public class Assets {
         TextureRegion frame = map.get(SpriteState.IDLE).get(Direction.DOWN).getKeyFrame(0);
         return new Vector2(frame.getRegionWidth(), frame.getRegionHeight());
     }
-
-    private static void loadHealthBar() {
-        healthFullLeft = spriteAtlas.findRegion("health_full_left");
-        healthFullRight = spriteAtlas.findRegion("health_full_right");
-        healthFullMid = spriteAtlas.findRegion("health_full_mid");
-        healthEmptyLeft = spriteAtlas.findRegion("health_empty_left");
-        healthEmptyRight = spriteAtlas.findRegion("health_empty_right");
-        healthEmptyMid = spriteAtlas.findRegion("health_empty_mid");
-
-        enemyHealthFullLeft = spriteAtlas.findRegion("boss_health_full_left");
-        enemyHealthFullRight = spriteAtlas.findRegion("boss_health_full_right");
-        enemyHealthFullMid = spriteAtlas.findRegion("boss_health_full_mid");
-        enemyHealthEmptyLeft = spriteAtlas.findRegion("boss_health_empty_left");
-        enemyHealthEmptyRight = spriteAtlas.findRegion("boss_health_empty_right");
-        enemyHealthEmptyMid = spriteAtlas.findRegion("boss_health_empty_mid");
-
-        enemyHealthLeft = new TextureRegion[]{enemyHealthEmptyLeft, enemyHealthFullLeft};
-        enemyHealthMid = new TextureRegion[]{enemyHealthEmptyMid, enemyHealthFullMid};
-        enemyHealthRight = new TextureRegion[]{enemyHealthEmptyRight, enemyHealthFullRight};
-    }
-
 
     private static Animation<TextureRegion> loadPlayerAnimation(String direction) {
         return new Animation<TextureRegion>(0.25f,

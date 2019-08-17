@@ -47,7 +47,7 @@ public class Powerup extends Entity {
             Settings.playerBulletCooldown *= info.bulletCooldownMultiplier;
             Settings.playerHealth += info.healthBonus;
 
-            float startX = 80 + (Assets.healthFullLeft.getRegionWidth() * Settings.playerHealth);
+            float startX = 80 + (Assets.healthBars.findRegion("player-left-full").getRegionWidth() * Settings.playerHealth);
             startX += (getSize().x * player.powerupsActive.size);
 
             setPosition(startX, 72f);
