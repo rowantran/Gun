@@ -181,7 +181,7 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">healthBars/boss_health_edge.png</key>
+            <key type="filename">healthBars/boss-edge.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -194,8 +194,8 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">healthBars/boss_health_empty.png</key>
-            <key type="filename">healthBars/boss_health_full.png</key>
+            <key type="filename">healthBars/boss-empty.png</key>
+            <key type="filename">healthBars/boss-full.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -208,12 +208,12 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">healthBars/boss_health_empty_left.png</key>
-            <key type="filename">healthBars/boss_health_empty_mid.png</key>
-            <key type="filename">healthBars/boss_health_empty_right.png</key>
-            <key type="filename">healthBars/boss_health_full_left.png</key>
-            <key type="filename">healthBars/boss_health_full_mid.png</key>
-            <key type="filename">healthBars/boss_health_full_right.png</key>
+            <key type="filename">healthBars/boss-left-empty.png</key>
+            <key type="filename">healthBars/boss-left-full.png</key>
+            <key type="filename">healthBars/boss-mid-empty.png</key>
+            <key type="filename">healthBars/boss-mid-full.png</key>
+            <key type="filename">healthBars/boss-right-empty.png</key>
+            <key type="filename">healthBars/boss-right-full.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -244,7 +244,7 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">healthBars/slime_health_edge.png</key>
+            <key type="filename">healthBars/slime-edge.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -257,8 +257,8 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">healthBars/slime_health_empty.png</key>
-            <key type="filename">healthBars/slime_health_full.png</key>
+            <key type="filename">healthBars/slime-empty.png</key>
+            <key type="filename">healthBars/slime-full.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>

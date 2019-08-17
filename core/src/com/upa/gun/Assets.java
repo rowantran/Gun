@@ -121,27 +121,12 @@ public class Assets {
         shadow = loadTexture("sprites/miscellaneous/shadow.png");
         shadow.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
-        bossHealthEdge = loadTexture("sprites/healthBars/boss_health_edge.png");
-        bossHealthFull = loadTexture("sprites/healthBars/boss_health_full.png");
-        bossHealthEmpty = loadTexture("sprites/healthBars/boss_health_empty.png");
-        slimeHealthEdge = loadTexture("sprites/healthBars/slime_health_edge.png");
-        slimeHealthFull = loadTexture("sprites/healthBars/slime_health_full.png");
-        slimeHealthEmpty = loadTexture("sprites/healthBars/slime_health_empty.png");
-
         healthBars = new TextureAtlas(Gdx.files.internal("sprites/healthBars.atlas"));
 
         playerAtlas = new TextureAtlas(Gdx.files.internal("sprites/player.atlas"));
         playerAnimations = new HashMap<SpriteState, Map<Direction, Animation<TextureRegion>>>();
         loadPlayerAnimations();
 
-
-        /*Pixmap pm = new Pixmap(Gdx.files.internal("sprites/crosshair.png"));
-        int xHotSpot = pm.getWidth() / 2;
-        int yHotSpot = pm.getHeight() / 2;
-
-        Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, xHotSpot, yHotSpot));
-        pm.dispose();
-    */
 
         crosshair = new Texture(Gdx.files.internal("sprites/miscellaneous/crosshair.png"));
         crosshair.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);

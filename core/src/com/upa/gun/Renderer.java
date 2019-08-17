@@ -343,29 +343,29 @@ class Renderer {
         int barWidth = 700;
         float y = 698f;
         float x = Settings.RESOLUTION.x / 2f;
-        Texture edge = Assets.bossHealthEdge;
-        Texture full = Assets.bossHealthFull;
-        Texture empty = Assets.bossHealthEmpty;
+        TextureRegion edge = Assets.healthBars.findRegion("boss-edge");
+        TextureRegion full = Assets.healthBars.findRegion("boss-full");
+        TextureRegion empty = Assets.healthBars.findRegion("boss-empty");
 
-        font.getData().setScale(3f);
+        font.getData().setScale(2f);
         layout.setText(font, bossName);
         font.draw(batch, layout, Settings.RESOLUTION.x / 2 - layout.width/2, 770f);
 
         double h = (double) health;
         double hMax = (double) maxHealth;
-        double barsFull = (h / hMax) * (double)barWidth - (2 * (double)edge.getWidth());
+        double barsFull = (h / hMax) * (double)barWidth - (2 * (double)edge.getRegionWidth());
         int barsToDraw = (int) barsFull;
 
-        batch.draw(edge, x - barWidth/2, y, edge.getWidth(), edge.getHeight()); //left edge
-        batch.draw(edge, x + (barWidth/2 - edge.getWidth()), y, edge.getWidth(), edge.getHeight()); //right edge
+        batch.draw(edge, x - barWidth/2, y, edge.getRegionWidth(), edge.getRegionHeight()); //left edge
+        batch.draw(edge, x + (barWidth/2 - edge.getRegionWidth()), y, edge.getRegionWidth(), edge.getRegionHeight()); //right edge
 
         for(int i = 0; i < barsToDraw; i++) {
-            int offset = barWidth/2 - edge.getWidth() - i;
-            batch.draw(full, x - offset, y, full.getWidth(), full.getHeight());
+            int offset = barWidth/2 - edge.getRegionWidth() - i;
+            batch.draw(full, x - offset, y, full.getRegionWidth(), full.getRegionHeight());
         }
-        for(int i = barsToDraw; i < (double)barWidth - (2 * (double)edge.getWidth()); i++) {
-            int offset = barWidth/2 - edge.getWidth() - i;
-            batch.draw(empty, x - offset, y, empty.getWidth(), empty.getHeight());
+        for(int i = barsToDraw; i < (double)barWidth - (2 * (double)edge.getRegionWidth()); i++) {
+            int offset = barWidth/2 - edge.getRegionWidth() - i;
+            batch.draw(empty, x - offset, y, empty.getRegionWidth(), empty.getRegionHeight());
         }
 
         batch.end();
@@ -385,13 +385,13 @@ class Renderer {
         int barWidth = 40;
         float y = yLocation + 42;
         float x = xLocation + 24;
-        Texture edge = Assets.slimeHealthEdge;
-        Texture full = Assets.slimeHealthFull;
-        Texture empty = Assets.slimeHealthEmpty;
+        TextureRegion edge = Assets.healthBars.findRegion("slime-edge");
+        TextureRegion full = Assets.healthBars.findRegion("slime-full");
+        TextureRegion empty = Assets.healthBars.findRegion("slime-empty");
 
         double h = (double) health;
         double hMax = (double) maxHealth;
-        double barsFull = (h / hMax) * (double)barWidth - (2 * (double)edge.getWidth());
+        double barsFull = (h / hMax) * (double)barWidth - (2 * (double)edge.getRegionWidth());
         int barsToDraw = (int) barsFull;
 
         if(barsToDraw < 0) {
@@ -399,16 +399,16 @@ class Renderer {
         }
 
         for(int i = 0; i < barsToDraw; i++) {
-            int offset = barWidth/2 - edge.getWidth() - i; //increments placement of next bar
-            batch.draw(full, x - offset, y, full.getWidth(), full.getHeight());
+            int offset = barWidth/2 - edge.getRegionWidth() - i; //increments placement of next bar
+            batch.draw(full, x - offset, y, full.getRegionWidth(), full.getRegionHeight());
         }
-        for(int i = barsToDraw; i < (double)barWidth - (2 * (double)edge.getWidth()); i++) {
-            int offset = barWidth/2 - edge.getWidth() - i; //increments placement of next bar
-            batch.draw(empty, x - offset, y, empty.getWidth(), empty.getHeight());
+        for(int i = barsToDraw; i < (double)barWidth - (2 * (double)edge.getRegionWidth()); i++) {
+            int offset = barWidth/2 - edge.getRegionWidth() - i; //increments placement of next bar
+            batch.draw(empty, x - offset, y, empty.getRegionWidth(), empty.getRegionHeight());
         }
 
-        batch.draw(edge, x - barWidth/2, y, edge.getWidth(), edge.getHeight());
-        batch.draw(edge, x + (barWidth/2 - edge.getWidth()), y, edge.getWidth(), edge.getHeight());
+        batch.draw(edge, x - barWidth/2, y, edge.getRegionWidth(), edge.getRegionHeight());
+        batch.draw(edge, x + (barWidth/2 - edge.getRegionWidth()), y, edge.getRegionWidth(), edge.getRegionHeight());
         batch.end();
     }
 
