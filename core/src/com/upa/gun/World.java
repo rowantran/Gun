@@ -43,7 +43,7 @@ public class World implements Updatable {
     private static float distanceMoved2;
 
     private static EnemyFactory enemyFactory;
-    private static PowerupFactory powerupFactory;
+    public static PowerupFactory powerupFactory;
     private static MapFactory mapFactory;
     private static WaveFactory waveFactory;
 

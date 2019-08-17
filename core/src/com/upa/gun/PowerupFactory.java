@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,10 +13,12 @@ public class PowerupFactory {
 
     public static PowerupFactory powerupFactory = new PowerupFactory("powerups.json");
     public Map<Integer, PowerupInfo> powerups;
+    public ArrayList<Integer> keys;
 
     public PowerupFactory(String path) {
 
         powerups = new HashMap<Integer, PowerupInfo>();
+        keys = new ArrayList<Integer>();
 
         JsonReader reader = new JsonReader();
         JsonValue root = reader.parse(Gdx.files.internal(path)).get("powerups");
@@ -38,6 +42,7 @@ public class PowerupFactory {
                     spriteName, description, effectDescription, damageMultiplier, speedMultiplier,
                     bulletCooldownMultiplier, healthBonus);
             powerups.put(id, info);
+            keys.add(id);
         }
 
         Gdx.app.log("PowerupFactory", "Completed loading powerups");
@@ -48,6 +53,7 @@ public class PowerupFactory {
     }
 
     public Powerup createPowerup(int id, Vector2 position) {
+        keys.remove(Integer.valueOf(id));
         return new Powerup(powerups.get(id), position);
     }
 
