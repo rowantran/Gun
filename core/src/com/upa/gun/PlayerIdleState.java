@@ -15,14 +15,8 @@ public class PlayerIdleState extends PlayerState {
     @Override
     public void update(float delta) {
         timeElapsed += delta;
+        super.checkIframe(delta);
         controllable = true;
-        if (!vulnerable) {
-            iframeTime += delta;
-            if (iframeTime > Player.IFRAME_AFTER_HIT_LENGTH) {
-                vulnerable = true;
-                iframeTime = 0f;
-            }
-        }
     }
 
     @Override

@@ -13,31 +13,23 @@ public class InputHandler implements Updatable {
         Vector2 velocity = new Vector2(0f, 0f);
 
         if (Gdx.input.isKeyPressed(Settings.KEY_LEFT)) {
-            if(!World.player.leftStop) {
                 velocity.x -= Settings.playerSpeed;
                 World.player.state = PlayerState.moving;
-            }
         }
 
         if (Gdx.input.isKeyPressed(Settings.KEY_RIGHT)) {
-            if(!World.player.rightStop) {
                 velocity.x += Settings.playerSpeed;
                 World.player.state = PlayerState.moving;
-            }
         }
 
         if (Gdx.input.isKeyPressed(Settings.KEY_DOWN)) {
-            if(!World.player.botStop) {
                 velocity.y -= Settings.playerSpeed;
                 World.player.state = PlayerState.moving;
-            }
         }
 
         if (Gdx.input.isKeyPressed(Settings.KEY_UP)) {
-            if(!World.player.topStop) {
                 velocity.y += Settings.playerSpeed;
                 World.player.state = PlayerState.moving;
-            }
         }
 
         if (Gdx.input.isKeyJustPressed(Settings.KEY_ROLL)) {

@@ -10,15 +10,9 @@ import com.badlogic.gdx.utils.Array;
  */
 public class Player extends Entity {
 
-    static final float IFRAME_AFTER_HIT_LENGTH = 0.2f;
-
     public Hitboxes cCheckHitbox;
     public Vector2 spawnPoint;
     float bulletCooldown;
-    public boolean topStop = false;
-    public boolean botStop = false;
-    public boolean leftStop = false;
-    public boolean rightStop = false;
     private int health;
     private GunGame game;
     public InputHandler inputHandler;
@@ -52,7 +46,7 @@ public class Player extends Entity {
         RectangularHitbox cCheck = new RectangularHitbox(position, new Vector2(size.x, 20f));
         cCheckHitbox.addHitbox("cCheck", cCheck);
 
-        RectangularHitbox center = new RectangularHitbox(position, new Vector2(2f, 2f));
+        RectangularHitbox center = new RectangularHitbox(position, new Vector2(30f, 30f));
         center.setPosition(new Vector2(getPosition().x + getSize().x/2 - center.getWidth()/2, getPosition().y + getSize().y/2 - center.getHeight()/2));
         hitbox.addHitbox("center", center);
 
@@ -73,8 +67,6 @@ public class Player extends Entity {
         timeSinceRoll = Settings.ROLL_DELAY;
 
         health = Settings.playerHealth;
-
-        //centerHitbox();
     }
 
     /**

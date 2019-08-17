@@ -5,33 +5,29 @@ package com.upa.gun;
  */
 public abstract class PlayerState implements Updatable {
 
-    static GunGame game; //for use in dying state
+    static GunGame game;
 
-    boolean controllable; //if the player can control the character
+    boolean controllable;
 
     boolean vulnerable;
     float iframeTime;
+    float iframeSwitchTime;
+    boolean iframeVisual;
 
-    public float timeElapsed; //counts ticks
-    float rotation; //player rotation
-    float opacity; //player opacity
+    public float timeElapsed;
+    float rotation;
+    float opacity;
 
-    static PlayerIdleState idle; //when the player is not moving
-    static PlayerMovingState moving; //when the player is using arrow keys
-    static PlayerDyingState dying; //when the player dies
+    static PlayerIdleState idle;
+    static PlayerMovingState moving;
+    static PlayerDyingState dying;
 
-    /*
-     * sets static variables
-     */
     static {
         idle = new PlayerIdleState();
         moving = new PlayerMovingState();
         dying = new PlayerDyingState();
     }
 
-    /**
-     * Constructor
-     */
     PlayerState() {
         timeElapsed = 0.0f;
         rotation = 0.0f;
@@ -39,6 +35,7 @@ public abstract class PlayerState implements Updatable {
         controllable = true;
         vulnerable = true;
         iframeTime = 0f;
+        iframeVisual = false;
     }
 
     /**
@@ -55,6 +52,27 @@ public abstract class PlayerState implements Updatable {
         timeElapsed = 0.0f;
         rotation = 0.0f;
         opacity = 1.0f;
+    }
+
+    void checkIframe(float delta) {
+        if (!vulnerable) {
+            iframeTime += delta;
+            iframeSwitchTime += delta;
+            if(iframeSwitchTime > Settings.IFRAME_SHADER_SWITCH_TIME) {
+                iframeVisual =  !iframeVisual;
+                iframeSwitchTime = 0f;
+            }
+            if(iframeVisual) {
+                opacity = 0.5f;
+            } else {
+                opacity = 1.0f;
+            }
+            if (iframeTime > Settings.IFRAME_AFTER_HIT_LENGTH) {
+                vulnerable = true;
+                iframeTime = 0f;
+                opacity = 1.0f;
+            }
+        }
     }
 
     /**
