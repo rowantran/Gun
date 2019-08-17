@@ -268,7 +268,7 @@ class Renderer {
         float shadowHeight = objectWidth / 3f;
 
         float shadowY = y - (shadowHeight*0.7f);
-        batch.draw(Assets.shadow, x, shadowY, objectWidth, shadowHeight);
+        //batch.draw(Assets.shadow, x, shadowY, objectWidth, shadowHeight);
     }
 
     /**

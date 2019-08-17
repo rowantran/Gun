@@ -1,452 +1,480 @@
 sprites.png
-size: 128, 975
+size: 128, 1072
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 barrel_full
   rotate: false
-  xy: 64, 847
+  xy: 64, 944
   size: 64, 128
   orig: 64, 128
   offset: 0, 0
   index: -1
 boss_health_edge
   rotate: false
-  xy: 6, 0
+  xy: 71, 0
   size: 3, 16
   orig: 3, 16
   offset: 0, 0
   index: -1
 boss_health_empty
   rotate: false
-  xy: 4, 0
+  xy: 37, 0
   size: 1, 16
   orig: 1, 16
   offset: 0, 0
   index: -1
 boss_health_empty_left
   rotate: false
-  xy: 96, 16
+  xy: 39, 0
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 boss_health_empty_mid
   rotate: false
-  xy: 84, 0
+  xy: 32, 16
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 boss_health_empty_right
   rotate: false
-  xy: 0, 16
+  xy: 74, 0
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 boss_health_full
   rotate: false
-  xy: 5, 0
+  xy: 38, 0
   size: 1, 16
   orig: 1, 16
   offset: 0, 0
   index: -1
 boss_health_full_left
   rotate: false
-  xy: 32, 16
+  xy: 0, 48
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 boss_health_full_mid
   rotate: false
-  xy: 0, 32
+  xy: 0, 16
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 boss_health_full_right
   rotate: false
-  xy: 64, 16
+  xy: 13, 32
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 bossPellet
   rotate: false
-  xy: 9, 0
+  xy: 0, 32
   size: 13, 16
   orig: 13, 16
   offset: 0, 0
   index: -1
 bossSlime-hurt
   rotate: false
-  xy: 36, 222
+  xy: 34, 368
   size: 35, 37
   orig: 35, 37
   offset: 0, 0
   index: -1
 bossSlime
   rotate: false
-  xy: 0, 149
+  xy: 70, 190
   size: 34, 34
   orig: 34, 34
   offset: 0, 0
   index: 0
 bossSlime
   rotate: false
-  xy: 34, 149
+  xy: 35, 190
   size: 35, 33
   orig: 35, 33
   offset: 0, 0
   index: 1
 bossSlimeAttack
   rotate: false
-  xy: 0, 52
+  xy: 29, 67
   size: 35, 25
   orig: 35, 25
   offset: 0, 0
   index: 0
 bossSlimeAttack
   rotate: false
-  xy: 80, 116
+  xy: 0, 190
   size: 35, 33
   orig: 35, 33
   offset: 0, 0
   index: 1
 bossSlimeAttack
   rotate: false
-  xy: 69, 149
+  xy: 0, 368
   size: 34, 37
   orig: 34, 37
   offset: 0, 0
   index: 2
 bullet
   rotate: false
-  xy: 32, 32
+  xy: 0, 67
   size: 29, 20
   orig: 29, 20
   offset: 0, 0
   index: -1
 crate
   rotate: false
-  xy: 0, 847
+  xy: 0, 944
   size: 64, 91
   orig: 64, 91
   offset: 0, 0
   index: -1
 crate_side
   rotate: false
-  xy: 0, 399
+  xy: 64, 67
   size: 64, 27
   orig: 64, 27
   offset: 0, 0
   index: -1
 crate_top
   rotate: false
-  xy: 0, 527
+  xy: 0, 624
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 crosshair
   rotate: false
-  xy: 35, 0
+  xy: 45, 32
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 door_side
   rotate: false
-  xy: 51, 367
+  xy: 0, 94
   size: 64, 27
   orig: 64, 27
   offset: 0, 0
   index: -1
 door_top
   rotate: false
-  xy: 36, 331
+  xy: 64, 16
   size: 64, 16
   orig: 64, 16
   offset: 0, 0
   index: -1
 health_empty_left
   rotate: false
-  xy: 32, 84
+  xy: 83, 158
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 health_empty_mid
   rotate: false
-  xy: 35, 52
+  xy: 51, 158
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 health_empty_right
   rotate: false
-  xy: 67, 52
+  xy: 32, 126
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 health_full_left
   rotate: false
-  xy: 0, 84
+  xy: 64, 94
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 health_full_mid
   rotate: false
-  xy: 96, 84
+  xy: 96, 94
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 health_full_right
   rotate: false
-  xy: 48, 116
+  xy: 0, 126
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 Laser Gun
   rotate: false
-  xy: 61, 32
+  xy: 45, 48
   size: 30, 19
   orig: 30, 19
   offset: 0, 0
   index: -1
 laserBullet
   rotate: false
-  xy: 51, 0
+  xy: 4, 0
   size: 33, 14
   orig: 33, 14
   offset: 0, 0
   index: -1
 playerBack-idle
   rotate: false
-  xy: 64, 527
-  size: 64, 64
-  orig: 64, 64
+  xy: 48, 560
+  size: 48, 64
+  orig: 48, 64
   offset: 0, 0
   index: -1
 playerBack
   rotate: false
-  xy: 64, 463
-  size: 64, 64
-  orig: 64, 64
+  xy: 64, 624
+  size: 48, 64
+  orig: 48, 64
   offset: 0, 0
   index: 0
 playerBack
   rotate: false
-  xy: 64, 399
-  size: 64, 64
-  orig: 64, 64
+  xy: 0, 560
+  size: 48, 64
+  orig: 48, 64
   offset: 0, 0
   index: 1
 playerFront-idle
   rotate: false
-  xy: 0, 463
-  size: 64, 64
-  orig: 64, 64
+  xy: 0, 496
+  size: 48, 64
+  orig: 48, 64
   offset: 0, 0
   index: -1
 playerFront
   rotate: false
-  xy: 64, 655
-  size: 64, 64
-  orig: 64, 64
+  xy: 48, 432
+  size: 48, 64
+  orig: 48, 64
   offset: 0, 0
   index: 0
 playerFront
   rotate: false
-  xy: 64, 719
-  size: 64, 64
-  orig: 64, 64
+  xy: 0, 688
+  size: 48, 64
+  orig: 48, 64
   offset: 0, 0
   index: 1
 playerLeft-idle
   rotate: false
-  xy: 64, 783
-  size: 64, 64
-  orig: 64, 64
+  xy: 48, 496
+  size: 48, 64
+  orig: 48, 64
   offset: 0, 0
   index: -1
 playerLeft
   rotate: false
-  xy: 0, 783
-  size: 64, 64
-  orig: 64, 64
+  xy: 48, 880
+  size: 48, 64
+  orig: 48, 64
   offset: 0, 0
   index: 0
 playerLeft
   rotate: false
-  xy: 0, 719
-  size: 64, 64
-  orig: 64, 64
+  xy: 0, 880
+  size: 48, 64
+  orig: 48, 64
   offset: 0, 0
   index: 1
+playerLeft
+  rotate: false
+  xy: 48, 816
+  size: 48, 64
+  orig: 48, 64
+  offset: 0, 0
+  index: 2
+playerLeft
+  rotate: false
+  xy: 0, 816
+  size: 48, 64
+  orig: 48, 64
+  offset: 0, 0
+  index: 3
 playerRight-idle
   rotate: false
-  xy: 0, 655
-  size: 64, 64
-  orig: 64, 64
+  xy: 48, 752
+  size: 48, 64
+  orig: 48, 64
   offset: 0, 0
   index: -1
 playerRight
   rotate: false
-  xy: 64, 591
-  size: 64, 64
-  orig: 64, 64
+  xy: 0, 752
+  size: 48, 64
+  orig: 48, 64
   offset: 0, 0
   index: 0
 playerRight
   rotate: false
-  xy: 0, 591
-  size: 64, 64
-  orig: 64, 64
+  xy: 48, 688
+  size: 48, 64
+  orig: 48, 64
   offset: 0, 0
   index: 1
+playerRight
+  rotate: false
+  xy: 0, 432
+  size: 48, 64
+  orig: 48, 64
+  offset: 0, 0
+  index: 2
+playerRight
+  rotate: false
+  xy: 69, 368
+  size: 48, 64
+  orig: 48, 64
+  offset: 0, 0
+  index: 3
 pTest
   rotate: false
-  xy: 64, 84
+  xy: 64, 126
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 shadow
   rotate: false
-  xy: 0, 116
+  xy: 61, 32
   size: 48, 16
   orig: 48, 16
   offset: 0, 0
   index: -1
 slime-death
   rotate: false
-  xy: 72, 259
+  xy: 36, 332
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 slime
   rotate: false
-  xy: 36, 186
+  xy: 0, 224
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: 0
 slime
   rotate: false
-  xy: 0, 186
+  xy: 72, 224
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: 1
 slime_health_edge
   rotate: false
-  xy: 2, 0
+  xy: 0, 0
   size: 2, 8
   orig: 2, 8
   offset: 0, 0
   index: -1
 slime_health_empty
   rotate: false
-  xy: 0, 0
+  xy: 3, 0
   size: 1, 8
   orig: 1, 8
   offset: 0, 0
   index: -1
 slime_health_full
   rotate: false
-  xy: 1, 0
+  xy: 2, 0
   size: 1, 8
   orig: 1, 8
   offset: 0, 0
   index: -1
 slimeAttack
   rotate: false
-  xy: 72, 295
+  xy: 0, 260
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: 0
 slimeAttack
   rotate: false
-  xy: 0, 222
+  xy: 36, 224
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: 1
 slimeAttack
   rotate: false
-  xy: 72, 186
+  xy: 36, 260
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: 2
 slimePellet
   rotate: false
-  xy: 22, 0
+  xy: 32, 48
   size: 13, 16
   orig: 13, 16
   offset: 0, 0
   index: -1
 strongSlime-death
   rotate: false
-  xy: 71, 222
+  xy: 0, 332
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 strongSlime
   rotate: false
-  xy: 0, 259
+  xy: 72, 260
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: 0
 strongSlime
   rotate: false
-  xy: 0, 331
+  xy: 0, 296
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: 1
 strongSlimeAttack
   rotate: false
-  xy: 36, 295
+  xy: 72, 332
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: 0
 strongSlimeAttack
   rotate: false
-  xy: 0, 295
+  xy: 72, 296
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: 1
 strongSlimeAttack
   rotate: false
-  xy: 36, 259
+  xy: 36, 296
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: 2
 Super Gun
   rotate: false
-  xy: 0, 367
+  xy: 0, 158
   size: 51, 32
   orig: 51, 32
   offset: 0, 0
   index: -1
 Ultra Super Gun
   rotate: false
-  xy: 91, 32
+  xy: 75, 48
   size: 33, 19
   orig: 33, 19
   offset: 0, 0

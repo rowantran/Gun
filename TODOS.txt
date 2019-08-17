@@ -6,6 +6,7 @@ HIGH PRIORITY ----
 - finish implementing stats screen
 - finish implementing progress screen
 - add settings screen
+- re-add iframe for player
 
 LOW PRIORITY ----
 - fix parent function control in entity

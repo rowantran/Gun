@@ -443,6 +443,22 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">pSprites/playerLeft_02.png</key>
+            <key type="filename">pSprites/playerLeft_03.png</key>
+            <key type="filename">pSprites/playerRight_02.png</key>
+            <key type="filename">pSprites/playerRight_03.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>12,16,24,32</rect>
+                <key>scale9Paddings</key>
+                <rect>12,16,24,32</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">slimeSprites/slime-death.png</key>
             <key type="filename">slimeSprites/slimeAttack_00.png</key>
             <key type="filename">slimeSprites/slimeAttack_01.png</key>

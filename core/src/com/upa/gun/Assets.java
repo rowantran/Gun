@@ -249,6 +249,10 @@ public class Assets {
                 spriteAtlas.findRegions("player" + direction), Animation.PlayMode.LOOP);
     }
 
+    private static Animation<TextureRegion> loadFastPlayerAnimation(String direction) {
+        return new Animation<TextureRegion>(0.18f, spriteAtlas.findRegions("player" + direction), Animation.PlayMode.LOOP);
+    }
+
     private static Animation<TextureRegion> loadPlayerIdleAnimation(String direction) {
         return loadPlayerAnimation(direction + "-idle");
     }
@@ -262,8 +266,8 @@ public class Assets {
         playerMovingAnimations.put(Direction.UP, loadPlayerAnimation("Back"));
         playerMovingAnimations.put(Direction.UP_LEFT, loadPlayerAnimation("Back"));
         playerMovingAnimations.put(Direction.UP_RIGHT, loadPlayerAnimation("Back"));
-        playerMovingAnimations.put(Direction.LEFT, loadPlayerAnimation("Left"));
-        playerMovingAnimations.put(Direction.RIGHT, loadPlayerAnimation("Right"));
+        playerMovingAnimations.put(Direction.LEFT, loadFastPlayerAnimation("Left"));
+        playerMovingAnimations.put(Direction.RIGHT, loadFastPlayerAnimation("Right"));
         playerAnimations.put(SpriteState.MOVING, playerMovingAnimations);
 
         Map<Direction, Animation<TextureRegion>> playerIdleAnimations =
