@@ -701,7 +701,7 @@ class Renderer {
         layout.setText(font, "STATS");
         font.draw(batch, layout, xCenter - layout.width/2, yCenter + Settings.PAUSE_SCREEN_RESOLUTION.y/2 - layout.height);
 
-        writeCentered("Attack speed", ("" + 10/Settings.playerBulletSpeed), xCenter, textYStart);
+        writeCentered("Attack speed", ("" + 10/Settings.playerBulletCooldown), xCenter, textYStart);
         writeCentered("Bullet speed", ("" + Settings.playerBulletSpeed), xCenter, textYStart - yIncrement);
         writeCentered("Damage", ("" + Settings.playerDamage), xCenter, textYStart - 2 * yIncrement);
         writeCentered("Health", ("" + Settings.playerHealth), xCenter, textYStart - 3 * yIncrement);

@@ -314,6 +314,33 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">healthBars/boss_health_edge.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>1,4,1,8</rect>
+                <key>scale9Paddings</key>
+                <rect>1,4,1,8</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">healthBars/boss_health_empty.png</key>
+            <key type="filename">healthBars/boss_health_full.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>0,4,1,8</rect>
+                <key>scale9Paddings</key>
+                <rect>0,4,1,8</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">healthBars/boss_health_empty_left.png</key>
             <key type="filename">healthBars/boss_health_empty_mid.png</key>
             <key type="filename">healthBars/boss_health_empty_right.png</key>
@@ -338,6 +365,19 @@
             <key type="filename">healthBars/health_full_left.png</key>
             <key type="filename">healthBars/health_full_mid.png</key>
             <key type="filename">healthBars/health_full_right.png</key>
+            <key type="filename">pSprites/pTest.png</key>
+            <key type="filename">pSprites/playerBack-idle.png</key>
+            <key type="filename">pSprites/playerBack_00.png</key>
+            <key type="filename">pSprites/playerBack_01.png</key>
+            <key type="filename">pSprites/playerFront-idle.png</key>
+            <key type="filename">pSprites/playerFront_00.png</key>
+            <key type="filename">pSprites/playerFront_01.png</key>
+            <key type="filename">pSprites/playerLeft-idle.png</key>
+            <key type="filename">pSprites/playerLeft_00.png</key>
+            <key type="filename">pSprites/playerLeft_01.png</key>
+            <key type="filename">pSprites/playerRight-idle.png</key>
+            <key type="filename">pSprites/playerRight_00.png</key>
+            <key type="filename">pSprites/playerRight_01.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -347,6 +387,33 @@
                 <rect>8,8,16,16</rect>
                 <key>scale9Paddings</key>
                 <rect>8,8,16,16</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">healthBars/slime_health_edge.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>1,2,1,4</rect>
+                <key>scale9Paddings</key>
+                <rect>1,2,1,4</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">healthBars/slime_health_empty.png</key>
+            <key type="filename">healthBars/slime_health_full.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>0,2,1,4</rect>
+                <key>scale9Paddings</key>
+                <rect>0,2,1,4</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -376,21 +443,6 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">playerSprites/playerIdle_01.png</key>
-            <key type="filename">playerSprites/playerIdle_02.png</key>
-            <key type="filename">playerSprites/playerIdle_03.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>13,31,27,63</rect>
-                <key>scale9Paddings</key>
-                <rect>13,31,27,63</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
             <key type="filename">slimeSprites/slime-death.png</key>
             <key type="filename">slimeSprites/slimeAttack_00.png</key>
             <key type="filename">slimeSprites/slimeAttack_01.png</key>
@@ -412,55 +464,6 @@
                 <rect>9,9,18,18</rect>
                 <key>scale9Paddings</key>
                 <rect>9,9,18,18</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">stages/background1.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>320,200,640,400</rect>
-                <key>scale9Paddings</key>
-                <rect>320,200,640,400</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">tempPlayerSprites/tempPlayerBack-idle.png</key>
-            <key type="filename">tempPlayerSprites/tempPlayerBack_00.png</key>
-            <key type="filename">tempPlayerSprites/tempPlayerBack_01.png</key>
-            <key type="filename">tempPlayerSprites/tempPlayerFront-idle.png</key>
-            <key type="filename">tempPlayerSprites/tempPlayerFront_00.png</key>
-            <key type="filename">tempPlayerSprites/tempPlayerLeft-idle.png</key>
-            <key type="filename">tempPlayerSprites/tempPlayerLeft_00.png</key>
-            <key type="filename">tempPlayerSprites/tempPlayerRight-idle.png</key>
-            <key type="filename">tempPlayerSprites/tempPlayerRight_01.png</key>
-            <key type="filename">tempPlayerSprites/tepmpPlayerFront_01.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>9,16,17,32</rect>
-                <key>scale9Paddings</key>
-                <rect>9,16,17,32</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">tempPlayerSprites/tempPlayerLeft_01.png</key>
-            <key type="filename">tempPlayerSprites/tempPlayerRight_00.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>9,16,18,32</rect>
-                <key>scale9Paddings</key>
-                <rect>9,16,18,32</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -490,20 +493,58 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">terrain/crate_side.png</key>
+            <key type="filename">terrain/door_side.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>16,7,32,13</rect>
+                <key>scale9Paddings</key>
+                <rect>16,7,32,13</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">terrain/crate_top.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>16,16,32,32</rect>
+                <key>scale9Paddings</key>
+                <rect>16,16,32,32</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">terrain/door_top.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>16,4,32,8</rect>
+                <key>scale9Paddings</key>
+                <rect>16,4,32,8</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
         </map>
         <key>fileList</key>
         <array>
             <filename>guns</filename>
             <filename>healthBars</filename>
             <filename>miscellaneous</filename>
-            <filename>playerSprites</filename>
-            <filename>stages</filename>
-            <filename>tempPlayerSprites</filename>
             <filename>terrain</filename>
             <filename>bossSlimeSprite</filename>
             <filename>bullets</filename>
             <filename>strongSlimeSprites</filename>
             <filename>slimeSprites</filename>
+            <filename>pSprites</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

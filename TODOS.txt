@@ -18,6 +18,7 @@ LOW PRIORITY ----
 - create "movable" subclass for entity
 - set player speed to player speed value when diagonally colliding with crates
 - Fix "over" effect for buttons
+- Fix shading of player sprites
 
 ================================================================
 FINISHED

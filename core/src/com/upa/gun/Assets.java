@@ -246,7 +246,7 @@ public class Assets {
 
     private static Animation<TextureRegion> loadPlayerAnimation(String direction) {
         return new Animation<TextureRegion>(0.25f,
-                spriteAtlas.findRegions("tempPlayer" + direction), Animation.PlayMode.LOOP);
+                spriteAtlas.findRegions("player" + direction), Animation.PlayMode.LOOP);
     }
 
     private static Animation<TextureRegion> loadPlayerIdleAnimation(String direction) {
