@@ -32,8 +32,8 @@ public class Settings {
     public static final float ROLL_DELAY = 1.5f;
     public static final float ROLL_SPEED = 500.0f;
     public static final float ROLL_LENGTH = 0.25f;
-    public static final float IFRAME_AFTER_HIT_LENGTH = 5f;
-    public static final float IFRAME_SHADER_SWITCH_TIME = 0.2f;
+    public static final float IFRAME_AFTER_HIT_LENGTH = 3.0f;
+    public static final float IFRAME_SHADER_SWITCH_TIME = 0.15f;
 
     public static final float DEATH_ROTATE_SPEED = 80.0f;
     public static final float DEATH_FADE_SPEED = (DEATH_ROTATE_SPEED / 40.0f) * 1.0f;

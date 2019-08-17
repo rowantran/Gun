@@ -15,8 +15,8 @@ class PlayerMovingState extends PlayerState {
     @Override
     public void update(float delta) {
         timeElapsed += delta;
-        super.checkIframe(delta);
         controllable = true;
+        checkIframe(delta);
     }
 
     @Override

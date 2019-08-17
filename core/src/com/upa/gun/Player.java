@@ -54,6 +54,7 @@ public class Player extends Entity {
         cCheckHitbox.setActive(true);
         hitbox.setActive(true);
 
+        state.setVulnerable(true);
     }
 
     /**
@@ -76,10 +77,10 @@ public class Player extends Entity {
      */
     void hurt(int damage) {
         if (state.isVulnerable() && !Settings.INVINCIBLE && !game.world.cinematicHappening) {
-            health -= damage;
-            state.hit();
             System.out.println(state.isVulnerable());
             System.out.println("Damage");
+            health -= damage;
+            state.setVulnerable(false);
             if (health <= 0) {
                 state = PlayerState.dying;
             }
