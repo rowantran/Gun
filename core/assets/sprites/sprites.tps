@@ -359,12 +359,12 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">healthBars/health_empty_left.png</key>
-            <key type="filename">healthBars/health_empty_mid.png</key>
-            <key type="filename">healthBars/health_empty_right.png</key>
-            <key type="filename">healthBars/health_full_left.png</key>
-            <key type="filename">healthBars/health_full_mid.png</key>
-            <key type="filename">healthBars/health_full_right.png</key>
+            <key type="filename">healthBars/player-left-empty.png</key>
+            <key type="filename">healthBars/player-left-full.png</key>
+            <key type="filename">healthBars/player-mid-full.png</key>
+            <key type="filename">healthBars/player-mid-mpty.png</key>
+            <key type="filename">healthBars/player-right-empty.png</key>
+            <key type="filename">healthBars/player-right-full.png</key>
             <key type="filename">pSprites/pTest.png</key>
             <key type="filename">pSprites/playerBack-idle.png</key>
             <key type="filename">pSprites/playerBack_00.png</key>

@@ -12,6 +12,7 @@ LOW PRIORITY ----
 - fix parent function control in entity
 - increase accuracy for bullet-crate collisions
 - create new sprite sheet
+- atlas update
 - make door opening/closing animation
 - folder cleanup
 - make hitboxes percentage-size based rather than hard numbers

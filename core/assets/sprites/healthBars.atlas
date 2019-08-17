@@ -1,0 +1,131 @@
+healthBars.png
+size: 32, 304
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_health_edge
+  rotate: false
+  xy: 6, 0
+  size: 3, 16
+  orig: 3, 16
+  offset: 0, 0
+  index: -1
+boss_health_empty
+  rotate: false
+  xy: 3, 0
+  size: 1, 16
+  orig: 1, 16
+  offset: 0, 0
+  index: -1
+boss_health_empty_left
+  rotate: false
+  xy: 0, 96
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+boss_health_empty_mid
+  rotate: false
+  xy: 0, 112
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+boss_health_empty_right
+  rotate: false
+  xy: 0, 48
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+boss_health_full
+  rotate: false
+  xy: 0, 0
+  size: 1, 16
+  orig: 1, 16
+  offset: 0, 0
+  index: -1
+boss_health_full_left
+  rotate: false
+  xy: 0, 160
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+boss_health_full_mid
+  rotate: false
+  xy: 0, 208
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+boss_health_full_right
+  rotate: false
+  xy: 0, 288
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+player-left-empty
+  rotate: false
+  xy: 0, 224
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+player-left-full
+  rotate: false
+  xy: 0, 256
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+player-mid-full
+  rotate: false
+  xy: 0, 176
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+player-mid-mpty
+  rotate: false
+  xy: 0, 128
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+player-right-empty
+  rotate: false
+  xy: 0, 16
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+player-right-full
+  rotate: false
+  xy: 0, 64
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+slime_health_edge
+  rotate: false
+  xy: 4, 0
+  size: 2, 8
+  orig: 2, 8
+  offset: 0, 0
+  index: -1
+slime_health_empty
+  rotate: false
+  xy: 1, 0
+  size: 1, 8
+  orig: 1, 8
+  offset: 0, 0
+  index: -1
+slime_health_full
+  rotate: false
+  xy: 2, 0
+  size: 1, 8
+  orig: 1, 8
+  offset: 0, 0
+  index: -1

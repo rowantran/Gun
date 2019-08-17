@@ -298,33 +298,34 @@ class Renderer {
         batch.begin();
         int startX = 50;
         int startY = 72;
-        int incrementX = Assets.healthFullLeft.getRegionWidth();
+        TextureRegion lFull = Assets.healthBars.findRegion("player-left-full");
+        TextureRegion mFull = Assets.healthBars.findRegion("player-mid-full");
+        TextureRegion rFull = Assets.healthBars.findRegion("player-right-full");
+        TextureRegion lEmpty = Assets.healthBars.findRegion("player-left-empty");
+        TextureRegion mEmpty = Assets.healthBars.findRegion("player-mid-empty");
+        TextureRegion rEmpty = Assets.healthBars.findRegion("player-right-empty");
+        float barWidth = lFull.getRegionWidth();
+        float barHeight = lFull.getRegionHeight();
         if (health > 0) {
-            batch.draw(Assets.healthFullLeft, startX, startY, Assets.healthFullLeft.getRegionWidth(),
-                    Assets.healthFullLeft.getRegionHeight());
-            startX += incrementX;
+            batch.draw(lFull, startX, startY, barWidth, barHeight);
+            startX += barWidth;
         } else {
-            batch.draw(Assets.healthEmptyLeft, startX, startY, Assets.healthEmptyLeft.getRegionWidth(),
-                    Assets.healthEmptyLeft.getRegionHeight());
-            startX += incrementX;
+            batch.draw(lEmpty, startX, startY, barWidth, barHeight);
+            startX += barWidth;
         }
         for (int i = 2; i < Settings.playerHealth; i++) {
             if (i <= health) {
-                batch.draw(Assets.healthFullMid, startX, startY, Assets.healthFullMid.getRegionWidth(),
-                        Assets.healthFullMid.getRegionHeight());
-                startX += incrementX;
+                batch.draw(mFull, startX, startY, barWidth, barHeight);
+                startX += barWidth;
             } else {
-                batch.draw(Assets.healthEmptyMid, startX, startY, Assets.healthEmptyMid.getRegionWidth(),
-                        Assets.healthFullMid.getRegionHeight());
-                startX += incrementX;
+                batch.draw(mEmpty, startX, startY, barWidth, barHeight);
+                startX += barWidth;
             }
         }
         if (health == Settings.playerHealth) {
-            batch.draw(Assets.healthFullRight, startX, startY, Assets.healthFullRight.getRegionWidth(),
-                    Assets.healthFullRight.getRegionHeight());
+            batch.draw(rFull, startX, startY, barWidth, barHeight);
         } else {
-            batch.draw(Assets.healthEmptyRight, startX, startY, Assets.healthEmptyRight.getRegionWidth(),
-                    Assets.healthEmptyRight.getRegionHeight());
+            batch.draw(rEmpty, startX, startY, barWidth, barHeight);
         }
         batch.end();
     }

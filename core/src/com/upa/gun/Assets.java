@@ -34,14 +34,11 @@ public class Assets {
     public static Texture shadow;
 
     public static TextureAtlas playerAtlas;
-
     public static TextureAtlas slimeAtlas;
-
     public static TextureAtlas strongSlimeAtlas;
-
     public static TextureAtlas bossSlimeAtlas;
-
     public static TextureAtlas buttonSkins;
+    public static TextureAtlas healthBars;
 
     public static Texture bullets;
     public static TextureRegion bulletLaser;
@@ -130,6 +127,8 @@ public class Assets {
         slimeHealthEdge = loadTexture("sprites/healthBars/slime_health_edge.png");
         slimeHealthFull = loadTexture("sprites/healthBars/slime_health_full.png");
         slimeHealthEmpty = loadTexture("sprites/healthBars/slime_health_empty.png");
+
+        healthBars = new TextureAtlas(Gdx.files.internal("sprites/healthBars.atlas"));
 
         playerAtlas = new TextureAtlas(Gdx.files.internal("sprites/player.atlas"));
         playerAnimations = new HashMap<SpriteState, Map<Direction, Animation<TextureRegion>>>();
