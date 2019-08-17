@@ -52,8 +52,9 @@ public class CollisionChecker implements Updatable {
      */
     private void checkPlayerHit() {
         for (Bullet b : World.enemyBullets) {
-            if (b.getHitbox().colliding(World.player.hitbox.getChild("center"))) {
-                World.player.hurt(1); //will leave dying state when other condition occurs - needs fix
+            if (b.getHitbox().colliding(World.player.hitbox) && World.player.state.isVulnerable()) {
+                World.player.hurt(1);
+                break;
             }
         }
     }

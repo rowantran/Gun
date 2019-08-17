@@ -9,10 +9,10 @@ public abstract class PlayerState implements Updatable {
 
     boolean controllable;
 
-    boolean vulnerable;
-    float iframeTime;
-    float iframeSwitchTime;
-    boolean iframeVisual;
+    protected boolean vulnerable;
+    private float iframeTime;
+    private float iframeSwitchTime;
+    private boolean iframeVisual;
 
     public float timeElapsed;
     float rotation;
@@ -55,24 +55,31 @@ public abstract class PlayerState implements Updatable {
     }
 
     void checkIframe(float delta) {
-        if (!vulnerable) {
+        if(!vulnerable) {
             iframeTime += delta;
+            System.out.println(iframeTime);
             iframeSwitchTime += delta;
             if(iframeSwitchTime > Settings.IFRAME_SHADER_SWITCH_TIME) {
                 iframeVisual =  !iframeVisual;
                 iframeSwitchTime = 0f;
+                if(iframeVisual) {
+                    opacity = 0.5f;
+                } else {
+                    opacity = 1.0f;
+                }
             }
-            if(iframeVisual) {
-                opacity = 0.5f;
-            } else {
-                opacity = 1.0f;
-            }
+
             if (iframeTime > Settings.IFRAME_AFTER_HIT_LENGTH) {
                 vulnerable = true;
                 iframeTime = 0f;
                 opacity = 1.0f;
+                iframeVisual = true;
             }
         }
+    }
+
+    void hit() {
+        vulnerable = false;
     }
 
     /**
