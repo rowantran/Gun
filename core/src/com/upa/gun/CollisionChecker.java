@@ -3,7 +3,6 @@ package com.upa.gun;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.upa.gun.enemy.Enemy;
-import com.upa.gun.enemy.Powerup;
 
 /**
  * Checks and handles collisions of hitboxes

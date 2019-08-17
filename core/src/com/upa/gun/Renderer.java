@@ -2,24 +2,18 @@ package com.upa.gun;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Array;
 import com.upa.gun.enemy.Enemy;
 import com.upa.gun.enemy.SpawnIndicator;
-import com.upa.gun.enemy.Powerup;
 
-import javax.xml.soap.Text;
 import java.util.ArrayList;
 
 /**
@@ -419,7 +413,7 @@ class Renderer {
     private void drawPowerup(Powerup p) {
         batch.begin();
         batch.enableBlending();
-        batch.draw(Assets.powerup1, p.getPosition().x, p.getPosition().y, p.getSize().x, p.getSize().y);
+        batch.draw(p.sprite, p.position.x, p.position.y, p.size.x, p.size.y);
         batch.end();
     }
 

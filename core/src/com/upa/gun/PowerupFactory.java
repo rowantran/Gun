@@ -1,4 +1,4 @@
-package com.upa.gun.enemy;
+package com.upa.gun;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
@@ -23,7 +23,6 @@ public class PowerupFactory {
             int id = powerup.getInt("id");
             int width = powerup.getInt("width");
             int height = powerup.getInt("height");
-            String hitboxType = powerup.getString("hitboxType");
             int hitboxWidth = powerup.getInt("hitboxWidth");
             int hitboxHeight = powerup.getInt("hitboxHeight");
             float damageMultiplier = powerup.getFloat("damageMultiplier");
@@ -35,7 +34,7 @@ public class PowerupFactory {
             String description = powerup.getString("description");
             String effectDescription = powerup.getString("effectDescription");
 
-            PowerupInfo info = new PowerupInfo(id, width, height, hitboxType, hitboxWidth, hitboxHeight, name,
+            PowerupInfo info = new PowerupInfo(id, width, height, hitboxWidth, hitboxHeight, name,
                     spriteName, description, effectDescription, damageMultiplier, speedMultiplier,
                     bulletCooldownMultiplier, healthBonus);
             powerups.put(id, info);
@@ -48,7 +47,7 @@ public class PowerupFactory {
         return powerupFactory;
     }
 
-    Powerup createPowerup(int id, Vector2 position) {
+    public Powerup createPowerup(int id, Vector2 position) {
         return new Powerup(powerups.get(id), position);
     }
 

@@ -9,8 +9,8 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Crate extends Terrain {
 
-    Sprite crateSideSprite;
-    Sprite crateTopSprite;
+    public Sprite crateSideSprite;
+    public Sprite crateTopSprite;
 
     public Crate(Vector2 position, boolean leftCrate, boolean rightCrate, boolean botCrate, boolean topCrate) {
 

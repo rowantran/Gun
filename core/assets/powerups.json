@@ -12,7 +12,6 @@
 	  "healthBonus": 0,
 	  "width": 40,
 	  "height": 40,
-	  "hitboxType": "rectangular",
 	  "hitboxWidth": 40,
 	  "hitboxHeight": 40 
 	},
@@ -28,7 +27,6 @@
 	  "healthBonus": 0,
 	  "width": 40,
 	  "height": 40,
-	  "hitboxType": "rectangular",
 	  "hitboxWidth": 40,
 	  "hitboxHeight": 40
 	}
@@ -44,7 +42,6 @@
 	  "healthBonus": 2,
 	  "width": 40,
 	  "height": 40,
-	  "hitboxType": "rectangular",
 	  "hitboxWidth": 40,
 	  "hitboxHeight": 40
 	}
@@ -60,7 +57,6 @@
 	  "healthBonus": 0,
 	  "width": 40,
 	  "height": 40,
-	  "hitboxType": "rectangular",
 	  "hitboxWidth": 40,
 	  "hitboxHeight": 40
 	}

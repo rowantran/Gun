@@ -1,4 +1,4 @@
-package com.upa.gun.enemy;
+package com.upa.gun;
 
 import java.util.Map;
 
@@ -7,7 +7,6 @@ public class PowerupInfo {
     public int id;
     public int width;
     public int height;
-    public String hitboxType;
     public int hitboxWidth;
     public int hitboxHeight;
     public String name;
@@ -19,13 +18,12 @@ public class PowerupInfo {
     public float bulletCooldownMultiplier;
     public int healthBonus;
 
-    PowerupInfo(int id, int width, int height, String hitboxType, int hitboxWidth, int hitboxHeight, String name,
+    PowerupInfo(int id, int width, int height, int hitboxWidth, int hitboxHeight, String name,
                 String sprite, String description, String effectDescription, float damageMultiplier,
                 float speedMultiplier, float bulletCooldownMultiplier, int healthBonus) {
         this.id = id;
         this.width = width;
         this.height = height;
-        this.hitboxType = hitboxType;
         this.hitboxWidth = hitboxWidth;
         this.hitboxHeight = hitboxHeight;
         this.name = name;

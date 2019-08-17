@@ -1,0 +1,33 @@
+powerups.png
+size: 1280, 1280
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+powerup-0
+  rotate: false
+  xy: 0, 0
+  size: 640, 640
+  orig: 640, 640
+  offset: 0, 0
+  index: -1
+powerup-1
+  rotate: false
+  xy: 640, 0
+  size: 640, 640
+  orig: 640, 640
+  offset: 0, 0
+  index: -1
+powerup-2
+  rotate: false
+  xy: 0, 640
+  size: 640, 640
+  orig: 640, 640
+  offset: 0, 0
+  index: -1
+powerup-3
+  rotate: false
+  xy: 640, 640
+  size: 640, 640
+  orig: 640, 640
+  offset: 0, 0
+  index: -1

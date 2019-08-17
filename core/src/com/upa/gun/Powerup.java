@@ -1,13 +1,11 @@
-package com.upa.gun.enemy;
+package com.upa.gun;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import com.upa.gun.*;
-import java.util.Map;
 
 public class Powerup extends Entity {
 
-    public Map<String, String> sprites;
-    public String sprite;
+    public Sprite sprite;
     private int id;
     public PowerupInfo info;
     public boolean markedForDeletion;
@@ -19,6 +17,8 @@ public class Powerup extends Entity {
         main.setPosition(new Vector2(position.x + size.x/2 - main.getWidth()/2, position.y + size.y/2 - main.getHeight()/2));
         hitbox.addHitbox("main", main);
         hitbox.setActive(true);
+
+        sprite = new Sprite(Assets.powerups.findRegion("powerup-" + id));
 
         markedForDeletion = false;
         this.info = info;

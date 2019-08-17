@@ -39,6 +39,7 @@ public class Assets {
     public static TextureAtlas bossSlimeAtlas;
     public static TextureAtlas buttonSkins;
     public static TextureAtlas healthBars;
+    public static TextureAtlas powerups;
 
     public static Texture bullets;
     public static TextureRegion bulletLaser;
@@ -94,6 +95,7 @@ public class Assets {
         shadow.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
         healthBars = new TextureAtlas(Gdx.files.internal("sprites/healthBars.atlas"));
+        powerups = new TextureAtlas(Gdx.files.internal("sprites/powerups.atlas"));
 
         playerAtlas = new TextureAtlas(Gdx.files.internal("sprites/player.atlas"));
         playerAnimations = new HashMap<SpriteState, Map<Direction, Animation<TextureRegion>>>();
@@ -136,7 +138,6 @@ public class Assets {
         bulletSound = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshot.mp3"));
         bossDieSound = Gdx.audio.newSound(Gdx.files.internal("sfx/bossdie.wav"));
 
-        powerup1 = loadTexture("sprites/powerups/twoHands.png");
 
     }
 
