@@ -272,12 +272,19 @@ class Renderer {
     private void drawPlayer(Player player) {
         batch.begin();
         batch.enableBlending();
+
+        float opacity = 1.0f;
+        if(!player.state.isVulnerable()) {
+            opacity = 0.5f;
+            System.out.println(player.state.isVulnerable());
+        }
+
         Animation<TextureRegion> currentAnimation = Assets.playerAnimations.get(player.getState()).get(player.direction);
         TextureRegion currentFrame = currentAnimation.getKeyFrame(World.player.state.timeElapsed);
 
         Vector2 playerPos = player.getPosition();
 
-        batch.setColor(1.0f, 1.0f, 1.0f, player.state.opacity);
+        batch.setColor(1.0f, 1.0f, 1.0f, opacity);
         drawShadow(playerPos.x, playerPos.y, (float)currentFrame.getRegionWidth());
         batch.draw(currentFrame, playerPos.x, playerPos.y, 0, 0, player.getSize().x, player.getSize().y,
                 1, 1, World.player.state.rotation);

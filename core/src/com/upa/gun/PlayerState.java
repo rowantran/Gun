@@ -31,6 +31,7 @@ public abstract class PlayerState implements Updatable {
         opacity = 1.0f;
         controllable = true;
         iframeTime = 0f;
+        vulnerable = true;
     }
 
     /**
@@ -52,11 +53,9 @@ public abstract class PlayerState implements Updatable {
     void checkIframe(float delta) {
         if(!vulnerable) {
             iframeTime += delta;
-            opacity = 0.6f;
             if (iframeTime > Settings.IFRAME_AFTER_HIT_LENGTH) {
                 vulnerable = true;
                 iframeTime = 0f;
-                opacity = 1.0f;
             }
         }
     }
