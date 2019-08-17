@@ -13,6 +13,9 @@ public class Powerup extends Entity {
     Powerup(PowerupInfo info, Vector2 position) {
         super(position, new Vector2(info.width, info.height));
 
+        this.info = info;
+        id = info.id;
+
         RectangularHitbox main = new RectangularHitbox(position, new Vector2(size.x/1.5f, size.y/1.5f));
         main.setPosition(new Vector2(position.x + size.x/2 - main.getWidth()/2, position.y + size.y/2 - main.getHeight()/2));
         hitbox.addHitbox("main", main);
@@ -21,8 +24,6 @@ public class Powerup extends Entity {
         sprite = new Sprite(Assets.powerups.findRegion("powerup-" + id));
 
         markedForDeletion = false;
-        this.info = info;
-        id = info.id;
     }
 
     @Override

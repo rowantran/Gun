@@ -412,7 +412,7 @@ class Renderer {
      */
     private void drawPowerup(Powerup p) {
         batch.begin();
-        batch.enableBlending();
+        //batch.enableBlending();
         batch.draw(p.sprite, p.position.x, p.position.y, p.size.x, p.size.y);
         batch.end();
     }
