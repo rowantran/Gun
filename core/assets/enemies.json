@@ -15,8 +15,8 @@
         "attacking": "slimeAttack"
       },
       "rotation": [
-        "trackingBurst 0.75 0.15 true",
-        "none 3.0 3.0 true"
+        "trackingBurst 0.15 0.15 false",
+        "none 1.0 3.0 true"
       ]
     },
     {

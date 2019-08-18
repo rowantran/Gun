@@ -70,8 +70,8 @@ public class InputHandler implements Updatable {
                 Vector3 mousePos3 = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(),
                         0f));
                 Vector2 mousePos = new Vector2(mousePos3.x, mousePos3.y);
-                Vector2 bulletAngle = mousePos.sub(World.player.getPosition());
-                World.playerBullets.add(new FriendlyBullet(World.player.getPosition(),
+                Vector2 bulletAngle = mousePos.sub(World.player.getCenter());
+                World.playerBullets.add(new FriendlyBullet(World.player.getCenter(),
                         bulletAngle.angleRad()));
                 World.player.shot.stop();
                 if(!MUTE) {
